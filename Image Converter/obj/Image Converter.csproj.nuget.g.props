@@ -17,4 +17,14 @@
   <PropertyGroup>
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
+  <ItemGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <Content Include="$(NuGetPackageRoot)war3net.drawing.blp\2.0.1\contentFiles\any\netcoreapp3.1\LICENSE" Condition="Exists('$(NuGetPackageRoot)war3net.drawing.blp\2.0.1\contentFiles\any\netcoreapp3.1\LICENSE')">
+      <NuGetPackageId>War3Net.Drawing.Blp</NuGetPackageId>
+      <NuGetPackageVersion>2.0.1</NuGetPackageVersion>
+      <NuGetItemType>Content</NuGetItemType>
+      <Pack>false</Pack>
+      <Private>False</Private>
+      <Link>LICENSE</Link>
+    </Content>
+  </ItemGroup>
 </Project>

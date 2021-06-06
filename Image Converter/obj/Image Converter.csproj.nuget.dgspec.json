@@ -77,6 +77,10 @@
             "System.Runtime.CompilerServices.Unsafe": {
               "target": "Package",
               "version": "[4.5.3, )"
+            },
+            "War3Net.Drawing.Blp": {
+              "target": "Package",
+              "version": "[2.0.1, )"
             }
           },
           "imports": [

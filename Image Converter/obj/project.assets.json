@@ -23,6 +23,33 @@
           "lib/netcoreapp2.0/_._": {}
         }
       },
+      "Microsoft.NETCore.Platforms/2.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard1.0/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard1.0/_._": {}
+        }
+      },
+      "Microsoft.Win32.SystemEvents/4.5.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "2.0.0"
+        },
+        "compile": {
+          "ref/netstandard2.0/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Win32.SystemEvents.dll": {}
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/netcoreapp2.0/Microsoft.Win32.SystemEvents.dll": {
+            "assetType": "runtime",
+            "rid": "win"
+          }
+        }
+      },
       "SixLabors.ImageSharp/1.0.3": {
         "type": "package",
         "compile": {
@@ -50,6 +77,29 @@
           "lib/netstandard2.0/System.Data.DataSetExtensions.dll": {}
         }
       },
+      "System.Drawing.Common/4.5.1": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "2.0.0",
+          "Microsoft.Win32.SystemEvents": "4.5.0"
+        },
+        "compile": {
+          "ref/netstandard2.0/System.Drawing.Common.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Drawing.Common.dll": {}
+        },
+        "runtimeTargets": {
+          "runtimes/unix/lib/netcoreapp2.0/System.Drawing.Common.dll": {
+            "assetType": "runtime",
+            "rid": "unix"
+          },
+          "runtimes/win/lib/netcoreapp2.0/System.Drawing.Common.dll": {
+            "assetType": "runtime",
+            "rid": "win"
+          }
+        }
+      },
       "System.Memory/4.5.4": {
         "type": "package",
         "compile": {
@@ -75,6 +125,47 @@
         },
         "runtime": {
           "lib/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.dll": {}
+        }
+      },
+      "War3Net.Common/0.3.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Drawing.Common": "4.5.1"
+        },
+        "compile": {
+          "lib/netcoreapp3.1/War3Net.Common.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/War3Net.Common.dll": {}
+        },
+        "contentFiles": {
+          "contentFiles/any/any/_._": {
+            "buildAction": "None",
+            "codeLanguage": "any",
+            "copyToOutput": false
+          }
+        }
+      },
+      "War3Net.Drawing.Blp/2.0.1": {
+        "type": "package",
+        "dependencies": {
+          "War3Net.Common": "0.3.0"
+        },
+        "compile": {
+          "lib/netcoreapp3.1/War3Net.Drawing.Blp.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/War3Net.Drawing.Blp.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WPF"
+        ],
+        "contentFiles": {
+          "contentFiles/any/netcoreapp3.1/LICENSE": {
+            "buildAction": "Content",
+            "codeLanguage": "any",
+            "copyToOutput": false
+          }
         }
       }
     }
@@ -162,6 +253,43 @@
         "version.txt"
       ]
     },
+    "Microsoft.NETCore.Platforms/2.0.0": {
+      "sha512": "VdLJOCXhZaEMY7Hm2GKiULmn7IEPFE4XC5LPSfBVCUIA8YLZVh846gtfBJalsPQF2PlzdD7ecX7DZEulJ402ZQ==",
+      "type": "package",
+      "path": "microsoft.netcore.platforms/2.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/netstandard1.0/_._",
+        "microsoft.netcore.platforms.2.0.0.nupkg.sha512",
+        "microsoft.netcore.platforms.nuspec",
+        "runtime.json",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
+    "Microsoft.Win32.SystemEvents/4.5.0": {
+      "sha512": "LuI1oG+24TUj1ZRQQjM5Ew73BKnZE5NZ/7eAdh1o8ST5dPhUnJvIkiIn2re3MwnkRy6ELRnvEbBxHP8uALKhJw==",
+      "type": "package",
+      "path": "microsoft.win32.systemevents/4.5.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net461/Microsoft.Win32.SystemEvents.dll",
+        "lib/netstandard2.0/Microsoft.Win32.SystemEvents.dll",
+        "microsoft.win32.systemevents.4.5.0.nupkg.sha512",
+        "microsoft.win32.systemevents.nuspec",
+        "ref/net461/Microsoft.Win32.SystemEvents.dll",
+        "ref/netstandard2.0/Microsoft.Win32.SystemEvents.dll",
+        "runtimes/win/lib/netcoreapp2.0/Microsoft.Win32.SystemEvents.dll",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
     "SixLabors.ImageSharp/1.0.3": {
       "sha512": "oRmZEITad+0tL22ZfAbLps6doDV+Z0/oH0dtXLpIBwn1sgai3QxxDQPjohHiDeUp/CTzRKVrFFbc4ZITnL2UBg==",
       "type": "package",
@@ -232,6 +360,39 @@
         "ref/netstandard2.0/System.Data.DataSetExtensions.dll",
         "system.data.datasetextensions.4.5.0.nupkg.sha512",
         "system.data.datasetextensions.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
+    "System.Drawing.Common/4.5.1": {
+      "sha512": "GiyeGi/v4xYDz1vCNFwFvhz9k1XddOG7VD3jxRqzRBCbTHji+s3HxxbxtoymuK4OadEpgotI8zQ5+GEEH9sUEQ==",
+      "type": "package",
+      "path": "system.drawing.common/4.5.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/MonoAndroid10/_._",
+        "lib/MonoTouch10/_._",
+        "lib/net461/System.Drawing.Common.dll",
+        "lib/netstandard2.0/System.Drawing.Common.dll",
+        "lib/xamarinios10/_._",
+        "lib/xamarinmac20/_._",
+        "lib/xamarintvos10/_._",
+        "lib/xamarinwatchos10/_._",
+        "ref/MonoAndroid10/_._",
+        "ref/MonoTouch10/_._",
+        "ref/net461/System.Drawing.Common.dll",
+        "ref/netstandard2.0/System.Drawing.Common.dll",
+        "ref/xamarinios10/_._",
+        "ref/xamarinmac20/_._",
+        "ref/xamarintvos10/_._",
+        "ref/xamarinwatchos10/_._",
+        "runtimes/unix/lib/netcoreapp2.0/System.Drawing.Common.dll",
+        "runtimes/win/lib/netcoreapp2.0/System.Drawing.Common.dll",
+        "system.drawing.common.4.5.1.nupkg.sha512",
+        "system.drawing.common.nuspec",
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
@@ -334,6 +495,36 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "War3Net.Common/0.3.0": {
+      "sha512": "PEaaTxtBvjkyQk54helcl0UcW6qel8FP9riFm1WhGOns5dKYj5CEXepx7F0NVnHrnNBiurSqYnmhFDRlVoW1Og==",
+      "type": "package",
+      "path": "war3net.common/0.3.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "content/LICENSE",
+        "contentFiles/any/netcoreapp3.1/LICENSE",
+        "lib/netcoreapp3.1/War3Net.Common.dll",
+        "lib/netcoreapp3.1/War3Net.Common.xml",
+        "war3net.common.0.3.0.nupkg.sha512",
+        "war3net.common.nuspec"
+      ]
+    },
+    "War3Net.Drawing.Blp/2.0.1": {
+      "sha512": "e6MTdcoD7Xe1Bw12N/Sd+q2RlTWmDykPmWrTUe1ITuO0yJBTrbNs+wsNrscFG68mrVKw2PjU4JInKkiMaAC5JQ==",
+      "type": "package",
+      "path": "war3net.drawing.blp/2.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "content/LICENSE",
+        "contentFiles/any/netcoreapp3.1/LICENSE",
+        "lib/netcoreapp3.1/War3Net.Drawing.Blp.dll",
+        "lib/netcoreapp3.1/War3Net.Drawing.Blp.xml",
+        "war3net.drawing.blp.2.0.1.nupkg.sha512",
+        "war3net.drawing.blp.nuspec"
+      ]
     }
   },
   "projectFileDependencyGroups": {
@@ -345,7 +536,8 @@
       "System.Data.DataSetExtensions >= 4.5.0",
       "System.Memory >= 4.5.4",
       "System.Numerics.Vectors >= 4.5.0",
-      "System.Runtime.CompilerServices.Unsafe >= 4.5.3"
+      "System.Runtime.CompilerServices.Unsafe >= 4.5.3",
+      "War3Net.Drawing.Blp >= 2.0.1"
     ]
   },
   "packageFolders": {
@@ -426,6 +618,10 @@
           "System.Runtime.CompilerServices.Unsafe": {
             "target": "Package",
             "version": "[4.5.3, )"
+          },
+          "War3Net.Drawing.Blp": {
+            "target": "Package",
+            "version": "[2.0.1, )"
           }
         },
         "imports": [

@@ -23,6 +23,7 @@ namespace Image_Converter
         public String filetype;
         public ImageCodecInfo imageCodecInfo;
         public EncoderParameters encoderParameters; // for standard formats like jpg, png, tiff and bmp.
+        public int DDSCompressionFormat;
 
 
         public bool ConvertToDDS()
@@ -31,7 +32,7 @@ namespace Image_Converter
 
             try
             {
-                using SixLabors.ImageSharp.Image<Rgba32> image = SixLabors.ImageSharp.Image.Load<Rgba32>("D:\\Pictures\\Earth.jpg");
+                using SixLabors.ImageSharp.Image<Rgba32> image = SixLabors.ImageSharp.Image.Load<Rgba32>(fileEntries[currentEntry]);
 
                 BcEncoder encoder = new BcEncoder();
 
@@ -40,7 +41,7 @@ namespace Image_Converter
                 encoder.OutputOptions.format = CompressionFormat.BC1;
                 encoder.OutputOptions.fileFormat = OutputFileFormat.Dds; //Change to Dds for a dds file.
 
-                using FileStream fs = File.OpenWrite("C:\\Users\\Lasse Dam\\Desktop\\example.dds");
+                using FileStream fs = File.OpenWrite(outputDir + fileName + filetype);
                 encoder.Encode(image, fs);
 
                 success = true;

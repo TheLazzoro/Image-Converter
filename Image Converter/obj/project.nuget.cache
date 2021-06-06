@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "dgSpecHash": "syj9ZZbO2Ei+ieIa+9Sh7Z/oN49w1NZSLGft7twKh8xQYRBwJ8VLNAZFhcYOZeMAye+g063Z+HMyM6b1aBoeDw==",
+  "success": true,
+  "projectFilePath": "E:\\Repositories\\Applications\\Image-Converter\\Image Converter\\Image Converter.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Lasse Dam\\.nuget\\packages\\bcnencoder.net\\1.2.3\\bcnencoder.net.1.2.3.nupkg.sha512",
+    "C:\\Users\\Lasse Dam\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
+    "C:\\Users\\Lasse Dam\\.nuget\\packages\\sixlabors.imagesharp\\1.0.3\\sixlabors.imagesharp.1.0.3.nupkg.sha512",
+    "C:\\Users\\Lasse Dam\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
+    "C:\\Users\\Lasse Dam\\.nuget\\packages\\system.data.datasetextensions\\4.5.0\\system.data.datasetextensions.4.5.0.nupkg.sha512",
+    "C:\\Users\\Lasse Dam\\.nuget\\packages\\system.memory\\4.5.4\\system.memory.4.5.4.nupkg.sha512",
+    "C:\\Users\\Lasse Dam\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",
+    "C:\\Users\\Lasse Dam\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.5.3\\system.runtime.compilerservices.unsafe.4.5.3.nupkg.sha512"
+  ],
+  "logs": []
+}

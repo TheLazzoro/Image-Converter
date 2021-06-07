@@ -20,15 +20,17 @@ namespace Image_Converter
         public String errorMsg;
         public String outputDir;
         public String fileName;
+        public int selectedFileExtension;
         public String filetype = ".jpg"; // defaults to jpg if anything goes wrong.
         public ImageCodecInfo imageCodecInfo; // for standard formats like jpg, png, tiff and bmp.
         public EncoderParameters encoderParameters; // for standard formats like jpg, png, tiff and bmp.
-        public int DDSCompressionFormat;
+        public long imageQualityJpeg;
+        public int selectedDDSCompression;
 
-
-        public ConvertImage(int fileExtension)
+        public void Init(int selectedFileExtension)
         {
-            switch (fileExtension)
+            this.selectedFileExtension = selectedFileExtension;
+            switch (selectedFileExtension)
             {
                 case 0:
                     this.imageCodecInfo = GetEncoder(ImageFormat.Jpeg);
@@ -54,33 +56,38 @@ namespace Image_Converter
                     filetype = ".dds";
                     break;
             }
+
+            if (selectedFileExtension < 5) // Legacy formats i.e jpg, png, bmp
+            {
+                System.Drawing.Imaging.Encoder myEncoder = System.Drawing.Imaging.Encoder.Quality;
+                encoderParameters = new EncoderParameters(1);
+                EncoderParameter myEncoderParameter = new EncoderParameter(myEncoder, 100L);
+
+                if (selectedFileExtension == 0) // jpg format
+                {
+                    myEncoderParameter = new EncoderParameter(myEncoder, imageQualityJpeg);
+                }
+                encoderParameters.Param[0] = myEncoderParameter;
+            }
         }
 
-
-        public bool ConvertToDDS()
-        {
+        public bool ConvertSingle() {
             bool success = false;
-
-            try
-            {
-                using SixLabors.ImageSharp.Image<Rgba32> image = SixLabors.ImageSharp.Image.Load<Rgba32>(fileEntries[currentEntry]);
-
-                BcEncoder encoder = new BcEncoder();
-
-                encoder.OutputOptions.generateMipMaps = true;
-                encoder.OutputOptions.quality = CompressionQuality.Balanced;
-                encoder.OutputOptions.format = CompressionFormat.BC1;
-                encoder.OutputOptions.fileFormat = OutputFileFormat.Dds; //Change to Dds for a dds file.
-
-                using FileStream fs = File.OpenWrite(outputDir + fileName + filetype);
-                encoder.Encode(image, fs);
-
-                success = true;
+            if(selectedFileExtension < 5) {
+                success = ConvertLegacySingle();
+            } else if(selectedFileExtension == 5) {
+                success = ConvertToDdsSingle();
             }
-            catch (Exception ex)
-            {
-                errorMsg = ex.Message;
-                throw;
+            
+            return success;
+        }
+
+        public bool ConvertMulti() {
+            bool success = false;
+            if(selectedFileExtension < 5) {
+                success = ConvertLegacyMulti();
+            } else if(selectedFileExtension == 5) {
+                success = ConvertToDdsMulti();
             }
 
             return success;
@@ -114,6 +121,44 @@ namespace Image_Converter
 
             return success;
         }
+
+        public bool ConvertToDds(bool isMulti)
+        {
+            bool success = false;
+
+            try
+            {
+                using SixLabors.ImageSharp.Image<Rgba32> image = SixLabors.ImageSharp.Image.Load<Rgba32>(fileEntries[currentEntry]);
+
+                BcEncoder encoder = new BcEncoder();
+
+                encoder.OutputOptions.generateMipMaps = true;
+                encoder.OutputOptions.quality = CompressionQuality.Balanced;
+                encoder.OutputOptions.format = CompressionFormat.BC1;
+                encoder.OutputOptions.fileFormat = OutputFileFormat.Dds; //Change to Dds for a dds file.
+
+                String path;
+                if(isMulti) {
+                    path = outputDir + fileName + "_" + currentEntry + filetype;
+                } else {
+                    path = outputDir + fileName + filetype;
+                    
+                }
+                using FileStream fs = File.OpenWrite(path);
+                encoder.Encode(image, fs);
+
+                success = true;
+            }
+            catch (Exception ex)
+            {
+                errorMsg = ex.Message;
+            }
+
+            currentEntry++;
+
+            return success;
+        }
+
         public bool ConvertLegacySingle()
         {
             if (ConvertLegacy(false) == true)
@@ -127,6 +172,20 @@ namespace Image_Converter
         {
             if (ConvertLegacy(true) == true)
             {
+                return true;
+            }
+            return false;
+        }
+
+        public bool ConvertToDdsSingle() {
+            if(ConvertToDds(false) == true) {
+                return true;
+            }
+            return false;
+        }
+
+        public bool ConvertToDdsMulti() {
+            if(ConvertToDds(true) == true) {
                 return true;
             }
             return false;

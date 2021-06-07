@@ -88,30 +88,15 @@ namespace Image_Converter
         {
             if (txtFileName.Text != "" && txtFileName.Text != null)
             {
-                ImageCodecInfo encoder = null;               
-
-                ConvertImage converter = new ConvertImage(cmboxOutputFormat.SelectedIndex);
+                ConvertImage converter = new ConvertImage();
                 converter.outputDir = lblOutputDirectory.Text + @"\";
                 converter.fileName = txtFileName.Text;
+                converter.imageQualityJpeg = trckbarImageQuality.Value * 10L; //calculates image quality if selected file type is .jpg.
+                converter.Init(cmboxOutputFormat.SelectedIndex);
 
-
-                if (cmboxOutputFormat.SelectedIndex < 5) // Legacy formats i.e jpg, png, bmp
+                if (cmboxOutputFormat.SelectedIndex == 5) // DDS selected
                 {
-                    System.Drawing.Imaging.Encoder myEncoder = System.Drawing.Imaging.Encoder.Quality;
-                    EncoderParameters myEncoderParameters = new EncoderParameters(1);
-                    EncoderParameter myEncoderParameter = new EncoderParameter(myEncoder, 100L);
-                    
-                    if (cmboxOutputFormat.SelectedIndex == 0) // jpg format
-                    {
-                        myEncoderParameter = new EncoderParameter(myEncoder, trckbarImageQuality.Value * 10L); //calculates image quality if selected file type is .jpg.
-                    }
-                    myEncoderParameters.Param[0] = myEncoderParameter;
-                    converter.imageCodecInfo = encoder;
-                    converter.encoderParameters = myEncoderParameters;
-                }
-                else if (cmboxOutputFormat.SelectedIndex == 5) // DDS format
-                {
-                    
+                    converter.selectedDDSCompression = cmboxDDSList.SelectedIndex;
                 }
 
                 if (radBtnSingle.Checked == true)
@@ -133,7 +118,7 @@ namespace Image_Converter
                     }
                     if (ok)
                     {
-                        bool isConvertSuccess = converter.ConvertLegacySingle(); // convert
+                        bool isConvertSuccess = converter.ConvertSingle(); // convert
                         if (isConvertSuccess)
                         {
                             MessageBox.Show("Conversion successful!");
@@ -154,18 +139,6 @@ namespace Image_Converter
                     {
                         MultiConvertProgress dialog = new MultiConvertProgress(converter);
                         dialog.ShowDialog();
-                    }
-                }
-
-                //Single image conversion.
-                if (radBtnSingle.Checked == true)
-                {
-                    String[] filepath = new String[1];
-                    filepath[0] = lblFilePath.Text;
-
-                    if (cmboxOutputFormat.SelectedIndex == 5)
-                    {
-                        converter.ConvertToDDS();
                     }
                 }
             }

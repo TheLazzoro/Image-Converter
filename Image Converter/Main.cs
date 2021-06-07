@@ -88,78 +88,52 @@ namespace Image_Converter
         {
             if (txtFileName.Text != "" && txtFileName.Text != null)
             {
-                ImageCodecInfo encoder = null;
-                string filetype = ".jpg";
-                switch (cmboxOutputFormat.SelectedIndex)
-                {
-                    case 0:
-                        encoder = GetEncoder(ImageFormat.Jpeg);
-                        filetype = ".jpg";
-                        break;
-                    case 1:
-                        encoder = GetEncoder(ImageFormat.Png);
-                        filetype = ".png";
-                        break;
-                    case 2:
-                        encoder = GetEncoder(ImageFormat.Tiff);
-                        filetype = ".tiff";
-                        break;
-                    case 3:
-                        encoder = GetEncoder(ImageFormat.Gif);
-                        filetype = ".gif";
-                        break;
-                    case 4:
-                        encoder = GetEncoder(ImageFormat.Bmp);
-                        filetype = ".bmp";
-                        break;
-                    case 5:
-                        filetype = ".dds";
-                        break;
-                }
+                ImageCodecInfo encoder = null;               
 
-                System.Drawing.Imaging.Encoder myEncoder = System.Drawing.Imaging.Encoder.Quality;
-                EncoderParameters myEncoderParameters = new EncoderParameters(1);
-                EncoderParameter myEncoderParameter = new EncoderParameter(myEncoder, 100L);
-                //calculates image quality if selected file type is .jpg.
-                if (cmboxOutputFormat.SelectedIndex == 0)
-                {
-                    myEncoderParameter = new EncoderParameter(myEncoder, trckbarImageQuality.Value * 10L);
-                }
-                myEncoderParameters.Param[0] = myEncoderParameter;
+                ConvertImage converter = new ConvertImage(cmboxOutputFormat.SelectedIndex);
+                converter.outputDir = lblOutputDirectory.Text + @"\";
+                converter.fileName = txtFileName.Text;
 
-                //Single image conversion.
-                if (radBtnSingle.Checked == true)
+
+                if (cmboxOutputFormat.SelectedIndex < 5) // Legacy formats i.e jpg, png, bmp
                 {
-                    String outputPath = lblOutputDirectory.Text + @"\" + txtFileName.Text + filetype;
-                    String[] filepath = new String[1];
-                    filepath[0] = lblFilePath.Text;
-                    ConvertImage converter = new ConvertImage();
-                    converter.fileEntries = filepath;
-                    converter.outputDir = lblOutputDirectory.Text + @"\";
-                    converter.fileName = txtFileName.Text;
-                    converter.filetype = filetype;
+                    System.Drawing.Imaging.Encoder myEncoder = System.Drawing.Imaging.Encoder.Quality;
+                    EncoderParameters myEncoderParameters = new EncoderParameters(1);
+                    EncoderParameter myEncoderParameter = new EncoderParameter(myEncoder, 100L);
+                    
+                    if (cmboxOutputFormat.SelectedIndex == 0) // jpg format
+                    {
+                        myEncoderParameter = new EncoderParameter(myEncoder, trckbarImageQuality.Value * 10L); //calculates image quality if selected file type is .jpg.
+                    }
+                    myEncoderParameters.Param[0] = myEncoderParameter;
                     converter.imageCodecInfo = encoder;
                     converter.encoderParameters = myEncoderParameters;
+                }
+                else if (cmboxOutputFormat.SelectedIndex == 5) // DDS format
+                {
+                    
+                }
 
-                    if(cmboxOutputFormat.SelectedIndex == 5) {
-                        converter.ConvertToDDS();
-                    }
+                if (radBtnSingle.Checked == true)
+                {
+                    String outputPath = lblOutputDirectory.Text + @"\" + txtFileName.Text + converter.filetype;
+                    String[] fileToConvert = new String[1];
+                    fileToConvert[0] = lblFilePath.Text;
+                    converter.fileEntries = fileToConvert;
 
                     bool ok = true;
                     if (File.Exists(outputPath))
                     {
-                        DialogResult dialogResult = MessageBox.Show("This folder already contains a file named '" + txtFileName.Text + filetype +
+                        DialogResult dialogResult = MessageBox.Show("This folder already contains a file named '" + txtFileName.Text + converter.filetype +
                             "'.\n\nDo you want to override?", "Confirmation", MessageBoxButtons.YesNo);
                         if (dialogResult == DialogResult.No)
                         {
                             ok = false;
                         }
-
                     }
                     if (ok)
                     {
-                        bool isConvertSuccess = converter.ConvertStandardSingle(); // convert
-
+                        bool isConvertSuccess = converter.ConvertLegacySingle(); // convert
                         if (isConvertSuccess)
                         {
                             MessageBox.Show("Conversion successful!");
@@ -169,18 +143,29 @@ namespace Image_Converter
                             MessageBox.Show(converter.errorMsg);
                         }
                     }
-                }
-
-                // Multi-image conversion.
-                if (radBtnMulti.Checked == true)
-                {
+                    
+                } else { // multi convert
                     String[] fileEntries = Directory.GetFiles(lblFilePath.Text);
-                    DialogResult dialogResult = MessageBox.Show("This action will override any existing files with the same name." +
+                    converter.fileEntries = fileEntries;
+
+                    DialogResult dialogResult = MessageBox.Show("This action will override any existing files with the same name in the output directory." +
                         "\n\nDo you want to continue?", "Confirmation", MessageBoxButtons.YesNo);
                     if (dialogResult == DialogResult.Yes)
                     {
-                        MultiConvertProgress dialog = new MultiConvertProgress(fileEntries, lblOutputDirectory.Text + @"\", txtFileName.Text, filetype, encoder, myEncoderParameters);
+                        MultiConvertProgress dialog = new MultiConvertProgress(converter);
                         dialog.ShowDialog();
+                    }
+                }
+
+                //Single image conversion.
+                if (radBtnSingle.Checked == true)
+                {
+                    String[] filepath = new String[1];
+                    filepath[0] = lblFilePath.Text;
+
+                    if (cmboxOutputFormat.SelectedIndex == 5)
+                    {
+                        converter.ConvertToDDS();
                     }
                 }
             }
@@ -188,20 +173,6 @@ namespace Image_Converter
             {
                 MessageBox.Show("Invalid file name.");
             }
-        }
-
-        private ImageCodecInfo GetEncoder(ImageFormat format)
-        {
-            ImageCodecInfo[] codecs = ImageCodecInfo.GetImageDecoders();
-
-            foreach (ImageCodecInfo codec in codecs)
-            {
-                if (codec.FormatID == format.Guid)
-                {
-                    return codec;
-                }
-            }
-            return null;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -352,7 +323,7 @@ namespace Image_Converter
 
         private void chkBoxKeepFilenames_CheckedChanged(object sender, EventArgs e)
         {
-            if(chkBoxKeepFilenames.Checked == true)
+            if (chkBoxKeepFilenames.Checked == true)
             {
                 txtFileName.Enabled = false;
                 txtFileName.BackColor = Color.Silver;

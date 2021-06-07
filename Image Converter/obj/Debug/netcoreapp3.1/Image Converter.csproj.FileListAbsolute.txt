@@ -67,3 +67,5 @@ E:\Repositories\Applications\Image-Converter\Image Converter\obj\Debug\netcoreap
 E:\Repositories\Applications\Image-Converter\Image Converter\obj\Debug\netcoreapp3.1\Image Converter.dll
 E:\Repositories\Applications\Image-Converter\Image Converter\obj\Debug\netcoreapp3.1\Image Converter.pdb
 E:\Repositories\Applications\Image-Converter\Image Converter\obj\Debug\netcoreapp3.1\Image Converter.genruntimeconfig.cache
+E:\Repositories\Applications\Image-Converter\Image Converter\bin\Debug\netcoreapp3.1\War3Net.Common.dll
+E:\Repositories\Applications\Image-Converter\Image Converter\bin\Debug\netcoreapp3.1\War3Net.Drawing.Blp.dll

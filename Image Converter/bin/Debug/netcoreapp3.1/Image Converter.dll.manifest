@@ -78,7 +78,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>bZjB1BfgxXi+UA1McsD7qdGmHk4M1cyzdKpyvGLVumY=</dsig:DigestValue>
+      <dsig:DigestValue>6+FEDX/NufU4bEI40ZTFFQIDS3+xiI/ycgExnW2ibkc=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Image Converter.dll.config" size="788">
@@ -99,6 +99,42 @@
       <dsig:DigestValue>utXanMiYZ7dGN1SveehzP3umDKtIsFCwXa4898+FEu8=</dsig:DigestValue>
     </hash>
   </file>
+  <file name="LICENSE" size="1105">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>oDQ1gCLHmv/bQNRn4Kv8kDMerB4CGjXZYBbpbdqw/gg=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="runtimes\unix\lib\netcoreapp2.0\System.Drawing.Common.dll" size="654080">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>8xgNhFfXNwGRJiXXETYpdEK1JXx0fEqxu/9qbeosmwo=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="runtimes\win\lib\netcoreapp2.0\Microsoft.Win32.SystemEvents.dll" size="57488">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>xRcIBkRvO+kQP+9lIB8iFpEp/po9KNmtCaFSQFJEag0=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="runtimes\win\lib\netcoreapp2.0\System.Drawing.Common.dll" size="673840">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>xTM6pgKBAG38+7wLwEwhfFge/4hokFZemUkA+2BEiwI=</dsig:DigestValue>
+    </hash>
+  </file>
   <file name="SixLabors.ImageSharp.dll" size="1230848">
     <hash>
       <dsig:Transforms>
@@ -106,6 +142,24 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
       <dsig:DigestValue>gsQ+EjDYkrhe7kTqy33UpGj+uuk4cxFHZtqpfp0IxP4=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="War3Net.Common.dll" size="10752">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>1Pst245KzB4jqewpB7M0h1nLURuE5RHD9gj6RQ0Fh7Y=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="War3Net.Drawing.Blp.dll" size="11264">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>TeX8BFkXTAFWsirTg0cvvZ5wz/TrRfm+mdAfy6EkN4I=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

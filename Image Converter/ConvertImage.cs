@@ -13,17 +13,48 @@ using BCnEncoder.Shared;
 
 namespace Image_Converter
 {
-    class ConvertImage
+    public partial class ConvertImage
     {
         public String[] fileEntries;
         int currentEntry = 0;
         public String errorMsg;
         public String outputDir;
         public String fileName;
-        public String filetype;
-        public ImageCodecInfo imageCodecInfo;
+        public String filetype = ".jpg"; // defaults to jpg if anything goes wrong.
+        public ImageCodecInfo imageCodecInfo; // for standard formats like jpg, png, tiff and bmp.
         public EncoderParameters encoderParameters; // for standard formats like jpg, png, tiff and bmp.
         public int DDSCompressionFormat;
+
+
+        public ConvertImage(int fileExtension)
+        {
+            switch (fileExtension)
+            {
+                case 0:
+                    this.imageCodecInfo = GetEncoder(ImageFormat.Jpeg);
+                    filetype = ".jpg";
+                    break;
+                case 1:
+                    this.imageCodecInfo = GetEncoder(ImageFormat.Png);
+                    filetype = ".png";
+                    break;
+                case 2:
+                    this.imageCodecInfo = GetEncoder(ImageFormat.Tiff);
+                    filetype = ".tiff";
+                    break;
+                case 3:
+                    this.imageCodecInfo = GetEncoder(ImageFormat.Gif);
+                    filetype = ".gif";
+                    break;
+                case 4:
+                    this.imageCodecInfo = GetEncoder(ImageFormat.Bmp);
+                    filetype = ".bmp";
+                    break;
+                case 5:
+                    filetype = ".dds";
+                    break;
+            }
+        }
 
 
         public bool ConvertToDDS()
@@ -55,7 +86,7 @@ namespace Image_Converter
             return success;
         }
 
-        private bool ConvertStandard(bool isMulti)
+        private bool ConvertLegacy(bool isMulti)
         {
             bool success = false;
             Bitmap bmp = null;
@@ -83,22 +114,36 @@ namespace Image_Converter
 
             return success;
         }
-        public bool ConvertStandardSingle()
+        public bool ConvertLegacySingle()
         {
-            if (ConvertStandard(false) == true)
+            if (ConvertLegacy(false) == true)
             {
                 return true;
             }
             return false;
         }
 
-        public bool ConvertStandardMulti()
+        public bool ConvertLegacyMulti()
         {
-            if (ConvertStandard(true) == true)
+            if (ConvertLegacy(true) == true)
             {
                 return true;
             }
             return false;
+        }
+
+        private ImageCodecInfo GetEncoder(ImageFormat format)
+        {
+            ImageCodecInfo[] codecs = ImageCodecInfo.GetImageDecoders();
+
+            foreach (ImageCodecInfo codec in codecs)
+            {
+                if (codec.FormatID == format.Guid)
+                {
+                    return codec;
+                }
+            }
+            return null;
         }
     }
 }

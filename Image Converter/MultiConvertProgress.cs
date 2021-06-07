@@ -19,21 +19,14 @@ namespace Image_Converter
         String outputDir;
         private int errors = 0;
 
-        public MultiConvertProgress(String[] fileEntries, String outputDir, String fileName, String filetype, ImageCodecInfo imageCodecInfo, EncoderParameters encoderParameters)
+        public MultiConvertProgress(ConvertImage converter)
         {
             InitializeComponent();
             backgroundWorker1.WorkerReportsProgress = true;
             backgroundWorker1.WorkerSupportsCancellation = true;
 
-            converter = new ConvertImage();
-            converter.fileEntries = fileEntries;
-            converter.outputDir = outputDir;
-            converter.fileName = fileName;
-            converter.filetype = filetype;
-            converter.imageCodecInfo = imageCodecInfo;
-            converter.encoderParameters = encoderParameters;
-            
-            this.outputDir = outputDir;
+            this.converter = converter;
+ 
             start();
         }
 
@@ -56,7 +49,7 @@ namespace Image_Converter
                 }
                 else
                 {
-                    bool isConvertSuccess = converter.ConvertStandardMulti(); // convert
+                    bool isConvertSuccess = converter.ConvertLegacyMulti(); // convert
 
                     if(isConvertSuccess)
                     {

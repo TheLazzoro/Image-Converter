@@ -15,7 +15,8 @@
           "System.Data.DataSetExtensions": "4.5.0",
           "System.Memory": "4.5.4",
           "System.Numerics.Vectors": "4.5.0",
-          "System.Runtime.CompilerServices.Unsafe": "4.5.3"
+          "System.Runtime.CompilerServices.Unsafe": "4.5.3",
+          "War3Net.Drawing.Blp": "2.0.1"
         },
         "runtime": {
           "Image Converter.dll": {}
@@ -33,6 +34,12 @@
         }
       },
       "Microsoft.CSharp/4.7.0": {},
+      "Microsoft.NETCore.Platforms/2.0.0": {},
+      "Microsoft.Win32.SystemEvents/4.5.0": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "2.0.0"
+        }
+      },
       "SixLabors.ImageSharp/1.0.3": {
         "runtime": {
           "lib/netcoreapp3.1/SixLabors.ImageSharp.dll": {
@@ -43,9 +50,37 @@
       },
       "System.Buffers/4.5.1": {},
       "System.Data.DataSetExtensions/4.5.0": {},
+      "System.Drawing.Common/4.5.1": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "2.0.0",
+          "Microsoft.Win32.SystemEvents": "4.5.0"
+        }
+      },
       "System.Memory/4.5.4": {},
       "System.Numerics.Vectors/4.5.0": {},
-      "System.Runtime.CompilerServices.Unsafe/4.5.3": {}
+      "System.Runtime.CompilerServices.Unsafe/4.5.3": {},
+      "War3Net.Common/0.3.0": {
+        "dependencies": {
+          "System.Drawing.Common": "4.5.1"
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/War3Net.Common.dll": {
+            "assemblyVersion": "0.3.0.0",
+            "fileVersion": "0.3.0.0"
+          }
+        }
+      },
+      "War3Net.Drawing.Blp/2.0.1": {
+        "dependencies": {
+          "War3Net.Common": "0.3.0"
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/War3Net.Drawing.Blp.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.0.1.0"
+          }
+        }
+      }
     }
   },
   "libraries": {
@@ -68,6 +103,20 @@
       "path": "microsoft.csharp/4.7.0",
       "hashPath": "microsoft.csharp.4.7.0.nupkg.sha512"
     },
+    "Microsoft.NETCore.Platforms/2.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-VdLJOCXhZaEMY7Hm2GKiULmn7IEPFE4XC5LPSfBVCUIA8YLZVh846gtfBJalsPQF2PlzdD7ecX7DZEulJ402ZQ==",
+      "path": "microsoft.netcore.platforms/2.0.0",
+      "hashPath": "microsoft.netcore.platforms.2.0.0.nupkg.sha512"
+    },
+    "Microsoft.Win32.SystemEvents/4.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-LuI1oG+24TUj1ZRQQjM5Ew73BKnZE5NZ/7eAdh1o8ST5dPhUnJvIkiIn2re3MwnkRy6ELRnvEbBxHP8uALKhJw==",
+      "path": "microsoft.win32.systemevents/4.5.0",
+      "hashPath": "microsoft.win32.systemevents.4.5.0.nupkg.sha512"
+    },
     "SixLabors.ImageSharp/1.0.3": {
       "type": "package",
       "serviceable": true,
@@ -89,6 +138,13 @@
       "path": "system.data.datasetextensions/4.5.0",
       "hashPath": "system.data.datasetextensions.4.5.0.nupkg.sha512"
     },
+    "System.Drawing.Common/4.5.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-GiyeGi/v4xYDz1vCNFwFvhz9k1XddOG7VD3jxRqzRBCbTHji+s3HxxbxtoymuK4OadEpgotI8zQ5+GEEH9sUEQ==",
+      "path": "system.drawing.common/4.5.1",
+      "hashPath": "system.drawing.common.4.5.1.nupkg.sha512"
+    },
     "System.Memory/4.5.4": {
       "type": "package",
       "serviceable": true,
@@ -109,6 +165,20 @@
       "sha512": "sha512-3TIsJhD1EiiT0w2CcDMN/iSSwnNnsrnbzeVHSKkaEgV85txMprmuO+Yq2AdSbeVGcg28pdNDTPK87tJhX7VFHw==",
       "path": "system.runtime.compilerservices.unsafe/4.5.3",
       "hashPath": "system.runtime.compilerservices.unsafe.4.5.3.nupkg.sha512"
+    },
+    "War3Net.Common/0.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-PEaaTxtBvjkyQk54helcl0UcW6qel8FP9riFm1WhGOns5dKYj5CEXepx7F0NVnHrnNBiurSqYnmhFDRlVoW1Og==",
+      "path": "war3net.common/0.3.0",
+      "hashPath": "war3net.common.0.3.0.nupkg.sha512"
+    },
+    "War3Net.Drawing.Blp/2.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-e6MTdcoD7Xe1Bw12N/Sd+q2RlTWmDykPmWrTUe1ITuO0yJBTrbNs+wsNrscFG68mrVKw2PjU4JInKkiMaAC5JQ==",
+      "path": "war3net.drawing.blp/2.0.1",
+      "hashPath": "war3net.drawing.blp.2.0.1.nupkg.sha512"
     }
   }
 }

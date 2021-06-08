@@ -118,7 +118,7 @@ namespace Image_Converter
                     }
                     if (ok)
                     {
-                        bool isConvertSuccess = converter.ConvertSingle(); // convert
+                        bool isConvertSuccess = converter.Convert(false); // convert
                         if (isConvertSuccess)
                         {
                             MessageBox.Show("Conversion successful!");

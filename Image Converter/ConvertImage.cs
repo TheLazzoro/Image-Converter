@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using BCnEncoder.Shared;
+using War3Net.Drawing.Blp;
 
 namespace Image_Converter
 {
@@ -71,22 +72,45 @@ namespace Image_Converter
             }
         }
 
-        public bool ConvertSingle() {
+        public bool Convert(bool isMultipleFiles)
+        {
             bool success = false;
-            if(selectedFileExtension < 5) {
-                success = ConvertLegacySingle();
-            } else if(selectedFileExtension == 5) {
-                success = ConvertToDdsSingle();
+            if (isMultipleFiles == false)
+            {
+                success = ConvertSingle();
             }
-            
+            else
+            {
+                success = ConvertMulti();
+            }
+
             return success;
         }
 
-        public bool ConvertMulti() {
+        private bool ConvertSingle()
+        {
             bool success = false;
-            if(selectedFileExtension < 5) {
+            if (selectedFileExtension < 5)
+            {
+                success = ConvertLegacySingle();
+            }
+            else if (selectedFileExtension == 5)
+            {
+                success = ConvertToDdsSingle();
+            }
+
+            return success;
+        }
+
+        private bool ConvertMulti()
+        {
+            bool success = false;
+            if (selectedFileExtension < 5)
+            {
                 success = ConvertLegacyMulti();
-            } else if(selectedFileExtension == 5) {
+            }
+            else if (selectedFileExtension == 5)
+            {
                 success = ConvertToDdsMulti();
             }
 
@@ -122,36 +146,78 @@ namespace Image_Converter
             return success;
         }
 
-        public bool ConvertToDds(bool isMulti)
+        private bool ConvertToDds(bool isMulti)
         {
             bool success = false;
 
             try
             {
-                using SixLabors.ImageSharp.Image<Rgba32> image = SixLabors.ImageSharp.Image.Load<Rgba32>(fileEntries[currentEntry]);
+                //using (FileStream fileStream = File.OpenRead(fileEntries[currentEntry]))
+                //{
+                //    BlpFile blpFile = new BlpFile(fileStream);
+                //    var bytes = blpFile.GetSKBitmap();
+                //}
 
-                BcEncoder encoder = new BcEncoder();
+                FileStream fileStream = File.OpenRead(fileEntries[currentEntry]);
+                BlpFile blpFile = new BlpFile(fileStream);
+                int width;
+                int height;
+                byte[] bytes = blpFile.GetPixels(0, out width, out height, false); // x and y are assigned width and height in GetPixels().
 
-                encoder.OutputOptions.generateMipMaps = true;
-                encoder.OutputOptions.quality = CompressionQuality.Balanced;
-                encoder.OutputOptions.format = CompressionFormat.BC1;
-                encoder.OutputOptions.fileFormat = OutputFileFormat.Dds; //Change to Dds for a dds file.
+                //SixLabors.ImageSharp.Image<Rgba32> image33 = new SixLabors.ImageSharp.PixelFormats.
 
-                String path;
-                if(isMulti) {
-                    path = outputDir + fileName + "_" + currentEntry + filetype;
-                } else {
-                    path = outputDir + fileName + filetype;
-                    
+                // wtf am I doing
+                using (SixLabors.ImageSharp.Image<Rgba32> image3 = new SixLabors.ImageSharp.Image<Rgba32>(width, height))
+                {
+                    for (int y = 0; y < width; y++)
+                    {
+                        for (int x = 0; x < height; x++)
+                        {
+
+                            byte red = blpFile.GetBitmap().GetPixel(x, y).R;
+                            byte green = blpFile.GetBitmap().GetPixel(x, y).G;
+                            byte blue = blpFile.GetBitmap().GetPixel(x, y).B;
+                            Rgba32 pixel = new Rgba32(red, green, blue);
+
+                            image3[x, y] = pixel; // assign color to pixel
+                        }
+                    }
+                    BcEncoder encoder = new BcEncoder();
+
+                    encoder.Options.multiThreaded = true;
+                    encoder.OutputOptions.generateMipMaps = true;
+                    encoder.OutputOptions.quality = CompressionQuality.BestQuality;
+                    encoder.OutputOptions.format = CompressionFormat.BC1;
+                    encoder.OutputOptions.fileFormat = OutputFileFormat.Dds; //Change to Dds for a dds file.
+
+                    String path;
+                    if (isMulti)
+                    {
+                        path = outputDir + fileName + "_" + currentEntry + filetype;
+                    }
+                    else
+                    {
+                        path = outputDir + fileName + filetype;
+
+                    }
+                    using FileStream fs = File.OpenWrite(path);
+                    encoder.Encode(image3, fs);
+
+                    image3.Dispose();
+                    fs.DisposeAsync();
                 }
-                using FileStream fs = File.OpenWrite(path);
-                encoder.Encode(image, fs);
+
+
+                //SixLabors.ImageSharp.Image<Rgba32> image = SixLabors.ImageSharp.Image.Load<Rgba32>(fileEntries[currentEntry]); // use for legacy files
+
+
 
                 success = true;
             }
             catch (Exception ex)
             {
                 errorMsg = ex.Message;
+                //throw;
             }
 
             currentEntry++;
@@ -159,7 +225,7 @@ namespace Image_Converter
             return success;
         }
 
-        public bool ConvertLegacySingle()
+        private bool ConvertLegacySingle()
         {
             if (ConvertLegacy(false) == true)
             {
@@ -168,7 +234,7 @@ namespace Image_Converter
             return false;
         }
 
-        public bool ConvertLegacyMulti()
+        private bool ConvertLegacyMulti()
         {
             if (ConvertLegacy(true) == true)
             {
@@ -177,15 +243,19 @@ namespace Image_Converter
             return false;
         }
 
-        public bool ConvertToDdsSingle() {
-            if(ConvertToDds(false) == true) {
+        private bool ConvertToDdsSingle()
+        {
+            if (ConvertToDds(false) == true)
+            {
                 return true;
             }
             return false;
         }
 
-        public bool ConvertToDdsMulti() {
-            if(ConvertToDds(true) == true) {
+        private bool ConvertToDdsMulti()
+        {
+            if (ConvertToDds(true) == true)
+            {
                 return true;
             }
             return false;

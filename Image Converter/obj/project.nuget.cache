@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "t+X3NI4SMCWpBciIJVc1oV7iUHugCS+LPIGeh+FLjfZT/exhjAgkqzB61prKBP1jhoOik4/XQ5o2MUtWEFuA5Q==",
+  "dgSpecHash": "hieSP6jL/KlUZ9x+1PoDRpdg1jaunz/xqIePmUPQCyGwlYVN31xaAg3ZGbZPXlHkQNNtKSstkZcOg/EnSryYQw==",
   "success": true,
   "projectFilePath": "E:\\Repositories\\Applications\\Image-Converter\\Image Converter\\Image Converter.csproj",
   "expectedPackageFiles": [
@@ -9,14 +9,14 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.netcore.platforms\\2.0.0\\microsoft.netcore.platforms.2.0.0.nupkg.sha512",
     "C:\\Users\\Lasse Dam\\.nuget\\packages\\microsoft.win32.systemevents\\4.5.0\\microsoft.win32.systemevents.4.5.0.nupkg.sha512",
     "C:\\Users\\Lasse Dam\\.nuget\\packages\\sixlabors.imagesharp\\1.0.3\\sixlabors.imagesharp.1.0.3.nupkg.sha512",
+    "C:\\Users\\Lasse Dam\\.nuget\\packages\\skiasharp\\1.68.0\\skiasharp.1.68.0.nupkg.sha512",
     "C:\\Users\\Lasse Dam\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
     "C:\\Users\\Lasse Dam\\.nuget\\packages\\system.data.datasetextensions\\4.5.0\\system.data.datasetextensions.4.5.0.nupkg.sha512",
     "C:\\Users\\Lasse Dam\\.nuget\\packages\\system.drawing.common\\4.5.1\\system.drawing.common.4.5.1.nupkg.sha512",
     "C:\\Users\\Lasse Dam\\.nuget\\packages\\system.memory\\4.5.4\\system.memory.4.5.4.nupkg.sha512",
     "C:\\Users\\Lasse Dam\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",
     "C:\\Users\\Lasse Dam\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.5.3\\system.runtime.compilerservices.unsafe.4.5.3.nupkg.sha512",
-    "C:\\Users\\Lasse Dam\\.nuget\\packages\\war3net.common\\0.3.0\\war3net.common.0.3.0.nupkg.sha512",
-    "C:\\Users\\Lasse Dam\\.nuget\\packages\\war3net.drawing.blp\\2.0.1\\war3net.drawing.blp.2.0.1.nupkg.sha512"
+    "C:\\Users\\Lasse Dam\\.nuget\\packages\\war3net.drawing.blp\\1.1.0\\war3net.drawing.blp.1.1.0.nupkg.sha512"
   ],
   "logs": []
 }

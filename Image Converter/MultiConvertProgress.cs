@@ -49,7 +49,7 @@ namespace Image_Converter
                 }
                 else
                 {
-                    bool isConvertSuccess = converter.ConvertMulti(); // convert
+                    bool isConvertSuccess = converter.Convert(true); // convert
 
                     if(isConvertSuccess)
                     {

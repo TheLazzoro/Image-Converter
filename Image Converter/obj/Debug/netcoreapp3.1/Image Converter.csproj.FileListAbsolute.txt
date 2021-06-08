@@ -67,5 +67,10 @@ E:\Repositories\Applications\Image-Converter\Image Converter\obj\Debug\netcoreap
 E:\Repositories\Applications\Image-Converter\Image Converter\obj\Debug\netcoreapp3.1\Image Converter.dll
 E:\Repositories\Applications\Image-Converter\Image Converter\obj\Debug\netcoreapp3.1\Image Converter.pdb
 E:\Repositories\Applications\Image-Converter\Image Converter\obj\Debug\netcoreapp3.1\Image Converter.genruntimeconfig.cache
-E:\Repositories\Applications\Image-Converter\Image Converter\bin\Debug\netcoreapp3.1\War3Net.Common.dll
 E:\Repositories\Applications\Image-Converter\Image Converter\bin\Debug\netcoreapp3.1\War3Net.Drawing.Blp.dll
+E:\Repositories\Applications\Image-Converter\Image Converter\bin\Debug\netcoreapp3.1\SkiaSharp.dll
+E:\Repositories\Applications\Image-Converter\Image Converter\bin\Debug\netcoreapp3.1\runtimes\osx\native\libSkiaSharp.dylib
+E:\Repositories\Applications\Image-Converter\Image Converter\bin\Debug\netcoreapp3.1\runtimes\tizen-armel\native\libSkiaSharp.so
+E:\Repositories\Applications\Image-Converter\Image Converter\bin\Debug\netcoreapp3.1\runtimes\tizen-x86\native\libSkiaSharp.so
+E:\Repositories\Applications\Image-Converter\Image Converter\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\libSkiaSharp.dll
+E:\Repositories\Applications\Image-Converter\Image Converter\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\libSkiaSharp.dll

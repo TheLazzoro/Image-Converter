@@ -6,11 +6,11 @@ namespace Image_Converter
 {
     enum DDSCompressionFormat
     {
-        BC1 = 1,
-        BC2 = 2,
-        BC3 = 3,
-        BC4 = 4,
-        BC5 = 5,
-        BC7 = 6,
+        BC1 = 0,
+        BC2 = 1,
+        BC3 = 2,
+        BC4 = 3,
+        BC5 = 4,
+        BC7 = 5,
     }
 }

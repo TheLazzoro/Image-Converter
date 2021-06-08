@@ -22,11 +22,12 @@ namespace Image_Converter
         public String outputDir;
         public String fileName;
         public int selectedFileExtension;
-        public String filetype = ".jpg"; // defaults to jpg if anything goes wrong.
+        public String outputFiletype = ".jpg"; // defaults to jpg if anything goes wrong.
         public ImageCodecInfo imageCodecInfo; // for standard formats like jpg, png, tiff and bmp.
         public EncoderParameters encoderParameters; // for standard formats like jpg, png, tiff and bmp.
         public long imageQualityJpeg;
         public int selectedDDSCompression;
+        private BcEncoder bcEncoder;
 
         public void Init(int selectedFileExtension)
         {
@@ -35,29 +36,32 @@ namespace Image_Converter
             {
                 case 0:
                     this.imageCodecInfo = GetEncoder(ImageFormat.Jpeg);
-                    filetype = ".jpg";
+                    outputFiletype = ".jpg";
                     break;
                 case 1:
                     this.imageCodecInfo = GetEncoder(ImageFormat.Png);
-                    filetype = ".png";
+                    outputFiletype = ".png";
                     break;
                 case 2:
                     this.imageCodecInfo = GetEncoder(ImageFormat.Tiff);
-                    filetype = ".tiff";
+                    outputFiletype = ".tiff";
                     break;
                 case 3:
                     this.imageCodecInfo = GetEncoder(ImageFormat.Gif);
-                    filetype = ".gif";
+                    outputFiletype = ".gif";
                     break;
                 case 4:
                     this.imageCodecInfo = GetEncoder(ImageFormat.Bmp);
-                    filetype = ".bmp";
+                    outputFiletype = ".bmp";
                     break;
                 case 5:
-                    filetype = ".dds";
+                    outputFiletype = ".dds";
                     break;
             }
 
+            // ----
+            // Setup Encoders
+            // ----
             if (selectedFileExtension < 5) // Legacy formats i.e jpg, png, bmp
             {
                 System.Drawing.Imaging.Encoder myEncoder = System.Drawing.Imaging.Encoder.Quality;
@@ -69,6 +73,15 @@ namespace Image_Converter
                     myEncoderParameter = new EncoderParameter(myEncoder, imageQualityJpeg);
                 }
                 encoderParameters.Param[0] = myEncoderParameter;
+            }
+            if (selectedFileExtension == 5) // dds format
+            {
+                bcEncoder = new BcEncoder();
+                bcEncoder.Options.multiThreaded = true;
+                bcEncoder.OutputOptions.generateMipMaps = true;
+                bcEncoder.OutputOptions.quality = CompressionQuality.BestQuality;
+                bcEncoder.OutputOptions.format = CompressionFormat.BC1;
+                bcEncoder.OutputOptions.fileFormat = OutputFileFormat.Dds; //Change to Dds for a dds file.
             }
         }
 
@@ -126,11 +139,11 @@ namespace Image_Converter
                 bmp = new Bitmap(fileEntries[currentEntry]);
                 if (isMulti)
                 {
-                    bmp.Save(outputDir + fileName + "_" + currentEntry + filetype, imageCodecInfo, encoderParameters);
+                    bmp.Save(outputDir + fileName + "_" + currentEntry + outputFiletype, imageCodecInfo, encoderParameters);
                 }
                 else
                 {
-                    bmp.Save(outputDir + fileName + filetype, imageCodecInfo, encoderParameters);
+                    bmp.Save(outputDir + fileName + outputFiletype, imageCodecInfo, encoderParameters);
                 }
                 bmp.Dispose();
 
@@ -152,58 +165,47 @@ namespace Image_Converter
 
             try
             {
-                //using (FileStream fileStream = File.OpenRead(fileEntries[currentEntry]))
-                //{
-                //    BlpFile blpFile = new BlpFile(fileStream);
-                //    var bytes = blpFile.GetSKBitmap();
-                //}
-
                 FileStream fileStream = File.OpenRead(fileEntries[currentEntry]);
                 BlpFile blpFile = new BlpFile(fileStream);
                 int width;
                 int height;
                 byte[] bytes = blpFile.GetPixels(0, out width, out height, false); // x and y are assigned width and height in GetPixels().
+                Bitmap temp = blpFile.GetBitmap();
 
-                //SixLabors.ImageSharp.Image<Rgba32> image33 = new SixLabors.ImageSharp.PixelFormats.
-
-                // wtf am I doing
-                using (SixLabors.ImageSharp.Image<Rgba32> image3 = new SixLabors.ImageSharp.Image<Rgba32>(width, height))
+                // blp read and convert
+                using (SixLabors.ImageSharp.Image<Rgba32> image = new SixLabors.ImageSharp.Image<Rgba32>(width, height))
                 {
-                    for (int y = 0; y < width; y++)
+                    for (int y = 0; y < height; y++)
                     {
-                        for (int x = 0; x < height; x++)
+                        for (int x = 0; x < width; x++)
                         {
+                            /*
+                            // This block has been outcommented to save memory.
 
                             byte red = blpFile.GetBitmap().GetPixel(x, y).R;
                             byte green = blpFile.GetBitmap().GetPixel(x, y).G;
                             byte blue = blpFile.GetBitmap().GetPixel(x, y).B;
+                            byte alpha = blpFile.GetBitmap().GetPixel(x, y).A;
                             Rgba32 pixel = new Rgba32(red, green, blue);
+                            image3[x, y] = pixel;
+                            */
 
-                            image3[x, y] = pixel; // assign color to pixel
+                            image[x, y] = new Rgba32(temp.GetPixel(x, y).R, temp.GetPixel(x, y).G, temp.GetPixel(x, y).B, temp.GetPixel(x, y).A); // assign color to pixel
                         }
                     }
-                    BcEncoder encoder = new BcEncoder();
-
-                    encoder.Options.multiThreaded = true;
-                    encoder.OutputOptions.generateMipMaps = true;
-                    encoder.OutputOptions.quality = CompressionQuality.BestQuality;
-                    encoder.OutputOptions.format = CompressionFormat.BC1;
-                    encoder.OutputOptions.fileFormat = OutputFileFormat.Dds; //Change to Dds for a dds file.
 
                     String path;
                     if (isMulti)
                     {
-                        path = outputDir + fileName + "_" + currentEntry + filetype;
+                        path = outputDir + fileName + "_" + currentEntry + outputFiletype;
                     }
                     else
                     {
-                        path = outputDir + fileName + filetype;
-
+                        path = outputDir + fileName + outputFiletype;
                     }
                     using FileStream fs = File.OpenWrite(path);
-                    encoder.Encode(image3, fs);
+                    bcEncoder.Encode(image, fs);
 
-                    image3.Dispose();
                     fs.DisposeAsync();
                 }
 

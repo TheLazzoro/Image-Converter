@@ -101,7 +101,7 @@ namespace Image_Converter
 
                 if (radBtnSingle.Checked == true)
                 {
-                    String outputPath = lblOutputDirectory.Text + @"\" + txtFileName.Text + converter.filetype;
+                    String outputPath = lblOutputDirectory.Text + @"\" + txtFileName.Text + converter.outputFiletype;
                     String[] fileToConvert = new String[1];
                     fileToConvert[0] = lblFilePath.Text;
                     converter.fileEntries = fileToConvert;
@@ -109,7 +109,7 @@ namespace Image_Converter
                     bool ok = true;
                     if (File.Exists(outputPath))
                     {
-                        DialogResult dialogResult = MessageBox.Show("This folder already contains a file named '" + txtFileName.Text + converter.filetype +
+                        DialogResult dialogResult = MessageBox.Show("This folder already contains a file named '" + txtFileName.Text + converter.outputFiletype +
                             "'.\n\nDo you want to override?", "Confirmation", MessageBoxButtons.YesNo);
                         if (dialogResult == DialogResult.No)
                         {
@@ -128,8 +128,10 @@ namespace Image_Converter
                             MessageBox.Show(converter.errorMsg);
                         }
                     }
-                    
-                } else { // multi convert
+
+                }
+                else
+                { // multi convert
                     String[] fileEntries = Directory.GetFiles(lblFilePath.Text);
                     converter.fileEntries = fileEntries;
 

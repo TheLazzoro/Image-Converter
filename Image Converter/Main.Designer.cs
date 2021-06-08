@@ -55,9 +55,10 @@
             // lblSelectImage
             // 
             this.lblSelectImage.AutoSize = true;
-            this.lblSelectImage.Font = new System.Drawing.Font("Roboto", 9.75F);
+            this.lblSelectImage.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblSelectImage.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.lblSelectImage.Location = new System.Drawing.Point(12, 49);
+            this.lblSelectImage.Location = new System.Drawing.Point(14, 57);
+            this.lblSelectImage.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSelectImage.Name = "lblSelectImage";
             this.lblSelectImage.Size = new System.Drawing.Size(104, 15);
             this.lblSelectImage.TabIndex = 0;
@@ -68,11 +69,12 @@
             this.btnInputFile.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(175)))), ((int)(((byte)(175)))));
             this.btnInputFile.FlatAppearance.BorderSize = 0;
             this.btnInputFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnInputFile.Font = new System.Drawing.Font("Roboto", 9.75F);
+            this.btnInputFile.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnInputFile.ForeColor = System.Drawing.SystemColors.Window;
-            this.btnInputFile.Location = new System.Drawing.Point(12, 65);
+            this.btnInputFile.Location = new System.Drawing.Point(14, 75);
+            this.btnInputFile.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnInputFile.Name = "btnInputFile";
-            this.btnInputFile.Size = new System.Drawing.Size(75, 23);
+            this.btnInputFile.Size = new System.Drawing.Size(88, 27);
             this.btnInputFile.TabIndex = 1;
             this.btnInputFile.Text = "Choose...";
             this.btnInputFile.UseVisualStyleBackColor = false;
@@ -81,11 +83,12 @@
             // lblFilePath
             // 
             this.lblFilePath.AutoEllipsis = true;
-            this.lblFilePath.Font = new System.Drawing.Font("Roboto", 9.75F);
+            this.lblFilePath.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblFilePath.ForeColor = System.Drawing.Color.Black;
-            this.lblFilePath.Location = new System.Drawing.Point(99, 70);
+            this.lblFilePath.Location = new System.Drawing.Point(115, 81);
+            this.lblFilePath.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblFilePath.Name = "lblFilePath";
-            this.lblFilePath.Size = new System.Drawing.Size(238, 18);
+            this.lblFilePath.Size = new System.Drawing.Size(278, 21);
             this.lblFilePath.TabIndex = 2;
             // 
             // btnConvert
@@ -94,11 +97,12 @@
             this.btnConvert.Enabled = false;
             this.btnConvert.FlatAppearance.BorderSize = 0;
             this.btnConvert.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnConvert.Font = new System.Drawing.Font("Roboto", 9.75F);
+            this.btnConvert.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnConvert.ForeColor = System.Drawing.SystemColors.Window;
-            this.btnConvert.Location = new System.Drawing.Point(12, 332);
+            this.btnConvert.Location = new System.Drawing.Point(14, 383);
+            this.btnConvert.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnConvert.Name = "btnConvert";
-            this.btnConvert.Size = new System.Drawing.Size(75, 23);
+            this.btnConvert.Size = new System.Drawing.Size(88, 27);
             this.btnConvert.TabIndex = 3;
             this.btnConvert.Text = "Convert";
             this.btnConvert.UseVisualStyleBackColor = false;
@@ -111,11 +115,12 @@
             this.btnCancel.FlatAppearance.BorderSize = 0;
             this.btnCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancel.Font = new System.Drawing.Font("Roboto", 9.75F);
+            this.btnCancel.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnCancel.ForeColor = System.Drawing.SystemColors.Window;
-            this.btnCancel.Location = new System.Drawing.Point(260, 332);
+            this.btnCancel.Location = new System.Drawing.Point(303, 383);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.Size = new System.Drawing.Size(88, 27);
             this.btnCancel.TabIndex = 4;
             this.btnCancel.Text = "Close";
             this.btnCancel.UseVisualStyleBackColor = false;
@@ -124,9 +129,10 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Roboto", 9.75F);
+            this.label2.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label2.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.label2.Location = new System.Drawing.Point(11, 109);
+            this.label2.Location = new System.Drawing.Point(13, 126);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(89, 15);
             this.label2.TabIndex = 5;
@@ -135,12 +141,13 @@
             // cmboxOutputFormat
             // 
             this.cmboxOutputFormat.BackColor = System.Drawing.Color.White;
-            this.cmboxOutputFormat.Font = new System.Drawing.Font("Roboto", 9.75F);
+            this.cmboxOutputFormat.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.cmboxOutputFormat.ForeColor = System.Drawing.SystemColors.InfoText;
             this.cmboxOutputFormat.FormattingEnabled = true;
-            this.cmboxOutputFormat.Location = new System.Drawing.Point(12, 125);
+            this.cmboxOutputFormat.Location = new System.Drawing.Point(14, 144);
+            this.cmboxOutputFormat.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cmboxOutputFormat.Name = "cmboxOutputFormat";
-            this.cmboxOutputFormat.Size = new System.Drawing.Size(87, 23);
+            this.cmboxOutputFormat.Size = new System.Drawing.Size(101, 23);
             this.cmboxOutputFormat.TabIndex = 6;
             this.cmboxOutputFormat.SelectedIndexChanged += new System.EventHandler(this.cmboxOutputFormat_SelectedIndexChanged);
             // 
@@ -149,11 +156,12 @@
             this.btnOutputFile.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(175)))), ((int)(((byte)(175)))));
             this.btnOutputFile.FlatAppearance.BorderSize = 0;
             this.btnOutputFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnOutputFile.Font = new System.Drawing.Font("Roboto", 9.75F);
+            this.btnOutputFile.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnOutputFile.ForeColor = System.Drawing.SystemColors.Window;
-            this.btnOutputFile.Location = new System.Drawing.Point(15, 191);
+            this.btnOutputFile.Location = new System.Drawing.Point(18, 220);
+            this.btnOutputFile.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnOutputFile.Name = "btnOutputFile";
-            this.btnOutputFile.Size = new System.Drawing.Size(75, 23);
+            this.btnOutputFile.Size = new System.Drawing.Size(88, 27);
             this.btnOutputFile.TabIndex = 7;
             this.btnOutputFile.Text = "Choose...";
             this.btnOutputFile.UseVisualStyleBackColor = false;
@@ -162,19 +170,21 @@
             // lblOutputDirectory
             // 
             this.lblOutputDirectory.AutoEllipsis = true;
-            this.lblOutputDirectory.Font = new System.Drawing.Font("Roboto", 9.75F);
+            this.lblOutputDirectory.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblOutputDirectory.ForeColor = System.Drawing.Color.Black;
-            this.lblOutputDirectory.Location = new System.Drawing.Point(100, 196);
+            this.lblOutputDirectory.Location = new System.Drawing.Point(117, 226);
+            this.lblOutputDirectory.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblOutputDirectory.Name = "lblOutputDirectory";
-            this.lblOutputDirectory.Size = new System.Drawing.Size(238, 18);
+            this.lblOutputDirectory.Size = new System.Drawing.Size(278, 21);
             this.lblOutputDirectory.TabIndex = 8;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label3.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.label3.Location = new System.Drawing.Point(12, 175);
+            this.label3.Location = new System.Drawing.Point(14, 202);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(140, 15);
             this.label3.TabIndex = 9;
@@ -182,10 +192,11 @@
             // 
             // trckbarImageQuality
             // 
-            this.trckbarImageQuality.Location = new System.Drawing.Point(133, 125);
+            this.trckbarImageQuality.Location = new System.Drawing.Point(155, 144);
+            this.trckbarImageQuality.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.trckbarImageQuality.Minimum = 1;
             this.trckbarImageQuality.Name = "trckbarImageQuality";
-            this.trckbarImageQuality.Size = new System.Drawing.Size(147, 45);
+            this.trckbarImageQuality.Size = new System.Drawing.Size(172, 45);
             this.trckbarImageQuality.SmallChange = 10;
             this.trckbarImageQuality.TabIndex = 5;
             this.trckbarImageQuality.Value = 5;
@@ -194,9 +205,10 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Roboto", 9.75F);
+            this.label4.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label4.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.label4.Location = new System.Drawing.Point(130, 109);
+            this.label4.Location = new System.Drawing.Point(152, 126);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(87, 15);
             this.label4.TabIndex = 11;
@@ -205,9 +217,10 @@
             // lblImageQuality
             // 
             this.lblImageQuality.AutoSize = true;
-            this.lblImageQuality.Font = new System.Drawing.Font("Roboto", 9.75F);
+            this.lblImageQuality.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblImageQuality.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.lblImageQuality.Location = new System.Drawing.Point(286, 125);
+            this.lblImageQuality.Location = new System.Drawing.Point(334, 144);
+            this.lblImageQuality.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblImageQuality.Name = "lblImageQuality";
             this.lblImageQuality.Size = new System.Drawing.Size(14, 15);
             this.lblImageQuality.TabIndex = 12;
@@ -216,10 +229,11 @@
             // txtFileName
             // 
             this.txtFileName.BackColor = System.Drawing.Color.GhostWhite;
-            this.txtFileName.Font = new System.Drawing.Font("Roboto", 9.75F);
-            this.txtFileName.Location = new System.Drawing.Point(12, 296);
+            this.txtFileName.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txtFileName.Location = new System.Drawing.Point(14, 342);
+            this.txtFileName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtFileName.Name = "txtFileName";
-            this.txtFileName.Size = new System.Drawing.Size(166, 23);
+            this.txtFileName.Size = new System.Drawing.Size(193, 23);
             this.txtFileName.TabIndex = 0;
             this.txtFileName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFileName_KeyPress);
             this.txtFileName.MouseEnter += new System.EventHandler(this.txtFileName_MouseEnter);
@@ -227,11 +241,12 @@
             // 
             // label5
             // 
-            this.label5.Font = new System.Drawing.Font("Roboto", 9.75F);
+            this.label5.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label5.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.label5.Location = new System.Drawing.Point(12, 277);
+            this.label5.Location = new System.Drawing.Point(14, 320);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(69, 13);
+            this.label5.Size = new System.Drawing.Size(80, 15);
             this.label5.TabIndex = 0;
             this.label5.Text = "Filename:";
             // 
@@ -239,9 +254,10 @@
             // 
             this.radBtnSingle.AutoSize = true;
             this.radBtnSingle.Checked = true;
-            this.radBtnSingle.Font = new System.Drawing.Font("Roboto", 9.75F);
+            this.radBtnSingle.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.radBtnSingle.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.radBtnSingle.Location = new System.Drawing.Point(12, 12);
+            this.radBtnSingle.Location = new System.Drawing.Point(14, 14);
+            this.radBtnSingle.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.radBtnSingle.Name = "radBtnSingle";
             this.radBtnSingle.Size = new System.Drawing.Size(98, 19);
             this.radBtnSingle.TabIndex = 13;
@@ -253,9 +269,10 @@
             // radBtnMulti
             // 
             this.radBtnMulti.AutoSize = true;
-            this.radBtnMulti.Font = new System.Drawing.Font("Roboto", 9.75F);
+            this.radBtnMulti.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.radBtnMulti.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.radBtnMulti.Location = new System.Drawing.Point(116, 12);
+            this.radBtnMulti.Location = new System.Drawing.Point(135, 14);
+            this.radBtnMulti.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.radBtnMulti.Name = "radBtnMulti";
             this.radBtnMulti.Size = new System.Drawing.Size(115, 19);
             this.radBtnMulti.TabIndex = 14;
@@ -268,9 +285,10 @@
             // lblFileFormat
             // 
             this.lblFileFormat.AutoSize = true;
-            this.lblFileFormat.Font = new System.Drawing.Font("Roboto", 9.75F);
+            this.lblFileFormat.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblFileFormat.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.lblFileFormat.Location = new System.Drawing.Point(184, 299);
+            this.lblFileFormat.Location = new System.Drawing.Point(215, 345);
+            this.lblFileFormat.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblFileFormat.Name = "lblFileFormat";
             this.lblFileFormat.Size = new System.Drawing.Size(27, 15);
             this.lblFileFormat.TabIndex = 15;
@@ -279,18 +297,20 @@
             // cmboxDDSList
             // 
             this.cmboxDDSList.FormattingEnabled = true;
-            this.cmboxDDSList.ItemHeight = 13;
-            this.cmboxDDSList.Location = new System.Drawing.Point(133, 125);
+            this.cmboxDDSList.ItemHeight = 15;
+            this.cmboxDDSList.Location = new System.Drawing.Point(155, 144);
+            this.cmboxDDSList.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cmboxDDSList.Name = "cmboxDDSList";
-            this.cmboxDDSList.Size = new System.Drawing.Size(198, 21);
+            this.cmboxDDSList.Size = new System.Drawing.Size(230, 23);
             this.cmboxDDSList.TabIndex = 16;
             this.cmboxDDSList.Visible = false;
             // 
             // chkBoxKeepFilenames
             // 
             this.chkBoxKeepFilenames.AutoSize = true;
-            this.chkBoxKeepFilenames.Font = new System.Drawing.Font("Roboto", 9.75F);
-            this.chkBoxKeepFilenames.Location = new System.Drawing.Point(15, 255);
+            this.chkBoxKeepFilenames.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.chkBoxKeepFilenames.Location = new System.Drawing.Point(18, 294);
+            this.chkBoxKeepFilenames.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.chkBoxKeepFilenames.Name = "chkBoxKeepFilenames";
             this.chkBoxKeepFilenames.Size = new System.Drawing.Size(114, 19);
             this.chkBoxKeepFilenames.TabIndex = 17;
@@ -300,10 +320,10 @@
             // 
             // Main
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(343, 367);
+            this.ClientSize = new System.Drawing.Size(400, 423);
             this.Controls.Add(this.chkBoxKeepFilenames);
             this.Controls.Add(this.cmboxDDSList);
             this.Controls.Add(this.lblFileFormat);
@@ -326,9 +346,10 @@
             this.Controls.Add(this.lblSelectImage);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.MaximizeBox = false;
             this.Name = "Main";
-            this.Text = "Image Converter";
+            this.Text = "Image Converter v0.1";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.trckbarImageQuality)).EndInit();
             this.ResumeLayout(false);

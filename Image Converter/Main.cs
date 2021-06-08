@@ -105,6 +105,7 @@ namespace Image_Converter
                     String[] fileToConvert = new String[1];
                     fileToConvert[0] = lblFilePath.Text;
                     converter.fileEntries = fileToConvert;
+                    converter.isMultipleFiles = false;
 
                     bool ok = true;
                     if (File.Exists(outputPath))
@@ -118,7 +119,7 @@ namespace Image_Converter
                     }
                     if (ok)
                     {
-                        bool isConvertSuccess = converter.Convert(false); // convert
+                        bool isConvertSuccess = converter.Convert(); // convert
                         if (isConvertSuccess)
                         {
                             MessageBox.Show("Conversion successful!");
@@ -134,6 +135,7 @@ namespace Image_Converter
                 { // multi convert
                     String[] fileEntries = Directory.GetFiles(lblFilePath.Text);
                     converter.fileEntries = fileEntries;
+                    converter.isMultipleFiles = true;
 
                     DialogResult dialogResult = MessageBox.Show("This action will override any existing files with the same name in the output directory." +
                         "\n\nDo you want to continue?", "Confirmation", MessageBoxButtons.YesNo);

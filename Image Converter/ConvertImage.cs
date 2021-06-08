@@ -11,6 +11,8 @@ using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using BCnEncoder.Shared;
 using War3Net.Drawing.Blp;
+using SixLabors.ImageSharp.Formats.Jpeg;
+using SixLabors.ImageSharp.Formats.Png;
 
 namespace Image_Converter
 {
@@ -18,6 +20,7 @@ namespace Image_Converter
     {
         public String[] fileEntries;
         int currentEntry = 0;
+        public bool isMultipleFiles;
         public String errorMsg;
         public String outputDir;
         public String fileName;
@@ -28,6 +31,7 @@ namespace Image_Converter
         public long imageQualityJpeg;
         public int selectedDDSCompression;
         private BcEncoder bcEncoder;
+        private SixLabors.ImageSharp.Image<Rgba32> imageToConvert;
 
         public void Init(int selectedFileExtension)
         {
@@ -85,50 +89,111 @@ namespace Image_Converter
             }
         }
 
-        public bool Convert(bool isMultipleFiles)
+        public bool Convert()
         {
             bool success = false;
-            if (isMultipleFiles == false)
+            if (selectedFileExtension < 5) // Legacy formats
             {
-                success = ConvertSingle();
+                success = ConvertLegacy(isMultipleFiles);
             }
-            else
+            else if (selectedFileExtension == 5) // dds format
             {
-                success = ConvertMulti();
+                success = ConvertToDds(isMultipleFiles);
             }
 
             return success;
         }
 
-        private bool ConvertSingle()
+        private SixLabors.ImageSharp.Image<Rgba32> ReadInputFile()
         {
-            bool success = false;
-            if (selectedFileExtension < 5)
+            SixLabors.ImageSharp.Image<Rgba32> image = null;
+            String fileExtension = GetInputFileFormat();
+
+            switch (fileExtension)
             {
-                success = ConvertLegacySingle();
-            }
-            else if (selectedFileExtension == 5)
-            {
-                success = ConvertToDdsSingle();
+                case ".jpg":
+                    image = ReadLegacy();
+                    break;
+                case ".png":
+                    image = ReadLegacy();
+                    break;
+                case ".blp":
+                    image = ReadBLP();
+                    break;
+                case ".dds":
+                    break;
+                default:
+                    break;
             }
 
-            return success;
+            return image;
         }
 
-        private bool ConvertMulti()
+        private String GetInputFileFormat()
         {
-            bool success = false;
-            if (selectedFileExtension < 5)
+            String filePath = fileEntries[currentEntry];
+            String fileExtension = "";
+
+            char cCurrent;
+            int sub = 0;
+            bool end = false;
+            while (!end)
             {
-                success = ConvertLegacyMulti();
-            }
-            else if (selectedFileExtension == 5)
-            {
-                success = ConvertToDdsMulti();
+                cCurrent = filePath[filePath.Length - 1 - sub];
+                if (cCurrent == '.')
+                {
+                    end = true;
+                }
+                fileExtension += cCurrent; // appends file extension to the string (opposite order, but we flip it later)
+
+                sub++;
             }
 
-            return success;
+            char[] charArray = fileExtension.ToCharArray();
+            Array.Reverse(charArray); // flips string
+
+            return new string(charArray);
         }
+
+        private SixLabors.ImageSharp.Image<Rgba32> ReadLegacy()
+        {
+            SixLabors.ImageSharp.Image<Rgba32> image = SixLabors.ImageSharp.Image.Load<Rgba32>(fileEntries[currentEntry]);
+
+            return image;
+        }
+
+        private SixLabors.ImageSharp.Image<Rgba32> ReadBLP()
+        {
+            SixLabors.ImageSharp.Image<Rgba32> image;
+
+            FileStream fileStream = File.OpenRead(fileEntries[currentEntry]);
+            BlpFile blpFile = new BlpFile(fileStream);
+            int width;
+            int height;
+            byte[] bytes = blpFile.GetPixels(0, out width, out height, false); // 0 indicates first mipmap layer. width and height are assigned width and height in GetPixels().
+            Bitmap blpPixels = blpFile.GetBitmap();
+
+            // blp read and convert
+            image = new SixLabors.ImageSharp.Image<Rgba32>(width, height);
+
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    byte red = blpPixels.GetPixel(x, y).R;
+                    byte green = blpPixels.GetPixel(x, y).G;
+                    byte blue = blpPixels.GetPixel(x, y).B;
+                    byte alpha = blpPixels.GetPixel(x, y).A;
+                    Rgba32 pixel = new Rgba32(red, green, blue, alpha);
+
+                    image[x, y] = pixel; // assign color to pixel
+                }
+            }
+
+            return image;
+        }
+
+        
 
         private bool ConvertLegacy(bool isMulti)
         {
@@ -169,8 +234,8 @@ namespace Image_Converter
                 BlpFile blpFile = new BlpFile(fileStream);
                 int width;
                 int height;
-                byte[] bytes = blpFile.GetPixels(0, out width, out height, false); // x and y are assigned width and height in GetPixels().
-                Bitmap temp = blpFile.GetBitmap();
+                byte[] bytes = blpFile.GetPixels(0, out width, out height, false); // 0 indicates first mipmap layer. width and height are assigned width and height in GetPixels().
+                Bitmap blpPixels = blpFile.GetBitmap();
 
                 // blp read and convert
                 using (SixLabors.ImageSharp.Image<Rgba32> image = new SixLabors.ImageSharp.Image<Rgba32>(width, height))
@@ -179,18 +244,13 @@ namespace Image_Converter
                     {
                         for (int x = 0; x < width; x++)
                         {
-                            /*
-                            // This block has been outcommented to save memory.
+                            byte red = blpPixels.GetPixel(x, y).R;
+                            byte green = blpPixels.GetPixel(x, y).G;
+                            byte blue = blpPixels.GetPixel(x, y).B;
+                            byte alpha = blpPixels.GetPixel(x, y).A;
+                            Rgba32 pixel = new Rgba32(red, green, blue, alpha);
 
-                            byte red = blpFile.GetBitmap().GetPixel(x, y).R;
-                            byte green = blpFile.GetBitmap().GetPixel(x, y).G;
-                            byte blue = blpFile.GetBitmap().GetPixel(x, y).B;
-                            byte alpha = blpFile.GetBitmap().GetPixel(x, y).A;
-                            Rgba32 pixel = new Rgba32(red, green, blue);
-                            image3[x, y] = pixel;
-                            */
-
-                            image[x, y] = new Rgba32(temp.GetPixel(x, y).R, temp.GetPixel(x, y).G, temp.GetPixel(x, y).B, temp.GetPixel(x, y).A); // assign color to pixel
+                            image[x, y] = pixel; // assign color to pixel
                         }
                     }
 
@@ -207,7 +267,15 @@ namespace Image_Converter
                     bcEncoder.Encode(image, fs);
 
                     fs.DisposeAsync();
+
+                    // below is just testing
+                    JpegEncoder jpegEncoder = new JpegEncoder();
+                    jpegEncoder.Quality = 100;
+                    image.SaveAsJpeg(path, jpegEncoder);
+
+                    image.SaveAsPng(path);
                 }
+
 
 
                 //SixLabors.ImageSharp.Image<Rgba32> image = SixLabors.ImageSharp.Image.Load<Rgba32>(fileEntries[currentEntry]); // use for legacy files
@@ -225,42 +293,6 @@ namespace Image_Converter
             currentEntry++;
 
             return success;
-        }
-
-        private bool ConvertLegacySingle()
-        {
-            if (ConvertLegacy(false) == true)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        private bool ConvertLegacyMulti()
-        {
-            if (ConvertLegacy(true) == true)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        private bool ConvertToDdsSingle()
-        {
-            if (ConvertToDds(false) == true)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        private bool ConvertToDdsMulti()
-        {
-            if (ConvertToDds(true) == true)
-            {
-                return true;
-            }
-            return false;
         }
 
         private ImageCodecInfo GetEncoder(ImageFormat format)

@@ -86,11 +86,12 @@ namespace Image_Converter
 
         private void btnConvert_Click(object sender, EventArgs e)
         {
-            if (txtFileName.Text != "" && txtFileName.Text != null)
+            if (chkBoxKeepFilenames.Checked || txtFileName.Text != "" && txtFileName.Text != null)
             {
                 ConvertImage converter = new ConvertImage();
                 converter.outputDir = lblOutputDirectory.Text + @"\";
                 converter.fileName = txtFileName.Text;
+                converter.keepFileNames = chkBoxKeepFilenames.Checked;
                 converter.imageQualityJpeg = trckbarImageQuality.Value * 10; //calculates image quality for jpg
                 converter.selectedDDSCompression = cmboxDDSList.SelectedIndex; // dds compression
                 converter.generateMipMaps = chkBoxMipmaps.Checked; // dds mipmaps

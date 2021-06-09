@@ -185,6 +185,43 @@ namespace Image_Converter
             return new string(charArray);
         }
 
+        private String GetInputFileName()
+        {
+            String filePath = fileEntries[currentEntry];
+            String fileName = "";
+
+            char cCurrent;
+            int sub = 0;
+            bool start = false;
+            bool end = false;
+            while (!end)
+            {
+                cCurrent = filePath[filePath.Length - 1 - sub];
+                if (start)
+                {
+                    if (cCurrent == '/' || cCurrent == '\\')
+                    {
+                        end = true;
+                    }
+                    if (!end)
+                    {
+                        fileName += cCurrent; // appends file name to the string (opposite order, but we flip it later)
+                    }
+                }
+                if (cCurrent == '.')
+                {
+                    start = true;
+                }
+
+                sub++;
+            }
+
+            char[] charArray = fileName.ToCharArray();
+            Array.Reverse(charArray); // flips string
+
+            return new string(charArray);
+        }
+
         private SixLabors.ImageSharp.Image<Rgba32> ReadLegacy()
         {
             SixLabors.ImageSharp.Image<Rgba32> image = null;
@@ -263,7 +300,11 @@ namespace Image_Converter
             try
             {
                 String path;
-                if (isMultipleFiles)
+                if (keepFileNames)
+                {
+                    path = outputDir + GetInputFileName() + outputFiletype;
+                }
+                else if (isMultipleFiles)
                 {
                     path = outputDir + fileName + "_" + currentEntry + outputFiletype;
                 }
@@ -291,7 +332,11 @@ namespace Image_Converter
             try
             {
                 String path;
-                if (isMultipleFiles)
+                if (keepFileNames)
+                {
+                    path = outputDir + GetInputFileName() + outputFiletype;
+                }
+                else if (isMultipleFiles)
                 {
                     path = outputDir + fileName + "_" + currentEntry + outputFiletype;
                 }
@@ -319,7 +364,11 @@ namespace Image_Converter
             try
             {
                 String path;
-                if (isMultipleFiles)
+                if (keepFileNames)
+                {
+                    path = outputDir + GetInputFileName() + outputFiletype;
+                }
+                else if (isMultipleFiles)
                 {
                     path = outputDir + fileName + "_" + currentEntry + outputFiletype;
                 }
@@ -347,7 +396,11 @@ namespace Image_Converter
             try
             {
                 String path;
-                if (isMultipleFiles)
+                if (keepFileNames)
+                {
+                    path = outputDir + GetInputFileName() + outputFiletype;
+                }
+                else if (isMultipleFiles)
                 {
                     path = outputDir + fileName + "_" + currentEntry + outputFiletype;
                 }

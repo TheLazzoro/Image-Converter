@@ -316,9 +316,9 @@
             this.chkBoxKeepFilenames.Location = new System.Drawing.Point(18, 294);
             this.chkBoxKeepFilenames.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.chkBoxKeepFilenames.Name = "chkBoxKeepFilenames";
-            this.chkBoxKeepFilenames.Size = new System.Drawing.Size(117, 19);
+            this.chkBoxKeepFilenames.Size = new System.Drawing.Size(125, 19);
             this.chkBoxKeepFilenames.TabIndex = 17;
-            this.chkBoxKeepFilenames.Text = "Keep Filenames";
+            this.chkBoxKeepFilenames.Text = "Keep Filename(s)";
             this.chkBoxKeepFilenames.UseVisualStyleBackColor = true;
             this.chkBoxKeepFilenames.CheckedChanged += new System.EventHandler(this.chkBoxKeepFilenames_CheckedChanged);
             // 

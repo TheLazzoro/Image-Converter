@@ -23,8 +23,6 @@ namespace Image_Converter
             InitializeComponent();
             cmboxOutputFormat.Items.Add("JPG");
             cmboxOutputFormat.Items.Add("PNG");
-            cmboxOutputFormat.Items.Add("TIFF");
-            cmboxOutputFormat.Items.Add("GIF");
             cmboxOutputFormat.Items.Add("BMP");
             cmboxOutputFormat.Items.Add("DDS");
             cmboxOutputFormat.SelectedIndex = 0;
@@ -91,7 +89,7 @@ namespace Image_Converter
                 ConvertImage converter = new ConvertImage();
                 converter.outputDir = lblOutputDirectory.Text + @"\";
                 converter.fileName = txtFileName.Text;
-                converter.imageQualityJpeg = trckbarImageQuality.Value * 10L; //calculates image quality if selected file type is .jpg.
+                converter.imageQualityJpeg = trckbarImageQuality.Value * 10; //calculates image quality if selected file type is .jpg.
                 converter.Init(cmboxOutputFormat.SelectedIndex);
 
                 if (cmboxOutputFormat.SelectedIndex == 5) // DDS selected
@@ -238,15 +236,9 @@ namespace Image_Converter
                     lblFileFormat.Text = ".png";
                     break;
                 case 2:
-                    lblFileFormat.Text = ".tiff";
-                    break;
-                case 3:
-                    lblFileFormat.Text = ".gif";
-                    break;
-                case 4:
                     lblFileFormat.Text = ".bmp";
                     break;
-                case 5:
+                case 3:
                     lblFileFormat.Text = ".dds";
                     break;
             }

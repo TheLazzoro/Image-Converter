@@ -72,13 +72,13 @@
       <dsig:DigestValue>mr5pun9BVt13DWAhE5bpzgTCJnYootvuZVuMfT18mBA=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Image Converter.dll" size="41472">
+  <file name="Image Converter.dll" size="42496">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>RHRQ1bB+kzVuNEc0689CmCtlVhEHMiGdvMZ2Zl24AyA=</dsig:DigestValue>
+      <dsig:DigestValue>MGSdoIvBdWd7E2w+Gl8H/kZEevlGV1EECFsUGnY2pOU=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Image Converter.dll.config" size="788">

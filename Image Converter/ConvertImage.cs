@@ -26,14 +26,16 @@ namespace Image_Converter
         public String outputDir;
         public String fileName;
         public int selectedFileExtension;
+        public bool keepFileNames;
         public String outputFiletype = ".jpg"; // defaults to jpg if anything goes wrong.
         public ImageCodecInfo imageCodecInfo; // for standard formats like jpg, png, tiff and bmp.
         public EncoderParameters encoderParameters; // for standard formats like jpg, png, tiff and bmp.
         public int imageQualityJpeg;
         public int selectedDDSCompression;
+        public bool generateMipMaps;
         private BcEncoder bcEncoder;
         private BcDecoder bcDecoder;
-        JpegEncoder jpegEncoder;
+        private JpegEncoder jpegEncoder;
         private SixLabors.ImageSharp.Image<Rgba32> imageToConvert;
 
         public void Init(int selectedFileExtension)
@@ -69,16 +71,31 @@ namespace Image_Converter
             if (selectedFileExtension == 0) // jpg
             {
                 jpegEncoder = new JpegEncoder();
-                jpegEncoder.Quality = imageQualityJpeg * 10;
+                jpegEncoder.Quality = imageQualityJpeg;
             }
             if (selectedFileExtension == 3) // dds format
             {
                 bcEncoder = new BcEncoder();
                 bcEncoder.Options.multiThreaded = true;
-                bcEncoder.OutputOptions.generateMipMaps = true;
-                bcEncoder.OutputOptions.quality = CompressionQuality.BestQuality;
-                bcEncoder.OutputOptions.format = CompressionFormat.BC1;
+                bcEncoder.OutputOptions.generateMipMaps = generateMipMaps;
                 bcEncoder.OutputOptions.fileFormat = OutputFileFormat.Dds; //Change to Dds for a dds file.
+                bcEncoder.OutputOptions.quality = CompressionQuality.BestQuality;
+
+                switch (selectedDDSCompression)
+                {
+                    case 0:
+                        bcEncoder.OutputOptions.format = CompressionFormat.BC1;
+                        break;
+                    case 1:
+                        bcEncoder.OutputOptions.format = CompressionFormat.BC2;
+                        break;
+                    case 2:
+                        bcEncoder.OutputOptions.format = CompressionFormat.BC3;
+                        break;
+                    default:
+                        bcEncoder.OutputOptions.format = CompressionFormat.BC1;
+                        break;
+                }
             }
         }
 
@@ -115,9 +132,10 @@ namespace Image_Converter
         private SixLabors.ImageSharp.Image<Rgba32> ReadInputFile()
         {
             String fileExtension = GetInputFileFormat();
+            string fileExtensionCorreced = fileExtension.ToLower();
             SixLabors.ImageSharp.Image<Rgba32> imageToConvert = null;
 
-            switch (fileExtension)
+            switch (fileExtensionCorreced)
             {
                 case ".jpg":
                     imageToConvert = ReadLegacy();

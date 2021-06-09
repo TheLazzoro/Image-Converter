@@ -49,6 +49,7 @@
             this.lblFileFormat = new System.Windows.Forms.Label();
             this.cmboxDDSList = new System.Windows.Forms.ComboBox();
             this.chkBoxKeepFilenames = new System.Windows.Forms.CheckBox();
+            this.chkBoxMipmaps = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.trckbarImageQuality)).BeginInit();
             this.SuspendLayout();
             // 
@@ -60,9 +61,9 @@
             this.lblSelectImage.Location = new System.Drawing.Point(14, 57);
             this.lblSelectImage.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSelectImage.Name = "lblSelectImage";
-            this.lblSelectImage.Size = new System.Drawing.Size(104, 15);
+            this.lblSelectImage.Size = new System.Drawing.Size(108, 15);
             this.lblSelectImage.TabIndex = 0;
-            this.lblSelectImage.Text = "Select image file:";
+            this.lblSelectImage.Text = "Select Image File:";
             // 
             // btnInputFile
             // 
@@ -117,7 +118,7 @@
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancel.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnCancel.ForeColor = System.Drawing.SystemColors.Window;
-            this.btnCancel.Location = new System.Drawing.Point(303, 383);
+            this.btnCancel.Location = new System.Drawing.Point(374, 383);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(88, 27);
@@ -134,13 +135,14 @@
             this.label2.Location = new System.Drawing.Point(13, 126);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(89, 15);
+            this.label2.Size = new System.Drawing.Size(92, 15);
             this.label2.TabIndex = 5;
-            this.label2.Text = "Output format:";
+            this.label2.Text = "Output Format:";
             // 
             // cmboxOutputFormat
             // 
             this.cmboxOutputFormat.BackColor = System.Drawing.Color.White;
+            this.cmboxOutputFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmboxOutputFormat.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.cmboxOutputFormat.ForeColor = System.Drawing.SystemColors.InfoText;
             this.cmboxOutputFormat.FormattingEnabled = true;
@@ -186,17 +188,17 @@
             this.label3.Location = new System.Drawing.Point(14, 202);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(140, 15);
+            this.label3.Size = new System.Drawing.Size(144, 15);
             this.label3.TabIndex = 9;
-            this.label3.Text = "Select output directory:";
+            this.label3.Text = "Select Output Directory:";
             // 
             // trckbarImageQuality
             // 
-            this.trckbarImageQuality.Location = new System.Drawing.Point(155, 144);
+            this.trckbarImageQuality.Location = new System.Drawing.Point(171, 144);
             this.trckbarImageQuality.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.trckbarImageQuality.Minimum = 1;
             this.trckbarImageQuality.Name = "trckbarImageQuality";
-            this.trckbarImageQuality.Size = new System.Drawing.Size(172, 45);
+            this.trckbarImageQuality.Size = new System.Drawing.Size(222, 45);
             this.trckbarImageQuality.SmallChange = 10;
             this.trckbarImageQuality.TabIndex = 5;
             this.trckbarImageQuality.Value = 5;
@@ -207,19 +209,19 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label4.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.label4.Location = new System.Drawing.Point(152, 126);
+            this.label4.Location = new System.Drawing.Point(171, 126);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(87, 15);
+            this.label4.Size = new System.Drawing.Size(89, 15);
             this.label4.TabIndex = 11;
-            this.label4.Text = "Image quality:";
+            this.label4.Text = "Image Quality:";
             // 
             // lblImageQuality
             // 
             this.lblImageQuality.AutoSize = true;
             this.lblImageQuality.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblImageQuality.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.lblImageQuality.Location = new System.Drawing.Point(334, 144);
+            this.lblImageQuality.Location = new System.Drawing.Point(400, 144);
             this.lblImageQuality.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblImageQuality.Name = "lblImageQuality";
             this.lblImageQuality.Size = new System.Drawing.Size(14, 15);
@@ -259,10 +261,10 @@
             this.radBtnSingle.Location = new System.Drawing.Point(14, 14);
             this.radBtnSingle.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.radBtnSingle.Name = "radBtnSingle";
-            this.radBtnSingle.Size = new System.Drawing.Size(98, 19);
+            this.radBtnSingle.Size = new System.Drawing.Size(99, 19);
             this.radBtnSingle.TabIndex = 13;
             this.radBtnSingle.TabStop = true;
-            this.radBtnSingle.Text = "Single image";
+            this.radBtnSingle.Text = "Single Image";
             this.radBtnSingle.UseVisualStyleBackColor = true;
             this.radBtnSingle.CheckedChanged += new System.EventHandler(this.radBtnSingle_CheckedChanged);
             // 
@@ -274,9 +276,9 @@
             this.radBtnMulti.Location = new System.Drawing.Point(135, 14);
             this.radBtnMulti.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.radBtnMulti.Name = "radBtnMulti";
-            this.radBtnMulti.Size = new System.Drawing.Size(115, 19);
+            this.radBtnMulti.Size = new System.Drawing.Size(116, 19);
             this.radBtnMulti.TabIndex = 14;
-            this.radBtnMulti.Text = "Multiple images";
+            this.radBtnMulti.Text = "Multiple Images";
             this.radBtnMulti.UseVisualStyleBackColor = true;
             this.radBtnMulti.CheckedChanged += new System.EventHandler(this.radBtnMulti_CheckedChanged);
             this.radBtnMulti.MouseEnter += new System.EventHandler(this.radBtnMulti_MouseEnter);
@@ -296,12 +298,14 @@
             // 
             // cmboxDDSList
             // 
+            this.cmboxDDSList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmboxDDSList.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.cmboxDDSList.FormattingEnabled = true;
             this.cmboxDDSList.ItemHeight = 15;
-            this.cmboxDDSList.Location = new System.Drawing.Point(155, 144);
+            this.cmboxDDSList.Location = new System.Drawing.Point(174, 144);
             this.cmboxDDSList.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cmboxDDSList.Name = "cmboxDDSList";
-            this.cmboxDDSList.Size = new System.Drawing.Size(230, 23);
+            this.cmboxDDSList.Size = new System.Drawing.Size(288, 23);
             this.cmboxDDSList.TabIndex = 16;
             this.cmboxDDSList.Visible = false;
             // 
@@ -312,18 +316,31 @@
             this.chkBoxKeepFilenames.Location = new System.Drawing.Point(18, 294);
             this.chkBoxKeepFilenames.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.chkBoxKeepFilenames.Name = "chkBoxKeepFilenames";
-            this.chkBoxKeepFilenames.Size = new System.Drawing.Size(114, 19);
+            this.chkBoxKeepFilenames.Size = new System.Drawing.Size(117, 19);
             this.chkBoxKeepFilenames.TabIndex = 17;
-            this.chkBoxKeepFilenames.Text = "Keep filenames";
+            this.chkBoxKeepFilenames.Text = "Keep Filenames";
             this.chkBoxKeepFilenames.UseVisualStyleBackColor = true;
             this.chkBoxKeepFilenames.CheckedChanged += new System.EventHandler(this.chkBoxKeepFilenames_CheckedChanged);
+            // 
+            // chkBoxMipmaps
+            // 
+            this.chkBoxMipmaps.AutoSize = true;
+            this.chkBoxMipmaps.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.chkBoxMipmaps.Location = new System.Drawing.Point(174, 174);
+            this.chkBoxMipmaps.Name = "chkBoxMipmaps";
+            this.chkBoxMipmaps.Size = new System.Drawing.Size(135, 19);
+            this.chkBoxMipmaps.TabIndex = 18;
+            this.chkBoxMipmaps.Text = "Generate Mipmaps";
+            this.chkBoxMipmaps.UseVisualStyleBackColor = true;
+            this.chkBoxMipmaps.Visible = false;
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(400, 423);
+            this.ClientSize = new System.Drawing.Size(475, 423);
+            this.Controls.Add(this.chkBoxMipmaps);
             this.Controls.Add(this.chkBoxKeepFilenames);
             this.Controls.Add(this.cmboxDDSList);
             this.Controls.Add(this.lblFileFormat);
@@ -379,6 +396,7 @@
         private System.Windows.Forms.Label lblFileFormat;
         private System.Windows.Forms.ComboBox cmboxDDSList;
         private System.Windows.Forms.CheckBox chkBoxKeepFilenames;
+        private System.Windows.Forms.CheckBox chkBoxMipmaps;
     }
 }
 

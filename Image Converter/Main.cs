@@ -27,7 +27,9 @@ namespace Image_Converter
             cmboxOutputFormat.Items.Add("DDS");
             cmboxOutputFormat.SelectedIndex = 0;
 
-            cmboxDDSList.Items.Add("DXT1");
+            cmboxDDSList.Items.Add("BC1 (DXT1), RGB | no alpha");
+            cmboxDDSList.Items.Add("BC2 (DXT2 or DTX3), RGBA | explicit alpha");
+            cmboxDDSList.Items.Add("BC3 (DXT4 or DTX5), RGBA | interpolated alpha");
             cmboxDDSList.SelectedIndex = 0;
         }
 
@@ -89,13 +91,11 @@ namespace Image_Converter
                 ConvertImage converter = new ConvertImage();
                 converter.outputDir = lblOutputDirectory.Text + @"\";
                 converter.fileName = txtFileName.Text;
-                converter.imageQualityJpeg = trckbarImageQuality.Value * 10; //calculates image quality if selected file type is .jpg.
+                converter.imageQualityJpeg = trckbarImageQuality.Value * 10; //calculates image quality for jpg
+                converter.selectedDDSCompression = cmboxDDSList.SelectedIndex; // dds compression
+                converter.generateMipMaps = chkBoxMipmaps.Checked; // dds mipmaps
                 converter.Init(cmboxOutputFormat.SelectedIndex);
 
-                if (cmboxOutputFormat.SelectedIndex == 5) // DDS selected
-                {
-                    converter.selectedDDSCompression = cmboxDDSList.SelectedIndex;
-                }
 
                 if (radBtnSingle.Checked == true)
                 {
@@ -109,7 +109,7 @@ namespace Image_Converter
                     if (File.Exists(outputPath))
                     {
                         DialogResult dialogResult = MessageBox.Show("This folder already contains a file named '" + txtFileName.Text + converter.outputFiletype +
-                            "'.\n\nDo you want to override?", "Confirmation", MessageBoxButtons.YesNo);
+                            "'.\n\nDo you want to overwrite?", "Confirmation", MessageBoxButtons.YesNo);
                         if (dialogResult == DialogResult.No)
                         {
                             ok = false;
@@ -135,7 +135,7 @@ namespace Image_Converter
                     converter.fileEntries = fileEntries;
                     converter.isMultipleFiles = true;
 
-                    DialogResult dialogResult = MessageBox.Show("This action will override any existing files with the same name in the output directory." +
+                    DialogResult dialogResult = MessageBox.Show("This action will overwrite any existing files with the same name in the output directory." +
                         "\n\nDo you want to continue?", "Confirmation", MessageBoxButtons.YesNo);
                     if (dialogResult == DialogResult.Yes)
                     {
@@ -204,20 +204,23 @@ namespace Image_Converter
 
         private void cmboxOutputFormat_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cmboxOutputFormat.SelectedIndex == 0)
+            if (cmboxOutputFormat.SelectedIndex == 0) // selected jpg
             {
                 label4.Visible = true;
+                label4.Text = "Image Quality:";
                 trckbarImageQuality.Visible = true;
                 lblImageQuality.Visible = true;
                 cmboxDDSList.Visible = false;
-
+                chkBoxMipmaps.Visible = false;
             }
-            else if (cmboxOutputFormat.SelectedIndex == 5)
+            else if (cmboxOutputFormat.SelectedIndex == 3) // selected dds
             {
-                label4.Visible = false;
+                label4.Visible = true;
+                label4.Text = "Compression:";
                 trckbarImageQuality.Visible = false;
                 lblImageQuality.Visible = false;
                 cmboxDDSList.Visible = true;
+                chkBoxMipmaps.Visible = true;
             }
             else
             {
@@ -225,6 +228,7 @@ namespace Image_Converter
                 trckbarImageQuality.Visible = false;
                 lblImageQuality.Visible = false;
                 cmboxDDSList.Visible = false;
+                chkBoxMipmaps.Visible = false;
             }
 
             switch (cmboxOutputFormat.SelectedIndex)
@@ -246,14 +250,14 @@ namespace Image_Converter
 
         private void radBtnMulti_CheckedChanged(object sender, EventArgs e)
         {
-            lblSelectImage.Text = "Select folder:";
+            lblSelectImage.Text = "Select Folder:";
             lblFilePath.Text = "";
             checkBothSelected();
         }
 
         private void radBtnSingle_CheckedChanged(object sender, EventArgs e)
         {
-            lblSelectImage.Text = "Select image file:";
+            lblSelectImage.Text = "Select Image file:";
             lblFilePath.Text = "";
             checkBothSelected();
         }

@@ -36,7 +36,6 @@ namespace Image_Converter
         private BcEncoder bcEncoder;
         private BcDecoder bcDecoder;
         private JpegEncoder jpegEncoder;
-        private SixLabors.ImageSharp.Image<Rgba32> imageToConvert;
 
         public void Init(int selectedFileExtension)
         {
@@ -44,15 +43,15 @@ namespace Image_Converter
             switch (selectedFileExtension)
             {
                 case 0:
-                    this.imageCodecInfo = GetEncoder(ImageFormat.Jpeg);
+                    //this.imageCodecInfo = GetEncoder(ImageFormat.Jpeg);
                     outputFiletype = ".jpg";
                     break;
                 case 1:
-                    this.imageCodecInfo = GetEncoder(ImageFormat.Png);
+                    //this.imageCodecInfo = GetEncoder(ImageFormat.Png);
                     outputFiletype = ".png";
                     break;
                 case 2:
-                    this.imageCodecInfo = GetEncoder(ImageFormat.Bmp);
+                    //this.imageCodecInfo = GetEncoder(ImageFormat.Bmp);
                     outputFiletype = ".bmp";
                     break;
                 case 3:

@@ -16,7 +16,7 @@ namespace Image_Converter
     public partial class MultiConvertProgress : Form
     {
         ConvertImage converter;
-        String outputDir;
+        public String outputDir;
         private int errors = 0;
 
         public MultiConvertProgress(ConvertImage converter)

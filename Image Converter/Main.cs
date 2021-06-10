@@ -47,7 +47,7 @@ namespace Image_Converter
                 {
                     openFileDialog1.InitialDirectory = lblFilePath.Text;
                 }
-                openFileDialog1.Filter = "Image Files (*.jpg, *.png. *.tiff, *.gif, *.bmp, *.tga)|*.jpg;*.png;*.tiff;*.gif;*.bmp;.tga;*";
+                //openFileDialog1.Filter = "Image Files (*.jpg, *.png. *.tiff, *.gif, *.bmp, *.tga)|*.jpg;*.png;*.tiff;*.gif;*.bmp;.tga;*";
                 openFileDialog1.FilterIndex = 0;
                 openFileDialog1.RestoreDirectory = true;
 
@@ -141,6 +141,7 @@ namespace Image_Converter
                     if (dialogResult == DialogResult.Yes)
                     {
                         MultiConvertProgress dialog = new MultiConvertProgress(converter);
+                        dialog.outputDir = converter.outputDir;
                         dialog.ShowDialog();
                     }
                 }

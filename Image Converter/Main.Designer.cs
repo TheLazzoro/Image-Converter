@@ -325,6 +325,8 @@
             // chkBoxMipmaps
             // 
             this.chkBoxMipmaps.AutoSize = true;
+            this.chkBoxMipmaps.Checked = true;
+            this.chkBoxMipmaps.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkBoxMipmaps.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.chkBoxMipmaps.Location = new System.Drawing.Point(174, 174);
             this.chkBoxMipmaps.Name = "chkBoxMipmaps";

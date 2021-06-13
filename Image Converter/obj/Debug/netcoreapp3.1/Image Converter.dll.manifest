@@ -78,7 +78,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>+LYRcLnk61wMOZZWuA5jVqBtU4IBD/Y4u4QC+hEbN40=</dsig:DigestValue>
+      <dsig:DigestValue>MFcp030jYNtk7A6OV1tApkYwrU0H6EVojT/koluP0ok=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Image Converter.dll.config" size="788">

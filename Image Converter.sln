@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.31321.278
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Image Converter", "Image Converter\Image Converter.csproj", "{84795A95-5A3F-41B6-AF54-72F2CF5E69CE}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BLP", "BLP\BLP.vcxproj", "{B01FBA92-AE49-4F78-A635-D2895CD93106}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,16 +27,6 @@ Global
 		{84795A95-5A3F-41B6-AF54-72F2CF5E69CE}.Release|x64.Build.0 = Release|Any CPU
 		{84795A95-5A3F-41B6-AF54-72F2CF5E69CE}.Release|x86.ActiveCfg = Release|Any CPU
 		{84795A95-5A3F-41B6-AF54-72F2CF5E69CE}.Release|x86.Build.0 = Release|Any CPU
-		{B01FBA92-AE49-4F78-A635-D2895CD93106}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{B01FBA92-AE49-4F78-A635-D2895CD93106}.Debug|x64.ActiveCfg = Debug|x64
-		{B01FBA92-AE49-4F78-A635-D2895CD93106}.Debug|x64.Build.0 = Debug|x64
-		{B01FBA92-AE49-4F78-A635-D2895CD93106}.Debug|x86.ActiveCfg = Debug|Win32
-		{B01FBA92-AE49-4F78-A635-D2895CD93106}.Debug|x86.Build.0 = Debug|Win32
-		{B01FBA92-AE49-4F78-A635-D2895CD93106}.Release|Any CPU.ActiveCfg = Release|Win32
-		{B01FBA92-AE49-4F78-A635-D2895CD93106}.Release|x64.ActiveCfg = Release|x64
-		{B01FBA92-AE49-4F78-A635-D2895CD93106}.Release|x64.Build.0 = Release|x64
-		{B01FBA92-AE49-4F78-A635-D2895CD93106}.Release|x86.ActiveCfg = Release|Win32
-		{B01FBA92-AE49-4F78-A635-D2895CD93106}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

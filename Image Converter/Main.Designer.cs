@@ -368,7 +368,7 @@
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.MaximizeBox = false;
             this.Name = "Main";
-            this.Text = "Image Converter v0.1";
+            this.Text = "Image Converter v0.2";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.trckbarImageQuality)).EndInit();
             this.ResumeLayout(false);

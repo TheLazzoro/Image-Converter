@@ -16,7 +16,7 @@
           "System.Memory": "4.5.4",
           "System.Numerics.Vectors": "4.5.0",
           "System.Runtime.CompilerServices.Unsafe": "4.5.3",
-          "War3Net.Drawing.Blp": "1.1.0"
+          "War3Net.Drawing.Blp": "2.0.1"
         },
         "runtime": {
           "Image Converter.dll": {}
@@ -48,41 +48,6 @@
           }
         }
       },
-      "SkiaSharp/1.68.0": {
-        "runtime": {
-          "lib/netstandard1.3/SkiaSharp.dll": {
-            "assemblyVersion": "1.68.0.0",
-            "fileVersion": "1.68.0.0"
-          }
-        },
-        "runtimeTargets": {
-          "runtimes/osx/native/libSkiaSharp.dylib": {
-            "rid": "osx",
-            "assetType": "native",
-            "fileVersion": "0.0.0.0"
-          },
-          "runtimes/tizen-armel/native/libSkiaSharp.so": {
-            "rid": "tizen-armel",
-            "assetType": "native",
-            "fileVersion": "0.0.0.0"
-          },
-          "runtimes/tizen-x86/native/libSkiaSharp.so": {
-            "rid": "tizen-x86",
-            "assetType": "native",
-            "fileVersion": "0.0.0.0"
-          },
-          "runtimes/win-x64/native/libSkiaSharp.dll": {
-            "rid": "win-x64",
-            "assetType": "native",
-            "fileVersion": "0.0.0.0"
-          },
-          "runtimes/win-x86/native/libSkiaSharp.dll": {
-            "rid": "win-x86",
-            "assetType": "native",
-            "fileVersion": "0.0.0.0"
-          }
-        }
-      },
       "System.Buffers/4.5.1": {},
       "System.Data.DataSetExtensions/4.5.0": {},
       "System.Drawing.Common/4.5.1": {
@@ -94,15 +59,25 @@
       "System.Memory/4.5.4": {},
       "System.Numerics.Vectors/4.5.0": {},
       "System.Runtime.CompilerServices.Unsafe/4.5.3": {},
-      "War3Net.Drawing.Blp/1.1.0": {
+      "War3Net.Common/0.3.0": {
         "dependencies": {
-          "SkiaSharp": "1.68.0",
           "System.Drawing.Common": "4.5.1"
         },
         "runtime": {
-          "lib/netstandard2.0/War3Net.Drawing.Blp.dll": {
-            "assemblyVersion": "1.1.0.0",
-            "fileVersion": "1.1.0.0"
+          "lib/netcoreapp3.1/War3Net.Common.dll": {
+            "assemblyVersion": "0.3.0.0",
+            "fileVersion": "0.3.0.0"
+          }
+        }
+      },
+      "War3Net.Drawing.Blp/2.0.1": {
+        "dependencies": {
+          "War3Net.Common": "0.3.0"
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/War3Net.Drawing.Blp.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.0.1.0"
           }
         }
       }
@@ -149,13 +124,6 @@
       "path": "sixlabors.imagesharp/1.0.3",
       "hashPath": "sixlabors.imagesharp.1.0.3.nupkg.sha512"
     },
-    "SkiaSharp/1.68.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-ptuxAKk9FiClNnAgWM8hVMCYw/B0hUJWZ8W6efnIAtJmJn/Xl4jvxxDF5WOqfQYCLVzxXw5gvBPVxvTLblFp0g==",
-      "path": "skiasharp/1.68.0",
-      "hashPath": "skiasharp.1.68.0.nupkg.sha512"
-    },
     "System.Buffers/4.5.1": {
       "type": "package",
       "serviceable": true,
@@ -198,12 +166,19 @@
       "path": "system.runtime.compilerservices.unsafe/4.5.3",
       "hashPath": "system.runtime.compilerservices.unsafe.4.5.3.nupkg.sha512"
     },
-    "War3Net.Drawing.Blp/1.1.0": {
+    "War3Net.Common/0.3.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-MqtBHMHmPnAmeLwN1DCjomX74kt5dJL2Zmwq0aC/JnH8JeWtWtfU84IL8Ajsulfk3M/SFu3Tg2DtZwts2zDH8g==",
-      "path": "war3net.drawing.blp/1.1.0",
-      "hashPath": "war3net.drawing.blp.1.1.0.nupkg.sha512"
+      "sha512": "sha512-PEaaTxtBvjkyQk54helcl0UcW6qel8FP9riFm1WhGOns5dKYj5CEXepx7F0NVnHrnNBiurSqYnmhFDRlVoW1Og==",
+      "path": "war3net.common/0.3.0",
+      "hashPath": "war3net.common.0.3.0.nupkg.sha512"
+    },
+    "War3Net.Drawing.Blp/2.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-e6MTdcoD7Xe1Bw12N/Sd+q2RlTWmDykPmWrTUe1ITuO0yJBTrbNs+wsNrscFG68mrVKw2PjU4JInKkiMaAC5JQ==",
+      "path": "war3net.drawing.blp/2.0.1",
+      "hashPath": "war3net.drawing.blp.2.0.1.nupkg.sha512"
     }
   }
 }

@@ -247,8 +247,12 @@ namespace Image_Converter
                 BlpFile blpFile = new BlpFile(fileStream);
                 int width;
                 int height;
+                blpFile.GetPixels(0, out width, out height);
+                // It's very important we set the bool bgra = false below
                 byte[] bytes = blpFile.GetPixels(0, out width, out height, false); // 0 indicates first mipmap layer. width and height are assigned width and height in GetPixels().
-                Bitmap blpPixels = blpFile.GetBitmap();
+                var actualImage = blpFile.GetBitmapSource(0);
+                int bytesPerPixel = (actualImage.Format.BitsPerPixel + 7) / 8;
+                int stride = bytesPerPixel * actualImage.PixelWidth;
 
                 // blp read and convert
                 image = new SixLabors.ImageSharp.Image<Rgba32>(width, height);
@@ -257,20 +261,31 @@ namespace Image_Converter
                 {
                     for (int x = 0; x < width; x++)
                     {
-                        byte red = blpPixels.GetPixel(x, y).R;
-                        byte green = blpPixels.GetPixel(x, y).G;
-                        byte blue = blpPixels.GetPixel(x, y).B;
-                        byte alpha = blpPixels.GetPixel(x, y).A;
-                        Rgba32 pixel = new Rgba32(red, green, blue, alpha);
+                        var offset = (y * stride) + (x * bytesPerPixel);
+
+                        byte red;
+                        byte green;
+                        byte blue;
+                        byte alpha = 0;
+
+                        red = bytes[offset + 0];
+                        green = bytes[offset + 1];
+                        blue = bytes[offset + 2];
+                        alpha = bytes[offset + 3];
+
+                        Rgba32 pixel = new Rgba32(blue, green, red, alpha);
 
                         image[x, y] = pixel; // assign color to pixel
                     }
                 }
+
+                blpFile.Dispose();
             }
             catch (Exception ex)
             {
                 errorMsg = ex.Message;
             }
+
 
             return image;
         }

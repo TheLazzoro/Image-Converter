@@ -78,7 +78,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>teku+/+tJr1Nrc/LdwkYKLg1ko8J6uRokP0dhgGWjSA=</dsig:DigestValue>
+      <dsig:DigestValue>+LYRcLnk61wMOZZWuA5jVqBtU4IBD/Y4u4QC+hEbN40=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Image Converter.dll.config" size="788">
@@ -99,31 +99,13 @@
       <dsig:DigestValue>utXanMiYZ7dGN1SveehzP3umDKtIsFCwXa4898+FEu8=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="runtimes\osx\native\libSkiaSharp.dylib" size="7224240">
+  <file name="LICENSE" size="1105">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>fJichalF3mUo3i5EFmIOmyQQCRiX0VWeptLlUQM4PPM=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="runtimes\tizen-armel\native\libSkiaSharp.so" size="4090580">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>Au22hL1fDvT9BbOqbGW3tXEeDbI/wGg9HbOZKK0nbQM=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="runtimes\tizen-x86\native\libSkiaSharp.so" size="6997420">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>8bapQDsEyuuq1mqUpsk9uowpDv7WgA/JQ17TTKzpwNo=</dsig:DigestValue>
+      <dsig:DigestValue>oDQ1gCLHmv/bQNRn4Kv8kDMerB4CGjXZYBbpbdqw/gg=</dsig:DigestValue>
     </hash>
   </file>
   <file name="runtimes\unix\lib\netcoreapp2.0\System.Drawing.Common.dll" size="654080">
@@ -153,24 +135,6 @@
       <dsig:DigestValue>xTM6pgKBAG38+7wLwEwhfFge/4hokFZemUkA+2BEiwI=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="runtimes\win-x64\native\libSkiaSharp.dll" size="6417992">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>RDXNb8smwC9J56Zopbsq4bggd5HPs9I+QFE18e1JCe8=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="runtimes\win-x86\native\libSkiaSharp.dll" size="5484104">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>NSTW9lLikLnK59PccjWFPbWHvWCXnycf8pUNVMDOp9Q=</dsig:DigestValue>
-    </hash>
-  </file>
   <file name="SixLabors.ImageSharp.dll" size="1230848">
     <hash>
       <dsig:Transforms>
@@ -180,22 +144,22 @@
       <dsig:DigestValue>gsQ+EjDYkrhe7kTqy33UpGj+uuk4cxFHZtqpfp0IxP4=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="SkiaSharp.dll" size="294464">
+  <file name="War3Net.Common.dll" size="10752">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>sxVI3xzdxniVobgslMXMUAu699K46nh2KnzPiWAXT5w=</dsig:DigestValue>
+      <dsig:DigestValue>1Pst245KzB4jqewpB7M0h1nLURuE5RHD9gj6RQ0Fh7Y=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="War3Net.Drawing.Blp.dll" size="10752">
+  <file name="War3Net.Drawing.Blp.dll" size="11264">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>QOqMpGobY74EwX6jeEKT3s7Fj2NfcjaYhAZTlRXA/n0=</dsig:DigestValue>
+      <dsig:DigestValue>TeX8BFkXTAFWsirTg0cvvZ5wz/TrRfm+mdAfy6EkN4I=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

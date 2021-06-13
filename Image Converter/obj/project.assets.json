@@ -59,37 +59,6 @@
           "lib/netcoreapp3.1/SixLabors.ImageSharp.dll": {}
         }
       },
-      "SkiaSharp/1.68.0": {
-        "type": "package",
-        "compile": {
-          "lib/netstandard1.3/SkiaSharp.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard1.3/SkiaSharp.dll": {}
-        },
-        "runtimeTargets": {
-          "runtimes/osx/native/libSkiaSharp.dylib": {
-            "assetType": "native",
-            "rid": "osx"
-          },
-          "runtimes/tizen-armel/native/libSkiaSharp.so": {
-            "assetType": "native",
-            "rid": "tizen-armel"
-          },
-          "runtimes/tizen-x86/native/libSkiaSharp.so": {
-            "assetType": "native",
-            "rid": "tizen-x86"
-          },
-          "runtimes/win-x64/native/libSkiaSharp.dll": {
-            "assetType": "native",
-            "rid": "win-x64"
-          },
-          "runtimes/win-x86/native/libSkiaSharp.dll": {
-            "assetType": "native",
-            "rid": "win-x86"
-          }
-        }
-      },
       "System.Buffers/4.5.1": {
         "type": "package",
         "compile": {
@@ -158,17 +127,45 @@
           "lib/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.dll": {}
         }
       },
-      "War3Net.Drawing.Blp/1.1.0": {
+      "War3Net.Common/0.3.0": {
         "type": "package",
         "dependencies": {
-          "SkiaSharp": "1.68.0",
           "System.Drawing.Common": "4.5.1"
         },
         "compile": {
-          "lib/netstandard2.0/War3Net.Drawing.Blp.dll": {}
+          "lib/netcoreapp3.1/War3Net.Common.dll": {}
         },
         "runtime": {
-          "lib/netstandard2.0/War3Net.Drawing.Blp.dll": {}
+          "lib/netcoreapp3.1/War3Net.Common.dll": {}
+        },
+        "contentFiles": {
+          "contentFiles/any/any/_._": {
+            "buildAction": "None",
+            "codeLanguage": "any",
+            "copyToOutput": false
+          }
+        }
+      },
+      "War3Net.Drawing.Blp/2.0.1": {
+        "type": "package",
+        "dependencies": {
+          "War3Net.Common": "0.3.0"
+        },
+        "compile": {
+          "lib/netcoreapp3.1/War3Net.Drawing.Blp.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/War3Net.Drawing.Blp.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WPF"
+        ],
+        "contentFiles": {
+          "contentFiles/any/netcoreapp3.1/LICENSE": {
+            "buildAction": "Content",
+            "codeLanguage": "any",
+            "copyToOutput": false
+          }
         }
       }
     }
@@ -315,54 +312,6 @@
         "sixlabors.imagesharp.1.0.3.nupkg.sha512",
         "sixlabors.imagesharp.128.png",
         "sixlabors.imagesharp.nuspec"
-      ]
-    },
-    "SkiaSharp/1.68.0": {
-      "sha512": "ptuxAKk9FiClNnAgWM8hVMCYw/B0hUJWZ8W6efnIAtJmJn/Xl4jvxxDF5WOqfQYCLVzxXw5gvBPVxvTLblFp0g==",
-      "type": "package",
-      "path": "skiasharp/1.68.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "LICENSE.txt",
-        "THIRD-PARTY-NOTICES.txt",
-        "build/net45/SkiaSharp.targets",
-        "build/tizen40/SkiaSharp.targets",
-        "lib/MonoAndroid/SkiaSharp.dll",
-        "lib/MonoAndroid/SkiaSharp.xml",
-        "lib/Xamarin.Mac20/SkiaSharp.dll",
-        "lib/Xamarin.Mac20/SkiaSharp.xml",
-        "lib/Xamarin.TVOS/SkiaSharp.dll",
-        "lib/Xamarin.TVOS/SkiaSharp.xml",
-        "lib/Xamarin.WatchOS/SkiaSharp.dll",
-        "lib/Xamarin.WatchOS/SkiaSharp.xml",
-        "lib/Xamarin.iOS/SkiaSharp.dll",
-        "lib/Xamarin.iOS/SkiaSharp.xml",
-        "lib/net45/SkiaSharp.dll",
-        "lib/net45/SkiaSharp.xml",
-        "lib/netstandard1.3/SkiaSharp.dll",
-        "lib/netstandard1.3/SkiaSharp.xml",
-        "lib/tizen40/SkiaSharp.dll",
-        "lib/tizen40/SkiaSharp.xml",
-        "lib/uap10.0/SkiaSharp.dll",
-        "lib/uap10.0/SkiaSharp.xml",
-        "runtimes/osx/native/libSkiaSharp.dylib",
-        "runtimes/tizen-armel/native/libSkiaSharp.so",
-        "runtimes/tizen-x86/native/libSkiaSharp.so",
-        "runtimes/win-x64/native/libSkiaSharp.dll",
-        "runtimes/win-x86/native/libSkiaSharp.dll",
-        "runtimes/win10-arm/nativeassets/uap10.0/libEGL.dll",
-        "runtimes/win10-arm/nativeassets/uap10.0/libGLESv2.dll",
-        "runtimes/win10-arm/nativeassets/uap10.0/libSkiaSharp.dll",
-        "runtimes/win10-x64/nativeassets/uap10.0/libEGL.dll",
-        "runtimes/win10-x64/nativeassets/uap10.0/libGLESv2.dll",
-        "runtimes/win10-x64/nativeassets/uap10.0/libSkiaSharp.dll",
-        "runtimes/win10-x86/nativeassets/uap10.0/libEGL.dll",
-        "runtimes/win10-x86/nativeassets/uap10.0/libGLESv2.dll",
-        "runtimes/win10-x86/nativeassets/uap10.0/libSkiaSharp.dll",
-        "skiasharp.1.68.0.nupkg.sha512",
-        "skiasharp.nuspec",
-        "xamarin.interactive/SkiaSharp.Workbooks.dll"
       ]
     },
     "System.Buffers/4.5.1": {
@@ -547,21 +496,33 @@
         "version.txt"
       ]
     },
-    "War3Net.Drawing.Blp/1.1.0": {
-      "sha512": "MqtBHMHmPnAmeLwN1DCjomX74kt5dJL2Zmwq0aC/JnH8JeWtWtfU84IL8Ajsulfk3M/SFu3Tg2DtZwts2zDH8g==",
+    "War3Net.Common/0.3.0": {
+      "sha512": "PEaaTxtBvjkyQk54helcl0UcW6qel8FP9riFm1WhGOns5dKYj5CEXepx7F0NVnHrnNBiurSqYnmhFDRlVoW1Og==",
       "type": "package",
-      "path": "war3net.drawing.blp/1.1.0",
+      "path": "war3net.common/0.3.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "LICENSE",
-        "lib/net46/War3Net.Drawing.Blp.dll",
-        "lib/net46/War3Net.Drawing.Blp.xml",
-        "lib/netstandard1.3/War3Net.Drawing.Blp.dll",
-        "lib/netstandard1.3/War3Net.Drawing.Blp.xml",
-        "lib/netstandard2.0/War3Net.Drawing.Blp.dll",
-        "lib/netstandard2.0/War3Net.Drawing.Blp.xml",
-        "war3net.drawing.blp.1.1.0.nupkg.sha512",
+        "content/LICENSE",
+        "contentFiles/any/netcoreapp3.1/LICENSE",
+        "lib/netcoreapp3.1/War3Net.Common.dll",
+        "lib/netcoreapp3.1/War3Net.Common.xml",
+        "war3net.common.0.3.0.nupkg.sha512",
+        "war3net.common.nuspec"
+      ]
+    },
+    "War3Net.Drawing.Blp/2.0.1": {
+      "sha512": "e6MTdcoD7Xe1Bw12N/Sd+q2RlTWmDykPmWrTUe1ITuO0yJBTrbNs+wsNrscFG68mrVKw2PjU4JInKkiMaAC5JQ==",
+      "type": "package",
+      "path": "war3net.drawing.blp/2.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "content/LICENSE",
+        "contentFiles/any/netcoreapp3.1/LICENSE",
+        "lib/netcoreapp3.1/War3Net.Drawing.Blp.dll",
+        "lib/netcoreapp3.1/War3Net.Drawing.Blp.xml",
+        "war3net.drawing.blp.2.0.1.nupkg.sha512",
         "war3net.drawing.blp.nuspec"
       ]
     }
@@ -576,7 +537,7 @@
       "System.Memory >= 4.5.4",
       "System.Numerics.Vectors >= 4.5.0",
       "System.Runtime.CompilerServices.Unsafe >= 4.5.3",
-      "War3Net.Drawing.Blp >= 1.1.0"
+      "War3Net.Drawing.Blp >= 2.0.1"
     ]
   },
   "packageFolders": {
@@ -660,7 +621,7 @@
           },
           "War3Net.Drawing.Blp": {
             "target": "Package",
-            "version": "[1.1.0, )"
+            "version": "[2.0.1, )"
           }
         },
         "imports": [

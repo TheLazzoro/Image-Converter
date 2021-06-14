@@ -21,13 +21,16 @@ namespace Image_Converter
         public Main()
         {
             InitializeComponent();
+            // Must be added in this order to match ImageFormat enum
             cmboxOutputFormat.Items.Add("JPG");
             cmboxOutputFormat.Items.Add("PNG");
             cmboxOutputFormat.Items.Add("BMP");
+            cmboxOutputFormat.Items.Add("TGA");
             cmboxOutputFormat.Items.Add("DDS");
             cmboxOutputFormat.SelectedIndex = 0;
 
             cmboxDDSList.Items.Add("BC1 (DXT1), RGB | no alpha");
+            cmboxDDSList.Items.Add("BC1 (DXT1), RGB | 1 bit alpha");
             cmboxDDSList.Items.Add("BC2 (DXT2 or DTX3), RGBA | explicit alpha");
             cmboxDDSList.Items.Add("BC3 (DXT4 or DTX5), RGBA | interpolated alpha");
             cmboxDDSList.SelectedIndex = 0;
@@ -206,7 +209,7 @@ namespace Image_Converter
 
         private void cmboxOutputFormat_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cmboxOutputFormat.SelectedIndex == 0) // selected jpg
+            if (cmboxOutputFormat.SelectedIndex == (int)ImageFormats.JPG)
             {
                 label4.Visible = true;
                 label4.Text = "Image Quality:";
@@ -215,7 +218,7 @@ namespace Image_Converter
                 cmboxDDSList.Visible = false;
                 chkBoxMipmaps.Visible = false;
             }
-            else if (cmboxOutputFormat.SelectedIndex == 3) // selected dds
+            else if (cmboxOutputFormat.SelectedIndex == (int)ImageFormats.DDS)
             {
                 label4.Visible = true;
                 label4.Text = "Compression:";
@@ -235,16 +238,19 @@ namespace Image_Converter
 
             switch (cmboxOutputFormat.SelectedIndex)
             {
-                case 0:
+                case (int)ImageFormats.JPG:
                     lblFileFormat.Text = ".jpg";
                     break;
-                case 1:
+                case (int)ImageFormats.PNG:
                     lblFileFormat.Text = ".png";
                     break;
-                case 2:
+                case (int)ImageFormats.BMP:
                     lblFileFormat.Text = ".bmp";
                     break;
-                case 3:
+                case (int)ImageFormats.TGA:
+                    lblFileFormat.Text = ".tga";
+                    break;
+                case (int)ImageFormats.DDS:
                     lblFileFormat.Text = ".dds";
                     break;
             }

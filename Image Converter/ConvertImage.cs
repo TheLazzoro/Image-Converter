@@ -42,19 +42,22 @@ namespace Image_Converter
             this.selectedFileExtension = selectedFileExtension;
             switch (selectedFileExtension)
             {
-                case 0:
+                case (int)ImageFormats.JPG:
                     //this.imageCodecInfo = GetEncoder(ImageFormat.Jpeg);
                     outputFiletype = ".jpg";
                     break;
-                case 1:
+                case (int)ImageFormats.PNG:
                     //this.imageCodecInfo = GetEncoder(ImageFormat.Png);
                     outputFiletype = ".png";
                     break;
-                case 2:
+                case (int)ImageFormats.BMP:
                     //this.imageCodecInfo = GetEncoder(ImageFormat.Bmp);
                     outputFiletype = ".bmp";
                     break;
-                case 3:
+                case (int)ImageFormats.TGA:
+                    outputFiletype = ".tga";
+                    break;
+                case (int)ImageFormats.DDS:
                     outputFiletype = ".dds";
                     break;
             }
@@ -67,17 +70,17 @@ namespace Image_Converter
             // ----
             // Setup Encoders
             // ----
-            if (selectedFileExtension == 0) // jpg
+            if (selectedFileExtension == (int)ImageFormats.JPG)
             {
                 jpegEncoder = new JpegEncoder();
                 jpegEncoder.Quality = imageQualityJpeg;
             }
-            if (selectedFileExtension == 3) // dds format
+            if (selectedFileExtension == (int)ImageFormats.DDS)
             {
                 bcEncoder = new BcEncoder();
                 bcEncoder.Options.multiThreaded = true;
                 bcEncoder.OutputOptions.generateMipMaps = generateMipMaps;
-                bcEncoder.OutputOptions.fileFormat = OutputFileFormat.Dds; //Change to Dds for a dds file.
+                bcEncoder.OutputOptions.fileFormat = OutputFileFormat.Dds;
                 bcEncoder.OutputOptions.quality = CompressionQuality.BestQuality;
 
                 switch (selectedDDSCompression)
@@ -86,9 +89,12 @@ namespace Image_Converter
                         bcEncoder.OutputOptions.format = CompressionFormat.BC1;
                         break;
                     case 1:
-                        bcEncoder.OutputOptions.format = CompressionFormat.BC2;
+                        bcEncoder.OutputOptions.format = CompressionFormat.BC1WithAlpha;
                         break;
                     case 2:
+                        bcEncoder.OutputOptions.format = CompressionFormat.BC2;
+                        break;
+                    case 3:
                         bcEncoder.OutputOptions.format = CompressionFormat.BC3;
                         break;
                     default:
@@ -105,19 +111,23 @@ namespace Image_Converter
 
             if (imageToConvert != null)
             {
-                if (selectedFileExtension == 0) // jpg
+                if (selectedFileExtension == (int)ImageFormats.JPG)
                 {
                     success = ConvertToJpg(imageToConvert);
                 }
-                else if (selectedFileExtension == 1) // png
+                else if (selectedFileExtension == (int)ImageFormats.PNG)
                 {
                     success = ConvertToPng(imageToConvert);
                 }
-                else if (selectedFileExtension == 2) // bmp
+                else if (selectedFileExtension == (int)ImageFormats.BMP)
                 {
                     success = ConvertToBmp(imageToConvert);
                 }
-                else if (selectedFileExtension == 3) // dds
+                else if (selectedFileExtension == (int)ImageFormats.TGA)
+                {
+                    success = ConvertToTga(imageToConvert);
+                }
+                else if (selectedFileExtension == (int)ImageFormats.DDS)
                 {
                     success = ConvertToDds(imageToConvert);
                 }
@@ -143,6 +153,9 @@ namespace Image_Converter
                     imageToConvert = ReadLegacy();
                     break;
                 case ".bmp":
+                    imageToConvert = ReadLegacy();
+                    break;
+                case ".tga":
                     imageToConvert = ReadLegacy();
                     break;
                 case ".blp":
@@ -248,7 +261,7 @@ namespace Image_Converter
                 int width;
                 int height;
                 blpFile.GetPixels(0, out width, out height);
-                // It's very important we set the bool bgra = false below
+                // It's very important we set the bool bgra = false in GetPixels
                 byte[] bytes = blpFile.GetPixels(0, out width, out height, false); // 0 indicates first mipmap layer. width and height are assigned width and height in GetPixels().
                 var actualImage = blpFile.GetBitmapSource(0);
                 int bytesPerPixel = (actualImage.Format.BitsPerPixel + 7) / 8;
@@ -392,6 +405,38 @@ namespace Image_Converter
                 }
 
                 imageToConvert.SaveAsBmp(path);
+
+                success = true;
+            }
+            catch (Exception ex)
+            {
+                errorMsg = ex.Message;
+            }
+
+            return success;
+        }
+
+        private bool ConvertToTga(SixLabors.ImageSharp.Image<Rgba32> imageToConvert)
+        {
+            bool success = false;
+
+            try
+            {
+                String path;
+                if (keepFileNames)
+                {
+                    path = outputDir + GetInputFileName() + outputFiletype;
+                }
+                else if (isMultipleFiles)
+                {
+                    path = outputDir + fileName + "_" + currentEntry + outputFiletype;
+                }
+                else
+                {
+                    path = outputDir + fileName + outputFiletype;
+                }
+
+                imageToConvert.SaveAsTga(path);
 
                 success = true;
             }

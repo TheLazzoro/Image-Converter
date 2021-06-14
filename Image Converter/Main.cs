@@ -91,7 +91,12 @@ namespace Image_Converter
                         String[] fileEntries = Directory.GetFiles(lblFilePath.Text);
                         for (int i = 0; i < fileEntries.Length; i++)
                         {
-                            listFileEntries.Items.Add(fileEntries[i]);
+                            using (Stream stream = new FileStream(fileEntries[i], FileMode.Open))
+                            {
+                                String[] row = { fileEntries[i], GetFileSizeString(stream) };
+                                ListViewItem item = new ListViewItem(row);
+                                listFileEntries.Items.Add(item);
+                            }
                         }
                     }
                 }
@@ -355,16 +360,22 @@ namespace Image_Converter
                         for (int y = 0; y < image.Height; y++)
                         {
                             color = image[x, y];
-                            Color previewColor = Color.FromArgb(color.A, color.R, color.G, color.B);
-                            actualPreview.SetPixel(x, y, previewColor);
+                            actualPreview.SetPixel(x, y, Color.FromArgb(color.A, color.R, color.G, color.B));
                         }
                     }
                     imagePreview.Width = actualPreview.Width;
                     imagePreview.Height = actualPreview.Height;
                     imagePreview.Image = actualPreview;
-                    
+
+                    using (Stream stream = new FileStream(filePath, FileMode.Open))
+                    {
+                        lblFileSize.Text = GetFileSizeString(stream);
+                    }
+                    lblResolution.Text = "Resolution: " + image.Width + "x" + image.Height;
+
                     image.Dispose();
-                } else
+                }
+                else
                 {
                     MessageBox.Show("Unsupported format.");
                 }
@@ -373,6 +384,25 @@ namespace Image_Converter
             {
                 MessageBox.Show("Unsupported format.");
             }
+        }
+
+        private String GetFileSizeString(Stream stream)
+        {
+            long length;
+            length = stream.Length;
+            String howBigBytes = "bytes";
+            if (length > 1000000)
+            {
+                howBigBytes = "MB";
+                length = length / 1000000;
+            }
+            else if (length > 1000)
+            {
+                howBigBytes = "KB";
+                length = length / 1000;
+            }
+            
+            return length.ToString() + " " + howBigBytes;
         }
     }
 }

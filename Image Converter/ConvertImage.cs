@@ -34,7 +34,7 @@ namespace Image_Converter
         public int selectedDDSCompression;
         public bool generateMipMaps;
         private BcEncoder bcEncoder;
-        private BcDecoder bcDecoder;
+        private BcDecoder bcDecoder = new BcDecoder();
         private JpegEncoder jpegEncoder;
 
         public void Init(int selectedFileExtension)
@@ -61,11 +61,6 @@ namespace Image_Converter
                     outputFiletype = ".dds";
                     break;
             }
-
-            // ----
-            // Setup Decoders
-            // ----
-            bcDecoder = new BcDecoder();
 
             // ----
             // Setup Encoders

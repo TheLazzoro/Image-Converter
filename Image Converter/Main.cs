@@ -11,16 +11,21 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Collections;
 using System.Diagnostics;
+using SixLabors.ImageSharp.PixelFormats;
 
 namespace Image_Converter
 {
     public partial class Main : Form
     {
         private ToolTip tt;
+        private ConvertImage converter;
 
         public Main()
         {
             InitializeComponent();
+
+            converter = new ConvertImage();
+
             // Must be added in this order to match ImageFormat enum
             cmboxOutputFormat.Items.Add("JPG");
             cmboxOutputFormat.Items.Add("PNG");
@@ -34,6 +39,10 @@ namespace Image_Converter
             cmboxDDSList.Items.Add("BC2 (DXT2 or DTX3), RGBA | explicit alpha");
             cmboxDDSList.Items.Add("BC3 (DXT4 or DTX5), RGBA | interpolated alpha");
             cmboxDDSList.SelectedIndex = 0;
+
+            // image preview layout
+            imagePreview.SizeMode = PictureBoxSizeMode.AutoSize;
+            previewSplitContainer.Panel2.AutoScroll = true;
         }
 
         private void btnChoose_Click(object sender, EventArgs e)
@@ -62,6 +71,9 @@ namespace Image_Converter
                 }
 
                 checkBothSelected();
+
+                DisplayPreviewImage(lblFilePath.Text);
+
             }
             if (radBtnMulti.Checked == true)
             {
@@ -75,7 +87,13 @@ namespace Image_Converter
 
                     if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
                     {
+                        listFileEntries.Clear();
                         lblFilePath.Text = fbd.SelectedPath;
+                        String[] fileEntries = Directory.GetFiles(lblFilePath.Text);
+                        for (int i = 0; i < fileEntries.Length; i++)
+                        {
+                            listFileEntries.Items.Add(fileEntries[i]);
+                        }
                     }
                 }
             }
@@ -91,7 +109,7 @@ namespace Image_Converter
         {
             if (chkBoxKeepFilenames.Checked || txtFileName.Text != "" && txtFileName.Text != null)
             {
-                ConvertImage converter = new ConvertImage();
+                converter = new ConvertImage();
                 converter.outputDir = lblOutputDirectory.Text + @"\";
                 converter.fileName = txtFileName.Text;
                 converter.keepFileNames = chkBoxKeepFilenames.Checked;
@@ -267,6 +285,7 @@ namespace Image_Converter
         {
             lblSelectImage.Text = "Select Image file:";
             lblFilePath.Text = "";
+            listFileEntries.Clear();
             checkBothSelected();
         }
 
@@ -313,6 +332,48 @@ namespace Image_Converter
             {
                 txtFileName.Enabled = true;
                 txtFileName.BackColor = Color.GhostWhite;
+            }
+        }
+
+        private void listFileEntries_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+            if (e.IsSelected)
+            {
+                DisplayPreviewImage(listFileEntries.Items[e.ItemIndex].Text);
+            }
+        }
+
+        private void DisplayPreviewImage(String filePath)
+        {
+            try
+            {
+                SixLabors.ImageSharp.Image<Rgba32> image = converter.ReadInputFile(filePath);
+                if (image != null)
+                {
+                    Bitmap actualPreview = new Bitmap(image.Width, image.Height);
+                    Rgba32 color;
+                    for (int x = 0; x < image.Width; x++)
+                    {
+                        for (int y = 0; y < image.Height; y++)
+                        {
+                            color = image[x, y];
+                            Color previewColor = Color.FromArgb(color.A, color.R, color.G, color.B);
+                            actualPreview.SetPixel(x, y, previewColor);
+                        }
+                    }
+                    imagePreview.Width = actualPreview.Width;
+                    imagePreview.Height = actualPreview.Height;
+                    imagePreview.Image = actualPreview;
+                    
+                    image.Dispose();
+                } else
+                {
+                    MessageBox.Show("Unsupported format.");
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Unsupported format.");
             }
         }
     }

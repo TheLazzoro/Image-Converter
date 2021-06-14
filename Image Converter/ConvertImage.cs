@@ -107,7 +107,7 @@ namespace Image_Converter
         public bool Convert()
         {
             bool success = false;
-            SixLabors.ImageSharp.Image<Rgba32> imageToConvert = ReadInputFile();
+            SixLabors.ImageSharp.Image<Rgba32> imageToConvert = ReadInputFile(fileEntries[currentEntry]);
 
             if (imageToConvert != null)
             {
@@ -138,31 +138,31 @@ namespace Image_Converter
             return success;
         }
 
-        private SixLabors.ImageSharp.Image<Rgba32> ReadInputFile()
+        public SixLabors.ImageSharp.Image<Rgba32> ReadInputFile(String filePath)
         {
-            String fileExtension = GetInputFileFormat();
+            String fileExtension = GetInputFileFormat(filePath);
             string fileExtensionCorreced = fileExtension.ToLower();
             SixLabors.ImageSharp.Image<Rgba32> imageToConvert = null;
 
             switch (fileExtensionCorreced)
             {
                 case ".jpg":
-                    imageToConvert = ReadLegacy();
+                    imageToConvert = ReadLegacy(filePath);
                     break;
                 case ".png":
-                    imageToConvert = ReadLegacy();
+                    imageToConvert = ReadLegacy(filePath);
                     break;
                 case ".bmp":
-                    imageToConvert = ReadLegacy();
+                    imageToConvert = ReadLegacy(filePath);
                     break;
                 case ".tga":
-                    imageToConvert = ReadLegacy();
+                    imageToConvert = ReadLegacy(filePath);
                     break;
                 case ".blp":
-                    imageToConvert = ReadBLP();
+                    imageToConvert = ReadBLP(filePath);
                     break;
                 case ".dds":
-                    imageToConvert = ReadDDS();
+                    imageToConvert = ReadDDS(filePath);
                     break;
                 default:
                     break;
@@ -171,9 +171,8 @@ namespace Image_Converter
             return imageToConvert;
         }
 
-        private String GetInputFileFormat()
+        private String GetInputFileFormat(String filePath)
         {
-            String filePath = fileEntries[currentEntry];
             String fileExtension = "";
 
             char cCurrent;
@@ -234,13 +233,13 @@ namespace Image_Converter
             return new string(charArray);
         }
 
-        private SixLabors.ImageSharp.Image<Rgba32> ReadLegacy()
+        private SixLabors.ImageSharp.Image<Rgba32> ReadLegacy(String filePath)
         {
             SixLabors.ImageSharp.Image<Rgba32> image = null;
 
             try
             {
-                image = SixLabors.ImageSharp.Image.Load<Rgba32>(fileEntries[currentEntry]);
+                image = SixLabors.ImageSharp.Image.Load<Rgba32>(filePath);
             }
             catch (Exception ex)
             {
@@ -250,13 +249,13 @@ namespace Image_Converter
             return image;
         }
 
-        private SixLabors.ImageSharp.Image<Rgba32> ReadBLP()
+        private SixLabors.ImageSharp.Image<Rgba32> ReadBLP(String filePath)
         {
             SixLabors.ImageSharp.Image<Rgba32> image = null;
 
             try
             {
-                FileStream fileStream = File.OpenRead(fileEntries[currentEntry]);
+                FileStream fileStream = File.OpenRead(filePath);
                 BlpFile blpFile = new BlpFile(fileStream);
                 int width;
                 int height;
@@ -303,13 +302,13 @@ namespace Image_Converter
             return image;
         }
 
-        private SixLabors.ImageSharp.Image<Rgba32> ReadDDS()
+        private SixLabors.ImageSharp.Image<Rgba32> ReadDDS(String filePath)
         {
             SixLabors.ImageSharp.Image<Rgba32> image = null;
 
             try
             {
-                using FileStream fs = File.OpenRead(fileEntries[currentEntry]);
+                using FileStream fs = File.OpenRead(filePath);
                 image = bcDecoder.Decode(fs);
             }
             catch (Exception ex)

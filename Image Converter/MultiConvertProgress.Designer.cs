@@ -35,7 +35,7 @@
             this.lblProgress = new System.Windows.Forms.Label();
             this.lblErrors = new System.Windows.Forms.Label();
             this.listErrors = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.openFileLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnShowFolder = new System.Windows.Forms.Button();
@@ -46,8 +46,9 @@
             // lblPercent
             // 
             this.lblPercent.AutoSize = true;
-            this.lblPercent.Font = new System.Drawing.Font("Roboto", 9.75F);
-            this.lblPercent.Location = new System.Drawing.Point(12, 64);
+            this.lblPercent.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblPercent.Location = new System.Drawing.Point(14, 74);
+            this.lblPercent.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblPercent.Name = "lblPercent";
             this.lblPercent.Size = new System.Drawing.Size(61, 15);
             this.lblPercent.TabIndex = 5;
@@ -55,9 +56,10 @@
             // 
             // progressBar
             // 
-            this.progressBar.Location = new System.Drawing.Point(12, 50);
+            this.progressBar.Location = new System.Drawing.Point(14, 58);
+            this.progressBar.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(302, 11);
+            this.progressBar.Size = new System.Drawing.Size(352, 13);
             this.progressBar.TabIndex = 4;
             // 
             // backgroundWorker1
@@ -70,10 +72,11 @@
             // 
             // lblProgress
             // 
-            this.lblProgress.Font = new System.Drawing.Font("Roboto", 9.75F);
-            this.lblProgress.Location = new System.Drawing.Point(146, 64);
+            this.lblProgress.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblProgress.Location = new System.Drawing.Point(170, 74);
+            this.lblProgress.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblProgress.Name = "lblProgress";
-            this.lblProgress.Size = new System.Drawing.Size(168, 23);
+            this.lblProgress.Size = new System.Drawing.Size(196, 27);
             this.lblProgress.TabIndex = 8;
             this.lblProgress.Text = "0/0";
             this.lblProgress.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -81,10 +84,11 @@
             // lblErrors
             // 
             this.lblErrors.AutoSize = true;
-            this.lblErrors.Font = new System.Drawing.Font("Roboto", 9.75F);
-            this.lblErrors.Location = new System.Drawing.Point(12, 113);
+            this.lblErrors.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblErrors.Location = new System.Drawing.Point(14, 130);
+            this.lblErrors.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblErrors.Name = "lblErrors";
-            this.lblErrors.Size = new System.Drawing.Size(56, 15);
+            this.lblErrors.Size = new System.Drawing.Size(53, 15);
             this.lblErrors.TabIndex = 10;
             this.lblErrors.Text = "Errors: 0";
             // 
@@ -94,12 +98,13 @@
             this.listErrors.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1});
             this.listErrors.Enabled = false;
-            this.listErrors.Font = new System.Drawing.Font("Roboto", 9.75F);
+            this.listErrors.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.listErrors.ForeColor = System.Drawing.SystemColors.WindowText;
             this.listErrors.HideSelection = false;
-            this.listErrors.Location = new System.Drawing.Point(12, 129);
+            this.listErrors.Location = new System.Drawing.Point(14, 149);
+            this.listErrors.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.listErrors.Name = "listErrors";
-            this.listErrors.Size = new System.Drawing.Size(302, 97);
+            this.listErrors.Size = new System.Drawing.Size(352, 111);
             this.listErrors.TabIndex = 11;
             this.listErrors.UseCompatibleStateImageBehavior = false;
             this.listErrors.View = System.Windows.Forms.View.Details;
@@ -130,11 +135,12 @@
             this.btnShowFolder.Enabled = false;
             this.btnShowFolder.FlatAppearance.BorderSize = 0;
             this.btnShowFolder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnShowFolder.Font = new System.Drawing.Font("Roboto", 9.75F);
+            this.btnShowFolder.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnShowFolder.ForeColor = System.Drawing.Color.White;
-            this.btnShowFolder.Location = new System.Drawing.Point(216, 100);
+            this.btnShowFolder.Location = new System.Drawing.Point(252, 115);
+            this.btnShowFolder.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnShowFolder.Name = "btnShowFolder";
-            this.btnShowFolder.Size = new System.Drawing.Size(97, 23);
+            this.btnShowFolder.Size = new System.Drawing.Size(113, 27);
             this.btnShowFolder.TabIndex = 12;
             this.btnShowFolder.Text = "Show Folder";
             this.btnShowFolder.UseVisualStyleBackColor = false;
@@ -146,11 +152,12 @@
             this.btnStop.FlatAppearance.BorderSize = 0;
             this.btnStop.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.btnStop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnStop.Font = new System.Drawing.Font("Roboto", 9.75F);
+            this.btnStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnStop.ForeColor = System.Drawing.Color.White;
-            this.btnStop.Location = new System.Drawing.Point(239, 247);
+            this.btnStop.Location = new System.Drawing.Point(279, 285);
+            this.btnStop.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(75, 23);
+            this.btnStop.Size = new System.Drawing.Size(88, 27);
             this.btnStop.TabIndex = 13;
             this.btnStop.Text = "Stop";
             this.btnStop.UseVisualStyleBackColor = false;
@@ -158,9 +165,9 @@
             // 
             // MultiConvertProgress
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(326, 282);
+            this.ClientSize = new System.Drawing.Size(380, 325);
             this.Controls.Add(this.btnStop);
             this.Controls.Add(this.btnShowFolder);
             this.Controls.Add(this.listErrors);
@@ -169,6 +176,7 @@
             this.Controls.Add(this.lblPercent);
             this.Controls.Add(this.progressBar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "MultiConvertProgress";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Converting...";

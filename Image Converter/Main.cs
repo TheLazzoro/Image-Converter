@@ -87,7 +87,6 @@ namespace Image_Converter
 
                     if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
                     {
-                        listFileEntries.Clear();
                         lblFilePath.Text = fbd.SelectedPath;
                         String[] fileEntries = Directory.GetFiles(lblFilePath.Text);
                         for (int i = 0; i < fileEntries.Length; i++)
@@ -285,7 +284,6 @@ namespace Image_Converter
         {
             lblSelectImage.Text = "Select Image file:";
             lblFilePath.Text = "";
-            listFileEntries.Clear();
             checkBothSelected();
         }
 

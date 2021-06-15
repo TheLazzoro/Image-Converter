@@ -306,21 +306,37 @@ namespace Image_Converter
 
         private String GetFileSizeString(Stream stream)
         {
-            long length;
-            length = stream.Length;
+            long sizeBytes = stream.Length;
+            String text = sizeBytes.ToString();
+            int textLength = text.Length;
             String howBigBytes = "bytes";
-            if (length > 1000000)
-            {
-                howBigBytes = "MB";
-                length = length / 1000000;
-            }
-            else if (length > 1000)
+
+            if (sizeBytes > 1000)
             {
                 howBigBytes = "KB";
-                length = length / 1000;
+                sizeBytes = sizeBytes / 1000;
+                text = sizeBytes.ToString();
+                textLength = text.Length;
             }
 
-            return length.ToString() + " " + howBigBytes;
+            String finalText = "";
+            int dotPlacementHelper = 0;
+            for(int i = textLength; i > 0; i--)
+            {
+                if(dotPlacementHelper % 3 == 0 && dotPlacementHelper != 0)
+                {
+                    finalText += "." + text.Substring(i-1, 1);
+                } else
+                {
+                    finalText += text.Substring(i-1, 1);
+                }
+                dotPlacementHelper++;
+            }
+
+            char[] charArray = finalText.ToCharArray();
+            Array.Reverse(charArray); // flips string
+
+            return new string(charArray) + " " + howBigBytes;
         }
 
         private void groupBoxImport_DragDrop(object sender, DragEventArgs e)
@@ -338,7 +354,7 @@ namespace Image_Converter
                 }
                 else
                 {
-                    fileEntries.AddRange(e.Data.GetData(DataFormats.FileDrop) as string[]); // adds selected item to fileEntries (this is a single file)
+                    fileEntries.Add(item); // adds selected item to fileEntries (this is a single file)
                 }
             }
             for (int i = 0; i < fileEntries.Count; i++)

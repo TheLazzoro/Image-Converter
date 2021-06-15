@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using System.Collections;
 using System.Diagnostics;
 using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp;
 
 namespace Image_Converter
 {
@@ -143,12 +144,12 @@ namespace Image_Converter
             if (listFileEntries.Items.Count > 0 && lblOutputDirectory.Text != null && lblOutputDirectory.Text != "")
             {
                 btnConvert.Enabled = true;
-                btnConvert.BackColor = Color.FromArgb(0, 175, 175);
+                btnConvert.BackColor = System.Drawing.Color.FromArgb(0, 175, 175);
             }
             else
             {
                 btnConvert.Enabled = false;
-                btnConvert.BackColor = Color.FromArgb(175, 175, 175);
+                btnConvert.BackColor = System.Drawing.Color.FromArgb(175, 175, 175);
             }
             lblItems.Text = "Items: " + listFileEntries.Items.Count;
         }
@@ -244,12 +245,12 @@ namespace Image_Converter
             if (chkBoxKeepFilenames.Checked == true)
             {
                 txtFileName.Enabled = false;
-                txtFileName.BackColor = Color.Silver;
+                txtFileName.BackColor = System.Drawing.Color.Silver;
             }
             else
             {
                 txtFileName.Enabled = true;
-                txtFileName.BackColor = Color.GhostWhite;
+                txtFileName.BackColor = System.Drawing.Color.GhostWhite;
             }
         }
 
@@ -269,22 +270,19 @@ namespace Image_Converter
                 if (image != null)
                 {
                     Bitmap actualPreview = new Bitmap(image.Width, image.Height);
-                    Rgba32 color;
-                    for (int x = 0; x < image.Width; x++)
-                    {
-                        for (int y = 0; y < image.Height; y++)
-                        {
-                            color = image[x, y];
-                            actualPreview.SetPixel(x, y, Color.FromArgb(color.A, color.R, color.G, color.B));
-                        }
-                    }
-                    imagePreview.Width = actualPreview.Width;
-                    imagePreview.Height = actualPreview.Height;
-                    imagePreview.Image = actualPreview;
 
-                    using (Stream stream = new FileStream(filePath, FileMode.Open))
+                    Stream stream = new System.IO.MemoryStream();
+                    image.SaveAsBmp(stream);
+                    System.Drawing.Image img = System.Drawing.Image.FromStream(stream);
+                    if(imagePreview.Image != null)
                     {
-                        lblFileSize.Text = GetFileSizeString(stream);
+                        imagePreview.Image.Dispose();
+                    }
+                    imagePreview.Image = img;
+
+                    using (Stream fs = new FileStream(filePath, FileMode.Open))
+                    {
+                        lblFileSize.Text = GetFileSizeString(fs);
                     }
                     lblResolution.Text = "Resolution: " + image.Width + "x" + image.Height;
 
@@ -416,13 +414,13 @@ namespace Image_Converter
         private void previewSplitContainer_Panel2_Resize(object sender, EventArgs e)
         {
             CenterPreviewImage();
-            lblResolution.Location = new Point(previewSplitContainer.Location.X + previewSplitContainer.Panel1.Width, previewSplitContainer.Location.Y + previewSplitContainer.Panel2.Height);
-            lblItems.Location = new Point(previewSplitContainer.Location.X, previewSplitContainer.Location.Y + previewSplitContainer.Panel1.Height);
+            lblResolution.Location = new System.Drawing.Point(previewSplitContainer.Location.X + previewSplitContainer.Panel1.Width, previewSplitContainer.Location.Y + previewSplitContainer.Panel2.Height);
+            lblItems.Location = new System.Drawing.Point(previewSplitContainer.Location.X, previewSplitContainer.Location.Y + previewSplitContainer.Panel1.Height);
         }
 
         private void CenterPreviewImage()
         {
-            imagePreview.Location = new Point((previewSplitContainer.Panel2.Width / 2) - (imagePreview.Width / 2), (previewSplitContainer.Panel2.Height / 2) - (imagePreview.Height / 2));
+            imagePreview.Location = new System.Drawing.Point((previewSplitContainer.Panel2.Width / 2) - (imagePreview.Width / 2), (previewSplitContainer.Panel2.Height / 2) - (imagePreview.Height / 2));
         }
     }
 }

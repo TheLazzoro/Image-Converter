@@ -150,6 +150,7 @@ namespace Image_Converter
                 btnConvert.Enabled = false;
                 btnConvert.BackColor = Color.FromArgb(175, 175, 175);
             }
+            lblItems.Text = "Items: " + listFileEntries.Items.Count;
         }
 
         private void trackBar1_Scroll(object sender, EventArgs e)
@@ -236,11 +237,6 @@ namespace Image_Converter
             {
                 tt.Dispose();
             }
-        }
-
-        private void radBtnMulti_MouseLeave(object sender, EventArgs e)
-        {
-            tt.Dispose();
         }
 
         private void chkBoxKeepFilenames_CheckedChanged(object sender, EventArgs e)
@@ -420,7 +416,8 @@ namespace Image_Converter
         private void previewSplitContainer_Panel2_Resize(object sender, EventArgs e)
         {
             CenterPreviewImage();
-            lblResolution.Location = new Point(previewSplitContainer.Location.X + previewSplitContainer.Panel1.Width, lblResolution.Location.Y);
+            lblResolution.Location = new Point(previewSplitContainer.Location.X + previewSplitContainer.Panel1.Width, previewSplitContainer.Location.Y + previewSplitContainer.Panel2.Height);
+            lblItems.Location = new Point(previewSplitContainer.Location.X, previewSplitContainer.Location.Y + previewSplitContainer.Panel1.Height);
         }
 
         private void CenterPreviewImage()

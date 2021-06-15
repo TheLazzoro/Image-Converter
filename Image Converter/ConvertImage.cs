@@ -39,6 +39,7 @@ namespace Image_Converter
 
         public void Init(int selectedFileExtension)
         {
+            this.currentEntry = 0; // in case a user wants to convert more times.
             this.selectedFileExtension = selectedFileExtension;
             switch (selectedFileExtension)
             {

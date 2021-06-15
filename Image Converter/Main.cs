@@ -45,135 +45,75 @@ namespace Image_Converter
             previewSplitContainer.Panel2.AutoScroll = true;
         }
 
-        private void btnChoose_Click(object sender, EventArgs e)
+        private void btnChooseFile_Click(object sender, EventArgs e)
         {
-            if (radBtnSingle.Checked == true)
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+
+            //openFileDialog1.InitialDirectory = "c:\\";
+            //openFileDialog1.Filter = "Image Files (*.jpg, *.png. *.tiff, *.gif, *.bmp, *.tga)|*.jpg;*.png;*.tiff;*.gif;*.bmp;.tga;*";
+            openFileDialog1.FilterIndex = 0;
+            openFileDialog1.RestoreDirectory = true;
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                OpenFileDialog openFileDialog1 = new OpenFileDialog();
-
-                if (lblFilePath.Text == "")
-                {
-                    openFileDialog1.InitialDirectory = "c:\\";
-                }
-                else
-                {
-                    openFileDialog1.InitialDirectory = lblFilePath.Text;
-                }
-                //openFileDialog1.Filter = "Image Files (*.jpg, *.png. *.tiff, *.gif, *.bmp, *.tga)|*.jpg;*.png;*.tiff;*.gif;*.bmp;.tga;*";
-                openFileDialog1.FilterIndex = 0;
-                openFileDialog1.RestoreDirectory = true;
-
-                if (openFileDialog1.ShowDialog() == DialogResult.OK)
-                {
-                    string selectedFileName = openFileDialog1.FileName;
-                    lblFilePath.Text = selectedFileName;
-                    btnConvert.Enabled = true;
-                }
-
-                checkBothSelected();
-
-                DisplayPreviewImage(lblFilePath.Text);
-
+                string selectedFileName = openFileDialog1.FileName;
+                DisplayPreviewImage(selectedFileName);
+                btnConvert.Enabled = true;
             }
-            if (radBtnMulti.Checked == true)
-            {
-                using (var fbd = new FolderBrowserDialog())
-                {
-                    if (lblFilePath.Text != "")
-                    {
-                        fbd.SelectedPath = lblFilePath.Text;
-                    }
-                    DialogResult result = fbd.ShowDialog();
 
-                    if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+            verifyListAndOutputDirectory();
+        }
+
+        private void btnChooseFolder_Click(object sender, EventArgs e)
+        {
+            using (var fbd = new FolderBrowserDialog())
+            {
+                //fbd.SelectedPath = lblFilePath.Text;
+                DialogResult result = fbd.ShowDialog();
+
+                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                {
+                    String[] fileEntries = Directory.GetFiles(fbd.SelectedPath);
+                    for (int i = 0; i < fileEntries.Length; i++)
                     {
-                        lblFilePath.Text = fbd.SelectedPath;
-                        String[] fileEntries = Directory.GetFiles(lblFilePath.Text);
-                        for (int i = 0; i < fileEntries.Length; i++)
+                        using (Stream stream = new FileStream(fileEntries[i], FileMode.Open))
                         {
-                            using (Stream stream = new FileStream(fileEntries[i], FileMode.Open))
-                            {
-                                String[] row = { fileEntries[i], GetFileSizeString(stream) };
-                                ListViewItem item = new ListViewItem(row);
-                                listFileEntries.Items.Add(item);
-                            }
+                            String[] row = { fileEntries[i], GetFileSizeString(stream) };
+                            ListViewItem item = new ListViewItem(row);
+                            listFileEntries.Items.Add(item);
                         }
                     }
                 }
             }
-            checkBothSelected();
-        }
 
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            Dispose();
+            verifyListAndOutputDirectory();
+
         }
 
         private void btnConvert_Click(object sender, EventArgs e)
         {
-            if (chkBoxKeepFilenames.Checked || txtFileName.Text != "" && txtFileName.Text != null)
+            List<string> fileEntries = new List<string>();
+            for(int i = 0; i < listFileEntries.Items.Count; i++)
             {
-                converter = new ConvertImage();
-                converter.outputDir = lblOutputDirectory.Text + @"\";
-                converter.fileName = txtFileName.Text;
-                converter.keepFileNames = chkBoxKeepFilenames.Checked;
-                converter.imageQualityJpeg = trckbarImageQuality.Value * 10; //calculates image quality for jpg
-                converter.selectedDDSCompression = cmboxDDSList.SelectedIndex; // dds compression
-                converter.generateMipMaps = chkBoxMipmaps.Checked; // dds mipmaps
-                converter.Init(cmboxOutputFormat.SelectedIndex);
-
-
-                if (radBtnSingle.Checked == true)
-                {
-                    String outputPath = lblOutputDirectory.Text + @"\" + txtFileName.Text + converter.outputFiletype;
-                    String[] fileToConvert = new String[1];
-                    fileToConvert[0] = lblFilePath.Text;
-                    converter.fileEntries = fileToConvert;
-                    converter.isMultipleFiles = false;
-
-                    bool ok = true;
-                    if (File.Exists(outputPath))
-                    {
-                        DialogResult dialogResult = MessageBox.Show("This folder already contains a file named '" + txtFileName.Text + converter.outputFiletype +
-                            "'.\n\nDo you want to overwrite?", "Confirmation", MessageBoxButtons.YesNo);
-                        if (dialogResult == DialogResult.No)
-                        {
-                            ok = false;
-                        }
-                    }
-                    if (ok)
-                    {
-                        bool isConvertSuccess = converter.Convert(); // convert
-                        if (isConvertSuccess)
-                        {
-                            MessageBox.Show("Conversion successful!");
-                        }
-                        else
-                        {
-                            MessageBox.Show(converter.errorMsg);
-                        }
-                    }
-
-                }
-                else
-                { // multi convert
-                    String[] fileEntries = Directory.GetFiles(lblFilePath.Text);
-                    converter.fileEntries = fileEntries;
+                fileEntries.Add(listFileEntries.Items[i].Text);
+            }
+            converter.fileEntries = fileEntries.ToArray();
+            converter.outputDir = lblOutputDirectory.Text + @"\";
+            converter.fileName = txtFileName.Text;
+            converter.keepFileNames = chkBoxKeepFilenames.Checked;
+            converter.imageQualityJpeg = trckbarImageQuality.Value * 10; //calculates image quality for jpg
+            converter.selectedDDSCompression = cmboxDDSList.SelectedIndex; // dds compression
+            converter.generateMipMaps = chkBoxMipmaps.Checked; // dds mipmaps
+            converter.Init(cmboxOutputFormat.SelectedIndex);
                     converter.isMultipleFiles = true;
 
                     DialogResult dialogResult = MessageBox.Show("This action will overwrite any existing files with the same name in the output directory." +
                         "\n\nDo you want to continue?", "Confirmation", MessageBoxButtons.YesNo);
-                    if (dialogResult == DialogResult.Yes)
-                    {
-                        MultiConvertProgress dialog = new MultiConvertProgress(converter);
-                        dialog.outputDir = converter.outputDir;
-                        dialog.ShowDialog();
-                    }
-                }
-            }
-            else
+            if (dialogResult == DialogResult.Yes)
             {
-                MessageBox.Show("Invalid file name.");
+                MultiConvertProgress dialog = new MultiConvertProgress(converter);
+                dialog.outputDir = converter.outputDir;
+                dialog.ShowDialog();
             }
         }
 
@@ -194,12 +134,12 @@ namespace Image_Converter
                 }
             }
 
-            checkBothSelected();
+            verifyListAndOutputDirectory();
         }
 
-        private void checkBothSelected()
+        private void verifyListAndOutputDirectory()
         {
-            if (lblFilePath.Text != null && lblFilePath.Text != "" && lblOutputDirectory.Text != null && lblOutputDirectory.Text != "")
+            if (listFileEntries.Items.Count > 0 && lblOutputDirectory.Text != null && lblOutputDirectory.Text != "")
             {
                 btnConvert.Enabled = true;
                 btnConvert.BackColor = Color.FromArgb(0, 175, 175);
@@ -278,23 +218,9 @@ namespace Image_Converter
             }
         }
 
-        private void radBtnMulti_CheckedChanged(object sender, EventArgs e)
-        {
-            lblSelectImage.Text = "Select Folder:";
-            lblFilePath.Text = "";
-            checkBothSelected();
-        }
-
-        private void radBtnSingle_CheckedChanged(object sender, EventArgs e)
-        {
-            lblSelectImage.Text = "Select Image file:";
-            lblFilePath.Text = "";
-            checkBothSelected();
-        }
-
         private void txtFileName_MouseEnter(object sender, EventArgs e)
         {
-            if (radBtnMulti.Checked == true)
+            if (chkBoxKeepFilenames.Checked == false)
             {
                 tt = new ToolTip();
                 tt.InitialDelay = 0;
@@ -305,18 +231,10 @@ namespace Image_Converter
 
         private void txtFileName_MouseLeave(object sender, EventArgs e)
         {
-            if (radBtnMulti.Checked == true)
+            if (chkBoxKeepFilenames.Checked == false)
             {
                 tt.Dispose();
             }
-        }
-
-        private void radBtnMulti_MouseEnter(object sender, EventArgs e)
-        {
-            tt = new ToolTip();
-            tt.InitialDelay = 0;
-            tt.Show(string.Empty, txtFileName);
-            tt.Show("This setting converts an entire folder of images to the specified folder.", radBtnMulti, 0);
         }
 
         private void radBtnMulti_MouseLeave(object sender, EventArgs e)
@@ -401,8 +319,80 @@ namespace Image_Converter
                 howBigBytes = "KB";
                 length = length / 1000;
             }
-            
+
             return length.ToString() + " " + howBigBytes;
+        }
+
+        private void groupBoxImport_DragDrop(object sender, DragEventArgs e)
+        {
+            List<string> fileEntries = new List<string>();
+            foreach (var item in (string[])e.Data.GetData(DataFormats.FileDrop, false)) // loops through all selected items (files and folders)
+            {
+                if (Directory.Exists(item)) // checks if selected item is a folder
+                {
+                    string[] filesInSelectedDirectory = Directory.GetFiles(item); // grabs all files in selected directory
+                    for (int i = 0; i < filesInSelectedDirectory.Length; i++)
+                    {
+                        fileEntries.Add(filesInSelectedDirectory[i]); // adds files from directory to the total fileEntries
+                    }
+                }
+                else
+                {
+                    fileEntries.AddRange(e.Data.GetData(DataFormats.FileDrop) as string[]); // adds selected item to fileEntries (this is a single file)
+                }
+            }
+            for (int i = 0; i < fileEntries.Count; i++)
+            {
+                using (Stream stream = new FileStream(fileEntries[i].ToString(), FileMode.Open))
+                {
+                    String[] row = { fileEntries[i], GetFileSizeString(stream) };
+                    ListViewItem item = new ListViewItem(row);
+                    listFileEntries.Items.Add(item);
+                }
+            }
+        }
+
+        private void groupBoxImport_DragOver(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                e.Effect = DragDropEffects.Link;
+            }
+            else
+            {
+                DragDropEffects effects = DragDropEffects.None;
+                if (e.Data.GetDataPresent(DataFormats.FileDrop))
+                {
+                    var path = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
+                    if (Directory.Exists(path))
+                        effects = DragDropEffects.Copy;
+                }
+
+                e.Effect = effects;
+            }
+        }
+
+        private void btnClearList_Click(object sender, EventArgs e)
+        {
+            bool ok = false;
+            DialogResult dialogResult = MessageBox.Show("This action will clear the list. Do you want to continue?", "Confirmation", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.No)
+            {
+                ok = false;
+            }
+            else
+            {
+                ok = true;
+            }
+            if (ok)
+            {
+                listFileEntries.Items.Clear();
+                imagePreview.Image = null;
+                imagePreview.Width = 64;
+                imagePreview.Height = 64;
+                lblFileSize.Text = "";
+                lblResolution.Text = "";
+            }
         }
     }
 }

@@ -43,6 +43,7 @@ namespace Image_Converter
             // image preview layout
             imagePreview.SizeMode = PictureBoxSizeMode.AutoSize;
             previewSplitContainer.Panel2.AutoScroll = true;
+
         }
 
         private void btnChooseFile_Click(object sender, EventArgs e)
@@ -302,6 +303,8 @@ namespace Image_Converter
             {
                 MessageBox.Show("Unsupported format.");
             }
+
+            CenterPreviewImage();
         }
 
         private String GetFileSizeString(Stream stream)
@@ -366,6 +369,8 @@ namespace Image_Converter
                     listFileEntries.Items.Add(item);
                 }
             }
+
+            verifyListAndOutputDirectory();
         }
 
         private void groupBoxImport_DragOver(object sender, DragEventArgs e)
@@ -403,12 +408,24 @@ namespace Image_Converter
             if (ok)
             {
                 listFileEntries.Items.Clear();
+                verifyListAndOutputDirectory();
                 imagePreview.Image = null;
                 imagePreview.Width = 64;
                 imagePreview.Height = 64;
                 lblFileSize.Text = "";
                 lblResolution.Text = "";
             }
+        }
+
+        private void previewSplitContainer_Panel2_Resize(object sender, EventArgs e)
+        {
+            CenterPreviewImage();
+            lblResolution.Location = new Point(previewSplitContainer.Location.X + previewSplitContainer.Panel1.Width, lblResolution.Location.Y);
+        }
+
+        private void CenterPreviewImage()
+        {
+            imagePreview.Location = new Point((previewSplitContainer.Panel2.Width / 2) - (imagePreview.Width / 2), (previewSplitContainer.Panel2.Height / 2) - (imagePreview.Height / 2));
         }
     }
 }

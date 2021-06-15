@@ -336,6 +336,7 @@
             // 
             // previewSplitContainer
             // 
+            this.previewSplitContainer.AllowDrop = true;
             this.previewSplitContainer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -351,9 +352,12 @@
             // previewSplitContainer.Panel2
             // 
             this.previewSplitContainer.Panel2.Controls.Add(this.imagePreview);
+            this.previewSplitContainer.Panel2.Resize += new System.EventHandler(this.previewSplitContainer_Panel2_Resize);
             this.previewSplitContainer.Size = new System.Drawing.Size(489, 186);
             this.previewSplitContainer.SplitterDistance = 162;
             this.previewSplitContainer.TabIndex = 23;
+            this.previewSplitContainer.DragDrop += new System.Windows.Forms.DragEventHandler(this.groupBoxImport_DragDrop);
+            this.previewSplitContainer.DragOver += new System.Windows.Forms.DragEventHandler(this.groupBoxImport_DragOver);
             // 
             // lblResolution
             // 

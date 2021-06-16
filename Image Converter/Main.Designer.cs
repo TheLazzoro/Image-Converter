@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.btnInputFile = new System.Windows.Forms.Button();
             this.btnConvert = new System.Windows.Forms.Button();
@@ -50,6 +51,7 @@
             this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
             this.previewSplitContainer = new System.Windows.Forms.SplitContainer();
+            this.lblPreviewError = new System.Windows.Forms.Label();
             this.lblResolution = new System.Windows.Forms.Label();
             this.lblFileSize = new System.Windows.Forms.Label();
             this.btnClearList = new System.Windows.Forms.Button();
@@ -61,6 +63,11 @@
             this.btnInputFolder = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblItems = new System.Windows.Forms.Label();
+            this.checkBoxTransparencyGrid = new System.Windows.Forms.CheckBox();
+            this.contextMenuStripFiles = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.openFileLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeFromListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.convertToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.trckbarImageQuality)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imagePreview)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.previewSplitContainer)).BeginInit();
@@ -70,6 +77,7 @@
             this.groupBoxImport.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
+            this.contextMenuStripFiles.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnInputFile
@@ -97,12 +105,12 @@
             this.btnConvert.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnConvert.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnConvert.ForeColor = System.Drawing.SystemColors.Window;
-            this.btnConvert.Location = new System.Drawing.Point(415, 511);
+            this.btnConvert.Location = new System.Drawing.Point(384, 511);
             this.btnConvert.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnConvert.Name = "btnConvert";
-            this.btnConvert.Size = new System.Drawing.Size(88, 27);
+            this.btnConvert.Size = new System.Drawing.Size(119, 27);
             this.btnConvert.TabIndex = 3;
-            this.btnConvert.Text = "Convert";
+            this.btnConvert.Text = "Convert All";
             this.btnConvert.UseVisualStyleBackColor = false;
             this.btnConvert.Click += new System.EventHandler(this.btnConvert_Click);
             // 
@@ -217,14 +225,13 @@
             // 
             // txtFileName
             // 
-            this.txtFileName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtFileName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.txtFileName.BackColor = System.Drawing.Color.GhostWhite;
             this.txtFileName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.txtFileName.Location = new System.Drawing.Point(14, 516);
             this.txtFileName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtFileName.Name = "txtFileName";
-            this.txtFileName.Size = new System.Drawing.Size(193, 22);
+            this.txtFileName.Size = new System.Drawing.Size(248, 22);
             this.txtFileName.TabIndex = 0;
             this.txtFileName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFileName_KeyPress);
             this.txtFileName.MouseEnter += new System.EventHandler(this.txtFileName_MouseEnter);
@@ -244,11 +251,11 @@
             // 
             // lblFileFormat
             // 
-            this.lblFileFormat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblFileFormat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblFileFormat.AutoSize = true;
             this.lblFileFormat.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblFileFormat.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.lblFileFormat.Location = new System.Drawing.Point(215, 519);
+            this.lblFileFormat.Location = new System.Drawing.Point(270, 519);
             this.lblFileFormat.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblFileFormat.Name = "lblFileFormat";
             this.lblFileFormat.Size = new System.Drawing.Size(27, 15);
@@ -300,10 +307,15 @@
             // 
             // imagePreview
             // 
+            this.imagePreview.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.imagePreview.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.imagePreview.Location = new System.Drawing.Point(0, 0);
+            this.imagePreview.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("imagePreview.BackgroundImage")));
+            this.imagePreview.Location = new System.Drawing.Point(3, 3);
             this.imagePreview.Name = "imagePreview";
-            this.imagePreview.Size = new System.Drawing.Size(318, 181);
+            this.imagePreview.Size = new System.Drawing.Size(312, 178);
+            this.imagePreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.imagePreview.TabIndex = 19;
             this.imagePreview.TabStop = false;
             // 
@@ -324,6 +336,7 @@
             this.listFileEntries.UseCompatibleStateImageBehavior = false;
             this.listFileEntries.View = System.Windows.Forms.View.Details;
             this.listFileEntries.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.listFileEntries_ItemSelectionChanged);
+            this.listFileEntries.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listFileEntries_MouseClick);
             // 
             // columnHeader1
             // 
@@ -353,6 +366,8 @@
             // 
             // previewSplitContainer.Panel2
             // 
+            this.previewSplitContainer.Panel2.AutoScroll = true;
+            this.previewSplitContainer.Panel2.Controls.Add(this.lblPreviewError);
             this.previewSplitContainer.Panel2.Controls.Add(this.imagePreview);
             this.previewSplitContainer.Panel2.Resize += new System.EventHandler(this.previewSplitContainer_Panel2_Resize);
             this.previewSplitContainer.Size = new System.Drawing.Size(489, 186);
@@ -360,6 +375,20 @@
             this.previewSplitContainer.TabIndex = 23;
             this.previewSplitContainer.DragDrop += new System.Windows.Forms.DragEventHandler(this.groupBoxImport_DragDrop);
             this.previewSplitContainer.DragOver += new System.Windows.Forms.DragEventHandler(this.groupBoxImport_DragOver);
+            // 
+            // lblPreviewError
+            // 
+            this.lblPreviewError.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblPreviewError.AutoSize = true;
+            this.lblPreviewError.BackColor = System.Drawing.Color.Transparent;
+            this.lblPreviewError.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblPreviewError.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.lblPreviewError.Location = new System.Drawing.Point(104, 83);
+            this.lblPreviewError.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblPreviewError.Name = "lblPreviewError";
+            this.lblPreviewError.Size = new System.Drawing.Size(118, 15);
+            this.lblPreviewError.TabIndex = 31;
+            this.lblPreviewError.Text = "Preview Unavailable";
             // 
             // lblResolution
             // 
@@ -511,6 +540,50 @@
             this.lblItems.Text = "Items: 0";
             this.lblItems.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // checkBoxTransparencyGrid
+            // 
+            this.checkBoxTransparencyGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBoxTransparencyGrid.AutoSize = true;
+            this.checkBoxTransparencyGrid.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.checkBoxTransparencyGrid.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.checkBoxTransparencyGrid.Location = new System.Drawing.Point(376, 115);
+            this.checkBoxTransparencyGrid.Name = "checkBoxTransparencyGrid";
+            this.checkBoxTransparencyGrid.Size = new System.Drawing.Size(126, 19);
+            this.checkBoxTransparencyGrid.TabIndex = 30;
+            this.checkBoxTransparencyGrid.Text = "Transparency Grid";
+            this.checkBoxTransparencyGrid.UseVisualStyleBackColor = true;
+            this.checkBoxTransparencyGrid.CheckedChanged += new System.EventHandler(this.checkBoxTransparencyGrid_CheckedChanged);
+            // 
+            // contextMenuStripFiles
+            // 
+            this.contextMenuStripFiles.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openFileLocationToolStripMenuItem,
+            this.removeFromListToolStripMenuItem,
+            this.convertToolStripMenuItem});
+            this.contextMenuStripFiles.Name = "contextMenuStripFiles";
+            this.contextMenuStripFiles.Size = new System.Drawing.Size(174, 70);
+            // 
+            // openFileLocationToolStripMenuItem
+            // 
+            this.openFileLocationToolStripMenuItem.Name = "openFileLocationToolStripMenuItem";
+            this.openFileLocationToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.openFileLocationToolStripMenuItem.Text = "Convert";
+            this.openFileLocationToolStripMenuItem.Click += new System.EventHandler(this.convertToolStripMenuItem_Click);
+            // 
+            // removeFromListToolStripMenuItem
+            // 
+            this.removeFromListToolStripMenuItem.Name = "removeFromListToolStripMenuItem";
+            this.removeFromListToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.removeFromListToolStripMenuItem.Text = "Open File Location";
+            this.removeFromListToolStripMenuItem.Click += new System.EventHandler(this.openFileLocationToolStripMenuItem_Click);
+            // 
+            // convertToolStripMenuItem
+            // 
+            this.convertToolStripMenuItem.Name = "convertToolStripMenuItem";
+            this.convertToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.convertToolStripMenuItem.Text = "Remove From List";
+            this.convertToolStripMenuItem.Click += new System.EventHandler(this.removeFromListToolStripMenuItem_Click);
+            // 
             // Main
             // 
             this.AllowDrop = true;
@@ -518,6 +591,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(515, 548);
+            this.Controls.Add(this.checkBoxTransparencyGrid);
             this.Controls.Add(this.lblItems);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnClearList);
@@ -541,7 +615,6 @@
             this.Controls.Add(this.btnConvert);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(531, 587);
             this.Name = "Main";
             this.Text = "Image Converter v0.3";
@@ -550,12 +623,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.imagePreview)).EndInit();
             this.previewSplitContainer.Panel1.ResumeLayout(false);
             this.previewSplitContainer.Panel2.ResumeLayout(false);
+            this.previewSplitContainer.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.previewSplitContainer)).EndInit();
             this.previewSplitContainer.ResumeLayout(false);
             this.groupBoxImport.ResumeLayout(false);
             this.groupBoxImport.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
+            this.contextMenuStripFiles.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -594,6 +669,12 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lblItems;
+        private System.Windows.Forms.CheckBox checkBoxTransparencyGrid;
+        private System.Windows.Forms.Label lblPreviewError;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripFiles;
+        private System.Windows.Forms.ToolStripMenuItem openFileLocationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem removeFromListToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem convertToolStripMenuItem;
     }
 }
 

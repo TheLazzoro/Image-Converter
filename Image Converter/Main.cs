@@ -20,6 +20,8 @@ namespace Image_Converter
     {
         private ToolTip tt;
         private ConvertImage converter;
+        private System.Drawing.Image currentPreviewReferenceImage;
+        private System.Drawing.Image previewBackgroundImage;
 
         public Main()
         {
@@ -41,10 +43,13 @@ namespace Image_Converter
             cmboxDDSList.Items.Add("BC3 (DXT4 or DTX5), RGBA | interpolated alpha");
             cmboxDDSList.SelectedIndex = 0;
 
-            // image preview layout
-            imagePreview.SizeMode = PictureBoxSizeMode.AutoSize;
-            previewSplitContainer.Panel2.AutoScroll = true;
+            // Image preview layout
+            imagePreview.SizeMode = PictureBoxSizeMode.AutoSize; // questionable?
+            lblPreviewError.Text = "";
 
+            // Save background image and hide it on init.
+            previewBackgroundImage = imagePreview.BackgroundImage;
+            imagePreview.BackgroundImage = null;
         }
 
         private void btnChooseFile_Click(object sender, EventArgs e)
@@ -272,13 +277,17 @@ namespace Image_Converter
                     Bitmap actualPreview = new Bitmap(image.Width, image.Height);
 
                     Stream stream = new System.IO.MemoryStream();
-                    image.SaveAsBmp(stream);
+                    SixLabors.ImageSharp.Formats.Bmp.BmpEncoder bmpEncoder = new SixLabors.ImageSharp.Formats.Bmp.BmpEncoder(); // we need an encoder to preserve transparency.
+                    bmpEncoder.BitsPerPixel = SixLabors.ImageSharp.Formats.Bmp.BmpBitsPerPixel.Pixel32; // bitmap transparency needs 32 bits per pixel before we set transparency support.
+                    bmpEncoder.SupportTransparency = true;
+                    image.SaveAsBmp(stream, bmpEncoder);
                     System.Drawing.Image img = System.Drawing.Image.FromStream(stream);
                     if(imagePreview.Image != null)
                     {
                         imagePreview.Image.Dispose();
                     }
                     imagePreview.Image = img;
+                    currentPreviewReferenceImage = img;
 
                     using (Stream fs = new FileStream(filePath, FileMode.Open))
                     {
@@ -287,10 +296,14 @@ namespace Image_Converter
                     lblResolution.Text = "Resolution: " + image.Width + "x" + image.Height;
 
                     image.Dispose();
+                    lblPreviewError.Text = "";
+
                 }
                 else
                 {
-                    MessageBox.Show("Unsupported format.");
+                    imagePreview.Image = null;
+                    currentPreviewReferenceImage = null;
+                    lblPreviewError.Text = "Preview unavailable.";
                 }
             }
             catch (Exception)
@@ -298,7 +311,7 @@ namespace Image_Converter
                 MessageBox.Show("Unsupported format.");
             }
 
-            CenterPreviewImage();
+            CenterAndScalePreviewImage();
         }
 
         private String GetFileSizeString(Stream stream)
@@ -404,6 +417,7 @@ namespace Image_Converter
                 listFileEntries.Items.Clear();
                 verifyListAndOutputDirectory();
                 imagePreview.Image = null;
+                currentPreviewReferenceImage = null;
                 imagePreview.Width = 64;
                 imagePreview.Height = 64;
                 lblFileSize.Text = "";
@@ -413,14 +427,85 @@ namespace Image_Converter
 
         private void previewSplitContainer_Panel2_Resize(object sender, EventArgs e)
         {
-            CenterPreviewImage();
+            CenterAndScalePreviewImage();
             lblResolution.Location = new System.Drawing.Point(previewSplitContainer.Location.X + previewSplitContainer.Panel1.Width, previewSplitContainer.Location.Y + previewSplitContainer.Panel2.Height);
             lblItems.Location = new System.Drawing.Point(previewSplitContainer.Location.X, previewSplitContainer.Location.Y + previewSplitContainer.Panel1.Height);
         }
 
-        private void CenterPreviewImage()
+        private void CenterAndScalePreviewImage()
         {
-            imagePreview.Location = new System.Drawing.Point((previewSplitContainer.Panel2.Width / 2) - (imagePreview.Width / 2), (previewSplitContainer.Panel2.Height / 2) - (imagePreview.Height / 2));
+            if(currentPreviewReferenceImage != null) { 
+                float sourceImgRatio = (float) currentPreviewReferenceImage.Width / (float) currentPreviewReferenceImage.Height;
+                float previewWindowRatio = (float) previewSplitContainer.Panel2.Width / (float) previewSplitContainer.Panel2.Height;
+                System.Drawing.Size correctedSize;
+                if(previewWindowRatio > sourceImgRatio)
+                {
+                    correctedSize = new System.Drawing.Size((int) (previewSplitContainer.Panel2.Height * sourceImgRatio), (int)previewSplitContainer.Panel2.Height);
+                } else
+                {
+                    correctedSize = new System.Drawing.Size((int) previewSplitContainer.Panel2.Width, (int) (previewSplitContainer.Panel2.Width / sourceImgRatio));
+                }
+
+                // Preview size exceeds image size
+                if(correctedSize.Width > currentPreviewReferenceImage.Width)
+                {
+                    correctedSize.Width = currentPreviewReferenceImage.Width;
+                }
+                if (correctedSize.Height > currentPreviewReferenceImage.Height)
+                {
+                    correctedSize.Height = currentPreviewReferenceImage.Height;
+                }
+                Bitmap bmp = new Bitmap(currentPreviewReferenceImage, correctedSize);
+                imagePreview.Image = bmp;
+            }
+            
+            System.Drawing.Point previewCenter = new System.Drawing.Point((previewSplitContainer.Panel2.Width / 2) - (imagePreview.Width / 2), (previewSplitContainer.Panel2.Height / 2) - (imagePreview.Height / 2));
+            imagePreview.Location = previewCenter;
+            lblPreviewError.Location = previewCenter;
+            //imagePreview.Size = new System.Drawing.Size( previewSplitContainer.Panel2.Width, previewSplitContainer.Panel2.Height);
+        }
+
+        private void checkBoxTransparencyGrid_CheckedChanged(object sender, EventArgs e)
+        {
+            if(checkBoxTransparencyGrid.Checked == true)
+            {
+                imagePreview.BackgroundImage = previewBackgroundImage;
+            } else
+            {
+                imagePreview.BackgroundImage = null;
+            }
+        }
+
+
+        private void listFileEntries_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                if (listFileEntries.FocusedItem.Bounds.Contains(e.Location))
+                {
+                    contextMenuStripFiles.Show(Cursor.Position);
+                }
+            }
+        }
+        private void convertToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void openFileLocationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (File.Exists(listFileEntries.SelectedItems[0].Text))
+            {
+                Process.Start("explorer.exe", "/select," + listFileEntries.SelectedItems[0].Text);
+            }
+        }
+
+        private void removeFromListToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int count = listFileEntries.SelectedItems.Count;
+            for(int i = 0; i < count; i++)
+            {
+                listFileEntries.Items.Remove(listFileEntries.SelectedItems[0]);
+            }
         }
     }
 }

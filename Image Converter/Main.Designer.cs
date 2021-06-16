@@ -378,12 +378,11 @@
             // 
             // lblPreviewError
             // 
-            this.lblPreviewError.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblPreviewError.AutoSize = true;
             this.lblPreviewError.BackColor = System.Drawing.Color.Transparent;
             this.lblPreviewError.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblPreviewError.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.lblPreviewError.Location = new System.Drawing.Point(104, 83);
+            this.lblPreviewError.Location = new System.Drawing.Point(4, 3);
             this.lblPreviewError.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblPreviewError.Name = "lblPreviewError";
             this.lblPreviewError.Size = new System.Drawing.Size(118, 15);

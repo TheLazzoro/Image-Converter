@@ -94,13 +94,12 @@ namespace Image_Converter
             }
 
             verifyListAndOutputDirectory();
-
         }
 
         private void btnConvert_Click(object sender, EventArgs e)
         {
             List<string> fileEntries = new List<string>();
-            for(int i = 0; i < listFileEntries.Items.Count; i++)
+            for (int i = 0; i < listFileEntries.Items.Count; i++)
             {
                 fileEntries.Add(listFileEntries.Items[i].Text);
             }
@@ -112,10 +111,10 @@ namespace Image_Converter
             converter.selectedDDSCompression = cmboxDDSList.SelectedIndex; // dds compression
             converter.generateMipMaps = chkBoxMipmaps.Checked; // dds mipmaps
             converter.Init(cmboxOutputFormat.SelectedIndex);
-                    converter.isMultipleFiles = true;
+            converter.isMultipleFiles = true;
 
-                    DialogResult dialogResult = MessageBox.Show("This action will overwrite any existing files with the same name in the output directory." +
-                        "\n\nDo you want to continue?", "Confirmation", MessageBoxButtons.YesNo);
+            DialogResult dialogResult = MessageBox.Show("This action will overwrite any existing files with the same name in the output directory." +
+                "\n\nDo you want to continue?", "Confirmation", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
                 MultiConvertProgress dialog = new MultiConvertProgress(converter);
@@ -282,28 +281,27 @@ namespace Image_Converter
                     bmpEncoder.SupportTransparency = true;
                     image.SaveAsBmp(stream, bmpEncoder);
                     System.Drawing.Image img = System.Drawing.Image.FromStream(stream);
-                    if(imagePreview.Image != null)
+                    if (imagePreview.Image != null)
                     {
                         imagePreview.Image.Dispose();
                     }
                     imagePreview.Image = img;
                     currentPreviewReferenceImage = img;
-
-                    using (Stream fs = new FileStream(filePath, FileMode.Open))
-                    {
-                        lblFileSize.Text = GetFileSizeString(fs);
-                    }
                     lblResolution.Text = "Resolution: " + image.Width + "x" + image.Height;
 
                     image.Dispose();
                     lblPreviewError.Text = "";
-
                 }
                 else
                 {
                     imagePreview.Image = null;
                     currentPreviewReferenceImage = null;
-                    lblPreviewError.Text = "Preview unavailable.";
+                    lblResolution.Text = "Resolution: N/A";
+                    lblPreviewError.Text = "Preview unavailable";
+                }
+                using (Stream fs = new FileStream(filePath, FileMode.Open))
+                {
+                    lblFileSize.Text = GetFileSizeString(fs);
                 }
             }
             catch (Exception)
@@ -331,14 +329,15 @@ namespace Image_Converter
 
             String finalText = "";
             int dotPlacementHelper = 0;
-            for(int i = textLength; i > 0; i--)
+            for (int i = textLength; i > 0; i--)
             {
-                if(dotPlacementHelper % 3 == 0 && dotPlacementHelper != 0)
+                if (dotPlacementHelper % 3 == 0 && dotPlacementHelper != 0)
                 {
-                    finalText += "." + text.Substring(i-1, 1);
-                } else
+                    finalText += "." + text.Substring(i - 1, 1);
+                }
+                else
                 {
-                    finalText += text.Substring(i-1, 1);
+                    finalText += text.Substring(i - 1, 1);
                 }
                 dotPlacementHelper++;
             }
@@ -352,9 +351,9 @@ namespace Image_Converter
         private void groupBoxImport_DragDrop(object sender, DragEventArgs e)
         {
             List<string> fileEntries = new List<string>();
-            foreach (var item in (string[])e.Data.GetData(DataFormats.FileDrop, false)) // loops through all selected items (files and folders)
+            foreach (var item in (string[])e.Data.GetData(DataFormats.FileDrop, false)) // loops through all selected items (files and directories)
             {
-                if (Directory.Exists(item)) // checks if selected item is a folder
+                if (Directory.Exists(item)) // checks if selected item is a directories
                 {
                     string[] filesInSelectedDirectory = Directory.GetFiles(item); // grabs all files in selected directory
                     for (int i = 0; i < filesInSelectedDirectory.Length; i++)
@@ -434,20 +433,22 @@ namespace Image_Converter
 
         private void CenterAndScalePreviewImage()
         {
-            if(currentPreviewReferenceImage != null) { 
-                float sourceImgRatio = (float) currentPreviewReferenceImage.Width / (float) currentPreviewReferenceImage.Height;
-                float previewWindowRatio = (float) previewSplitContainer.Panel2.Width / (float) previewSplitContainer.Panel2.Height;
+            if (currentPreviewReferenceImage != null)
+            {
+                float sourceImgRatio = (float)currentPreviewReferenceImage.Width / (float)currentPreviewReferenceImage.Height;
+                float previewWindowRatio = (float)previewSplitContainer.Panel2.Width / (float)previewSplitContainer.Panel2.Height;
                 System.Drawing.Size correctedSize;
-                if(previewWindowRatio > sourceImgRatio)
+                if (previewWindowRatio > sourceImgRatio)
                 {
-                    correctedSize = new System.Drawing.Size((int) (previewSplitContainer.Panel2.Height * sourceImgRatio), (int)previewSplitContainer.Panel2.Height);
-                } else
+                    correctedSize = new System.Drawing.Size((int)(previewSplitContainer.Panel2.Height * sourceImgRatio), (int)previewSplitContainer.Panel2.Height);
+                }
+                else
                 {
-                    correctedSize = new System.Drawing.Size((int) previewSplitContainer.Panel2.Width, (int) (previewSplitContainer.Panel2.Width / sourceImgRatio));
+                    correctedSize = new System.Drawing.Size((int)previewSplitContainer.Panel2.Width, (int)(previewSplitContainer.Panel2.Width / sourceImgRatio));
                 }
 
                 // Preview size exceeds image size
-                if(correctedSize.Width > currentPreviewReferenceImage.Width)
+                if (correctedSize.Width > currentPreviewReferenceImage.Width)
                 {
                     correctedSize.Width = currentPreviewReferenceImage.Width;
                 }
@@ -458,19 +459,20 @@ namespace Image_Converter
                 Bitmap bmp = new Bitmap(currentPreviewReferenceImage, correctedSize);
                 imagePreview.Image = bmp;
             }
-            
+
             System.Drawing.Point previewCenter = new System.Drawing.Point((previewSplitContainer.Panel2.Width / 2) - (imagePreview.Width / 2), (previewSplitContainer.Panel2.Height / 2) - (imagePreview.Height / 2));
             imagePreview.Location = previewCenter;
-            lblPreviewError.Location = previewCenter;
+            //lblPreviewError.Location = previewCenter;
             //imagePreview.Size = new System.Drawing.Size( previewSplitContainer.Panel2.Width, previewSplitContainer.Panel2.Height);
         }
 
         private void checkBoxTransparencyGrid_CheckedChanged(object sender, EventArgs e)
         {
-            if(checkBoxTransparencyGrid.Checked == true)
+            if (checkBoxTransparencyGrid.Checked == true)
             {
                 imagePreview.BackgroundImage = previewBackgroundImage;
-            } else
+            }
+            else
             {
                 imagePreview.BackgroundImage = null;
             }
@@ -502,7 +504,7 @@ namespace Image_Converter
         private void removeFromListToolStripMenuItem_Click(object sender, EventArgs e)
         {
             int count = listFileEntries.SelectedItems.Count;
-            for(int i = 0; i < count; i++)
+            for (int i = 0; i < count; i++)
             {
                 listFileEntries.Items.Remove(listFileEntries.SelectedItems[0]);
             }

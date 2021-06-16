@@ -145,6 +145,9 @@ namespace Image_Converter
                 case ".jpg":
                     imageToConvert = ReadLegacy(filePath);
                     break;
+                case ".jpeg":
+                    imageToConvert = ReadLegacy(filePath);
+                    break;
                 case ".png":
                     imageToConvert = ReadLegacy(filePath);
                     break;
@@ -192,9 +195,8 @@ namespace Image_Converter
             return new string(charArray);
         }
 
-        private String GetInputFileName()
+        private String GetInputFileName(String filePath)
         {
-            String filePath = fileEntries[currentEntry];
             String fileName = "";
 
             char cCurrent;
@@ -324,7 +326,7 @@ namespace Image_Converter
                 String path;
                 if (keepFileNames)
                 {
-                    path = outputDir + GetInputFileName() + outputFiletype;
+                    path = outputDir + GetInputFileName(fileEntries[currentEntry]) + outputFiletype;
                 }
                 else if (isMultipleFiles)
                 {
@@ -356,7 +358,7 @@ namespace Image_Converter
                 String path;
                 if (keepFileNames)
                 {
-                    path = outputDir + GetInputFileName() + outputFiletype;
+                    path = outputDir + GetInputFileName(fileEntries[currentEntry]) + outputFiletype;
                 }
                 else if (isMultipleFiles)
                 {
@@ -388,7 +390,7 @@ namespace Image_Converter
                 String path;
                 if (keepFileNames)
                 {
-                    path = outputDir + GetInputFileName() + outputFiletype;
+                    path = outputDir + GetInputFileName(fileEntries[currentEntry]) + outputFiletype;
                 }
                 else if (isMultipleFiles)
                 {
@@ -420,7 +422,7 @@ namespace Image_Converter
                 String path;
                 if (keepFileNames)
                 {
-                    path = outputDir + GetInputFileName() + outputFiletype;
+                    path = outputDir + GetInputFileName(fileEntries[currentEntry]) + outputFiletype;
                 }
                 else if (isMultipleFiles)
                 {
@@ -452,7 +454,7 @@ namespace Image_Converter
                 String path;
                 if (keepFileNames)
                 {
-                    path = outputDir + GetInputFileName() + outputFiletype;
+                    path = outputDir + GetInputFileName(fileEntries[currentEntry]) + outputFiletype;
                 }
                 else if (isMultipleFiles)
                 {

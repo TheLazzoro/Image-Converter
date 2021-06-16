@@ -64,6 +64,10 @@ namespace Image_Converter
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 string selectedFileName = openFileDialog1.FileName;
+                using (Stream stream = new FileStream(selectedFileName, FileMode.Open))
+                {
+                    AddItemToList(selectedFileName, stream);
+                }
                 DisplayPreviewImage(selectedFileName);
                 btnConvert.Enabled = true;
             }
@@ -85,9 +89,7 @@ namespace Image_Converter
                     {
                         using (Stream stream = new FileStream(fileEntries[i], FileMode.Open))
                         {
-                            String[] row = { fileEntries[i], GetFileSizeString(stream) };
-                            ListViewItem item = new ListViewItem(row);
-                            listFileEntries.Items.Add(item);
+                            AddItemToList(fileEntries[i], stream);
                         }
                     }
                 }
@@ -96,12 +98,106 @@ namespace Image_Converter
             verifyListAndOutputDirectory();
         }
 
+        private void groupBoxImport_DragDrop(object sender, DragEventArgs e)
+        {
+            List<string> fileEntries = new List<string>();
+            foreach (var item in (string[])e.Data.GetData(DataFormats.FileDrop, false)) // loops through all selected items (files and directories)
+            {
+                if (Directory.Exists(item)) // checks if selected item is a directories
+                {
+                    string[] filesInSelectedDirectory = Directory.GetFiles(item); // grabs all files in selected directory
+                    for (int i = 0; i < filesInSelectedDirectory.Length; i++)
+                    {
+                        fileEntries.Add(filesInSelectedDirectory[i]); // adds files from directory to the total fileEntries
+                    }
+                }
+                else
+                {
+                    fileEntries.Add(item); // adds selected item to fileEntries (this is a single file)
+                }
+            }
+            for (int i = 0; i < fileEntries.Count; i++) // loop through all entries and add them
+            {
+                using (Stream stream = new FileStream(fileEntries[i].ToString(), FileMode.Open))
+                {
+                    AddItemToList(fileEntries[i], stream);
+                }
+            }
+
+            verifyListAndOutputDirectory();
+        }
+
+        private void groupBoxImport_DragOver(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                e.Effect = DragDropEffects.Link;
+            }
+            else
+            {
+                DragDropEffects effects = DragDropEffects.None;
+                if (e.Data.GetDataPresent(DataFormats.FileDrop))
+                {
+                    var path = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
+                    if (Directory.Exists(path))
+                        effects = DragDropEffects.Copy;
+                }
+
+                e.Effect = effects;
+            }
+        }
+
+        private void AddItemToList(string fileEntry, Stream stream)
+        {
+            string filename = GetInputFileNameAndExtension(fileEntry);
+            String[] row = { filename, GetFileSizeString(stream) };
+            ListViewItem item = new ListViewItem(row);
+            item.Tag = fileEntry;
+            listFileEntries.Items.Add(item);
+        }
+
+        private String GetInputFileNameAndExtension(String filePath)
+        {
+            String fileName = "";
+
+            char cCurrent;
+            int sub = 0;
+            bool start = true;
+            bool end = false;
+            while (!end)
+            {
+                cCurrent = filePath[filePath.Length - 1 - sub];
+                if (start)
+                {
+                    if (cCurrent == '/' || cCurrent == '\\')
+                    {
+                        end = true;
+                    }
+                    if (!end)
+                    {
+                        fileName += cCurrent; // appends file name to the string (opposite order, but we flip it later)
+                    }
+                }
+
+                sub++;
+            }
+
+            char[] charArray = fileName.ToCharArray();
+            Array.Reverse(charArray); // flips string
+
+            return new string(charArray);
+        }
+
+        private void ConvertSingle(string fileEntry) {
+            
+        }
+
         private void btnConvert_Click(object sender, EventArgs e)
         {
             List<string> fileEntries = new List<string>();
             for (int i = 0; i < listFileEntries.Items.Count; i++)
             {
-                fileEntries.Add(listFileEntries.Items[i].Text);
+                fileEntries.Add(listFileEntries.Items[i].Tag.ToString());
             }
             converter.fileEntries = fileEntries.ToArray();
             converter.outputDir = lblOutputDirectory.Text + @"\";
@@ -262,7 +358,7 @@ namespace Image_Converter
         {
             if (e.IsSelected)
             {
-                DisplayPreviewImage(listFileEntries.Items[e.ItemIndex].Text);
+                DisplayPreviewImage(listFileEntries.Items[e.ItemIndex].Tag.ToString());
             }
         }
 
@@ -348,57 +444,6 @@ namespace Image_Converter
             return new string(charArray) + " " + howBigBytes;
         }
 
-        private void groupBoxImport_DragDrop(object sender, DragEventArgs e)
-        {
-            List<string> fileEntries = new List<string>();
-            foreach (var item in (string[])e.Data.GetData(DataFormats.FileDrop, false)) // loops through all selected items (files and directories)
-            {
-                if (Directory.Exists(item)) // checks if selected item is a directories
-                {
-                    string[] filesInSelectedDirectory = Directory.GetFiles(item); // grabs all files in selected directory
-                    for (int i = 0; i < filesInSelectedDirectory.Length; i++)
-                    {
-                        fileEntries.Add(filesInSelectedDirectory[i]); // adds files from directory to the total fileEntries
-                    }
-                }
-                else
-                {
-                    fileEntries.Add(item); // adds selected item to fileEntries (this is a single file)
-                }
-            }
-            for (int i = 0; i < fileEntries.Count; i++)
-            {
-                using (Stream stream = new FileStream(fileEntries[i].ToString(), FileMode.Open))
-                {
-                    String[] row = { fileEntries[i], GetFileSizeString(stream) };
-                    ListViewItem item = new ListViewItem(row);
-                    listFileEntries.Items.Add(item);
-                }
-            }
-
-            verifyListAndOutputDirectory();
-        }
-
-        private void groupBoxImport_DragOver(object sender, DragEventArgs e)
-        {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
-            {
-                e.Effect = DragDropEffects.Link;
-            }
-            else
-            {
-                DragDropEffects effects = DragDropEffects.None;
-                if (e.Data.GetDataPresent(DataFormats.FileDrop))
-                {
-                    var path = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
-                    if (Directory.Exists(path))
-                        effects = DragDropEffects.Copy;
-                }
-
-                e.Effect = effects;
-            }
-        }
-
         private void btnClearList_Click(object sender, EventArgs e)
         {
             bool ok = false;
@@ -422,6 +467,11 @@ namespace Image_Converter
                 lblFileSize.Text = "";
                 lblResolution.Text = "";
             }
+        }
+
+        private void Main_Resize(object sender, EventArgs e)
+        {
+            panelImportContent.Location = new System.Drawing.Point((int)((groupBoxImport.Width * 0.5) - (panelImportContent.Width * 0.5)), panelImportContent.Location.Y);
         }
 
         private void previewSplitContainer_Panel2_Resize(object sender, EventArgs e)
@@ -491,13 +541,13 @@ namespace Image_Converter
         }
         private void convertToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            ConvertSingle(listFileEntries.SelectedItems[0].Tag.ToString());
         }
         private void openFileLocationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (File.Exists(listFileEntries.SelectedItems[0].Text))
+            if (File.Exists(listFileEntries.SelectedItems[0].Tag.ToString()))
             {
-                Process.Start("explorer.exe", "/select," + listFileEntries.SelectedItems[0].Text);
+                Process.Start("explorer.exe", "/select," + listFileEntries.SelectedItems[0].Tag.ToString());
             }
         }
 
@@ -508,6 +558,14 @@ namespace Image_Converter
             {
                 listFileEntries.Items.Remove(listFileEntries.SelectedItems[0]);
             }
+        }
+
+        private void listFileEntries_ItemMouseHover(object sender, ListViewItemMouseHoverEventArgs e)
+        {
+            tt = new ToolTip();
+            tt.InitialDelay = 0;
+            tt.Show(string.Empty, txtFileName);
+            tt.Show(e.Item.Tag.ToString(), listFileEntries, 0);
         }
     }
 }

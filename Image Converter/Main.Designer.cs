@@ -56,11 +56,12 @@
             this.lblFileSize = new System.Windows.Forms.Label();
             this.btnClearList = new System.Windows.Forms.Button();
             this.groupBoxImport = new System.Windows.Forms.GroupBox();
+            this.panelImportContent = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.lblImportOr2 = new System.Windows.Forms.Label();
-            this.lblImportOr = new System.Windows.Forms.Label();
             this.btnInputFolder = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.lblImportOr = new System.Windows.Forms.Label();
+            this.lblImportOr2 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblItems = new System.Windows.Forms.Label();
             this.checkBoxTransparencyGrid = new System.Windows.Forms.CheckBox();
@@ -75,6 +76,7 @@
             this.previewSplitContainer.Panel2.SuspendLayout();
             this.previewSplitContainer.SuspendLayout();
             this.groupBoxImport.SuspendLayout();
+            this.panelImportContent.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.contextMenuStripFiles.SuspendLayout();
@@ -87,7 +89,7 @@
             this.btnInputFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnInputFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnInputFile.ForeColor = System.Drawing.SystemColors.Window;
-            this.btnInputFile.Location = new System.Drawing.Point(13, 29);
+            this.btnInputFile.Location = new System.Drawing.Point(5, 15);
             this.btnInputFile.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnInputFile.Name = "btnInputFile";
             this.btnInputFile.Size = new System.Drawing.Size(88, 27);
@@ -310,7 +312,7 @@
             this.imagePreview.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.imagePreview.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.imagePreview.BackColor = System.Drawing.Color.Black;
             this.imagePreview.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("imagePreview.BackgroundImage")));
             this.imagePreview.Location = new System.Drawing.Point(3, 3);
             this.imagePreview.Name = "imagePreview";
@@ -335,6 +337,7 @@
             this.listFileEntries.TabIndex = 21;
             this.listFileEntries.UseCompatibleStateImageBehavior = false;
             this.listFileEntries.View = System.Windows.Forms.View.Details;
+            this.listFileEntries.ItemMouseHover += new System.Windows.Forms.ListViewItemMouseHoverEventHandler(this.listFileEntries_ItemMouseHover);
             this.listFileEntries.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.listFileEntries_ItemSelectionChanged);
             this.listFileEntries.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listFileEntries_MouseClick);
             // 
@@ -381,7 +384,7 @@
             this.lblPreviewError.AutoSize = true;
             this.lblPreviewError.BackColor = System.Drawing.Color.Transparent;
             this.lblPreviewError.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblPreviewError.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.lblPreviewError.ForeColor = System.Drawing.Color.Red;
             this.lblPreviewError.Location = new System.Drawing.Point(4, 3);
             this.lblPreviewError.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblPreviewError.Name = "lblPreviewError";
@@ -434,12 +437,7 @@
             // 
             this.groupBoxImport.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBoxImport.Controls.Add(this.label1);
-            this.groupBoxImport.Controls.Add(this.pictureBox1);
-            this.groupBoxImport.Controls.Add(this.lblImportOr2);
-            this.groupBoxImport.Controls.Add(this.lblImportOr);
-            this.groupBoxImport.Controls.Add(this.btnInputFolder);
-            this.groupBoxImport.Controls.Add(this.btnInputFile);
+            this.groupBoxImport.Controls.Add(this.panelImportContent);
             this.groupBoxImport.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.groupBoxImport.Location = new System.Drawing.Point(3, 3);
             this.groupBoxImport.Name = "groupBoxImport";
@@ -448,54 +446,33 @@
             this.groupBoxImport.TabStop = false;
             this.groupBoxImport.Text = "Import";
             // 
+            // panelImportContent
+            // 
+            this.panelImportContent.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.panelImportContent.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panelImportContent.Controls.Add(this.btnInputFile);
+            this.panelImportContent.Controls.Add(this.label1);
+            this.panelImportContent.Controls.Add(this.btnInputFolder);
+            this.panelImportContent.Controls.Add(this.pictureBox1);
+            this.panelImportContent.Controls.Add(this.lblImportOr);
+            this.panelImportContent.Controls.Add(this.lblImportOr2);
+            this.panelImportContent.Location = new System.Drawing.Point(71, 15);
+            this.panelImportContent.Name = "panelImportContent";
+            this.panelImportContent.Size = new System.Drawing.Size(326, 59);
+            this.panelImportContent.TabIndex = 31;
+            // 
             // label1
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label1.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.label1.Location = new System.Drawing.Point(268, 59);
+            this.label1.Location = new System.Drawing.Point(260, 39);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(63, 15);
             this.label1.TabIndex = 31;
             this.label1.Text = "Drop Files";
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(268, 13);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(63, 43);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 30;
-            this.pictureBox1.TabStop = false;
-            // 
-            // lblImportOr2
-            // 
-            this.lblImportOr2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblImportOr2.AutoSize = true;
-            this.lblImportOr2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblImportOr2.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.lblImportOr2.Location = new System.Drawing.Point(243, 35);
-            this.lblImportOr2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblImportOr2.Name = "lblImportOr2";
-            this.lblImportOr2.Size = new System.Drawing.Size(18, 15);
-            this.lblImportOr2.TabIndex = 29;
-            this.lblImportOr2.Text = "or";
-            // 
-            // lblImportOr
-            // 
-            this.lblImportOr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblImportOr.AutoSize = true;
-            this.lblImportOr.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblImportOr.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.lblImportOr.Location = new System.Drawing.Point(109, 35);
-            this.lblImportOr.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblImportOr.Name = "lblImportOr";
-            this.lblImportOr.Size = new System.Drawing.Size(18, 15);
-            this.lblImportOr.TabIndex = 28;
-            this.lblImportOr.Text = "or";
             // 
             // btnInputFolder
             // 
@@ -504,7 +481,7 @@
             this.btnInputFolder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnInputFolder.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnInputFolder.ForeColor = System.Drawing.SystemColors.Window;
-            this.btnInputFolder.Location = new System.Drawing.Point(135, 29);
+            this.btnInputFolder.Location = new System.Drawing.Point(127, 15);
             this.btnInputFolder.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnInputFolder.Name = "btnInputFolder";
             this.btnInputFolder.Size = new System.Drawing.Size(100, 27);
@@ -512,6 +489,42 @@
             this.btnInputFolder.Text = "Choose Folder";
             this.btnInputFolder.UseVisualStyleBackColor = false;
             this.btnInputFolder.Click += new System.EventHandler(this.btnChooseFolder_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(260, -1);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(63, 43);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 30;
+            this.pictureBox1.TabStop = false;
+            // 
+            // lblImportOr
+            // 
+            this.lblImportOr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblImportOr.AutoSize = true;
+            this.lblImportOr.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblImportOr.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.lblImportOr.Location = new System.Drawing.Point(101, 21);
+            this.lblImportOr.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblImportOr.Name = "lblImportOr";
+            this.lblImportOr.Size = new System.Drawing.Size(18, 15);
+            this.lblImportOr.TabIndex = 28;
+            this.lblImportOr.Text = "or";
+            // 
+            // lblImportOr2
+            // 
+            this.lblImportOr2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblImportOr2.AutoSize = true;
+            this.lblImportOr2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblImportOr2.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.lblImportOr2.Location = new System.Drawing.Point(235, 21);
+            this.lblImportOr2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblImportOr2.Name = "lblImportOr2";
+            this.lblImportOr2.Size = new System.Drawing.Size(18, 15);
+            this.lblImportOr2.TabIndex = 29;
+            this.lblImportOr2.Text = "or";
             // 
             // panel1
             // 
@@ -545,11 +558,11 @@
             this.checkBoxTransparencyGrid.AutoSize = true;
             this.checkBoxTransparencyGrid.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.checkBoxTransparencyGrid.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.checkBoxTransparencyGrid.Location = new System.Drawing.Point(376, 115);
+            this.checkBoxTransparencyGrid.Location = new System.Drawing.Point(373, 115);
             this.checkBoxTransparencyGrid.Name = "checkBoxTransparencyGrid";
-            this.checkBoxTransparencyGrid.Size = new System.Drawing.Size(126, 19);
+            this.checkBoxTransparencyGrid.Size = new System.Drawing.Size(129, 19);
             this.checkBoxTransparencyGrid.TabIndex = 30;
-            this.checkBoxTransparencyGrid.Text = "Transparency Grid";
+            this.checkBoxTransparencyGrid.Text = "View Transparency";
             this.checkBoxTransparencyGrid.UseVisualStyleBackColor = true;
             this.checkBoxTransparencyGrid.CheckedChanged += new System.EventHandler(this.checkBoxTransparencyGrid_CheckedChanged);
             // 
@@ -618,6 +631,7 @@
             this.Name = "Main";
             this.Text = "Image Converter v0.3";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.Resize += new System.EventHandler(this.Main_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.trckbarImageQuality)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imagePreview)).EndInit();
             this.previewSplitContainer.Panel1.ResumeLayout(false);
@@ -626,7 +640,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.previewSplitContainer)).EndInit();
             this.previewSplitContainer.ResumeLayout(false);
             this.groupBoxImport.ResumeLayout(false);
-            this.groupBoxImport.PerformLayout();
+            this.panelImportContent.ResumeLayout(false);
+            this.panelImportContent.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.contextMenuStripFiles.ResumeLayout(false);
@@ -674,6 +689,7 @@
         private System.Windows.Forms.ToolStripMenuItem openFileLocationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem removeFromListToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem convertToolStripMenuItem;
+        private System.Windows.Forms.Panel panelImportContent;
     }
 }
 

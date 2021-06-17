@@ -164,6 +164,7 @@ namespace Image_Converter
                     imageToConvert = ReadDDS(filePath);
                     break;
                 default:
+                    errorMsg = "Unsupported input format.";
                     break;
             }
 

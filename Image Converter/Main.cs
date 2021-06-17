@@ -247,7 +247,7 @@ namespace Image_Converter
             converter.Init(cmboxOutputFormat.SelectedIndex);
             converter.isMultipleFiles = false;
 
-            DialogResult dialogResult = MessageBox.Show("This action converts '" + listFileEntries.SelectedItems[0].Text + "' with specified settings.", "Convert Single File", MessageBoxButtons.OKCancel);
+            DialogResult dialogResult = MessageBox.Show("This action converts '" + listFileEntries.SelectedItems[0].Text + "' with specified settings to the output directory.", "Convert Single File", MessageBoxButtons.OKCancel);
             if (dialogResult == DialogResult.OK)
             {
                 bool success = converter.Convert();
@@ -536,8 +536,6 @@ namespace Image_Converter
                 verifyListAndOutputDirectory();
                 imagePreview.Image = null;
                 currentPreviewReferenceImage = null;
-                imagePreview.Width = 64;
-                imagePreview.Height = 64;
                 lblFileSize.Text = "";
                 lblResolution.Text = "";
             }

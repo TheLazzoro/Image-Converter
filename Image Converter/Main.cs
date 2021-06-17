@@ -188,8 +188,78 @@ namespace Image_Converter
             return new string(charArray);
         }
 
-        private void ConvertSingle(string fileEntry) {
-            
+        private void listFileEntries_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                if (listFileEntries.FocusedItem.Bounds.Contains(e.Location))
+                {
+                    contextMenuStripFiles.Show(Cursor.Position);
+                    if(verifyListAndOutputDirectory())
+                    {
+                        contextMenuStripFiles.Items[0].Enabled = true;
+                    } else
+                    {
+                        contextMenuStripFiles.Items[0].Enabled = false;
+                    }
+                }
+            }
+        }
+
+
+        private void openFileLocationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (File.Exists(listFileEntries.SelectedItems[0].Tag.ToString()))
+            {
+                Process.Start("explorer.exe", "/select," + listFileEntries.SelectedItems[0].Tag.ToString());
+            }
+        }
+
+        private void removeFromListToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int count = listFileEntries.SelectedItems.Count;
+            for (int i = 0; i < count; i++)
+            {
+                listFileEntries.Items.Remove(listFileEntries.SelectedItems[0]);
+            }
+        }
+
+        private void listFileEntries_ItemMouseHover(object sender, ListViewItemMouseHoverEventArgs e)
+        {
+            tt = new ToolTip();
+            tt.InitialDelay = 0;
+            tt.Show(string.Empty, txtFileName);
+            tt.Show(e.Item.Tag.ToString(), listFileEntries, 0);
+        }
+
+
+        private void convertToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string[] fileEntry = new string[1];
+            fileEntry[0] = listFileEntries.SelectedItems[0].Tag.ToString();
+            converter.fileEntries = fileEntry;
+            converter.outputDir = lblOutputDirectory.Text + @"\";
+            converter.fileName = txtFileName.Text;
+            converter.keepFileNames = chkBoxKeepFilenames.Checked;
+            converter.imageQualityJpeg = trckbarImageQuality.Value * 10; //calculates image quality for jpg
+            converter.selectedDDSCompression = cmboxDDSList.SelectedIndex; // dds compression
+            converter.generateMipMaps = chkBoxMipmaps.Checked; // dds mipmaps
+            converter.Init(cmboxOutputFormat.SelectedIndex);
+            converter.isMultipleFiles = false;
+
+            DialogResult dialogResult = MessageBox.Show("This action converts '" + listFileEntries.SelectedItems[0].Text + "' with specified settings.", "Convert Single File", MessageBoxButtons.OKCancel);
+            if (dialogResult == DialogResult.OK)
+            {
+                bool success = converter.Convert();
+
+                if(success)
+                {
+                    MessageBox.Show("Conversion successful!");
+                } else
+                {
+                    MessageBox.Show("Error: " + converter.errorMsg);
+                }
+            }
         }
 
         private void btnConvert_Click(object sender, EventArgs e)
@@ -239,12 +309,14 @@ namespace Image_Converter
             verifyListAndOutputDirectory();
         }
 
-        private void verifyListAndOutputDirectory()
+        private bool verifyListAndOutputDirectory()
         {
+            bool ok = false;
             if (listFileEntries.Items.Count > 0 && lblOutputDirectory.Text != null && lblOutputDirectory.Text != "")
             {
                 btnConvert.Enabled = true;
                 btnConvert.BackColor = System.Drawing.Color.FromArgb(0, 175, 175);
+                ok = true;
             }
             else
             {
@@ -252,6 +324,8 @@ namespace Image_Converter
                 btnConvert.BackColor = System.Drawing.Color.FromArgb(175, 175, 175);
             }
             lblItems.Text = "Items: " + listFileEntries.Items.Count;
+
+            return ok;
         }
 
         private void trackBar1_Scroll(object sender, EventArgs e)
@@ -529,43 +603,6 @@ namespace Image_Converter
         }
 
 
-        private void listFileEntries_MouseClick(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right)
-            {
-                if (listFileEntries.FocusedItem.Bounds.Contains(e.Location))
-                {
-                    contextMenuStripFiles.Show(Cursor.Position);
-                }
-            }
-        }
-        private void convertToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ConvertSingle(listFileEntries.SelectedItems[0].Tag.ToString());
-        }
-        private void openFileLocationToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (File.Exists(listFileEntries.SelectedItems[0].Tag.ToString()))
-            {
-                Process.Start("explorer.exe", "/select," + listFileEntries.SelectedItems[0].Tag.ToString());
-            }
-        }
-
-        private void removeFromListToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            int count = listFileEntries.SelectedItems.Count;
-            for (int i = 0; i < count; i++)
-            {
-                listFileEntries.Items.Remove(listFileEntries.SelectedItems[0]);
-            }
-        }
-
-        private void listFileEntries_ItemMouseHover(object sender, ListViewItemMouseHoverEventArgs e)
-        {
-            tt = new ToolTip();
-            tt.InitialDelay = 0;
-            tt.Show(string.Empty, txtFileName);
-            tt.Show(e.Item.Tag.ToString(), listFileEntries, 0);
-        }
+        
     }
 }

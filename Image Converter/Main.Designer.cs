@@ -69,6 +69,7 @@
             this.openFileLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeFromListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.convertToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkBoxIsBLP2 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.trckbarImageQuality)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imagePreview)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.previewSplitContainer)).BeginInit();
@@ -596,6 +597,19 @@
             this.convertToolStripMenuItem.Text = "Remove From List";
             this.convertToolStripMenuItem.Click += new System.EventHandler(this.removeFromListToolStripMenuItem_Click);
             // 
+            // checkBoxIsBLP2
+            // 
+            this.checkBoxIsBLP2.AutoSize = true;
+            this.checkBoxIsBLP2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.checkBoxIsBLP2.Location = new System.Drawing.Point(181, 115);
+            this.checkBoxIsBLP2.Name = "checkBoxIsBLP2";
+            this.checkBoxIsBLP2.Size = new System.Drawing.Size(56, 19);
+            this.checkBoxIsBLP2.TabIndex = 31;
+            this.checkBoxIsBLP2.Text = "BLP2";
+            this.checkBoxIsBLP2.UseVisualStyleBackColor = true;
+            this.checkBoxIsBLP2.CheckedChanged += new System.EventHandler(this.checkBoxIsBLP2_CheckedChanged);
+            this.checkBoxIsBLP2.MouseHover += new System.EventHandler(this.checkBoxIsBLP2_MouseHover);
+            // 
             // Main
             // 
             this.AllowDrop = true;
@@ -603,6 +617,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(515, 548);
+            this.Controls.Add(this.checkBoxIsBLP2);
             this.Controls.Add(this.checkBoxTransparencyGrid);
             this.Controls.Add(this.lblItems);
             this.Controls.Add(this.panel1);
@@ -629,7 +644,7 @@
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.MinimumSize = new System.Drawing.Size(531, 587);
             this.Name = "Main";
-            this.Text = "Image Converter v0.3";
+            this.Text = "Image Converter v0.4";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Resize += new System.EventHandler(this.Main_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.trckbarImageQuality)).EndInit();
@@ -690,6 +705,7 @@
         private System.Windows.Forms.ToolStripMenuItem removeFromListToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem convertToolStripMenuItem;
         private System.Windows.Forms.Panel panelImportContent;
+        private System.Windows.Forms.CheckBox checkBoxIsBLP2;
     }
 }
 

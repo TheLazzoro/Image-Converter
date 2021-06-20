@@ -33,6 +33,7 @@ namespace Image_Converter
         public int imageQualityJpeg;
         public int selectedDDSCompression;
         public bool generateMipMaps;
+        public bool isBLP2 = false;
         private BcEncoder bcEncoder;
         private BcDecoder bcDecoder = new BcDecoder();
         private JpegEncoder jpegEncoder;
@@ -259,8 +260,8 @@ namespace Image_Converter
                 int width;
                 int height;
                 blpFile.GetPixels(0, out width, out height);
-                // It's very important we set the bool bgra = false in GetPixels
-                byte[] bytes = blpFile.GetPixels(0, out width, out height, false); // 0 indicates first mipmap layer. width and height are assigned width and height in GetPixels().
+                // The library does not determine what's BLP1 and BLP2 properly, so we set the bool bgra = false in GetPixels
+                byte[] bytes = blpFile.GetPixels(0, out width, out height, isBLP2); // 0 indicates first mipmap layer. width and height are assigned width and height in GetPixels().
                 var actualImage = blpFile.GetBitmapSource(0);
                 int bytesPerPixel = (actualImage.Format.BitsPerPixel + 7) / 8;
                 int stride = bytesPerPixel * actualImage.PixelWidth;
@@ -268,9 +269,9 @@ namespace Image_Converter
                 // blp read and convert
                 image = new SixLabors.ImageSharp.Image<Rgba32>(width, height);
 
-                for (int y = 0; y < height; y++)
+                for (int x = 0; x < width; x++)
                 {
-                    for (int x = 0; x < width; x++)
+                    for (int y = 0; y < height; y++)
                     {
                         var offset = (y * stride) + (x * bytesPerPixel);
 

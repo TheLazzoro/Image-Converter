@@ -38,7 +38,7 @@ namespace Image_Converter
             cmboxOutputFormat.SelectedIndex = 0;
 
             cmboxDDSList.Items.Add("BC1 (DXT1), RGB | no alpha");
-            cmboxDDSList.Items.Add("BC1 (DXT1), RGB | 1 bit alpha");
+            cmboxDDSList.Items.Add("BC1 (DXT1), RGBA | 1 bit alpha");
             cmboxDDSList.Items.Add("BC2 (DXT2 or DTX3), RGBA | explicit alpha");
             cmboxDDSList.Items.Add("BC3 (DXT4 or DTX5), RGBA | interpolated alpha");
             cmboxDDSList.SelectedIndex = 0;
@@ -50,6 +50,18 @@ namespace Image_Converter
             // Save background image and hide it on init.
             previewBackgroundImage = imagePreview.BackgroundImage;
             imagePreview.BackgroundImage = null;
+        }
+
+        private void DisplayTooltip(string text, IWin32Window parent, int duration = 0)
+        {
+            if (tt != null)
+            {
+                tt.Dispose();
+            }
+            tt = new ToolTip();
+            tt.InitialDelay = 0;
+            tt.Show(string.Empty, parent);
+            tt.Show(text, parent, duration);
         }
 
         private void btnChooseFile_Click(object sender, EventArgs e)
@@ -195,10 +207,11 @@ namespace Image_Converter
                 if (listFileEntries.FocusedItem.Bounds.Contains(e.Location))
                 {
                     contextMenuStripFiles.Show(Cursor.Position);
-                    if(verifyListAndOutputDirectory())
+                    if (verifyListAndOutputDirectory())
                     {
                         contextMenuStripFiles.Items[0].Enabled = true;
-                    } else
+                    }
+                    else
                     {
                         contextMenuStripFiles.Items[0].Enabled = false;
                     }
@@ -226,10 +239,7 @@ namespace Image_Converter
 
         private void listFileEntries_ItemMouseHover(object sender, ListViewItemMouseHoverEventArgs e)
         {
-            tt = new ToolTip();
-            tt.InitialDelay = 0;
-            tt.Show(string.Empty, txtFileName);
-            tt.Show(e.Item.Tag.ToString(), listFileEntries, 0);
+            DisplayTooltip(e.Item.Tag.ToString(), listFileEntries);
         }
 
 
@@ -252,10 +262,11 @@ namespace Image_Converter
             {
                 bool success = converter.Convert();
 
-                if(success)
+                if (success)
                 {
                     MessageBox.Show("Conversion successful!");
-                } else
+                }
+                else
                 {
                     MessageBox.Show("Error: " + converter.errorMsg);
                 }
@@ -399,10 +410,7 @@ namespace Image_Converter
         {
             if (chkBoxKeepFilenames.Checked == false)
             {
-                tt = new ToolTip();
-                tt.InitialDelay = 0;
-                tt.Show(string.Empty, txtFileName);
-                tt.Show("Note: Images will be enumerated after its name. Ex: image_1.jpg, image_2.jpg...", txtFileName, 0);
+                DisplayTooltip("Note: Images will be enumerated after its name. Ex: image_1.jpg, image_2.jpg...", txtFileName);
             }
         }
 
@@ -550,6 +558,7 @@ namespace Image_Converter
         {
             CenterAndScalePreviewImage();
             lblResolution.Location = new System.Drawing.Point(previewSplitContainer.Location.X + previewSplitContainer.Panel1.Width, previewSplitContainer.Location.Y + previewSplitContainer.Panel2.Height);
+            checkBoxIsBLP2.Location = new System.Drawing.Point(previewSplitContainer.Location.X + previewSplitContainer.Panel1.Width + 4, previewSplitContainer.Location.Y - checkBoxIsBLP2.Height);
             lblItems.Location = new System.Drawing.Point(previewSplitContainer.Location.X, previewSplitContainer.Location.Y + previewSplitContainer.Panel1.Height);
         }
 
@@ -600,7 +609,25 @@ namespace Image_Converter
             }
         }
 
+        private void checkBoxIsBLP2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxIsBLP2.Checked == true)
+            {
+                converter.isBLP2 = true;
+            }
+            else
+            {
+                converter.isBLP2 = false;
+            }
+            if (listFileEntries.SelectedItems.Count > 0)
+            {
+                DisplayPreviewImage(listFileEntries.SelectedItems[0].Tag.ToString());
+            }
+        }
 
-        
+        private void checkBoxIsBLP2_MouseHover(object sender, EventArgs e)
+        {
+            DisplayTooltip("Toggles color format for BLP images (BLP2 = World of Warcraft)", checkBoxIsBLP2);
+        }
     }
 }

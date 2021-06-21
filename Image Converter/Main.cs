@@ -112,27 +112,18 @@ namespace Image_Converter
 
         private void groupBoxImport_DragDrop(object sender, DragEventArgs e)
         {
-            List<string> fileEntries = new List<string>();
             foreach (var item in (string[])e.Data.GetData(DataFormats.FileDrop, false)) // loops through all selected items (files and directories)
             {
-                if (Directory.Exists(item)) // checks if selected item is a directories
+                if (Directory.Exists(item)) // checks if selected item is a directory
                 {
-                    string[] filesInSelectedDirectory = Directory.GetFiles(item); // grabs all files in selected directory
-                    for (int i = 0; i < filesInSelectedDirectory.Length; i++)
-                    {
-                        fileEntries.Add(filesInSelectedDirectory[i]); // adds files from directory to the total fileEntries
-                    }
+                    AddFilesInDirectory(item);
                 }
                 else
                 {
-                    fileEntries.Add(item); // adds selected item to fileEntries (this is a single file)
-                }
-            }
-            for (int i = 0; i < fileEntries.Count; i++) // loop through all entries and add them
-            {
-                using (Stream stream = new FileStream(fileEntries[i].ToString(), FileMode.Open))
-                {
-                    AddItemToList(fileEntries[i], stream);
+                    using (Stream stream = new FileStream(item.ToString(), FileMode.Open))
+                    {
+                        AddItemToList(item.ToString(), stream); // adds selected item to fileEntries (this is a single file)
+                    }
                 }
             }
 
@@ -156,6 +147,32 @@ namespace Image_Converter
                 }
 
                 e.Effect = effects;
+            }
+        }
+
+        private void AddFilesInDirectory(string directoryPath)
+        {
+            string[] fileEntries;
+
+            if(checkBoxSubFolders.Checked == true) {
+                fileEntries = Directory.GetFiles(directoryPath, "*.*", SearchOption.AllDirectories);
+            } else {
+                fileEntries = Directory.GetFiles(directoryPath);
+            }
+
+            foreach (var item in fileEntries) // loops through all selected items (files and directories)
+            {
+                if (Directory.Exists(item)) // checks if item in directory is a directory
+                {
+                    AddFilesInDirectory(item); // Recursion
+                }
+                else
+                {
+                    using (Stream stream = new FileStream(item.ToString(), FileMode.Open))
+                    {
+                        AddItemToList(item, stream); // adds selected item to fileEntries (this is a single file)
+                    }
+                }
             }
         }
 

@@ -19,7 +19,7 @@ namespace Image_Converter
     public partial class Main : Form
     {
         private ToolTip tt;
-        private ConvertImage converter;
+        private Converter converter;
         private System.Drawing.Image currentPreviewReferenceImage;
         private System.Drawing.Image previewBackgroundImage;
 
@@ -27,7 +27,7 @@ namespace Image_Converter
         {
             InitializeComponent();
 
-            converter = new ConvertImage();
+            converter = new Converter();
 
             // Must be added in this order to match ImageFormat enum
             cmboxOutputFormat.Items.Add("JPG");
@@ -52,7 +52,7 @@ namespace Image_Converter
             imagePreview.BackgroundImage = null;
         }
 
-        private void DisplayTooltip(string text, IWin32Window parent, int duration = 0)
+        private void DisplayTooltip(string text, IWin32Window parent, int durationSeconds = 0)
         {
             if (tt != null)
             {
@@ -61,7 +61,7 @@ namespace Image_Converter
             tt = new ToolTip();
             tt.InitialDelay = 0;
             tt.Show(string.Empty, parent);
-            tt.Show(text, parent, duration);
+            tt.Show(text, parent, durationSeconds * 1000);
         }
 
         private void btnChooseFile_Click(object sender, EventArgs e)
@@ -91,19 +91,11 @@ namespace Image_Converter
         {
             using (var fbd = new FolderBrowserDialog())
             {
-                //fbd.SelectedPath = lblFilePath.Text;
                 DialogResult result = fbd.ShowDialog();
 
                 if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
                 {
-                    String[] fileEntries = Directory.GetFiles(fbd.SelectedPath);
-                    for (int i = 0; i < fileEntries.Length; i++)
-                    {
-                        using (Stream stream = new FileStream(fileEntries[i], FileMode.Open))
-                        {
-                            AddItemToList(fileEntries[i], stream);
-                        }
-                    }
+                    AddFilesInDirectory(fbd.SelectedPath);
                 }
             }
 
@@ -122,7 +114,7 @@ namespace Image_Converter
                 {
                     using (Stream stream = new FileStream(item.ToString(), FileMode.Open))
                     {
-                        AddItemToList(item.ToString(), stream); // adds selected item to fileEntries (this is a single file)
+                        AddItemToList(item, stream); // adds selected item to fileEntries (this is a single file)
                     }
                 }
             }
@@ -255,7 +247,7 @@ namespace Image_Converter
 
         private void listFileEntries_ItemMouseHover(object sender, ListViewItemMouseHoverEventArgs e)
         {
-            DisplayTooltip(e.Item.Tag.ToString(), listFileEntries);
+            DisplayTooltip(e.Item.Tag.ToString(), listFileEntries, 600);
         }
 
 
@@ -426,7 +418,7 @@ namespace Image_Converter
         {
             if (chkBoxKeepFilenames.Checked == false)
             {
-                DisplayTooltip("Note: Images will be enumerated after its name. Ex: image_1.jpg, image_2.jpg...", txtFileName);
+                DisplayTooltip("Image files get number suffixes if multiple files get converted. Ex: image_1.jpg, image_2.jpg...", txtFileName, 600);
             }
         }
 
@@ -643,7 +635,12 @@ namespace Image_Converter
 
         private void checkBoxIsBLP2_MouseHover(object sender, EventArgs e)
         {
-            DisplayTooltip("Toggles color format for BLP images (BLP2 = World of Warcraft)", checkBoxIsBLP2);
+            DisplayTooltip("Toggles color format for BLP images (BLP2 = World of Warcraft)", checkBoxIsBLP2, 600);
+        }
+
+        private void checkBoxSubFolders_MouseHover(object sender, EventArgs e)
+        {
+            DisplayTooltip("Scans all subfolders when importing a folder.", checkBoxSubFolders, 600);
         }
     }
 }

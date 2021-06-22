@@ -15,11 +15,11 @@ namespace Image_Converter
 {
     public partial class MultiConvertProgress : Form
     {
-        ConvertImage converter;
+        Converter converter;
         public String outputDir;
         private int errors = 0;
 
-        public MultiConvertProgress(ConvertImage converter)
+        public MultiConvertProgress(Converter converter)
         {
             InitializeComponent();
             backgroundWorker1.WorkerReportsProgress = true;

@@ -622,6 +622,7 @@
             this.checkBoxSubFolders.TabIndex = 32;
             this.checkBoxSubFolders.Text = "Include Subfolders";
             this.checkBoxSubFolders.UseVisualStyleBackColor = true;
+            this.checkBoxSubFolders.MouseHover += new System.EventHandler(this.checkBoxSubFolders_MouseHover);
             // 
             // Main
             // 

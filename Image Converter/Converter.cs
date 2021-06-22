@@ -17,7 +17,7 @@ using BCnEncoder.Decoder;
 
 namespace Image_Converter
 {
-    public partial class ConvertImage
+    public partial class Converter
     {
         public String[] fileEntries;
         int currentEntry = 0;
@@ -260,7 +260,7 @@ namespace Image_Converter
                 int width;
                 int height;
                 blpFile.GetPixels(0, out width, out height);
-                // The library does not determine what's BLP1 and BLP2 properly, so we set the bool bgra = false in GetPixels
+                // The library does not determine what's BLP1 and BLP2 properly, so we manually set bool bgra in GetPixels depending on the checkbox.
                 byte[] bytes = blpFile.GetPixels(0, out width, out height, isBLP2); // 0 indicates first mipmap layer. width and height are assigned width and height in GetPixels().
                 var actualImage = blpFile.GetBitmapSource(0);
                 int bytesPerPixel = (actualImage.Format.BitsPerPixel + 7) / 8;

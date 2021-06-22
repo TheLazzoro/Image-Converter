@@ -537,7 +537,7 @@
             this.panel1.Controls.Add(this.groupBoxImport);
             this.panel1.Location = new System.Drawing.Point(14, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(485, 94);
+            this.panel1.Size = new System.Drawing.Size(485, 83);
             this.panel1.TabIndex = 28;
             this.panel1.DragDrop += new System.Windows.Forms.DragEventHandler(this.groupBoxImport_DragDrop);
             this.panel1.DragOver += new System.Windows.Forms.DragEventHandler(this.groupBoxImport_DragOver);
@@ -616,11 +616,11 @@
             // 
             this.checkBoxSubFolders.AutoSize = true;
             this.checkBoxSubFolders.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.checkBoxSubFolders.Location = new System.Drawing.Point(17, 101);
+            this.checkBoxSubFolders.Location = new System.Drawing.Point(17, 95);
             this.checkBoxSubFolders.Name = "checkBoxSubFolders";
-            this.checkBoxSubFolders.Size = new System.Drawing.Size(122, 19);
+            this.checkBoxSubFolders.Size = new System.Drawing.Size(128, 19);
             this.checkBoxSubFolders.TabIndex = 32;
-            this.checkBoxSubFolders.Text = "Check Subfolders";
+            this.checkBoxSubFolders.Text = "Include Subfolders";
             this.checkBoxSubFolders.UseVisualStyleBackColor = true;
             // 
             // Main

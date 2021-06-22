@@ -145,7 +145,6 @@ namespace Image_Converter
                     if (Directory.Exists(path))
                         effects = DragDropEffects.Copy;
                 }
-
                 e.Effect = effects;
             }
         }
@@ -164,7 +163,7 @@ namespace Image_Converter
             {
                 if (Directory.Exists(item)) // checks if item in directory is a directory
                 {
-                    AddFilesInDirectory(item); // Recursion
+                    AddFilesInDirectory(item); // Subfolder Recursion
                 }
                 else
                 {

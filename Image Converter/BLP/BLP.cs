@@ -23,13 +23,12 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Advanced;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using SixLabors.ImageSharp.Processing.Processors.Transforms;
-using SixLabors.Primitives;
+//using SixLabors.Primitives; // OLD
 
 using Warcraft.Core.Compression.Squish;
 using Warcraft.Core.Extensions;
@@ -69,7 +68,7 @@ namespace Warcraft.BLP
         /// <summary>
         /// A list of byte arrays containing the compressed mipmaps.
         /// </summary>
-        private readonly List<byte[]> _rawMipMaps = new List<byte[]>();
+         private readonly List<byte[]> _rawMipMaps = new List<byte[]>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Warcraft.BLP.BLP"/> class.
@@ -170,7 +169,8 @@ namespace Warcraft.BLP
                 Header.PixelFormat = BLPPixelFormat.Palettized;
 
                 // Determine best alpha bit depth
-                if (image.HasAlpha())
+                if (image.PixelType.AlphaRepresentation != null)
+                //if (image.HasAlpha()) // OLD
                 {
                     var alphaLevels = new List<byte>();
                     for (var y = 0; y < image.Height; ++y)
@@ -217,7 +217,8 @@ namespace Warcraft.BLP
                 Header.AlphaBitDepth = 8;
 
                 // Determine best DXTC type (1, 3 or 5)
-                if (image.HasAlpha())
+                if (image.PixelType.AlphaRepresentation != null)
+                //if (image.HasAlpha()) // OLD
                 {
                     Header.PixelFormat = BLPPixelFormat.DXT3;
                 }
@@ -767,7 +768,8 @@ namespace Warcraft.BLP
         /// <param name="inColour">Input color.</param>
         private Rgba32 FindClosestMatchingColor(Rgba32 inColour)
         {
-            var nearestColour = Rgba32.Black;
+            //var nearestColour = Rgba32.Black; // OLD
+            var nearestColour = new Rgba32(0, 0, 0);
 
             // Drop out if the palette contains an exact match
             if (_palette.Contains(inColour))
@@ -992,7 +994,10 @@ namespace Warcraft.BLP
 
             using (var quantizedImage = inImage.Clone(cx => cx.Quantize()))
             {
-                var pixels = quantizedImage.GetPixelSpan();
+                //var pixels = quantizedImage.GetPixelSpan(); // OLD
+                //Span<Rgba32> pixels = quantizedImage.GetPixelRowSpan(0);
+                Span<Rgba32> pixels;
+                quantizedImage.TryGetSinglePixelSpan(out pixels);
 
                 for (var i = 0; i < pixels.Length; ++i)
                 {

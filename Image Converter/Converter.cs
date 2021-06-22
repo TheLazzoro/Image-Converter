@@ -19,6 +19,7 @@ namespace Image_Converter
 {
     public partial class Converter
     {
+        public string debugString = "";
         public String[] fileEntries;
         int currentEntry = 0;
         public bool isMultipleFiles;
@@ -37,6 +38,7 @@ namespace Image_Converter
         private BcEncoder bcEncoder;
         private BcDecoder bcDecoder = new BcDecoder();
         private JpegEncoder jpegEncoder;
+        private Warcraft.BLP.TextureCompressionType blpEncoder;
 
         public void Init(int selectedFileExtension)
         {
@@ -61,6 +63,9 @@ namespace Image_Converter
                     break;
                 case (int)ImageFormats.DDS:
                     outputFiletype = ".dds";
+                    break;
+                case (int)ImageFormats.BLP:
+                    outputFiletype = ".blp";
                     break;
             }
 
@@ -99,6 +104,10 @@ namespace Image_Converter
                         break;
                 }
             }
+            if (selectedFileExtension == (int)ImageFormats.BLP)
+            {
+                blpEncoder = new Warcraft.BLP.TextureCompressionType();
+            }
         }
 
         public bool Convert()
@@ -127,6 +136,10 @@ namespace Image_Converter
                 else if (selectedFileExtension == (int)ImageFormats.DDS)
                 {
                     success = ConvertToDds(imageToConvert);
+                }
+                else if (selectedFileExtension == (int)ImageFormats.BLP)
+                {
+                    success = ConvertToBlp(imageToConvert);
                 }
             }
 
@@ -158,11 +171,11 @@ namespace Image_Converter
                 case ".tga":
                     imageToConvert = ReadLegacy(filePath);
                     break;
-                case ".blp":
-                    imageToConvert = ReadBLP(filePath);
-                    break;
                 case ".dds":
                     imageToConvert = ReadDDS(filePath);
+                    break;
+                case ".blp":
+                    imageToConvert = ReadBLP(filePath);
                     break;
                 default:
                     errorMsg = "Unsupported input format.";
@@ -255,6 +268,16 @@ namespace Image_Converter
 
             try
             {
+                /*
+                    FileStream fileStream = File.OpenRead(filePath);
+                    MemoryStream ms = new MemoryStream();
+                    fileStream.CopyTo(ms);
+                    fileStream.Close();
+                    fileStream.Dispose();
+                    Warcraft.BLP.BLP blpFile = new Warcraft.BLP.BLP(ms.ToArray());
+                    image = blpFile.GetMipMap(0);
+                */
+
                 FileStream fileStream = File.OpenRead(filePath);
                 BlpFile blpFile = new BlpFile(fileStream);
                 int width;
@@ -292,6 +315,7 @@ namespace Image_Converter
                 }
 
                 blpFile.Dispose();
+
             }
             catch (Exception ex)
             {
@@ -470,6 +494,41 @@ namespace Image_Converter
                 bcEncoder.Encode(imageToConvert, fs);
 
                 fs.DisposeAsync();
+
+                success = true;
+            }
+            catch (Exception ex)
+            {
+                errorMsg = ex.Message;
+                //throw;
+            }
+
+            return success;
+        }
+
+        // NOT YET IMPLEMENTED
+        private bool ConvertToBlp(SixLabors.ImageSharp.Image<Rgba32> imageToConvert)
+        {
+            bool success = false;
+
+            try
+            {
+                String path;
+                if (keepFileNames)
+                {
+                    path = outputDir + GetInputFileName(fileEntries[currentEntry]) + outputFiletype;
+                }
+                else if (isMultipleFiles)
+                {
+                    path = outputDir + fileName + "_" + currentEntry + outputFiletype;
+                }
+                else
+                {
+                    path = outputDir + fileName + outputFiletype;
+                }
+
+                Warcraft.BLP.BLP blpFile = new Warcraft.BLP.BLP(imageToConvert, Warcraft.BLP.TextureCompressionType.JPEG);
+                File.WriteAllBytes(path, blpFile.Serialize());
 
                 success = true;
             }

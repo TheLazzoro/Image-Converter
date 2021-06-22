@@ -35,6 +35,7 @@ namespace Image_Converter
             cmboxOutputFormat.Items.Add("BMP");
             cmboxOutputFormat.Items.Add("TGA");
             cmboxOutputFormat.Items.Add("DDS");
+            cmboxOutputFormat.Items.Add("BLP");
             cmboxOutputFormat.SelectedIndex = 0;
 
             cmboxDDSList.Items.Add("BC1 (DXT1), RGB | no alpha");
@@ -489,6 +490,7 @@ namespace Image_Converter
                 {
                     lblFileSize.Text = GetFileSizeString(fs);
                 }
+
             }
             catch (Exception)
             {

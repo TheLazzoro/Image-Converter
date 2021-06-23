@@ -35,7 +35,7 @@ namespace Image_Converter
             cmboxOutputFormat.Items.Add("BMP");
             cmboxOutputFormat.Items.Add("TGA");
             cmboxOutputFormat.Items.Add("DDS");
-            cmboxOutputFormat.Items.Add("BLP");
+            //cmboxOutputFormat.Items.Add("BLP");
             cmboxOutputFormat.SelectedIndex = 0;
 
             cmboxDDSList.Items.Add("BC1 (DXT1), RGB | no alpha");
@@ -146,9 +146,12 @@ namespace Image_Converter
         {
             string[] fileEntries;
 
-            if(checkBoxSubFolders.Checked == true) {
+            if (checkBoxSubFolders.Checked == true)
+            {
                 fileEntries = Directory.GetFiles(directoryPath, "*.*", SearchOption.AllDirectories);
-            } else {
+            }
+            else
+            {
                 fileEntries = Directory.GetFiles(directoryPath);
             }
 
@@ -239,11 +242,7 @@ namespace Image_Converter
 
         private void removeFromListToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int count = listFileEntries.SelectedItems.Count;
-            for (int i = 0; i < count; i++)
-            {
-                listFileEntries.Items.Remove(listFileEntries.SelectedItems[0]);
-            }
+            DeleteRowsInList();
         }
 
         private void listFileEntries_ItemMouseHover(object sender, ListViewItemMouseHoverEventArgs e)
@@ -536,6 +535,41 @@ namespace Image_Converter
             return new string(charArray) + " " + howBigBytes;
         }
 
+        private void listFileEntries_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+            {
+                DeleteRowsInList();
+            }
+        }
+
+        private void DeleteRowsInList()
+        {
+            int indexFirstSelected = listFileEntries.SelectedItems[0].Index;
+            int count = listFileEntries.SelectedItems.Count;
+            for (int i = 0; i < count; i++)
+            {
+                listFileEntries.Items.Remove(listFileEntries.SelectedItems[0]);
+            }
+
+            if (listFileEntries.Items.Count > indexFirstSelected)
+            {
+                listFileEntries.Items[indexFirstSelected].Selected = true;
+            }
+            else if (listFileEntries.Items.Count > 0)
+            {
+                listFileEntries.Items[indexFirstSelected - 1].Selected = true;
+            } else
+            {
+                imagePreview.Image = null;
+                currentPreviewReferenceImage = null;
+                lblFileSize.Text = "";
+                lblResolution.Text = "";
+            }
+
+            lblItems.Text = "Items: " + listFileEntries.Items.Count;
+        }
+
         private void btnClearList_Click(object sender, EventArgs e)
         {
             bool ok = false;
@@ -644,5 +678,7 @@ namespace Image_Converter
         {
             DisplayTooltip("Scans all subfolders when importing a folder.", checkBoxSubFolders, 600);
         }
+
+
     }
 }

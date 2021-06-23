@@ -343,28 +343,32 @@ namespace Image_Converter
             return image;
         }
 
+        private string getFullOutputFilePath()
+        {
+            string path = "";
+            if (keepFileNames)
+            {
+                path = outputDir + GetInputFileName(fileEntries[currentEntry]) + outputFiletype;
+            }
+            else if (isMultipleFiles)
+            {
+                path = outputDir + fileName + "_" + currentEntry + outputFiletype;
+            }
+            else
+            {
+                path = outputDir + fileName + outputFiletype;
+            }
+
+            return path;
+        }
+
         private bool ConvertToJpg(SixLabors.ImageSharp.Image<Rgba32> imageToConvert)
         {
             bool success = false;
 
             try
             {
-                String path;
-                if (keepFileNames)
-                {
-                    path = outputDir + GetInputFileName(fileEntries[currentEntry]) + outputFiletype;
-                }
-                else if (isMultipleFiles)
-                {
-                    path = outputDir + fileName + "_" + currentEntry + outputFiletype;
-                }
-                else
-                {
-                    path = outputDir + fileName + outputFiletype;
-                }
-
-                imageToConvert.SaveAsJpeg(path, jpegEncoder);
-
+                imageToConvert.SaveAsJpeg(getFullOutputFilePath(), jpegEncoder);
                 success = true;
             }
             catch (Exception ex)
@@ -381,22 +385,7 @@ namespace Image_Converter
 
             try
             {
-                String path;
-                if (keepFileNames)
-                {
-                    path = outputDir + GetInputFileName(fileEntries[currentEntry]) + outputFiletype;
-                }
-                else if (isMultipleFiles)
-                {
-                    path = outputDir + fileName + "_" + currentEntry + outputFiletype;
-                }
-                else
-                {
-                    path = outputDir + fileName + outputFiletype;
-                }
-
-                imageToConvert.SaveAsPng(path);
-
+                imageToConvert.SaveAsPng(getFullOutputFilePath());
                 success = true;
             }
             catch (Exception ex)
@@ -413,22 +402,7 @@ namespace Image_Converter
 
             try
             {
-                String path;
-                if (keepFileNames)
-                {
-                    path = outputDir + GetInputFileName(fileEntries[currentEntry]) + outputFiletype;
-                }
-                else if (isMultipleFiles)
-                {
-                    path = outputDir + fileName + "_" + currentEntry + outputFiletype;
-                }
-                else
-                {
-                    path = outputDir + fileName + outputFiletype;
-                }
-
-                imageToConvert.SaveAsBmp(path);
-
+                imageToConvert.SaveAsBmp(getFullOutputFilePath());
                 success = true;
             }
             catch (Exception ex)
@@ -445,22 +419,7 @@ namespace Image_Converter
 
             try
             {
-                String path;
-                if (keepFileNames)
-                {
-                    path = outputDir + GetInputFileName(fileEntries[currentEntry]) + outputFiletype;
-                }
-                else if (isMultipleFiles)
-                {
-                    path = outputDir + fileName + "_" + currentEntry + outputFiletype;
-                }
-                else
-                {
-                    path = outputDir + fileName + outputFiletype;
-                }
-
-                imageToConvert.SaveAsTga(path);
-
+                imageToConvert.SaveAsTga(getFullOutputFilePath());
                 success = true;
             }
             catch (Exception ex)
@@ -477,24 +436,9 @@ namespace Image_Converter
 
             try
             {
-                String path;
-                if (keepFileNames)
-                {
-                    path = outputDir + GetInputFileName(fileEntries[currentEntry]) + outputFiletype;
-                }
-                else if (isMultipleFiles)
-                {
-                    path = outputDir + fileName + "_" + currentEntry + outputFiletype;
-                }
-                else
-                {
-                    path = outputDir + fileName + outputFiletype;
-                }
-                using FileStream fs = File.OpenWrite(path);
+                using FileStream fs = File.OpenWrite(getFullOutputFilePath());
                 bcEncoder.Encode(imageToConvert, fs);
-
                 fs.DisposeAsync();
-
                 success = true;
             }
             catch (Exception ex)
@@ -513,23 +457,8 @@ namespace Image_Converter
 
             try
             {
-                String path;
-                if (keepFileNames)
-                {
-                    path = outputDir + GetInputFileName(fileEntries[currentEntry]) + outputFiletype;
-                }
-                else if (isMultipleFiles)
-                {
-                    path = outputDir + fileName + "_" + currentEntry + outputFiletype;
-                }
-                else
-                {
-                    path = outputDir + fileName + outputFiletype;
-                }
-
                 Warcraft.BLP.BLP blpFile = new Warcraft.BLP.BLP(imageToConvert, Warcraft.BLP.TextureCompressionType.JPEG);
-                File.WriteAllBytes(path, blpFile.Serialize());
-
+                File.WriteAllBytes(getFullOutputFilePath(), blpFile.Serialize());
                 success = true;
             }
             catch (Exception ex)
@@ -558,14 +487,12 @@ namespace Image_Converter
                     bmp.Save(outputDir + fileName + outputFiletype, imageCodecInfo, encoderParameters);
                 }
                 bmp.Dispose();
-
                 success = true;
             }
             catch (Exception ex)
             {
                 errorMsg = ex.Message;
             }
-
             currentEntry++;
 
             return success;

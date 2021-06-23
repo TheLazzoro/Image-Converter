@@ -342,6 +342,7 @@
             this.listFileEntries.View = System.Windows.Forms.View.Details;
             this.listFileEntries.ItemMouseHover += new System.Windows.Forms.ListViewItemMouseHoverEventHandler(this.listFileEntries_ItemMouseHover);
             this.listFileEntries.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.listFileEntries_ItemSelectionChanged);
+            this.listFileEntries.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listFileEntries_KeyDown);
             this.listFileEntries.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listFileEntries_MouseClick);
             // 
             // columnHeader1

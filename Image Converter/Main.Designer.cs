@@ -71,7 +71,7 @@
             this.convertToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkBoxIsBLP2 = new System.Windows.Forms.CheckBox();
             this.checkBoxSubFolders = new System.Windows.Forms.CheckBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnFilters = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.trckbarImageQuality)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imagePreview)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.previewSplitContainer)).BeginInit();
@@ -626,21 +626,21 @@
             this.checkBoxSubFolders.UseVisualStyleBackColor = true;
             this.checkBoxSubFolders.MouseHover += new System.EventHandler(this.checkBoxSubFolders_MouseHover);
             // 
-            // button1
+            // btnFilters
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(175)))), ((int)(((byte)(175)))));
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.button1.ForeColor = System.Drawing.SystemColors.Window;
-            this.button1.Location = new System.Drawing.Point(244, 127);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(59, 27);
-            this.button1.TabIndex = 33;
-            this.button1.Text = "Filters";
-            this.button1.UseVisualStyleBackColor = false;
+            this.btnFilters.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(175)))), ((int)(((byte)(175)))));
+            this.btnFilters.FlatAppearance.BorderSize = 0;
+            this.btnFilters.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnFilters.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btnFilters.ForeColor = System.Drawing.SystemColors.Window;
+            this.btnFilters.Location = new System.Drawing.Point(244, 127);
+            this.btnFilters.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.btnFilters.Name = "btnFilters";
+            this.btnFilters.Size = new System.Drawing.Size(59, 27);
+            this.btnFilters.TabIndex = 33;
+            this.btnFilters.Text = "Filters";
+            this.btnFilters.UseVisualStyleBackColor = false;
+            this.btnFilters.Click += new System.EventHandler(this.btnFilters_Click);
             // 
             // Main
             // 
@@ -649,7 +649,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(515, 569);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnFilters);
             this.Controls.Add(this.checkBoxSubFolders);
             this.Controls.Add(this.checkBoxIsBLP2);
             this.Controls.Add(this.checkBoxTransparencyGrid);
@@ -741,7 +741,7 @@
         private System.Windows.Forms.Panel panelImportContent;
         private System.Windows.Forms.CheckBox checkBoxIsBLP2;
         private System.Windows.Forms.CheckBox checkBoxSubFolders;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnFilters;
     }
 }
 

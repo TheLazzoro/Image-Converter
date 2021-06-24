@@ -603,6 +603,7 @@ namespace Image_Converter
             CenterAndScalePreviewImage();
             lblResolution.Location = new System.Drawing.Point(previewSplitContainer.Location.X + previewSplitContainer.Panel1.Width, previewSplitContainer.Location.Y + previewSplitContainer.Panel2.Height);
             checkBoxIsBLP2.Location = new System.Drawing.Point(previewSplitContainer.Location.X + previewSplitContainer.Panel1.Width + 4, previewSplitContainer.Location.Y - checkBoxIsBLP2.Height);
+            btnFilters.Location = new System.Drawing.Point(previewSplitContainer.Location.X + previewSplitContainer.Panel1.Width + 64, previewSplitContainer.Location.Y - btnFilters.Height - 2);
             lblItems.Location = new System.Drawing.Point(previewSplitContainer.Location.X, previewSplitContainer.Location.Y + previewSplitContainer.Panel1.Height);
         }
 
@@ -677,6 +678,14 @@ namespace Image_Converter
         private void checkBoxSubFolders_MouseHover(object sender, EventArgs e)
         {
             DisplayTooltip("Scans all subfolders when importing a folder.", checkBoxSubFolders, 600);
+        }
+
+        private void btnFilters_Click(object sender, EventArgs e)
+        {
+            Filters dialog = new Filters();
+            dialog.StartPosition = FormStartPosition.Manual;
+            dialog.Location = this.Location;
+            dialog.ShowDialog();
         }
     }
 }

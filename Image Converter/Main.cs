@@ -678,7 +678,5 @@ namespace Image_Converter
         {
             DisplayTooltip("Scans all subfolders when importing a folder.", checkBoxSubFolders, 600);
         }
-
-
     }
 }

@@ -682,7 +682,7 @@ namespace Image_Converter
 
         private void btnFilters_Click(object sender, EventArgs e)
         {
-            Filters dialog = new Filters();
+            Filters dialog = new Filters(converter);
             dialog.StartPosition = FormStartPosition.Manual;
             dialog.Location = this.Location;
             dialog.ShowDialog();

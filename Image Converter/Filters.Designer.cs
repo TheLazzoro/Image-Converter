@@ -126,6 +126,7 @@ namespace Image_Converter
             this.checkBoxDisabled.TabIndex = 38;
             this.checkBoxDisabled.Text = "Disabled";
             this.checkBoxDisabled.UseVisualStyleBackColor = true;
+            this.checkBoxDisabled.CheckedChanged += new System.EventHandler(this.checkBoxDisabled_CheckedChanged);
             // 
             // checkBoxAutocast
             // 
@@ -137,6 +138,7 @@ namespace Image_Converter
             this.checkBoxAutocast.TabIndex = 37;
             this.checkBoxAutocast.Text = "Autocast";
             this.checkBoxAutocast.UseVisualStyleBackColor = true;
+            this.checkBoxAutocast.CheckedChanged += new System.EventHandler(this.checkBoxAutocast_CheckedChanged);
             // 
             // checkBoxPassive
             // 
@@ -148,6 +150,7 @@ namespace Image_Converter
             this.checkBoxPassive.TabIndex = 36;
             this.checkBoxPassive.Text = "Passive";
             this.checkBoxPassive.UseVisualStyleBackColor = true;
+            this.checkBoxPassive.CheckedChanged += new System.EventHandler(this.checkBoxPassive_CheckedChanged);
             // 
             // checkBoxButton
             // 
@@ -159,6 +162,7 @@ namespace Image_Converter
             this.checkBoxButton.TabIndex = 35;
             this.checkBoxButton.Text = "Button";
             this.checkBoxButton.UseVisualStyleBackColor = true;
+            this.checkBoxButton.CheckedChanged += new System.EventHandler(this.checkBoxButton_CheckedChanged);
             // 
             // radioBtnAll
             // 

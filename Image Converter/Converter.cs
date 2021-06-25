@@ -35,8 +35,12 @@ namespace Image_Converter
         public int selectedDDSCompression;
         public bool generateMipMaps;
         public bool isBLP2 = false;
+        public IconSettings currentIconSetting;
         public bool isButtonIcon = false;
+        public bool isPassiveIcon = false;
         public bool isDisabledIcon = false;
+        public bool isAutocastIcon = false;
+        private string filePrefix = "";
         private BcEncoder bcEncoder;
         private BcDecoder bcDecoder = new BcDecoder();
         private JpegEncoder jpegEncoder;
@@ -112,13 +116,39 @@ namespace Image_Converter
             }
         }
 
-        public bool ConvertWithFilters() {
+        public bool ConvertWithFilters()
+        {
             bool success = false;
 
             SixLabors.ImageSharp.Image<Rgba32> imageToConvert = ReadInputFile(fileEntries[currentEntry]);
 
-            if(isButtonIcon) {
-                Convert(AddIconBorder(imageToConvert, IconSettings.BTN));
+            if (!isButtonIcon && !isPassiveIcon && !isAutocastIcon && !isDisabledIcon)
+            {
+                    filePrefix = "";
+                Convert(imageToConvert);
+            }
+            else
+            {
+                if (isButtonIcon)
+                {
+                    filePrefix = "BTN";
+                    Convert(AddIconBorder(imageToConvert, IconSettings.BTN));
+                }
+                if (isPassiveIcon)
+                {
+                    filePrefix = "PAS";
+                    Convert(AddIconBorder(imageToConvert, IconSettings.PAS));
+                }
+                if (isAutocastIcon)
+                {
+                    filePrefix = "ATC";
+                    Convert(AddIconBorder(imageToConvert, IconSettings.ATC));
+                }
+                if (isDisabledIcon)
+                {
+                    filePrefix = "DISBTN";
+                    Convert(AddIconBorder(imageToConvert, IconSettings.DIS));
+                }
             }
 
             currentEntry++;
@@ -166,7 +196,14 @@ namespace Image_Converter
             SixLabors.ImageSharp.Image<Rgba32> image = ReadInputFile(filePath);
             if (image != null)
             {
-                image = AddIconBorder(image, IconSettings.BTN);
+                if (isButtonIcon)
+                    image = AddIconBorder(image, IconSettings.BTN);
+                if (isPassiveIcon)
+                    image = AddIconBorder(image, IconSettings.PAS);
+                if (isAutocastIcon)
+                    image = AddIconBorder(image, IconSettings.ATC);
+                if (isDisabledIcon)
+                    image = AddIconBorder(image, IconSettings.DIS);
             }
 
             return image;
@@ -372,15 +409,15 @@ namespace Image_Converter
             string path = "";
             if (keepFileNames)
             {
-                path = outputDir + GetInputFileName(fileEntries[currentEntry]) + outputFiletype;
+                path = outputDir + filePrefix + GetInputFileName(fileEntries[currentEntry]) + outputFiletype;
             }
             else if (isMultipleFiles)
             {
-                path = outputDir + fileName + "_" + currentEntry + outputFiletype;
+                path = outputDir + filePrefix + fileName + "_" + currentEntry + outputFiletype;
             }
             else
             {
-                path = outputDir + fileName + outputFiletype;
+                path = outputDir + filePrefix + fileName + outputFiletype;
             }
 
             return path;
@@ -494,38 +531,48 @@ namespace Image_Converter
             return success;
         }
 
-        private SixLabors.ImageSharp.Image<Rgba32> AddIconBorder(SixLabors.ImageSharp.Image<Rgba32> source, IconSettings iconSettings)
+        private SixLabors.ImageSharp.Image<Rgba32> AddIconBorder(SixLabors.ImageSharp.Image<Rgba32> source, IconSettings iconSetting)
         {
-            //SixLabors.ImageSharp.Image<Rgba32> border = SixLabors.ImageSharp.Image<Rgba32>.Load(Properties.Resources.Icon_Border_Passive);
-            //SixLabors.ImageSharp.Image<Rgba32> border = SixLabors.ImageSharp.Image<Rgba32>.Load(Properties.Resources.Icon_Border_Autocast);
-            //SixLabors.ImageSharp.Image<Rgba32> border = SixLabors.ImageSharp.Image<Rgba32>.Load(Properties.Resources.Icon_Border);
             SixLabors.ImageSharp.Image<Rgba32> imageToConvert = source.Clone();
-            SixLabors.ImageSharp.Image<Rgba32> border = SixLabors.ImageSharp.Image<Rgba32>.Load(Properties.Resources.Icon_Border_Disabled);
+            SixLabors.ImageSharp.Image<Rgba32> border = null;
 
-
-            if (imageToConvert.Width == 64 && imageToConvert.Height == 64)
+            if (iconSetting == IconSettings.BTN)
             {
-                if (!isButtonIcon) // flip this
+                border = SixLabors.ImageSharp.Image<Rgba32>.Load(Properties.Resources.Icon_Border);
+            }
+            else if (iconSetting == IconSettings.PAS)
+            {
+                border = SixLabors.ImageSharp.Image<Rgba32>.Load(Properties.Resources.Icon_Border_Passive);
+            }
+            else if (iconSetting == IconSettings.ATC)
+            {
+                border = SixLabors.ImageSharp.Image<Rgba32>.Load(Properties.Resources.Icon_Border_Autocast);
+            }
+            else if (iconSetting == IconSettings.DIS)
+            {
+                border = SixLabors.ImageSharp.Image<Rgba32>.Load(Properties.Resources.Icon_Border_Disabled);
+            }
+
+            if (border != null && imageToConvert.Width == 64 && imageToConvert.Height == 64)
+            {
+                for (int y = 0; y < 64; y++)
                 {
-                    for (int y = 0; y < 64; y++)
+                    for (int x = 0; x < 64; x++)
                     {
-                        for (int x = 0; x < 64; x++)
+                        byte redBorder = border[x, y].R;
+                        byte greenBorder = border[x, y].G;
+                        byte blueBorder = border[x, y].B;
+                        byte alphaBorder = border[x, y].A;
+
+                        if (alphaBorder != 0)
                         {
-                            byte redBorder = border[x, y].R;
-                            byte greenBorder = border[x, y].G;
-                            byte blueBorder = border[x, y].B;
-                            byte alphaBorder = border[x, y].A;
+                            float alphaPercent = (float)alphaBorder / 255;
 
-                            if (alphaBorder != 0)
-                            {
-                                float alphaPercent = (float)alphaBorder / 255;
+                            byte redBlended = (byte)((int)imageToConvert[x, y].R * (1 - alphaPercent) + (redBorder * alphaPercent));
+                            byte greenBlended = (byte)((int)imageToConvert[x, y].G * (1 - alphaPercent) + (greenBorder * alphaPercent));
+                            byte blueBlended = (byte)((int)imageToConvert[x, y].B * (1 - alphaPercent) + (blueBorder * alphaPercent));
 
-                                byte redBlended = (byte)((int)imageToConvert[x, y].R * (1 - alphaPercent) + (redBorder * alphaPercent));
-                                byte greenBlended = (byte)((int)imageToConvert[x, y].G * (1 - alphaPercent) + (greenBorder * alphaPercent));
-                                byte blueBlended = (byte)((int)imageToConvert[x, y].B * (1 - alphaPercent) + (blueBorder * alphaPercent));
-
-                                imageToConvert[x, y] = new Rgba32(redBlended, greenBlended, blueBlended);
-                            }
+                            imageToConvert[x, y] = new Rgba32(redBlended, greenBlended, blueBlended);
                         }
                     }
                 }

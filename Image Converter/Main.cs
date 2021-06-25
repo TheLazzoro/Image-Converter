@@ -268,7 +268,7 @@ namespace Image_Converter
             DialogResult dialogResult = MessageBox.Show("This action converts '" + listFileEntries.SelectedItems[0].Text + "' with specified settings to the output directory.", "Convert Single File", MessageBoxButtons.OKCancel);
             if (dialogResult == DialogResult.OK)
             {
-                bool success = converter.Convert();
+                bool success = converter.ConvertWithFilters();
 
                 if (success)
                 {
@@ -456,7 +456,7 @@ namespace Image_Converter
         {
             try
             {
-                SixLabors.ImageSharp.Image<Rgba32> image = converter.ReadInputFile(filePath);
+                SixLabors.ImageSharp.Image<Rgba32> image = converter.ReadPreview(filePath);
                 if (image != null)
                 {
                     Bitmap actualPreview = new Bitmap(image.Width, image.Height);

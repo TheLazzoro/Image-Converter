@@ -35,6 +35,8 @@ namespace Image_Converter
         public int selectedDDSCompression;
         public bool generateMipMaps;
         public bool isBLP2 = false;
+        public bool isButtonIcon = false;
+        public bool isDisabledIcon = false;
         private BcEncoder bcEncoder;
         private BcDecoder bcDecoder = new BcDecoder();
         private JpegEncoder jpegEncoder;
@@ -110,10 +112,23 @@ namespace Image_Converter
             }
         }
 
-        public bool Convert()
+        public bool ConvertWithFilters() {
+            bool success = false;
+
+            SixLabors.ImageSharp.Image<Rgba32> imageToConvert = ReadInputFile(fileEntries[currentEntry]);
+
+            if(isButtonIcon) {
+                Convert(AddIconBorder(imageToConvert, IconSettings.BTN));
+            }
+
+            currentEntry++;
+
+            return success;
+        }
+
+        private bool Convert(SixLabors.ImageSharp.Image<Rgba32> imageToConvert)
         {
             bool success = false;
-            SixLabors.ImageSharp.Image<Rgba32> imageToConvert = ReadInputFile(fileEntries[currentEntry]);
 
             if (imageToConvert != null)
             {
@@ -143,9 +158,18 @@ namespace Image_Converter
                 }
             }
 
-            currentEntry++;
-
             return success;
+        }
+
+        public SixLabors.ImageSharp.Image<Rgba32> ReadPreview(String filePath)
+        {
+            SixLabors.ImageSharp.Image<Rgba32> image = ReadInputFile(filePath);
+            if (image != null)
+            {
+                image = AddIconBorder(image, IconSettings.BTN);
+            }
+
+            return image;
         }
 
         public SixLabors.ImageSharp.Image<Rgba32> ReadInputFile(String filePath)
@@ -470,6 +494,45 @@ namespace Image_Converter
             return success;
         }
 
+        private SixLabors.ImageSharp.Image<Rgba32> AddIconBorder(SixLabors.ImageSharp.Image<Rgba32> source, IconSettings iconSettings)
+        {
+            //SixLabors.ImageSharp.Image<Rgba32> border = SixLabors.ImageSharp.Image<Rgba32>.Load(Properties.Resources.Icon_Border_Passive);
+            //SixLabors.ImageSharp.Image<Rgba32> border = SixLabors.ImageSharp.Image<Rgba32>.Load(Properties.Resources.Icon_Border_Autocast);
+            //SixLabors.ImageSharp.Image<Rgba32> border = SixLabors.ImageSharp.Image<Rgba32>.Load(Properties.Resources.Icon_Border);
+            SixLabors.ImageSharp.Image<Rgba32> imageToConvert = source.Clone();
+            SixLabors.ImageSharp.Image<Rgba32> border = SixLabors.ImageSharp.Image<Rgba32>.Load(Properties.Resources.Icon_Border_Disabled);
+
+
+            if (imageToConvert.Width == 64 && imageToConvert.Height == 64)
+            {
+                if (!isButtonIcon) // flip this
+                {
+                    for (int y = 0; y < 64; y++)
+                    {
+                        for (int x = 0; x < 64; x++)
+                        {
+                            byte redBorder = border[x, y].R;
+                            byte greenBorder = border[x, y].G;
+                            byte blueBorder = border[x, y].B;
+                            byte alphaBorder = border[x, y].A;
+
+                            if (alphaBorder != 0)
+                            {
+                                float alphaPercent = (float)alphaBorder / 255;
+
+                                byte redBlended = (byte)((int)imageToConvert[x, y].R * (1 - alphaPercent) + (redBorder * alphaPercent));
+                                byte greenBlended = (byte)((int)imageToConvert[x, y].G * (1 - alphaPercent) + (greenBorder * alphaPercent));
+                                byte blueBlended = (byte)((int)imageToConvert[x, y].B * (1 - alphaPercent) + (blueBorder * alphaPercent));
+
+                                imageToConvert[x, y] = new Rgba32(redBlended, greenBlended, blueBlended);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return imageToConvert;
+        }
 
         private bool ConvertOLD(bool isMulti)
         {

@@ -32,14 +32,14 @@ namespace Image_Converter
             this.btnClose = new System.Windows.Forms.Button();
             this.checkBoxIsBLP2 = new System.Windows.Forms.CheckBox();
             this.groupBox = new System.Windows.Forms.GroupBox();
-            this.radioBtnNone = new System.Windows.Forms.RadioButton();
-            this.radioBtnButton = new System.Windows.Forms.RadioButton();
-            this.radioBtnPassive = new System.Windows.Forms.RadioButton();
-            this.radioBtnAutocast = new System.Windows.Forms.RadioButton();
-            this.radioBtnDisabled = new System.Windows.Forms.RadioButton();
+            this.checkBoxInfoUpgrade = new System.Windows.Forms.CheckBox();
+            this.checkBoxInfoBasic = new System.Windows.Forms.CheckBox();
+            this.checkBoxDisabled = new System.Windows.Forms.CheckBox();
+            this.checkBoxAutocast = new System.Windows.Forms.CheckBox();
+            this.checkBoxPassive = new System.Windows.Forms.CheckBox();
+            this.checkBoxButton = new System.Windows.Forms.CheckBox();
             this.radioBtnAll = new System.Windows.Forms.RadioButton();
-            this.radioBtnInfoBasic = new System.Windows.Forms.RadioButton();
-            this.radioBtnInfoUpgrade = new System.Windows.Forms.RadioButton();
+            this.radioBtnNone = new System.Windows.Forms.RadioButton();
             this.groupBox.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -76,13 +76,13 @@ namespace Image_Converter
             // 
             this.groupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox.Controls.Add(this.radioBtnInfoUpgrade);
-            this.groupBox.Controls.Add(this.radioBtnInfoBasic);
+            this.groupBox.Controls.Add(this.checkBoxInfoUpgrade);
+            this.groupBox.Controls.Add(this.checkBoxInfoBasic);
+            this.groupBox.Controls.Add(this.checkBoxDisabled);
+            this.groupBox.Controls.Add(this.checkBoxAutocast);
+            this.groupBox.Controls.Add(this.checkBoxPassive);
+            this.groupBox.Controls.Add(this.checkBoxButton);
             this.groupBox.Controls.Add(this.radioBtnAll);
-            this.groupBox.Controls.Add(this.radioBtnDisabled);
-            this.groupBox.Controls.Add(this.radioBtnAutocast);
-            this.groupBox.Controls.Add(this.radioBtnPassive);
-            this.groupBox.Controls.Add(this.radioBtnButton);
             this.groupBox.Controls.Add(this.radioBtnNone);
             this.groupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.groupBox.Location = new System.Drawing.Point(12, 12);
@@ -92,60 +92,73 @@ namespace Image_Converter
             this.groupBox.TabStop = false;
             this.groupBox.Text = "Warcraft III Icon Borders";
             // 
-            // radioBtnNone
+            // checkBoxInfoUpgrade
             // 
-            this.radioBtnNone.AutoSize = true;
-            this.radioBtnNone.Location = new System.Drawing.Point(7, 21);
-            this.radioBtnNone.Name = "radioBtnNone";
-            this.radioBtnNone.Size = new System.Drawing.Size(55, 19);
-            this.radioBtnNone.TabIndex = 0;
-            this.radioBtnNone.TabStop = true;
-            this.radioBtnNone.Text = "None";
-            this.radioBtnNone.UseVisualStyleBackColor = true;
+            this.checkBoxInfoUpgrade.AutoSize = true;
+            this.checkBoxInfoUpgrade.Enabled = false;
+            this.checkBoxInfoUpgrade.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.checkBoxInfoUpgrade.Location = new System.Drawing.Point(139, 115);
+            this.checkBoxInfoUpgrade.Name = "checkBoxInfoUpgrade";
+            this.checkBoxInfoUpgrade.Size = new System.Drawing.Size(98, 19);
+            this.checkBoxInfoUpgrade.TabIndex = 40;
+            this.checkBoxInfoUpgrade.Text = "Info-Upgrade";
+            this.checkBoxInfoUpgrade.UseVisualStyleBackColor = true;
             // 
-            // radioBtnButton
+            // checkBoxInfoBasic
             // 
-            this.radioBtnButton.AutoSize = true;
-            this.radioBtnButton.Location = new System.Drawing.Point(7, 65);
-            this.radioBtnButton.Name = "radioBtnButton";
-            this.radioBtnButton.Size = new System.Drawing.Size(60, 19);
-            this.radioBtnButton.TabIndex = 1;
-            this.radioBtnButton.TabStop = true;
-            this.radioBtnButton.Text = "Button";
-            this.radioBtnButton.UseVisualStyleBackColor = true;
+            this.checkBoxInfoBasic.AutoSize = true;
+            this.checkBoxInfoBasic.Enabled = false;
+            this.checkBoxInfoBasic.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.checkBoxInfoBasic.Location = new System.Drawing.Point(139, 91);
+            this.checkBoxInfoBasic.Name = "checkBoxInfoBasic";
+            this.checkBoxInfoBasic.Size = new System.Drawing.Size(80, 19);
+            this.checkBoxInfoBasic.TabIndex = 39;
+            this.checkBoxInfoBasic.Text = "Info-Basic";
+            this.checkBoxInfoBasic.UseVisualStyleBackColor = true;
             // 
-            // radioBtnPassive
+            // checkBoxDisabled
             // 
-            this.radioBtnPassive.AutoSize = true;
-            this.radioBtnPassive.Location = new System.Drawing.Point(7, 90);
-            this.radioBtnPassive.Name = "radioBtnPassive";
-            this.radioBtnPassive.Size = new System.Drawing.Size(67, 19);
-            this.radioBtnPassive.TabIndex = 2;
-            this.radioBtnPassive.TabStop = true;
-            this.radioBtnPassive.Text = "Passive";
-            this.radioBtnPassive.UseVisualStyleBackColor = true;
+            this.checkBoxDisabled.AutoSize = true;
+            this.checkBoxDisabled.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.checkBoxDisabled.Location = new System.Drawing.Point(139, 65);
+            this.checkBoxDisabled.Name = "checkBoxDisabled";
+            this.checkBoxDisabled.Size = new System.Drawing.Size(75, 19);
+            this.checkBoxDisabled.TabIndex = 38;
+            this.checkBoxDisabled.Text = "Disabled";
+            this.checkBoxDisabled.UseVisualStyleBackColor = true;
             // 
-            // radioBtnAutocast
+            // checkBoxAutocast
             // 
-            this.radioBtnAutocast.AutoSize = true;
-            this.radioBtnAutocast.Location = new System.Drawing.Point(7, 115);
-            this.radioBtnAutocast.Name = "radioBtnAutocast";
-            this.radioBtnAutocast.Size = new System.Drawing.Size(71, 19);
-            this.radioBtnAutocast.TabIndex = 3;
-            this.radioBtnAutocast.TabStop = true;
-            this.radioBtnAutocast.Text = "Autocast";
-            this.radioBtnAutocast.UseVisualStyleBackColor = true;
+            this.checkBoxAutocast.AutoSize = true;
+            this.checkBoxAutocast.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.checkBoxAutocast.Location = new System.Drawing.Point(7, 115);
+            this.checkBoxAutocast.Name = "checkBoxAutocast";
+            this.checkBoxAutocast.Size = new System.Drawing.Size(72, 19);
+            this.checkBoxAutocast.TabIndex = 37;
+            this.checkBoxAutocast.Text = "Autocast";
+            this.checkBoxAutocast.UseVisualStyleBackColor = true;
             // 
-            // radioBtnDisabled
+            // checkBoxPassive
             // 
-            this.radioBtnDisabled.AutoSize = true;
-            this.radioBtnDisabled.Location = new System.Drawing.Point(139, 65);
-            this.radioBtnDisabled.Name = "radioBtnDisabled";
-            this.radioBtnDisabled.Size = new System.Drawing.Size(74, 19);
-            this.radioBtnDisabled.TabIndex = 4;
-            this.radioBtnDisabled.TabStop = true;
-            this.radioBtnDisabled.Text = "Disabled";
-            this.radioBtnDisabled.UseVisualStyleBackColor = true;
+            this.checkBoxPassive.AutoSize = true;
+            this.checkBoxPassive.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.checkBoxPassive.Location = new System.Drawing.Point(7, 91);
+            this.checkBoxPassive.Name = "checkBoxPassive";
+            this.checkBoxPassive.Size = new System.Drawing.Size(68, 19);
+            this.checkBoxPassive.TabIndex = 36;
+            this.checkBoxPassive.Text = "Passive";
+            this.checkBoxPassive.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxButton
+            // 
+            this.checkBoxButton.AutoSize = true;
+            this.checkBoxButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.checkBoxButton.Location = new System.Drawing.Point(7, 65);
+            this.checkBoxButton.Name = "checkBoxButton";
+            this.checkBoxButton.Size = new System.Drawing.Size(61, 19);
+            this.checkBoxButton.TabIndex = 35;
+            this.checkBoxButton.Text = "Button";
+            this.checkBoxButton.UseVisualStyleBackColor = true;
             // 
             // radioBtnAll
             // 
@@ -158,29 +171,16 @@ namespace Image_Converter
             this.radioBtnAll.Text = "All";
             this.radioBtnAll.UseVisualStyleBackColor = true;
             // 
-            // radioBtnInfoBasic
+            // radioBtnNone
             // 
-            this.radioBtnInfoBasic.AutoSize = true;
-            this.radioBtnInfoBasic.Enabled = false;
-            this.radioBtnInfoBasic.Location = new System.Drawing.Point(139, 90);
-            this.radioBtnInfoBasic.Name = "radioBtnInfoBasic";
-            this.radioBtnInfoBasic.Size = new System.Drawing.Size(79, 19);
-            this.radioBtnInfoBasic.TabIndex = 6;
-            this.radioBtnInfoBasic.TabStop = true;
-            this.radioBtnInfoBasic.Text = "Info-Basic";
-            this.radioBtnInfoBasic.UseVisualStyleBackColor = true;
-            // 
-            // radioBtnInfoUpgrade
-            // 
-            this.radioBtnInfoUpgrade.AutoSize = true;
-            this.radioBtnInfoUpgrade.Enabled = false;
-            this.radioBtnInfoUpgrade.Location = new System.Drawing.Point(139, 115);
-            this.radioBtnInfoUpgrade.Name = "radioBtnInfoUpgrade";
-            this.radioBtnInfoUpgrade.Size = new System.Drawing.Size(97, 19);
-            this.radioBtnInfoUpgrade.TabIndex = 7;
-            this.radioBtnInfoUpgrade.TabStop = true;
-            this.radioBtnInfoUpgrade.Text = "Info-Upgrade";
-            this.radioBtnInfoUpgrade.UseVisualStyleBackColor = true;
+            this.radioBtnNone.AutoSize = true;
+            this.radioBtnNone.Location = new System.Drawing.Point(7, 21);
+            this.radioBtnNone.Name = "radioBtnNone";
+            this.radioBtnNone.Size = new System.Drawing.Size(55, 19);
+            this.radioBtnNone.TabIndex = 0;
+            this.radioBtnNone.TabStop = true;
+            this.radioBtnNone.Text = "None";
+            this.radioBtnNone.UseVisualStyleBackColor = true;
             // 
             // Filters
             // 
@@ -190,8 +190,10 @@ namespace Image_Converter
             this.Controls.Add(this.groupBox);
             this.Controls.Add(this.checkBoxIsBLP2);
             this.Controls.Add(this.btnClose);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MinimumSize = new System.Drawing.Size(268, 310);
             this.Name = "Filters";
+            this.ShowIcon = false;
             this.Text = "Filters";
             this.groupBox.ResumeLayout(false);
             this.groupBox.PerformLayout();
@@ -205,13 +207,13 @@ namespace Image_Converter
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.CheckBox checkBoxIsBLP2;
         private System.Windows.Forms.GroupBox groupBox;
-        private System.Windows.Forms.RadioButton radioBtnButton;
         private System.Windows.Forms.RadioButton radioBtnNone;
         private System.Windows.Forms.RadioButton radioBtnAll;
-        private System.Windows.Forms.RadioButton radioBtnDisabled;
-        private System.Windows.Forms.RadioButton radioBtnAutocast;
-        private System.Windows.Forms.RadioButton radioBtnPassive;
-        private System.Windows.Forms.RadioButton radioBtnInfoUpgrade;
-        private System.Windows.Forms.RadioButton radioBtnInfoBasic;
+        private System.Windows.Forms.CheckBox checkBoxInfoUpgrade;
+        private System.Windows.Forms.CheckBox checkBoxInfoBasic;
+        private System.Windows.Forms.CheckBox checkBoxDisabled;
+        private System.Windows.Forms.CheckBox checkBoxAutocast;
+        private System.Windows.Forms.CheckBox checkBoxPassive;
+        private System.Windows.Forms.CheckBox checkBoxButton;
     }
 }

@@ -124,7 +124,7 @@ namespace Image_Converter
 
             if (!isButtonIcon && !isPassiveIcon && !isAutocastIcon && !isDisabledIcon)
             {
-                    filePrefix = "";
+                filePrefix = "";
                 Convert(imageToConvert);
             }
             else

@@ -69,7 +69,6 @@
             this.openFileLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeFromListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.convertToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.checkBoxIsBLP2 = new System.Windows.Forms.CheckBox();
             this.checkBoxSubFolders = new System.Windows.Forms.CheckBox();
             this.btnFilters = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.trckbarImageQuality)).BeginInit();
@@ -601,19 +600,6 @@
             this.convertToolStripMenuItem.Text = "Remove From List";
             this.convertToolStripMenuItem.Click += new System.EventHandler(this.removeFromListToolStripMenuItem_Click);
             // 
-            // checkBoxIsBLP2
-            // 
-            this.checkBoxIsBLP2.AutoSize = true;
-            this.checkBoxIsBLP2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.checkBoxIsBLP2.Location = new System.Drawing.Point(181, 135);
-            this.checkBoxIsBLP2.Name = "checkBoxIsBLP2";
-            this.checkBoxIsBLP2.Size = new System.Drawing.Size(56, 19);
-            this.checkBoxIsBLP2.TabIndex = 31;
-            this.checkBoxIsBLP2.Text = "BLP2";
-            this.checkBoxIsBLP2.UseVisualStyleBackColor = true;
-            this.checkBoxIsBLP2.CheckedChanged += new System.EventHandler(this.checkBoxIsBLP2_CheckedChanged);
-            this.checkBoxIsBLP2.MouseHover += new System.EventHandler(this.checkBoxIsBLP2_MouseHover);
-            // 
             // checkBoxSubFolders
             // 
             this.checkBoxSubFolders.AutoSize = true;
@@ -633,7 +619,7 @@
             this.btnFilters.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnFilters.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnFilters.ForeColor = System.Drawing.SystemColors.Window;
-            this.btnFilters.Location = new System.Drawing.Point(244, 127);
+            this.btnFilters.Location = new System.Drawing.Point(181, 127);
             this.btnFilters.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnFilters.Name = "btnFilters";
             this.btnFilters.Size = new System.Drawing.Size(59, 27);
@@ -651,7 +637,6 @@
             this.ClientSize = new System.Drawing.Size(515, 569);
             this.Controls.Add(this.btnFilters);
             this.Controls.Add(this.checkBoxSubFolders);
-            this.Controls.Add(this.checkBoxIsBLP2);
             this.Controls.Add(this.checkBoxTransparencyGrid);
             this.Controls.Add(this.lblItems);
             this.Controls.Add(this.panel1);
@@ -739,7 +724,6 @@
         private System.Windows.Forms.ToolStripMenuItem removeFromListToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem convertToolStripMenuItem;
         private System.Windows.Forms.Panel panelImportContent;
-        private System.Windows.Forms.CheckBox checkBoxIsBLP2;
         private System.Windows.Forms.CheckBox checkBoxSubFolders;
         private System.Windows.Forms.Button btnFilters;
     }

@@ -15,6 +15,11 @@ namespace Image_Converter
         {
             InitializeComponent();
             this.converter = converter;
+            checkBoxButton.Checked = converter.isButtonIcon;
+            checkBoxPassive.Checked = converter.isPassiveIcon;
+            checkBoxAutocast.Checked = converter.isAutocastIcon;
+            checkBoxDisabled.Checked = converter.isDisabledIcon;
+            checkBoxIsBLP2.Checked = converter.isBLP2;
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -24,10 +29,11 @@ namespace Image_Converter
 
         private void checkBoxButton_CheckedChanged(object sender, EventArgs e)
         {
-            if(checkBoxButton.Checked == true)
+            if (checkBoxButton.Checked == true)
             {
                 converter.isButtonIcon = true;
-            } else
+            }
+            else
             {
                 converter.isButtonIcon = false;
             }
@@ -67,6 +73,23 @@ namespace Image_Converter
             {
                 converter.isDisabledIcon = false;
             }
+        }
+
+        private void checkBoxIsBLP2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxIsBLP2.Checked == true)
+            {
+                converter.isBLP2 = true;
+            }
+            else
+            {
+                converter.isBLP2 = false;
+            }
+        }
+
+        private void checkBoxIsBLP2_MouseHover(object sender, EventArgs e)
+        {
+            //DisplayTooltip("Toggles color format for BLP images (BLP2 = World of Warcraft)", checkBoxIsBLP2, 600);
         }
     }
 }

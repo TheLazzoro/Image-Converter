@@ -559,7 +559,8 @@ namespace Image_Converter
             else if (listFileEntries.Items.Count > 0)
             {
                 listFileEntries.Items[indexFirstSelected - 1].Selected = true;
-            } else
+            }
+            else
             {
                 imagePreview.Image = null;
                 currentPreviewReferenceImage = null;
@@ -602,8 +603,7 @@ namespace Image_Converter
         {
             CenterAndScalePreviewImage();
             lblResolution.Location = new System.Drawing.Point(previewSplitContainer.Location.X + previewSplitContainer.Panel1.Width, previewSplitContainer.Location.Y + previewSplitContainer.Panel2.Height);
-            checkBoxIsBLP2.Location = new System.Drawing.Point(previewSplitContainer.Location.X + previewSplitContainer.Panel1.Width + 4, previewSplitContainer.Location.Y - checkBoxIsBLP2.Height);
-            btnFilters.Location = new System.Drawing.Point(previewSplitContainer.Location.X + previewSplitContainer.Panel1.Width + 64, previewSplitContainer.Location.Y - btnFilters.Height - 2);
+            btnFilters.Location = new System.Drawing.Point(previewSplitContainer.Location.X + previewSplitContainer.Panel1.Width + 4, previewSplitContainer.Location.Y - btnFilters.Height - 2);
             lblItems.Location = new System.Drawing.Point(previewSplitContainer.Location.X, previewSplitContainer.Location.Y + previewSplitContainer.Panel1.Height);
         }
 
@@ -638,8 +638,6 @@ namespace Image_Converter
 
             System.Drawing.Point previewCenter = new System.Drawing.Point((previewSplitContainer.Panel2.Width / 2) - (imagePreview.Width / 2), (previewSplitContainer.Panel2.Height / 2) - (imagePreview.Height / 2));
             imagePreview.Location = previewCenter;
-            //lblPreviewError.Location = previewCenter;
-            //imagePreview.Size = new System.Drawing.Size( previewSplitContainer.Panel2.Width, previewSplitContainer.Panel2.Height);
         }
 
         private void checkBoxTransparencyGrid_CheckedChanged(object sender, EventArgs e)
@@ -654,27 +652,6 @@ namespace Image_Converter
             }
         }
 
-        private void checkBoxIsBLP2_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBoxIsBLP2.Checked == true)
-            {
-                converter.isBLP2 = true;
-            }
-            else
-            {
-                converter.isBLP2 = false;
-            }
-            if (listFileEntries.SelectedItems.Count > 0)
-            {
-                DisplayPreviewImage(listFileEntries.SelectedItems[0].Tag.ToString());
-            }
-        }
-
-        private void checkBoxIsBLP2_MouseHover(object sender, EventArgs e)
-        {
-            DisplayTooltip("Toggles color format for BLP images (BLP2 = World of Warcraft)", checkBoxIsBLP2, 600);
-        }
-
         private void checkBoxSubFolders_MouseHover(object sender, EventArgs e)
         {
             DisplayTooltip("Scans all subfolders when importing a folder.", checkBoxSubFolders, 600);
@@ -686,6 +663,12 @@ namespace Image_Converter
             dialog.StartPosition = FormStartPosition.Manual;
             dialog.Location = this.Location;
             dialog.ShowDialog();
+
+            // Reload preview image when dialog window closes.
+            if (listFileEntries.SelectedItems.Count > 0)
+            {
+                DisplayPreviewImage(listFileEntries.SelectedItems[0].Tag.ToString());
+            }
         }
     }
 }

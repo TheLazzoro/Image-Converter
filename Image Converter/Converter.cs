@@ -37,9 +37,11 @@ namespace Image_Converter
         public EncoderParameters encoderParameters; // for standard formats like jpg, png, tiff and bmp.
         public int imageQualityJpeg;
         public int selectedDDSCompression;
+        public int selectedDDSCompressionQuality;
         public bool generateMipMaps;
         public bool isBLP2 = false;
         public IconSettings currentIconSetting;
+        public int war3IconType;
         public bool isButtonIcon = false;
         public bool isPassiveIcon = false;
         public bool isDisabledIcon = false;
@@ -93,7 +95,6 @@ namespace Image_Converter
                 bcEncoder.Options.multiThreaded = true;
                 bcEncoder.OutputOptions.generateMipMaps = generateMipMaps;
                 bcEncoder.OutputOptions.fileFormat = OutputFileFormat.Dds;
-                bcEncoder.OutputOptions.quality = CompressionQuality.Balanced;
 
                 switch (selectedDDSCompression)
                 {
@@ -113,6 +114,22 @@ namespace Image_Converter
                         bcEncoder.OutputOptions.format = CompressionFormat.BC1;
                         break;
                 }
+
+                switch (selectedDDSCompressionQuality)
+                {
+                    case 0:
+                        bcEncoder.OutputOptions.quality = CompressionQuality.Fast;
+                        break;
+                    case 1:
+                        bcEncoder.OutputOptions.quality = CompressionQuality.Balanced;
+                        break;
+                    case 2:
+                        bcEncoder.OutputOptions.quality = CompressionQuality.BestQuality;
+                        break;
+                    default:
+                        bcEncoder.OutputOptions.quality = CompressionQuality.Fast;
+                        break;
+                }
             }
             if (selectedFileExtension == (int)ImageFormats.BLP)
             {
@@ -126,7 +143,7 @@ namespace Image_Converter
 
             SixLabors.ImageSharp.Image<Rgba32> imageToConvert = ReadInputFile(fileEntries[currentEntry]);
 
-            if (!isButtonIcon && !isPassiveIcon && !isAutocastIcon && !isDisabledIcon)
+            if (war3IconType != 0)
             {
                 filePrefix = "";
                 Convert(imageToConvert);
@@ -167,29 +184,17 @@ namespace Image_Converter
             if (imageToConvert != null)
             {
                 if (selectedFileExtension == (int)ImageFormats.JPG)
-                {
                     success = ConvertToJpg(imageToConvert);
-                }
                 else if (selectedFileExtension == (int)ImageFormats.PNG)
-                {
                     success = ConvertToPng(imageToConvert);
-                }
                 else if (selectedFileExtension == (int)ImageFormats.BMP)
-                {
                     success = ConvertToBmp(imageToConvert);
-                }
                 else if (selectedFileExtension == (int)ImageFormats.TGA)
-                {
                     success = ConvertToTga(imageToConvert);
-                }
                 else if (selectedFileExtension == (int)ImageFormats.DDS)
-                {
                     success = ConvertToDds(imageToConvert);
-                }
                 else if (selectedFileExtension == (int)ImageFormats.BLP)
-                {
                     success = ConvertToBlp(imageToConvert);
-                }
             }
 
             return success;
@@ -200,14 +205,24 @@ namespace Image_Converter
             SixLabors.ImageSharp.Image<Rgba32> image = ReadInputFile(filePath);
             if (image != null)
             {
-                if (isButtonIcon)
-                    image = AddIconBorder(image, IconSettings.BTN);
-                if (isPassiveIcon)
-                    image = AddIconBorder(image, IconSettings.PAS);
-                if (isAutocastIcon)
-                    image = AddIconBorder(image, IconSettings.ATC);
-                if (isDisabledIcon)
-                    image = AddIconBorder(image, IconSettings.DIS);
+                int iconsChecked = 0;
+                if (isButtonIcon) iconsChecked++;
+                if (isPassiveIcon) iconsChecked++;
+                if (isAutocastIcon) iconsChecked++;
+                if (isDisabledIcon) iconsChecked++;
+
+                if (iconsChecked <= 1)
+                {
+                    if (isButtonIcon) image = AddIconBorder(image, IconSettings.BTN);
+                    if (isPassiveIcon) image = AddIconBorder(image, IconSettings.PAS);
+                    if (isAutocastIcon) image = AddIconBorder(image, IconSettings.ATC);
+                    if (isDisabledIcon) image = AddIconBorder(image, IconSettings.DIS);
+                    errorMsg = "";
+                }
+                else
+                {
+                    errorMsg = "Cannot display multiple icon filters";
+                }
             }
 
             return image;

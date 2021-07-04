@@ -15,6 +15,10 @@ namespace Image_Converter
         {
             InitializeComponent();
             this.converter = converter;
+            
+            if (converter.war3IconType == 0) radioBtnNone.Checked = true;
+            if (converter.war3IconType == 1) radioBtnClassic.Checked = true;
+            if (converter.war3IconType == 2) radioBtnReforged.Checked = true;
             checkBoxButton.Checked = converter.isButtonIcon;
             checkBoxPassive.Checked = converter.isPassiveIcon;
             checkBoxAutocast.Checked = converter.isAutocastIcon;
@@ -24,72 +28,46 @@ namespace Image_Converter
 
         private void btnClose_Click(object sender, EventArgs e)
         {
+            if (radioBtnNone.Checked) converter.war3IconType = 0;
+            if (radioBtnClassic.Checked) converter.war3IconType = 1;
+            if (radioBtnReforged.Checked) converter.war3IconType = 2;
+
+            converter.isButtonIcon = checkBoxButton.Checked;
+            converter.isPassiveIcon = checkBoxPassive.Checked;
+            converter.isAutocastIcon = checkBoxAutocast.Checked;
+            converter.isDisabledIcon = checkBoxDisabled.Checked;
+
             Dispose();
-        }
-
-        private void checkBoxButton_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBoxButton.Checked == true)
-            {
-                converter.isButtonIcon = true;
-            }
-            else
-            {
-                converter.isButtonIcon = false;
-            }
-        }
-
-        private void checkBoxPassive_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBoxPassive.Checked == true)
-            {
-                converter.isPassiveIcon = true;
-            }
-            else
-            {
-                converter.isPassiveIcon = false;
-            }
-        }
-
-        private void checkBoxAutocast_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBoxAutocast.Checked == true)
-            {
-                converter.isAutocastIcon = true;
-            }
-            else
-            {
-                converter.isAutocastIcon = false;
-            }
-        }
-
-        private void checkBoxDisabled_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBoxDisabled.Checked == true)
-            {
-                converter.isDisabledIcon = true;
-            }
-            else
-            {
-                converter.isDisabledIcon = false;
-            }
         }
 
         private void checkBoxIsBLP2_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBoxIsBLP2.Checked == true)
-            {
-                converter.isBLP2 = true;
-            }
-            else
-            {
-                converter.isBLP2 = false;
-            }
+            converter.isBLP2 = checkBoxIsBLP2.Checked;
         }
 
         private void checkBoxIsBLP2_MouseHover(object sender, EventArgs e)
         {
             //DisplayTooltip("Toggles color format for BLP images (BLP2 = World of Warcraft)", checkBoxIsBLP2, 600);
+        }
+
+        private void radioBtnNone_CheckedChanged(object sender, EventArgs e)
+        {
+            checkBoxButton.Enabled = !radioBtnNone.Checked;
+            checkBoxPassive.Enabled = !radioBtnNone.Checked;
+            checkBoxAutocast.Enabled = !radioBtnNone.Checked;
+            checkBoxDisabled.Enabled = !radioBtnNone.Checked;
+            lblInfo.Enabled = !radioBtnNone.Checked;
+            lblInfo2.Visible = !radioBtnNone.Checked;
+        }
+
+        private void radioBtnClassic_CheckedChanged(object sender, EventArgs e)
+        {
+            lblInfo2.Text = "Only applies on 64x64 images";
+        }
+
+        private void radioBtnReforged_CheckedChanged(object sender, EventArgs e)
+        {
+            lblInfo2.Text = "Only applies on 128x128 or 256x256 images";
         }
     }
 }

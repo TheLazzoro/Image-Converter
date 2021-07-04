@@ -262,6 +262,13 @@ namespace Image_Converter
             converter.imageQualityJpeg = trckbarImageQuality.Value * 10; //calculates image quality for jpg
             converter.selectedDDSCompression = cmboxDDSList.SelectedIndex; // dds compression
             converter.generateMipMaps = chkBoxMipmaps.Checked; // dds mipmaps
+            if(radBtnFastest.Checked) { // compression quality
+                converter.selectedDDSCompressionQuality = 0;
+            } else if(radBtnBalanced.Checked) {
+                converter.selectedDDSCompressionQuality = 1;
+            } else {
+                converter.selectedDDSCompressionQuality = 2;
+            }
             converter.Init(cmboxOutputFormat.SelectedIndex);
             converter.isMultipleFiles = false;
 
@@ -295,6 +302,13 @@ namespace Image_Converter
             converter.imageQualityJpeg = trckbarImageQuality.Value * 10; //calculates image quality for jpg
             converter.selectedDDSCompression = cmboxDDSList.SelectedIndex; // dds compression
             converter.generateMipMaps = chkBoxMipmaps.Checked; // dds mipmaps
+            if(radBtnFastest.Checked) { // compression quality
+                converter.selectedDDSCompressionQuality = 0;
+            } else if(radBtnBalanced.Checked) {
+                converter.selectedDDSCompressionQuality = 1;
+            } else {
+                converter.selectedDDSCompressionQuality = 2;
+            }
             converter.Init(cmboxOutputFormat.SelectedIndex);
             converter.isMultipleFiles = true;
 
@@ -375,6 +389,10 @@ namespace Image_Converter
                 lblImageQuality.Visible = true;
                 cmboxDDSList.Visible = false;
                 chkBoxMipmaps.Visible = false;
+                lblDDSQuality.Visible = false;
+                radBtnFastest.Visible = false;
+                radBtnBalanced.Visible = false;
+                radBtnHighest.Visible = false;
             }
             else if (cmboxOutputFormat.SelectedIndex == (int)ImageFormats.DDS)
             {
@@ -384,6 +402,10 @@ namespace Image_Converter
                 lblImageQuality.Visible = false;
                 cmboxDDSList.Visible = true;
                 chkBoxMipmaps.Visible = true;
+                lblDDSQuality.Visible = true;
+                radBtnFastest.Visible = true;
+                radBtnBalanced.Visible = true;
+                radBtnHighest.Visible = true;
             }
             else
             {
@@ -392,6 +414,10 @@ namespace Image_Converter
                 lblImageQuality.Visible = false;
                 cmboxDDSList.Visible = false;
                 chkBoxMipmaps.Visible = false;
+                lblDDSQuality.Visible = false;
+                radBtnFastest.Visible = false;
+                radBtnBalanced.Visible = false;
+                radBtnHighest.Visible = false;
             }
 
             switch (cmboxOutputFormat.SelectedIndex)
@@ -476,7 +502,10 @@ namespace Image_Converter
                     lblResolution.Text = "Resolution: " + image.Width + "x" + image.Height;
 
                     image.Dispose();
-                    lblPreviewError.Text = "";
+                    if(converter.errorMsg != "")
+                        lblPreviewError.Text = converter.errorMsg;
+                    else
+                        lblPreviewError.Text = "";
                 }
                 else
                 {

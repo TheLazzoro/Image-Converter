@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0-windows</TargetFramework>
     <OutputType>WinExe</OutputType>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>C:\Users\Lasse Dam\Desktop\</PublishUrl>
@@ -39,6 +39,12 @@
     <AssemblyName>Image Converter</AssemblyName>
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
   <ItemGroup>
     <Content Include="App-Icon.ico" />
   </ItemGroup>
@@ -60,6 +66,8 @@
   <ItemGroup>
     <PackageReference Include="BCnEncoder.Net" Version="1.2.3" />
     <PackageReference Include="CSharpImageLibrary" Version="4.2.0" />
+    <PackageReference Include="DirectXTexNet" Version="1.0.2" />
+    <PackageReference Include="directxtex_desktop_2017" Version="2021.6.10.1" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="SixLabors.ImageSharp" Version="1.0.3" />
     <PackageReference Include="System.Buffers" Version="4.5.1" />
@@ -67,6 +75,7 @@
     <PackageReference Include="System.Memory" Version="4.5.4" />
     <PackageReference Include="System.Numerics.Vectors" Version="4.5.0" />
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="5.0.0" />
+    <PackageReference Include="TeximpNet" Version="1.4.3" />
     <PackageReference Include="War3Net.Drawing.Blp" Version="2.0.1" />
   </ItemGroup>
   <ItemGroup>

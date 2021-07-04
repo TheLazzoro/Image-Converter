@@ -14,6 +14,10 @@ using War3Net.Drawing.Blp;
 using SixLabors.ImageSharp.Formats.Jpeg;
 using SixLabors.ImageSharp.Formats.Png;
 using BCnEncoder.Decoder;
+using CSharpImageLibrary;
+using static CSharpImageLibrary.ImageFormats;
+using DirectXTexNet;
+using System.Runtime.InteropServices;
 
 namespace Image_Converter
 {
@@ -89,7 +93,7 @@ namespace Image_Converter
                 bcEncoder.Options.multiThreaded = true;
                 bcEncoder.OutputOptions.generateMipMaps = generateMipMaps;
                 bcEncoder.OutputOptions.fileFormat = OutputFileFormat.Dds;
-                bcEncoder.OutputOptions.quality = CompressionQuality.BestQuality;
+                bcEncoder.OutputOptions.quality = CompressionQuality.Balanced;
 
                 switch (selectedDDSCompression)
                 {
@@ -497,6 +501,58 @@ namespace Image_Converter
 
             try
             {
+                /*
+                byte[] pixeldata = new byte[imageToConvert.Width * imageToConvert.Height * 4];
+                for (int x = 0; x < imageToConvert.Width; x++)
+                {
+                    for (int y = 0; y < imageToConvert.Height; y++)
+                    {
+                        pixeldata[x + (imageToConvert.Width * y)] = imageToConvert[x, y].R;
+                        pixeldata[x + (imageToConvert.Width * y) + 1] = imageToConvert[x, y].G;
+                        pixeldata[x + (imageToConvert.Width * y) + 2] = imageToConvert[x, y].B;
+                        pixeldata[x + (imageToConvert.Width * y) + 3] = imageToConvert[x, y].A;
+                    }
+                }
+                Stream stream = new MemoryStream(pixeldata);
+
+                TeximpNet.RGBAQuad color = new TeximpNet.RGBAQuad(255, 255, 255, 255);
+                TeximpNet.Surface img = new TeximpNet.Surface(64, 64);
+                img = TeximpNet.Surface.LoadFromFile("D:\\Game Projects\\Warcraft 3 Maps\\Direct Strike\\Direct Strike Imports\\Loading Screeen.tga");
+                img.FlipVertically();
+
+
+                //img.SaveToFile(TeximpNet.ImageFormat.DDS, getFullOutputFilePath());
+                TeximpNet.Compression.Compressor compressor = new TeximpNet.Compression.Compressor();
+                compressor.Input.GenerateMipmaps = true;
+                compressor.Compression.Format = TeximpNet.Compression.CompressionFormat.BC1;
+                compressor.Compression.Quality = TeximpNet.Compression.CompressionQuality.Fastest;
+                compressor.Input.SetData(img);
+                compressor.Process(getFullOutputFilePath());
+                compressor.Dispose();
+                */
+
+                /*
+                    //IntPtr pixels = new IntPtr(pixeldata[0]);
+
+                    IntPtr pixels = Marshal.AllocHGlobal(pixeldata.Length);
+                    Marshal.Copy(pixeldata, 0, pixels, pixeldata.Length);
+
+
+                    DirectXTexNet.Image img = new DirectXTexNet.Image(imageToConvert.Width, imageToConvert.Height, DirectXTexNet.DXGI_FORMAT.BC1_TYPELESS, 0, 0, pixels, new Object());
+                    DirectXTexNet.Image[] images = {img};
+                    TexMetadata metadata = new TexMetadata(imageToConvert.Width, imageToConvert.Height, 0, pixeldata.Length, 1, TEX_MISC_FLAG.TEXTURECUBE, TEX_MISC_FLAG2.ALPHA_MODE_MASK, DirectXTexNet.DXGI_FORMAT.BC1_TYPELESS, TEX_DIMENSION.TEXTURE1D);
+                    //DirectXTexNet.ScratchImage scratch = TexHelper.Instance.Initialize(metadata, CP_FLAGS.NONE);
+                    //DirectXTexNet.ScratchImage scratch = TexHelper.Instance.Initialize2D(DirectXTexNet.DXGI_FORMAT.BC1_TYPELESS, imageToConvert.Width, imageToConvert.Height, pixeldata.Length, 0, CP_FLAGS.NONE);
+                    DirectXTexNet.ScratchImage scratch = TexHelper.Instance.InitializeTemporary(images, metadata);
+                    scratch.SaveToDDSFile(DDS_FLAGS.NONE, getFullOutputFilePath());
+                */
+
+                //MemoryStream ms = new MemoryStream();
+                //imageToConvert.SaveAsBmp(ms);
+                //ImageEngineImage img = new ImageEngineImage(ms);
+                //ImageEngineFormatDetails details = new ImageEngineFormatDetails(ImageEngineFormat.DDS_DXT1);
+                //img.Save(getFullOutputFilePath(), details, MipHandling.GenerateNew);
+
                 using FileStream fs = File.OpenWrite(getFullOutputFilePath());
                 bcEncoder.Encode(imageToConvert, fs);
                 fs.DisposeAsync();
@@ -504,8 +560,9 @@ namespace Image_Converter
             }
             catch (Exception ex)
             {
+
                 errorMsg = ex.Message;
-                //throw;
+                throw;
             }
 
             return success;

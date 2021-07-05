@@ -24,6 +24,9 @@ namespace Image_Converter
             checkBoxAutocast.Checked = converter.isAutocastIcon;
             checkBoxDisabled.Checked = converter.isDisabledIcon;
             checkBoxIsBLP2.Checked = converter.isBLP2;
+            checkBoxResize.Checked = converter.isResized;
+            upDownSizeX.Text = converter.resizeX.ToString();
+            upDownSizeY.Text = converter.resizeY.ToString();
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -36,6 +39,9 @@ namespace Image_Converter
             converter.isPassiveIcon = checkBoxPassive.Checked;
             converter.isAutocastIcon = checkBoxAutocast.Checked;
             converter.isDisabledIcon = checkBoxDisabled.Checked;
+            converter.isResized = checkBoxResize.Checked;
+            converter.resizeX = int.Parse(upDownSizeX.Text);
+            converter.resizeY = int.Parse(upDownSizeY.Text);
 
             Dispose();
         }
@@ -62,12 +68,18 @@ namespace Image_Converter
 
         private void radioBtnClassic_CheckedChanged(object sender, EventArgs e)
         {
-            lblInfo2.Text = "Only applies on 64x64 images";
+            lblInfo2.Text = "Only applies on 64x64 images.";
         }
 
         private void radioBtnReforged_CheckedChanged(object sender, EventArgs e)
         {
-            lblInfo2.Text = "Only applies on 128x128 or 256x256 images";
+            lblInfo2.Text = "Only applies on 128x128 or 256x256 images.";
+        }
+
+        private void checkBoxResize_CheckedChanged(object sender, EventArgs e)
+        {
+            upDownSizeX.Enabled = checkBoxResize.Checked;
+            upDownSizeY.Enabled = checkBoxResize.Checked;
         }
     }
 }

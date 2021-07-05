@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
 using BCnEncoder.Shared;
 using War3Net.Drawing.Blp;
 using SixLabors.ImageSharp.Formats.Jpeg;
@@ -46,6 +47,9 @@ namespace Image_Converter
         public bool isPassiveIcon = false;
         public bool isDisabledIcon = false;
         public bool isAutocastIcon = false;
+        public bool isResized = false;
+        public int resizeX;
+        public int resizeY;
         private string filePrefix = "";
         private BcEncoder bcEncoder;
         private BcDecoder bcDecoder = new BcDecoder();
@@ -172,6 +176,11 @@ namespace Image_Converter
                 }
             }
 
+            if (isResized)
+            {
+                imageToConvert.Mutate(x => x.Resize(resizeX, resizeY));
+            }
+
             currentEntry++;
 
             return success;
@@ -211,7 +220,7 @@ namespace Image_Converter
                 if (isAutocastIcon) iconsChecked++;
                 if (isDisabledIcon) iconsChecked++;
 
-                if (iconsChecked <= 1)
+                if (war3IconType != 0 && iconsChecked <= 1)
                 {
                     if (isButtonIcon) image = AddIconBorder(image, IconSettings.BTN);
                     if (isPassiveIcon) image = AddIconBorder(image, IconSettings.PAS);
@@ -221,8 +230,17 @@ namespace Image_Converter
                 }
                 else
                 {
-                    errorMsg = "Cannot display multiple icon filters";
+                    if (war3IconType != 0 && image.Width == 64 && image.Height == 64)
+                        errorMsg = "Cannot display multiple icon filters";
+                    else
+                        errorMsg = "";
                 }
+
+                if (isResized)
+                {
+                    image.Mutate(x => x.Resize(resizeX, resizeY));
+                }
+
             }
 
             return image;
@@ -608,24 +626,25 @@ namespace Image_Converter
             SixLabors.ImageSharp.Image<Rgba32> imageToConvert = source.Clone();
             SixLabors.ImageSharp.Image<Rgba32> border = null;
 
-            if (iconSetting == IconSettings.BTN)
+            if (war3IconType == 1 && imageToConvert.Width == 64 && imageToConvert.Height == 64)
             {
-                border = SixLabors.ImageSharp.Image<Rgba32>.Load(Properties.Resources.Icon_Border);
+                if (iconSetting == IconSettings.BTN)
+                    border = SixLabors.ImageSharp.Image<Rgba32>.Load(Properties.Resources.Icon_Border);
+                else if (iconSetting == IconSettings.PAS)
+                    border = SixLabors.ImageSharp.Image<Rgba32>.Load(Properties.Resources.Icon_Border_Passive);
+                else if (iconSetting == IconSettings.ATC)
+                    border = SixLabors.ImageSharp.Image<Rgba32>.Load(Properties.Resources.Icon_Border_Autocast);
+                else if (iconSetting == IconSettings.DIS)
+                    border = SixLabors.ImageSharp.Image<Rgba32>.Load(Properties.Resources.Icon_Border_Disabled);
+
             }
-            else if (iconSetting == IconSettings.PAS)
+            else if (imageToConvert.Width == 256 && imageToConvert.Height == 256)
             {
-                border = SixLabors.ImageSharp.Image<Rgba32>.Load(Properties.Resources.Icon_Border_Passive);
-            }
-            else if (iconSetting == IconSettings.ATC)
-            {
-                border = SixLabors.ImageSharp.Image<Rgba32>.Load(Properties.Resources.Icon_Border_Autocast);
-            }
-            else if (iconSetting == IconSettings.DIS)
-            {
-                border = SixLabors.ImageSharp.Image<Rgba32>.Load(Properties.Resources.Icon_Border_Disabled);
+
             }
 
-            if (border != null && imageToConvert.Width == 64 && imageToConvert.Height == 64)
+
+            if (border != null)
             {
                 for (int y = 0; y < 64; y++)
                 {

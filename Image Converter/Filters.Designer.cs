@@ -43,7 +43,14 @@ namespace Image_Converter
             this.checkBoxButton = new System.Windows.Forms.CheckBox();
             this.radioBtnReforged = new System.Windows.Forms.RadioButton();
             this.radioBtnNone = new System.Windows.Forms.RadioButton();
+            this.checkBoxResize = new System.Windows.Forms.CheckBox();
+            this.lblSizeX = new System.Windows.Forms.Label();
+            this.lblSizeY = new System.Windows.Forms.Label();
+            this.upDownSizeX = new System.Windows.Forms.NumericUpDown();
+            this.upDownSizeY = new System.Windows.Forms.NumericUpDown();
             this.groupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.upDownSizeX)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.upDownSizeY)).BeginInit();
             this.SuspendLayout();
             // 
             // btnClose
@@ -55,7 +62,7 @@ namespace Image_Converter
             this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnClose.ForeColor = System.Drawing.Color.White;
-            this.btnClose.Location = new System.Drawing.Point(189, 233);
+            this.btnClose.Location = new System.Drawing.Point(189, 312);
             this.btnClose.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(88, 27);
@@ -119,9 +126,9 @@ namespace Image_Converter
             this.lblInfo2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(175)))), ((int)(((byte)(175)))));
             this.lblInfo2.Location = new System.Drawing.Point(7, 149);
             this.lblInfo2.Name = "lblInfo2";
-            this.lblInfo2.Size = new System.Drawing.Size(251, 15);
+            this.lblInfo2.Size = new System.Drawing.Size(254, 15);
             this.lblInfo2.TabIndex = 36;
-            this.lblInfo2.Text = "Only applies on 256x256 or 128x128 images";
+            this.lblInfo2.Text = "Only applies on 256x256 or 128x128 images.";
             this.lblInfo2.Visible = false;
             // 
             // radioBtnClassic
@@ -231,11 +238,96 @@ namespace Image_Converter
             this.radioBtnNone.UseVisualStyleBackColor = true;
             this.radioBtnNone.CheckedChanged += new System.EventHandler(this.radioBtnNone_CheckedChanged);
             // 
+            // checkBoxResize
+            // 
+            this.checkBoxResize.AutoSize = true;
+            this.checkBoxResize.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.checkBoxResize.Location = new System.Drawing.Point(12, 225);
+            this.checkBoxResize.Name = "checkBoxResize";
+            this.checkBoxResize.Size = new System.Drawing.Size(67, 19);
+            this.checkBoxResize.TabIndex = 35;
+            this.checkBoxResize.Text = "Resize:";
+            this.checkBoxResize.UseVisualStyleBackColor = true;
+            this.checkBoxResize.CheckedChanged += new System.EventHandler(this.checkBoxResize_CheckedChanged);
+            // 
+            // lblSizeX
+            // 
+            this.lblSizeX.AutoSize = true;
+            this.lblSizeX.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblSizeX.Location = new System.Drawing.Point(95, 226);
+            this.lblSizeX.Name = "lblSizeX";
+            this.lblSizeX.Size = new System.Drawing.Size(18, 15);
+            this.lblSizeX.TabIndex = 37;
+            this.lblSizeX.Text = "X:";
+            // 
+            // lblSizeY
+            // 
+            this.lblSizeY.AutoSize = true;
+            this.lblSizeY.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblSizeY.Location = new System.Drawing.Point(190, 226);
+            this.lblSizeY.Name = "lblSizeY";
+            this.lblSizeY.Size = new System.Drawing.Size(17, 15);
+            this.lblSizeY.TabIndex = 39;
+            this.lblSizeY.Text = "Y:";
+            // 
+            // upDownSizeX
+            // 
+            this.upDownSizeX.Enabled = false;
+            this.upDownSizeX.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.upDownSizeX.Location = new System.Drawing.Point(119, 225);
+            this.upDownSizeX.Maximum = new decimal(new int[] {
+            16384,
+            0,
+            0,
+            0});
+            this.upDownSizeX.Minimum = new decimal(new int[] {
+            4,
+            0,
+            0,
+            0});
+            this.upDownSizeX.Name = "upDownSizeX";
+            this.upDownSizeX.Size = new System.Drawing.Size(57, 21);
+            this.upDownSizeX.TabIndex = 40;
+            this.upDownSizeX.Value = new decimal(new int[] {
+            4,
+            0,
+            0,
+            0});
+            // 
+            // upDownSizeY
+            // 
+            this.upDownSizeY.Enabled = false;
+            this.upDownSizeY.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.upDownSizeY.Location = new System.Drawing.Point(213, 224);
+            this.upDownSizeY.Maximum = new decimal(new int[] {
+            16384,
+            0,
+            0,
+            0});
+            this.upDownSizeY.Minimum = new decimal(new int[] {
+            4,
+            0,
+            0,
+            0});
+            this.upDownSizeY.Name = "upDownSizeY";
+            this.upDownSizeY.Size = new System.Drawing.Size(57, 21);
+            this.upDownSizeY.TabIndex = 41;
+            this.upDownSizeY.Value = new decimal(new int[] {
+            4,
+            0,
+            0,
+            0});
+            // 
             // Filters
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(290, 272);
+            this.ClientSize = new System.Drawing.Size(290, 351);
+            this.Controls.Add(this.upDownSizeY);
+            this.Controls.Add(this.upDownSizeX);
+            this.Controls.Add(this.lblSizeY);
+            this.Controls.Add(this.lblSizeX);
+            this.Controls.Add(this.checkBoxResize);
             this.Controls.Add(this.groupBox);
             this.Controls.Add(this.checkBoxIsBLP2);
             this.Controls.Add(this.btnClose);
@@ -246,6 +338,8 @@ namespace Image_Converter
             this.Text = "Filters";
             this.groupBox.ResumeLayout(false);
             this.groupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.upDownSizeX)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.upDownSizeY)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -267,5 +361,10 @@ namespace Image_Converter
         private System.Windows.Forms.RadioButton radioBtnClassic;
         private System.Windows.Forms.Label lblInfo;
         private System.Windows.Forms.Label lblInfo2;
+        private System.Windows.Forms.CheckBox checkBoxResize;
+        private System.Windows.Forms.Label lblSizeX;
+        private System.Windows.Forms.Label lblSizeY;
+        private System.Windows.Forms.NumericUpDown upDownSizeX;
+        private System.Windows.Forms.NumericUpDown upDownSizeY;
     }
 }

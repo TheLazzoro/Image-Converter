@@ -147,7 +147,7 @@ namespace Image_Converter
 
             SixLabors.ImageSharp.Image<Rgba32> imageToConvert = ReadInputFile(fileEntries[currentEntry]);
 
-            if (war3IconType != 0)
+            if (war3IconType == 0)
             {
                 filePrefix = "";
                 Convert(imageToConvert);
@@ -157,22 +157,22 @@ namespace Image_Converter
                 if (isButtonIcon)
                 {
                     filePrefix = "BTN";
-                    Convert(AddIconBorder(imageToConvert, IconSettings.BTN));
+                    imageToConvert = AddIconBorder(imageToConvert, IconSettings.BTN);
                 }
                 if (isPassiveIcon)
                 {
                     filePrefix = "PAS";
-                    Convert(AddIconBorder(imageToConvert, IconSettings.PAS));
+                    imageToConvert = AddIconBorder(imageToConvert, IconSettings.PAS);
                 }
                 if (isAutocastIcon)
                 {
                     filePrefix = "ATC";
-                    Convert(AddIconBorder(imageToConvert, IconSettings.ATC));
+                    imageToConvert = AddIconBorder(imageToConvert, IconSettings.ATC);
                 }
                 if (isDisabledIcon)
                 {
                     filePrefix = "DISBTN";
-                    Convert(AddIconBorder(imageToConvert, IconSettings.DIS));
+                    imageToConvert = AddIconBorder(imageToConvert, IconSettings.DIS);
                 }
             }
 
@@ -180,6 +180,8 @@ namespace Image_Converter
             {
                 imageToConvert.Mutate(x => x.Resize(resizeX, resizeY));
             }
+
+            Convert(imageToConvert);
 
             currentEntry++;
 

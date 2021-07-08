@@ -53,7 +53,7 @@ namespace Image_Converter
 
         private void checkBoxIsBLP2_MouseHover(object sender, EventArgs e)
         {
-            //DisplayTooltip("Toggles color format for BLP images (BLP2 = World of Warcraft)", checkBoxIsBLP2, 600);
+            CustomTooltip.DisplayTooltip("Toggles color format for BLP images (BLP2 = World of Warcraft)", checkBoxIsBLP2, 600);
         }
 
         private void radioBtnNone_CheckedChanged(object sender, EventArgs e)

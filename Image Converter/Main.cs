@@ -18,7 +18,6 @@ namespace Image_Converter
 {
     public partial class Main : Form
     {
-        private ToolTip tt;
         private Converter converter;
         private System.Drawing.Image currentPreviewReferenceImage;
         private System.Drawing.Image previewBackgroundImage;
@@ -53,17 +52,7 @@ namespace Image_Converter
             imagePreview.BackgroundImage = null;
         }
 
-        private void DisplayTooltip(string text, IWin32Window parent, int durationSeconds = 0)
-        {
-            if (tt != null)
-            {
-                tt.Dispose();
-            }
-            tt = new ToolTip();
-            tt.InitialDelay = 0;
-            tt.Show(string.Empty, parent);
-            tt.Show(text, parent, durationSeconds * 1000);
-        }
+        
 
         private void btnChooseFile_Click(object sender, EventArgs e)
         {
@@ -247,7 +236,7 @@ namespace Image_Converter
 
         private void listFileEntries_ItemMouseHover(object sender, ListViewItemMouseHoverEventArgs e)
         {
-            DisplayTooltip(e.Item.Tag.ToString(), listFileEntries, 600);
+            CustomTooltip.DisplayTooltip(e.Item.Tag.ToString(), listFileEntries, 600);
         }
 
 
@@ -444,7 +433,7 @@ namespace Image_Converter
         {
             if (chkBoxKeepFilenames.Checked == false)
             {
-                DisplayTooltip("Image files get number suffixes if multiple files get converted. Ex: image_1.jpg, image_2.jpg...", txtFileName, 600);
+                CustomTooltip.DisplayTooltip("Image files get number suffixes if multiple files get converted. Ex: image_1.jpg, image_2.jpg...", txtFileName, 600);
             }
         }
 
@@ -452,7 +441,7 @@ namespace Image_Converter
         {
             if (chkBoxKeepFilenames.Checked == false)
             {
-                tt.Dispose();
+                CustomTooltip.Dispose();
             }
         }
 
@@ -683,7 +672,7 @@ namespace Image_Converter
 
         private void checkBoxSubFolders_MouseHover(object sender, EventArgs e)
         {
-            DisplayTooltip("Scans all subfolders when importing a folder.", checkBoxSubFolders, 600);
+            CustomTooltip.DisplayTooltip("Scans all subfolders when importing a folder.", checkBoxSubFolders, 600);
         }
 
         private void btnFilters_Click(object sender, EventArgs e)

@@ -158,25 +158,51 @@ namespace Image_Converter
             }
             else
             {
-                if (isButtonIcon)
+                if (war3IconType == 1)
                 {
-                    filePrefix = "BTN";
-                    imageToConvert = AddIconBorder(imageToConvert, IconSettings.BTN);
+                    if (isButtonIcon)
+                    {
+                        filePrefix = "BTN";
+                        imageToConvert = AddIconBorder(imageToConvert, IconSettings.BTN);
+                    }
+                    if (isPassiveIcon)
+                    {
+                        filePrefix = "PAS";
+                        imageToConvert = AddIconBorder(imageToConvert, IconSettings.PAS);
+                    }
+                    if (isAutocastIcon)
+                    {
+                        filePrefix = "ATC";
+                        imageToConvert = AddIconBorder(imageToConvert, IconSettings.ATC);
+                    }
+                    if (isDisabledIcon)
+                    {
+                        filePrefix = "DISBTN";
+                        imageToConvert = AddIconBorder(imageToConvert, IconSettings.DIS);
+                    }
                 }
-                if (isPassiveIcon)
+                else if (war3IconType == 2)
                 {
-                    filePrefix = "PAS";
-                    imageToConvert = AddIconBorder(imageToConvert, IconSettings.PAS);
-                }
-                if (isAutocastIcon)
-                {
-                    filePrefix = "ATC";
-                    imageToConvert = AddIconBorder(imageToConvert, IconSettings.ATC);
-                }
-                if (isDisabledIcon)
-                {
-                    filePrefix = "DISBTN";
-                    imageToConvert = AddIconBorder(imageToConvert, IconSettings.DIS);
+                    if (isButtonIconRef)
+                    {
+                        filePrefix = "BTN";
+                        imageToConvert = AddIconBorder(imageToConvert, IconSettings.BTN_REF);
+                    }
+                    if (isPassiveIconRef)
+                    {
+                        filePrefix = "PAS";
+                        imageToConvert = AddIconBorder(imageToConvert, IconSettings.PAS_REF);
+                    }
+                    if (isAutocastIconRef)
+                    {
+                        filePrefix = "ATC";
+                        imageToConvert = AddIconBorder(imageToConvert, IconSettings.ATC_REF);
+                    }
+                    if (isDisabledIconRef)
+                    {
+                        filePrefix = "DISBTN";
+                        imageToConvert = AddIconBorder(imageToConvert, IconSettings.DIS_REF);
+                    }
                 }
             }
 
@@ -549,6 +575,13 @@ namespace Image_Converter
             try
             {
                 /*
+                ImageMagick.MagickImage img = new ImageMagick.MagickImage("C:\\Users\\Lasse Dam\\Desktop\\Uploaded\\Death Knight Spells\\AntiMagicZone.png");
+                var defines = new ImageMagick.Formats.DdsWriteDefines {Compression = ImageMagick.Formats.DdsCompression.Dxt1, Mipmaps = 4, };
+                img.Settings.Compression = ImageMagick.CompressionMethod.DXT1;
+                img.Write(getFullOutputFilePath(), ImageMagick.MagickFormat.Dds);
+
+                */
+                /*
                 byte[] pixeldata = new byte[imageToConvert.Width * imageToConvert.Height * 4];
                 for (int x = 0; x < imageToConvert.Width; x++)
                 {
@@ -686,9 +719,9 @@ namespace Image_Converter
                             int greenDiff = greyscale - greenSource;
                             int blueDiff = greyscale - blueSource;
 
-                            double redChange = redDiff*0.01*55;
-                            double greenChange = greenDiff*0.01*55;
-                            double blueChange = blueDiff*0.01*55;
+                            double redChange = redDiff * 0.01 * 55;
+                            double greenChange = greenDiff * 0.01 * 55;
+                            double blueChange = blueDiff * 0.01 * 55;
 
                             int redInt = greyscale - (int)redChange;
                             int greenInt = greyscale - (int)greenChange;

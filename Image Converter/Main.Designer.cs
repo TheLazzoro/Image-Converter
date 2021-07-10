@@ -726,7 +726,7 @@
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.MinimumSize = new System.Drawing.Size(531, 650);
             this.Name = "Main";
-            this.Text = "Image Converter v0.4";
+            this.Text = "Warcraft Image Lab v0.4";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Resize += new System.EventHandler(this.Main_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.trckbarImageQuality)).EndInit();

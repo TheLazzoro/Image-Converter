@@ -685,6 +685,7 @@ namespace Image_Converter
             // Reload preview image when dialog window closes.
             if (listFileEntries.SelectedItems.Count > 0)
             {
+                
                 DisplayPreviewImage(listFileEntries.SelectedItems[0].Tag.ToString());
             }
         }

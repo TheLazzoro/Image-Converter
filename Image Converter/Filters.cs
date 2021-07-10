@@ -36,9 +36,13 @@ namespace Image_Converter
             if (radioBtnReforged.Checked) converter.war3IconType = 2;
 
             converter.isButtonIcon = checkBoxButton.Checked;
+            converter.isButtonIconRef = checkBoxButton.Checked;
             converter.isPassiveIcon = checkBoxPassive.Checked;
+            converter.isPassiveIconRef = checkBoxPassive.Checked;
             converter.isAutocastIcon = checkBoxAutocast.Checked;
+            converter.isAutocastIconRef = checkBoxAutocast.Checked;
             converter.isDisabledIcon = checkBoxDisabled.Checked;
+            converter.isDisabledIconRef = checkBoxDisabled.Checked;
             converter.isResized = checkBoxResize.Checked;
             converter.resizeX = int.Parse(upDownSizeX.Text);
             converter.resizeY = int.Parse(upDownSizeY.Text);
@@ -73,7 +77,7 @@ namespace Image_Converter
 
         private void radioBtnReforged_CheckedChanged(object sender, EventArgs e)
         {
-            lblInfo2.Text = "Only applies on 128x128 or 256x256 images.";
+            lblInfo2.Text = "Only applies on 256x256 images.";
         }
 
         private void checkBoxResize_CheckedChanged(object sender, EventArgs e)

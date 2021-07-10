@@ -99,5 +99,65 @@ namespace Image_Converter.Properties {
                 return ((byte[])(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] Reforged_Icon_Border_AttackSpell {
+            get {
+                object obj = ResourceManager.GetObject("Reforged_Icon_Border_AttackSpell", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] Reforged_Icon_Border_AttackSpell_Upgrade {
+            get {
+                object obj = ResourceManager.GetObject("Reforged_Icon_Border_AttackSpell_Upgrade", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] Reforged_Icon_Border_Autocast {
+            get {
+                object obj = ResourceManager.GetObject("Reforged_Icon_Border_Autocast", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] Reforged_Icon_Border_Button {
+            get {
+                object obj = ResourceManager.GetObject("Reforged_Icon_Border_Button", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] Reforged_Icon_Border_Disabled {
+            get {
+                object obj = ResourceManager.GetObject("Reforged_Icon_Border_Disabled", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] Reforged_Icon_Border_Passive {
+            get {
+                object obj = ResourceManager.GetObject("Reforged_Icon_Border_Passive", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

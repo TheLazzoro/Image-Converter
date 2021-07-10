@@ -10,10 +10,7 @@ namespace Image_Converter
     class CustomTooltip
     {
         private static ToolTip tt;
-        public CustomTooltip()
-        {
 
-        }
         public static void DisplayTooltip(string text, IWin32Window parent, int durationSeconds = 0)
         {
             if (tt != null)

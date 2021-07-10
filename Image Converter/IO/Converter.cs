@@ -1,12 +1,6 @@
 ﻿using BCnEncoder.Encoder;
 using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
@@ -19,8 +13,9 @@ using CSharpImageLibrary;
 using static CSharpImageLibrary.ImageFormats;
 using DirectXTexNet;
 using System.Runtime.InteropServices;
+using Image_Converter.Image_Processing;
 
-namespace Image_Converter
+namespace Image_Converter.IO
 {
     public partial class Converter
     {
@@ -34,31 +29,22 @@ namespace Image_Converter
         public int selectedFileExtension;
         public bool keepFileNames;
         public String outputFiletype = ".jpg"; // defaults to jpg if anything goes wrong.
-        public ImageCodecInfo imageCodecInfo; // for standard formats like jpg, png, tiff and bmp.
-        public EncoderParameters encoderParameters; // for standard formats like jpg, png, tiff and bmp.
         public int imageQualityJpeg;
         public int selectedDDSCompression;
         public int selectedDDSCompressionQuality;
         public bool generateMipMaps;
-        public bool isBLP2 = false;
         public IconSettings currentIconSetting;
         public int war3IconType;
-        public bool isButtonIcon = false;
-        public bool isButtonIconRef = false;
-        public bool isPassiveIcon = false;
-        public bool isPassiveIconRef = false;
-        public bool isDisabledIcon = false;
-        public bool isDisabledIconRef = false;
-        public bool isAutocastIcon = false;
-        public bool isAutocastIconRef = false;
-        public bool isResized = false;
-        public int resizeX;
-        public int resizeY;
+        private Reader reader;
         private string filePrefix = "";
         private BcEncoder bcEncoder;
-        private BcDecoder bcDecoder = new BcDecoder();
         private JpegEncoder jpegEncoder;
         private Warcraft.BLP.TextureCompressionType blpEncoder;
+
+        public Converter()
+        {
+            reader = new Reader(FilterSettings.isBLP2);
+        }
 
         public void Init(int selectedFileExtension)
         {
@@ -149,7 +135,7 @@ namespace Image_Converter
         {
             bool success = false;
 
-            SixLabors.ImageSharp.Image<Rgba32> imageToConvert = ReadInputFile(fileEntries[currentEntry]);
+            SixLabors.ImageSharp.Image<Rgba32> imageToConvert = reader.ReadFile(fileEntries[currentEntry]);
 
             if (war3IconType == 0)
             {
@@ -158,57 +144,58 @@ namespace Image_Converter
             }
             else
             {
+                ImageFilters filters = new ImageFilters();
                 if (war3IconType == 1)
                 {
-                    if (isButtonIcon)
+                    if (FilterSettings.isButtonIcon)
                     {
                         filePrefix = "BTN";
-                        imageToConvert = AddIconBorder(imageToConvert, IconSettings.BTN);
+                        imageToConvert = filters.AddIconBorder(imageToConvert, IconSettings.BTN);
                     }
-                    if (isPassiveIcon)
+                    if (FilterSettings.isPassiveIcon)
                     {
                         filePrefix = "PAS";
-                        imageToConvert = AddIconBorder(imageToConvert, IconSettings.PAS);
+                        imageToConvert = filters.AddIconBorder(imageToConvert, IconSettings.PAS);
                     }
-                    if (isAutocastIcon)
+                    if (FilterSettings.isAutocastIcon)
                     {
                         filePrefix = "ATC";
-                        imageToConvert = AddIconBorder(imageToConvert, IconSettings.ATC);
+                        imageToConvert = filters.AddIconBorder(imageToConvert, IconSettings.ATC);
                     }
-                    if (isDisabledIcon)
+                    if (FilterSettings.isDisabledIcon)
                     {
                         filePrefix = "DISBTN";
-                        imageToConvert = AddIconBorder(imageToConvert, IconSettings.DIS);
+                        imageToConvert = filters.AddIconBorder(imageToConvert, IconSettings.DIS);
                     }
                 }
                 else if (war3IconType == 2)
                 {
-                    if (isButtonIconRef)
+                    if (FilterSettings.isButtonIconRef)
                     {
                         filePrefix = "BTN";
-                        imageToConvert = AddIconBorder(imageToConvert, IconSettings.BTN_REF);
+                        imageToConvert = filters.AddIconBorder(imageToConvert, IconSettings.BTN_REF);
                     }
-                    if (isPassiveIconRef)
+                    if (FilterSettings.isPassiveIconRef)
                     {
                         filePrefix = "PAS";
-                        imageToConvert = AddIconBorder(imageToConvert, IconSettings.PAS_REF);
+                        imageToConvert = filters.AddIconBorder(imageToConvert, IconSettings.PAS_REF);
                     }
-                    if (isAutocastIconRef)
+                    if (FilterSettings.isAutocastIconRef)
                     {
                         filePrefix = "ATC";
-                        imageToConvert = AddIconBorder(imageToConvert, IconSettings.ATC_REF);
+                        imageToConvert = filters.AddIconBorder(imageToConvert, IconSettings.ATC_REF);
                     }
-                    if (isDisabledIconRef)
+                    if (FilterSettings.isDisabledIconRef)
                     {
                         filePrefix = "DISBTN";
-                        imageToConvert = AddIconBorder(imageToConvert, IconSettings.DIS_REF);
+                        imageToConvert = filters.AddIconBorder(imageToConvert, IconSettings.DIS_REF);
                     }
                 }
             }
 
-            if (isResized)
+            if (FilterSettings.isResized)
             {
-                imageToConvert.Mutate(x => x.Resize(resizeX, resizeY));
+                imageToConvert.Mutate(x => x.Resize(FilterSettings.resizeX, FilterSettings.resizeY));
             }
 
             Convert(imageToConvert);
@@ -241,31 +228,32 @@ namespace Image_Converter
             return success;
         }
 
-        public SixLabors.ImageSharp.Image<Rgba32> ReadPreview(String filePath)
+        public SixLabors.ImageSharp.Image<Rgba32> Preview(String filePath)
         {
-            SixLabors.ImageSharp.Image<Rgba32> image = ReadInputFile(filePath);
+            SixLabors.ImageSharp.Image<Rgba32> image = reader.ReadFile(filePath);
             if (image != null)
             {
+                ImageFilters filters = new ImageFilters();
                 int iconsChecked = 0;
-                if (isButtonIcon) iconsChecked++;
-                if (isPassiveIcon) iconsChecked++;
-                if (isAutocastIcon) iconsChecked++;
-                if (isDisabledIcon) iconsChecked++;
+                if (FilterSettings.isButtonIcon) iconsChecked++;
+                if (FilterSettings.isPassiveIcon) iconsChecked++;
+                if (FilterSettings.isAutocastIcon) iconsChecked++;
+                if (FilterSettings.isDisabledIcon) iconsChecked++;
 
                 if (war3IconType == 1 && iconsChecked <= 1) // Classic icons
                 {
-                    if (isButtonIcon) image = AddIconBorder(image, IconSettings.BTN);
-                    if (isPassiveIcon) image = AddIconBorder(image, IconSettings.PAS);
-                    if (isAutocastIcon) image = AddIconBorder(image, IconSettings.ATC);
-                    if (isDisabledIcon) image = AddIconBorder(image, IconSettings.DIS);
+                    if (FilterSettings.isButtonIcon) image = filters.AddIconBorder(image, IconSettings.BTN);
+                    if (FilterSettings.isPassiveIcon) image = filters.AddIconBorder(image, IconSettings.PAS);
+                    if (FilterSettings.isAutocastIcon) image = filters.AddIconBorder(image, IconSettings.ATC);
+                    if (FilterSettings.isDisabledIcon) image = filters.AddIconBorder(image, IconSettings.DIS);
                     errorMsg = "";
                 }
                 else if (war3IconType == 2 && iconsChecked <= 1) // Reforged icons
                 {
-                    if (isButtonIconRef) image = AddIconBorder(image, IconSettings.BTN_REF);
-                    if (isPassiveIconRef) image = AddIconBorder(image, IconSettings.PAS_REF);
-                    if (isAutocastIconRef) image = AddIconBorder(image, IconSettings.ATC_REF);
-                    if (isDisabledIconRef) image = AddIconBorder(image, IconSettings.DIS_REF);
+                    if (FilterSettings.isButtonIconRef) image = filters.AddIconBorder(image, IconSettings.BTN_REF);
+                    if (FilterSettings.isPassiveIconRef) image = filters.AddIconBorder(image, IconSettings.PAS_REF);
+                    if (FilterSettings.isAutocastIconRef) image = filters.AddIconBorder(image, IconSettings.ATC_REF);
+                    if (FilterSettings.isDisabledIconRef) image = filters.AddIconBorder(image, IconSettings.DIS_REF);
                     errorMsg = "";
                 }
                 else
@@ -276,76 +264,14 @@ namespace Image_Converter
                         errorMsg = "";
                 }
 
-                if (isResized)
+                if (FilterSettings.isResized)
                 {
-                    image.Mutate(x => x.Resize(resizeX, resizeY));
+                    image.Mutate(x => x.Resize(FilterSettings.resizeX, FilterSettings.resizeY));
                 }
 
             }
 
             return image;
-        }
-
-        public SixLabors.ImageSharp.Image<Rgba32> ReadInputFile(String filePath)
-        {
-            String fileExtension = GetInputFileFormat(filePath);
-            string fileExtensionCorreced = fileExtension.ToLower();
-            SixLabors.ImageSharp.Image<Rgba32> imageToConvert = null;
-
-            switch (fileExtensionCorreced)
-            {
-                case ".jpg":
-                    imageToConvert = ReadLegacy(filePath);
-                    break;
-                case ".jpeg":
-                    imageToConvert = ReadLegacy(filePath);
-                    break;
-                case ".png":
-                    imageToConvert = ReadLegacy(filePath);
-                    break;
-                case ".bmp":
-                    imageToConvert = ReadLegacy(filePath);
-                    break;
-                case ".tga":
-                    imageToConvert = ReadLegacy(filePath);
-                    break;
-                case ".dds":
-                    imageToConvert = ReadDDS(filePath);
-                    break;
-                case ".blp":
-                    imageToConvert = ReadBLP(filePath);
-                    break;
-                default:
-                    errorMsg = "Unsupported input format.";
-                    break;
-            }
-
-            return imageToConvert;
-        }
-
-        private String GetInputFileFormat(String filePath)
-        {
-            String fileExtension = "";
-
-            char cCurrent;
-            int sub = 0;
-            bool end = false;
-            while (!end)
-            {
-                cCurrent = filePath[filePath.Length - 1 - sub];
-                if (cCurrent == '.')
-                {
-                    end = true;
-                }
-                fileExtension += cCurrent; // appends file extension to the string (opposite order, but we flip it later)
-
-                sub++;
-            }
-
-            char[] charArray = fileExtension.ToCharArray();
-            Array.Reverse(charArray); // flips string
-
-            return new string(charArray);
         }
 
         private String GetInputFileName(String filePath)
@@ -384,118 +310,17 @@ namespace Image_Converter
             return new string(charArray);
         }
 
-        private SixLabors.ImageSharp.Image<Rgba32> ReadLegacy(String filePath)
-        {
-            SixLabors.ImageSharp.Image<Rgba32> image = null;
-
-            try
-            {
-                image = SixLabors.ImageSharp.Image.Load<Rgba32>(filePath);
-            }
-            catch (Exception ex)
-            {
-                errorMsg = ex.Message;
-            }
-
-            return image;
-        }
-
-        private SixLabors.ImageSharp.Image<Rgba32> ReadBLP(String filePath)
-        {
-            SixLabors.ImageSharp.Image<Rgba32> image = null;
-
-            try
-            {
-                /*
-                    FileStream fileStream = File.OpenRead(filePath);
-                    MemoryStream ms = new MemoryStream();
-                    fileStream.CopyTo(ms);
-                    fileStream.Close();
-                    fileStream.Dispose();
-                    Warcraft.BLP.BLP blpFile = new Warcraft.BLP.BLP(ms.ToArray());
-                    image = blpFile.GetMipMap(0);
-                */
-
-                FileStream fileStream = File.OpenRead(filePath);
-                BlpFile blpFile = new BlpFile(fileStream);
-                int width;
-                int height;
-                blpFile.GetPixels(0, out width, out height);
-                // The library does not determine what's BLP1 and BLP2 properly, so we manually set bool bgra in GetPixels depending on the checkbox.
-                byte[] bytes = blpFile.GetPixels(0, out width, out height, isBLP2); // 0 indicates first mipmap layer. width and height are assigned width and height in GetPixels().
-                var actualImage = blpFile.GetBitmapSource(0);
-                int bytesPerPixel = (actualImage.Format.BitsPerPixel + 7) / 8;
-                int stride = bytesPerPixel * actualImage.PixelWidth;
-
-                // blp read and convert
-                image = new SixLabors.ImageSharp.Image<Rgba32>(width, height);
-
-                for (int x = 0; x < width; x++)
-                {
-                    for (int y = 0; y < height; y++)
-                    {
-                        var offset = (y * stride) + (x * bytesPerPixel);
-
-                        byte red;
-                        byte green;
-                        byte blue;
-                        byte alpha = 0;
-
-                        red = bytes[offset + 0];
-                        green = bytes[offset + 1];
-                        blue = bytes[offset + 2];
-                        alpha = bytes[offset + 3];
-
-                        Rgba32 pixel = new Rgba32(blue, green, red, alpha);
-
-                        image[x, y] = pixel; // assign color to pixel
-                    }
-                }
-
-                blpFile.Dispose();
-
-            }
-            catch (Exception ex)
-            {
-                errorMsg = ex.Message;
-            }
-
-
-            return image;
-        }
-
-        private SixLabors.ImageSharp.Image<Rgba32> ReadDDS(String filePath)
-        {
-            SixLabors.ImageSharp.Image<Rgba32> image = null;
-
-            try
-            {
-                using FileStream fs = File.OpenRead(filePath);
-                image = bcDecoder.Decode(fs);
-            }
-            catch (Exception ex)
-            {
-                errorMsg = ex.Message;
-            }
-
-            return image;
-        }
+        
 
         private string getFullOutputFilePath()
         {
             string path = "";
             if (keepFileNames)
-            {
                 path = outputDir + filePrefix + GetInputFileName(fileEntries[currentEntry]) + outputFiletype;
-            }
             else if (isMultipleFiles)
-            {
                 path = outputDir + filePrefix + fileName + "_" + currentEntry + outputFiletype;
-            }
             else
-            {
                 path = outputDir + filePrefix + fileName + outputFiletype;
-            }
 
             return path;
         }
@@ -666,137 +491,6 @@ namespace Image_Converter
             }
 
             return success;
-        }
-
-        private SixLabors.ImageSharp.Image<Rgba32> AddIconBorder(SixLabors.ImageSharp.Image<Rgba32> source, IconSettings iconSetting)
-        {
-            SixLabors.ImageSharp.Image<Rgba32> imageToConvert = source.Clone();
-            SixLabors.ImageSharp.Image<Rgba32> border = null;
-            int width = imageToConvert.Width;
-            int height = imageToConvert.Height;
-
-            if (war3IconType == 1 && imageToConvert.Width == 64 && imageToConvert.Height == 64)
-            {
-                if (iconSetting == IconSettings.BTN)
-                    border = SixLabors.ImageSharp.Image<Rgba32>.Load(Properties.Resources.Icon_Border);
-                else if (iconSetting == IconSettings.PAS)
-                    border = SixLabors.ImageSharp.Image<Rgba32>.Load(Properties.Resources.Icon_Border_Passive);
-                else if (iconSetting == IconSettings.ATC)
-                    border = SixLabors.ImageSharp.Image<Rgba32>.Load(Properties.Resources.Icon_Border_Autocast);
-                else if (iconSetting == IconSettings.DIS)
-                    border = SixLabors.ImageSharp.Image<Rgba32>.Load(Properties.Resources.Icon_Border_Disabled);
-
-            }
-            else if (imageToConvert.Width == 256 && imageToConvert.Height == 256)
-            {
-                if (iconSetting == IconSettings.BTN_REF)
-                    border = SixLabors.ImageSharp.Image<Rgba32>.Load(Properties.Resources.Reforged_Icon_Border_Button);
-                if (iconSetting == IconSettings.PAS_REF)
-                    border = SixLabors.ImageSharp.Image<Rgba32>.Load(Properties.Resources.Reforged_Icon_Border_Passive);
-                if (iconSetting == IconSettings.ATC_REF)
-                    border = SixLabors.ImageSharp.Image<Rgba32>.Load(Properties.Resources.Reforged_Icon_Border_Autocast);
-                if (iconSetting == IconSettings.DIS_REF)
-                    border = SixLabors.ImageSharp.Image<Rgba32>.Load(Properties.Resources.Reforged_Icon_Border_Disabled);
-            }
-
-
-            if (border != null)
-            {
-                for (int y = 0; y < width; y++)
-                {
-                    for (int x = 0; x < height; x++)
-                    {
-                        byte redSource = imageToConvert[x, y].R;
-                        byte greenSource = imageToConvert[x, y].G;
-                        byte blueSource = imageToConvert[x, y].B;
-                        byte alphaSource = imageToConvert[x, y].A;
-
-                        if (iconSetting == IconSettings.DIS_REF) // Disabled icon color saturation reduction
-                        {
-                            int greyscale = (int)(redSource * 0.3 + greenSource * 0.59 + blueSource * 0.11);
-
-                            int redDiff = greyscale - redSource;
-                            int greenDiff = greyscale - greenSource;
-                            int blueDiff = greyscale - blueSource;
-
-                            double redChange = redDiff * 0.01 * 55;
-                            double greenChange = greenDiff * 0.01 * 55;
-                            double blueChange = blueDiff * 0.01 * 55;
-
-                            int redInt = greyscale - (int)redChange;
-                            int greenInt = greyscale - (int)greenChange;
-                            int blueInt = greyscale - (int)blueChange;
-
-                            byte redNew = (byte)redInt;
-                            byte greenNew = (byte)greenInt;
-                            byte blueNew = (byte)blueInt;
-
-                            redSource = redNew;
-                            greenSource = greenNew;
-                            blueSource = blueNew;
-                        }
-
-                        byte redBorder = border[x, y].R;
-                        byte greenBorder = border[x, y].G;
-                        byte blueBorder = border[x, y].B;
-                        byte alphaBorder = border[x, y].A;
-
-                        if (alphaBorder != 0)
-                        {
-                            float alphaPercent = (float)alphaBorder / 255;
-
-                            byte redBlended = (byte)((int)redSource * (1 - alphaPercent) + (redBorder * alphaPercent));
-                            byte greenBlended = (byte)((int)greenSource * (1 - alphaPercent) + (greenBorder * alphaPercent));
-                            byte blueBlended = (byte)((int)blueSource * (1 - alphaPercent) + (blueBorder * alphaPercent));
-
-                            imageToConvert[x, y] = new Rgba32(redBlended, greenBlended, blueBlended);
-                        }
-                    }
-                }
-            }
-
-            return imageToConvert;
-        }
-
-        private bool ConvertOLD(bool isMulti)
-        {
-            bool success = false;
-            Bitmap bmp = null;
-            try
-            {
-                bmp = new Bitmap(fileEntries[currentEntry]);
-                if (isMulti)
-                {
-                    bmp.Save(outputDir + fileName + "_" + currentEntry + outputFiletype, imageCodecInfo, encoderParameters);
-                }
-                else
-                {
-                    bmp.Save(outputDir + fileName + outputFiletype, imageCodecInfo, encoderParameters);
-                }
-                bmp.Dispose();
-                success = true;
-            }
-            catch (Exception ex)
-            {
-                errorMsg = ex.Message;
-            }
-            currentEntry++;
-
-            return success;
-        }
-
-        private ImageCodecInfo GetEncoder(ImageFormat format)
-        {
-            ImageCodecInfo[] codecs = ImageCodecInfo.GetImageDecoders();
-
-            foreach (ImageCodecInfo codec in codecs)
-            {
-                if (codec.FormatID == format.Guid)
-                {
-                    return codec;
-                }
-            }
-            return null;
         }
     }
 }

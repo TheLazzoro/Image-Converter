@@ -13,6 +13,7 @@ using System.Collections;
 using System.Diagnostics;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp;
+using Image_Converter.IO;
 
 namespace Image_Converter
 {
@@ -471,7 +472,7 @@ namespace Image_Converter
         {
             try
             {
-                SixLabors.ImageSharp.Image<Rgba32> image = converter.ReadPreview(filePath);
+                SixLabors.ImageSharp.Image<Rgba32> image = converter.Preview(filePath);
                 if (image != null)
                 {
                     Bitmap actualPreview = new Bitmap(image.Width, image.Height);

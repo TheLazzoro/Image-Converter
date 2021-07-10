@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Image_Converter.Image_Processing;
+using Image_Converter.IO;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -19,14 +21,14 @@ namespace Image_Converter
             if (converter.war3IconType == 0) radioBtnNone.Checked = true;
             if (converter.war3IconType == 1) radioBtnClassic.Checked = true;
             if (converter.war3IconType == 2) radioBtnReforged.Checked = true;
-            checkBoxButton.Checked = converter.isButtonIcon;
-            checkBoxPassive.Checked = converter.isPassiveIcon;
-            checkBoxAutocast.Checked = converter.isAutocastIcon;
-            checkBoxDisabled.Checked = converter.isDisabledIcon;
-            checkBoxIsBLP2.Checked = converter.isBLP2;
-            checkBoxResize.Checked = converter.isResized;
-            upDownSizeX.Text = converter.resizeX.ToString();
-            upDownSizeY.Text = converter.resizeY.ToString();
+            checkBoxButton.Checked = FilterSettings.isButtonIcon;
+            checkBoxPassive.Checked = FilterSettings.isPassiveIcon;
+            checkBoxAutocast.Checked = FilterSettings.isAutocastIcon;
+            checkBoxDisabled.Checked = FilterSettings.isDisabledIcon;
+            checkBoxIsBLP2.Checked = FilterSettings.isBLP2;
+            checkBoxResize.Checked = FilterSettings.isResized;
+            upDownSizeX.Text = FilterSettings.resizeX.ToString();
+            upDownSizeY.Text = FilterSettings.resizeY.ToString();
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -35,24 +37,24 @@ namespace Image_Converter
             if (radioBtnClassic.Checked) converter.war3IconType = 1;
             if (radioBtnReforged.Checked) converter.war3IconType = 2;
 
-            converter.isButtonIcon = checkBoxButton.Checked;
-            converter.isButtonIconRef = checkBoxButton.Checked;
-            converter.isPassiveIcon = checkBoxPassive.Checked;
-            converter.isPassiveIconRef = checkBoxPassive.Checked;
-            converter.isAutocastIcon = checkBoxAutocast.Checked;
-            converter.isAutocastIconRef = checkBoxAutocast.Checked;
-            converter.isDisabledIcon = checkBoxDisabled.Checked;
-            converter.isDisabledIconRef = checkBoxDisabled.Checked;
-            converter.isResized = checkBoxResize.Checked;
-            converter.resizeX = int.Parse(upDownSizeX.Text);
-            converter.resizeY = int.Parse(upDownSizeY.Text);
+            FilterSettings.isButtonIcon = checkBoxButton.Checked;
+            FilterSettings.isButtonIconRef = checkBoxButton.Checked;
+            FilterSettings.isPassiveIcon = checkBoxPassive.Checked;
+            FilterSettings.isPassiveIconRef = checkBoxPassive.Checked;
+            FilterSettings.isAutocastIcon = checkBoxAutocast.Checked;
+            FilterSettings.isAutocastIconRef = checkBoxAutocast.Checked;
+            FilterSettings.isDisabledIcon = checkBoxDisabled.Checked;
+            FilterSettings.isDisabledIconRef = checkBoxDisabled.Checked;
+            FilterSettings.isResized = checkBoxResize.Checked;
+            FilterSettings.resizeX = int.Parse(upDownSizeX.Text);
+            FilterSettings.resizeY = int.Parse(upDownSizeY.Text);
 
             Dispose();
         }
 
         private void checkBoxIsBLP2_CheckedChanged(object sender, EventArgs e)
         {
-            converter.isBLP2 = checkBoxIsBLP2.Checked;
+            FilterSettings.isBLP2 = checkBoxIsBLP2.Checked;
         }
 
         private void checkBoxIsBLP2_MouseHover(object sender, EventArgs e)

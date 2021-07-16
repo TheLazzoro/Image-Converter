@@ -9,9 +9,6 @@ using War3Net.Drawing.Blp;
 using SixLabors.ImageSharp.Formats.Jpeg;
 using SixLabors.ImageSharp.Formats.Png;
 using BCnEncoder.Decoder;
-using CSharpImageLibrary;
-using static CSharpImageLibrary.ImageFormats;
-using DirectXTexNet;
 using System.Runtime.InteropServices;
 using Image_Converter.Image_Processing;
 

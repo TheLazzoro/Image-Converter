@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <OutputType>WinExe</OutputType>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>C:\Users\Lasse Dam\Desktop\</PublishUrl>
@@ -38,6 +38,7 @@
     <StartupObject />
     <AssemblyName>Image Converter</AssemblyName>
     <SignAssembly>false</SignAssembly>
+    <Authors />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -65,11 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="BCnEncoder.Net" Version="1.2.3" />
-    <PackageReference Include="CSharpImageLibrary" Version="4.2.0" />
-    <PackageReference Include="DirectXTexNet" Version="1.0.2" />
-    <PackageReference Include="directxtex_desktop_2017" Version="2021.6.10.1" />
     <PackageReference Include="FontAwesome.Sharp" Version="5.15.3" />
-    <PackageReference Include="Magick.NET-Q16-AnyCPU" Version="8.0.1" />
     <PackageReference Include="MetroSet_UI" Version="2.0.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="SixLabors.ImageSharp" Version="1.0.3" />
@@ -78,10 +75,12 @@
     <PackageReference Include="System.Memory" Version="4.5.4" />
     <PackageReference Include="System.Numerics.Vectors" Version="4.5.0" />
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="5.0.0" />
-    <PackageReference Include="TeximpNet" Version="1.4.3" />
     <PackageReference Include="War3Net.Drawing.Blp" Version="2.0.1" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Forms\ImportControl - Copy.Designer.cs">
+      <DependentUpon>ImportControl.Designer.cs</DependentUpon>
+    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -94,6 +93,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Update="Forms\ImportControl - Copy.resx">
+      <DependentUpon>ImportControl.resx</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Update="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

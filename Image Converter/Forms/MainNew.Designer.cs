@@ -41,9 +41,25 @@ namespace Image_Converter
             this.btnMaximize = new FontAwesome.Sharp.IconButton();
             this.btnMinimize = new FontAwesome.Sharp.IconButton();
             this.btnExit = new FontAwesome.Sharp.IconButton();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.panelChildForm = new System.Windows.Forms.Panel();
+            this.splitContainer = new System.Windows.Forms.SplitContainer();
+            this.panelImport = new System.Windows.Forms.Panel();
+            this.panelFileList = new System.Windows.Forms.Panel();
+            this.lblFileSize = new System.Windows.Forms.Label();
+            this.lblResolution = new System.Windows.Forms.Label();
+            this.groupBoxPreview = new System.Windows.Forms.GroupBox();
+            this.checkBoxTransparencyGrid = new System.Windows.Forms.CheckBox();
             this.panelMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.iconMain)).BeginInit();
             this.panelTop.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panelChildForm.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
+            this.splitContainer.Panel1.SuspendLayout();
+            this.splitContainer.Panel2.SuspendLayout();
+            this.splitContainer.SuspendLayout();
+            this.groupBoxPreview.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelMenu
@@ -59,7 +75,7 @@ namespace Image_Converter
             this.panelMenu.Location = new System.Drawing.Point(0, 0);
             this.panelMenu.Margin = new System.Windows.Forms.Padding(2);
             this.panelMenu.Name = "panelMenu";
-            this.panelMenu.Size = new System.Drawing.Size(121, 492);
+            this.panelMenu.Size = new System.Drawing.Size(147, 492);
             this.panelMenu.TabIndex = 0;
             // 
             // btnAbout
@@ -77,18 +93,19 @@ namespace Image_Converter
             this.btnAbout.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnAbout.IconSize = 40;
             this.btnAbout.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAbout.Location = new System.Drawing.Point(0, 429);
+            this.btnAbout.Location = new System.Drawing.Point(0, 428);
             this.btnAbout.Margin = new System.Windows.Forms.Padding(2);
             this.btnAbout.Name = "btnAbout";
-            this.btnAbout.Size = new System.Drawing.Size(121, 50);
+            this.btnAbout.Size = new System.Drawing.Size(147, 50);
             this.btnAbout.TabIndex = 10;
             this.btnAbout.Text = "ABOUT";
-            this.btnAbout.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnAbout.UseVisualStyleBackColor = false;
             this.btnAbout.Click += new System.EventHandler(this.btnAbout_Click);
             // 
             // btnFilters
             // 
+            this.btnFilters.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnFilters.BackColor = System.Drawing.Color.Transparent;
             this.btnFilters.FlatAppearance.BorderSize = 0;
             this.btnFilters.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(124)))), ((int)(((byte)(10)))));
@@ -104,15 +121,17 @@ namespace Image_Converter
             this.btnFilters.Location = new System.Drawing.Point(0, 200);
             this.btnFilters.Margin = new System.Windows.Forms.Padding(2);
             this.btnFilters.Name = "btnFilters";
-            this.btnFilters.Size = new System.Drawing.Size(121, 50);
+            this.btnFilters.Size = new System.Drawing.Size(147, 50);
             this.btnFilters.TabIndex = 9;
             this.btnFilters.Text = "FILTERS";
-            this.btnFilters.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnFilters.UseVisualStyleBackColor = false;
+            this.btnFilters.Click += new System.EventHandler(this.btnFilters_Click);
             // 
             // btnImport
             // 
-            this.btnImport.BackColor = System.Drawing.Color.Transparent;
+            this.btnImport.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnImport.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(124)))), ((int)(((byte)(10)))));
             this.btnImport.FlatAppearance.BorderSize = 0;
             this.btnImport.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(124)))), ((int)(((byte)(10)))));
             this.btnImport.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
@@ -127,14 +146,16 @@ namespace Image_Converter
             this.btnImport.Location = new System.Drawing.Point(0, 146);
             this.btnImport.Margin = new System.Windows.Forms.Padding(2);
             this.btnImport.Name = "btnImport";
-            this.btnImport.Size = new System.Drawing.Size(121, 50);
+            this.btnImport.Size = new System.Drawing.Size(147, 50);
             this.btnImport.TabIndex = 8;
             this.btnImport.Text = "IMPORT";
-            this.btnImport.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnImport.UseVisualStyleBackColor = false;
+            this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
             // 
             // btnExport
             // 
+            this.btnExport.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnExport.BackColor = System.Drawing.Color.Transparent;
             this.btnExport.FlatAppearance.BorderSize = 0;
             this.btnExport.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(124)))), ((int)(((byte)(10)))));
@@ -150,11 +171,11 @@ namespace Image_Converter
             this.btnExport.Location = new System.Drawing.Point(0, 254);
             this.btnExport.Margin = new System.Windows.Forms.Padding(2);
             this.btnExport.Name = "btnExport";
-            this.btnExport.Size = new System.Drawing.Size(121, 50);
+            this.btnExport.Size = new System.Drawing.Size(147, 50);
             this.btnExport.TabIndex = 7;
             this.btnExport.Text = "EXPORT";
-            this.btnExport.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnExport.UseVisualStyleBackColor = false;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
             // iconMain
             // 
@@ -163,7 +184,7 @@ namespace Image_Converter
             this.iconMain.Location = new System.Drawing.Point(0, 0);
             this.iconMain.Margin = new System.Windows.Forms.Padding(2);
             this.iconMain.Name = "iconMain";
-            this.iconMain.Size = new System.Drawing.Size(120, 120);
+            this.iconMain.Size = new System.Drawing.Size(145, 142);
             this.iconMain.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.iconMain.TabIndex = 0;
             this.iconMain.TabStop = false;
@@ -178,11 +199,12 @@ namespace Image_Converter
             this.panelTop.Controls.Add(this.btnMaximize);
             this.panelTop.Controls.Add(this.btnMinimize);
             this.panelTop.Controls.Add(this.btnExit);
-            this.panelTop.Location = new System.Drawing.Point(119, 0);
+            this.panelTop.Location = new System.Drawing.Point(145, 0);
             this.panelTop.Margin = new System.Windows.Forms.Padding(2);
             this.panelTop.Name = "panelTop";
-            this.panelTop.Size = new System.Drawing.Size(559, 56);
+            this.panelTop.Size = new System.Drawing.Size(705, 56);
             this.panelTop.TabIndex = 1;
+            this.panelTop.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.panelTop_MouseDoubleClick);
             this.panelTop.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelTop_MouseDown);
             // 
             // lblTitle
@@ -192,9 +214,9 @@ namespace Image_Converter
             this.lblTitle.ForeColor = System.Drawing.Color.White;
             this.lblTitle.Location = new System.Drawing.Point(8, 20);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(157, 16);
+            this.lblTitle.Size = new System.Drawing.Size(137, 16);
             this.lblTitle.TabIndex = 13;
-            this.lblTitle.Text = "WARCRAFT IMAGE LAB 0.4";
+            this.lblTitle.Text = "WARCRAFT IMAGE LAB";
             this.lblTitle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lblTitle_MouseDown);
             // 
             // btnMaximize
@@ -210,10 +232,10 @@ namespace Image_Converter
             this.btnMaximize.IconColor = System.Drawing.Color.White;
             this.btnMaximize.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnMaximize.IconSize = 20;
-            this.btnMaximize.Location = new System.Drawing.Point(494, 11);
+            this.btnMaximize.Location = new System.Drawing.Point(631, 0);
             this.btnMaximize.Margin = new System.Windows.Forms.Padding(2);
             this.btnMaximize.Name = "btnMaximize";
-            this.btnMaximize.Size = new System.Drawing.Size(25, 25);
+            this.btnMaximize.Size = new System.Drawing.Size(35, 35);
             this.btnMaximize.TabIndex = 12;
             this.btnMaximize.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnMaximize.UseVisualStyleBackColor = false;
@@ -232,10 +254,10 @@ namespace Image_Converter
             this.btnMinimize.IconColor = System.Drawing.Color.White;
             this.btnMinimize.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnMinimize.IconSize = 20;
-            this.btnMinimize.Location = new System.Drawing.Point(465, 11);
+            this.btnMinimize.Location = new System.Drawing.Point(592, 0);
             this.btnMinimize.Margin = new System.Windows.Forms.Padding(2);
             this.btnMinimize.Name = "btnMinimize";
-            this.btnMinimize.Size = new System.Drawing.Size(25, 25);
+            this.btnMinimize.Size = new System.Drawing.Size(35, 35);
             this.btnMinimize.TabIndex = 11;
             this.btnMinimize.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnMinimize.UseVisualStyleBackColor = false;
@@ -255,32 +277,172 @@ namespace Image_Converter
             this.btnExit.IconColor = System.Drawing.Color.White;
             this.btnExit.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnExit.IconSize = 20;
-            this.btnExit.Location = new System.Drawing.Point(523, 11);
+            this.btnExit.Location = new System.Drawing.Point(670, 0);
             this.btnExit.Margin = new System.Windows.Forms.Padding(2);
             this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(25, 25);
+            this.btnExit.Size = new System.Drawing.Size(35, 35);
             this.btnExit.TabIndex = 10;
             this.btnExit.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnExit.UseVisualStyleBackColor = false;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.BackgroundImage")));
+            this.pictureBox1.Location = new System.Drawing.Point(6, 22);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(284, 266);
+            this.pictureBox1.TabIndex = 2;
+            this.pictureBox1.TabStop = false;
+            // 
+            // panelChildForm
+            // 
+            this.panelChildForm.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelChildForm.Controls.Add(this.splitContainer);
+            this.panelChildForm.Location = new System.Drawing.Point(153, 61);
+            this.panelChildForm.Name = "panelChildForm";
+            this.panelChildForm.Size = new System.Drawing.Size(685, 417);
+            this.panelChildForm.TabIndex = 3;
+            // 
+            // splitContainer
+            // 
+            this.splitContainer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainer.Cursor = System.Windows.Forms.Cursors.VSplit;
+            this.splitContainer.ForeColor = System.Drawing.Color.White;
+            this.splitContainer.Location = new System.Drawing.Point(3, 3);
+            this.splitContainer.Name = "splitContainer";
+            // 
+            // splitContainer.Panel1
+            // 
+            this.splitContainer.Panel1.AllowDrop = true;
+            this.splitContainer.Panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(75)))), ((int)(((byte)(75)))));
+            this.splitContainer.Panel1.Controls.Add(this.panelImport);
+            this.splitContainer.Panel1.Controls.Add(this.panelFileList);
+            this.splitContainer.Panel1.Cursor = System.Windows.Forms.Cursors.Arrow;
+            // 
+            // splitContainer.Panel2
+            // 
+            this.splitContainer.Panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(75)))), ((int)(((byte)(75)))));
+            this.splitContainer.Panel2.Controls.Add(this.lblFileSize);
+            this.splitContainer.Panel2.Controls.Add(this.lblResolution);
+            this.splitContainer.Panel2.Controls.Add(this.groupBoxPreview);
+            this.splitContainer.Panel2.Controls.Add(this.checkBoxTransparencyGrid);
+            this.splitContainer.Size = new System.Drawing.Size(679, 411);
+            this.splitContainer.SplitterDistance = 373;
+            this.splitContainer.TabIndex = 16;
+            // 
+            // panelImport
+            // 
+            this.panelImport.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelImport.Location = new System.Drawing.Point(4, 4);
+            this.panelImport.Name = "panelImport";
+            this.panelImport.Size = new System.Drawing.Size(365, 107);
+            this.panelImport.TabIndex = 1;
+            // 
+            // panelFileList
+            // 
+            this.panelFileList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelFileList.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panelFileList.Location = new System.Drawing.Point(3, 117);
+            this.panelFileList.Name = "panelFileList";
+            this.panelFileList.Size = new System.Drawing.Size(366, 291);
+            this.panelFileList.TabIndex = 0;
+            // 
+            // lblFileSize
+            // 
+            this.lblFileSize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblFileSize.AutoSize = true;
+            this.lblFileSize.BackColor = System.Drawing.Color.Transparent;
+            this.lblFileSize.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblFileSize.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.lblFileSize.Location = new System.Drawing.Point(267, 344);
+            this.lblFileSize.Name = "lblFileSize";
+            this.lblFileSize.Size = new System.Drawing.Size(32, 16);
+            this.lblFileSize.TabIndex = 14;
+            this.lblFileSize.Text = "0 Kb";
+            this.lblFileSize.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lblResolution
+            // 
+            this.lblResolution.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblResolution.AutoSize = true;
+            this.lblResolution.BackColor = System.Drawing.Color.Transparent;
+            this.lblResolution.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblResolution.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.lblResolution.Location = new System.Drawing.Point(3, 344);
+            this.lblResolution.Name = "lblResolution";
+            this.lblResolution.Size = new System.Drawing.Size(96, 16);
+            this.lblResolution.TabIndex = 32;
+            this.lblResolution.Text = "Resolution: N/A";
+            this.lblResolution.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // groupBoxPreview
+            // 
+            this.groupBoxPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxPreview.Controls.Add(this.pictureBox1);
+            this.groupBoxPreview.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.groupBoxPreview.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.groupBoxPreview.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.groupBoxPreview.Location = new System.Drawing.Point(3, 47);
+            this.groupBoxPreview.Name = "groupBoxPreview";
+            this.groupBoxPreview.Size = new System.Drawing.Size(296, 294);
+            this.groupBoxPreview.TabIndex = 15;
+            this.groupBoxPreview.TabStop = false;
+            this.groupBoxPreview.Text = "Preview";
+            // 
+            // checkBoxTransparencyGrid
+            // 
+            this.checkBoxTransparencyGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBoxTransparencyGrid.AutoSize = true;
+            this.checkBoxTransparencyGrid.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.checkBoxTransparencyGrid.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.checkBoxTransparencyGrid.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.checkBoxTransparencyGrid.Location = new System.Drawing.Point(164, 21);
+            this.checkBoxTransparencyGrid.Name = "checkBoxTransparencyGrid";
+            this.checkBoxTransparencyGrid.Size = new System.Drawing.Size(135, 20);
+            this.checkBoxTransparencyGrid.TabIndex = 31;
+            this.checkBoxTransparencyGrid.Text = "View Transparency";
+            this.checkBoxTransparencyGrid.UseVisualStyleBackColor = true;
+            // 
             // MainNew
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.DimGray;
-            this.ClientSize = new System.Drawing.Size(678, 490);
+            this.ClientSize = new System.Drawing.Size(850, 490);
+            this.Controls.Add(this.panelChildForm);
             this.Controls.Add(this.panelTop);
             this.Controls.Add(this.panelMenu);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.MinimumSize = new System.Drawing.Size(678, 490);
+            this.MinimumSize = new System.Drawing.Size(850, 490);
             this.Name = "MainNew";
             this.panelMenu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.iconMain)).EndInit();
             this.panelTop.ResumeLayout(false);
             this.panelTop.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panelChildForm.ResumeLayout(false);
+            this.splitContainer.Panel1.ResumeLayout(false);
+            this.splitContainer.Panel2.ResumeLayout(false);
+            this.splitContainer.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
+            this.splitContainer.ResumeLayout(false);
+            this.groupBoxPreview.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -298,5 +460,14 @@ namespace Image_Converter
         private FontAwesome.Sharp.IconButton btnMaximize;
         private System.Windows.Forms.Label lblTitle;
         private FontAwesome.Sharp.IconButton btnAbout;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Panel panelChildForm;
+        private System.Windows.Forms.Label lblFileSize;
+        private System.Windows.Forms.GroupBox groupBoxPreview;
+        private System.Windows.Forms.CheckBox checkBoxTransparencyGrid;
+        private System.Windows.Forms.SplitContainer splitContainer;
+        private System.Windows.Forms.Label lblResolution;
+        private System.Windows.Forms.Panel panelFileList;
+        private System.Windows.Forms.Panel panelImport;
     }
 }

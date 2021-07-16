@@ -15,6 +15,9 @@
     <_LastSelectedProfileId>E:\Repositories\Applications\Image-Converter\Image Converter\Properties\PublishProfiles\FolderProfile.pubxml</_LastSelectedProfileId>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Update="Forms\About.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\Filters.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -22,6 +25,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\MultiConvertProgress.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\MainNew.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>

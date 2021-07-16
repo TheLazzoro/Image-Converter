@@ -9,10 +9,6 @@ namespace Image_Converter.Image_Processing
 {
     public partial class ImageFilters
     {
-        public ImageFilters()
-        {
-
-        }
 
         public SixLabors.ImageSharp.Image<Rgba32> AddIconBorder(SixLabors.ImageSharp.Image<Rgba32> source, IconSettings iconSetting)
         {
@@ -74,13 +70,19 @@ namespace Image_Converter.Image_Processing
                             int greenDiff = greyscale - greenSource;
                             int blueDiff = greyscale - blueSource;
 
-                            double redChange = redDiff * 0.01 * 55;
-                            double greenChange = greenDiff * 0.01 * 55;
-                            double blueChange = blueDiff * 0.01 * 55;
+                            // 55% greyscale
+                            double redChange = redDiff * 0.55;
+                            double greenChange = greenDiff * 0.55;
+                            double blueChange = blueDiff * 0.55;
 
                             int redInt = greyscale - (int)redChange;
                             int greenInt = greyscale - (int)greenChange;
                             int blueInt = greyscale - (int)blueChange;
+
+                            // Further desaturation towards white (5%)
+                            redInt = redInt + (int)((255 - redInt) * 0.05);
+                            greenInt = greenInt + (int)((255 - greenInt) * 0.05);
+                            blueInt = blueInt + (int)((255 - blueInt) * 0.05);
 
                             byte redNew = (byte)redInt;
                             byte greenNew = (byte)greenInt;

@@ -21,9 +21,9 @@ namespace Image_Converter
             this.converter = converter;
             this.imageFilters = new ImageFilters();
             
-            if (converter.war3IconType == 0) radioBtnNone.Checked = true;
-            if (converter.war3IconType == 1) radioBtnClassic.Checked = true;
-            if (converter.war3IconType == 2) radioBtnReforged.Checked = true;
+            if (FilterSettings.war3IconType == War3IconType.None) radioBtnNone.Checked = true;
+            if (FilterSettings.war3IconType == War3IconType.ClassicIcon) radioBtnClassic.Checked = true;
+            if (FilterSettings.war3IconType == War3IconType.ReforgedIcon) radioBtnReforged.Checked = true;
             checkBoxButton.Checked = FilterSettings.isButtonIcon;
             checkBoxPassive.Checked = FilterSettings.isPassiveIcon;
             checkBoxAutocast.Checked = FilterSettings.isAutocastIcon;
@@ -36,9 +36,9 @@ namespace Image_Converter
 
         private void btnClose_Click(object sender, EventArgs e)
         {
-            if (radioBtnNone.Checked) converter.war3IconType = 0;
-            if (radioBtnClassic.Checked) converter.war3IconType = 1;
-            if (radioBtnReforged.Checked) converter.war3IconType = 2;
+            if (radioBtnNone.Checked) FilterSettings.war3IconType = War3IconType.None;
+            if (radioBtnClassic.Checked) FilterSettings.war3IconType = War3IconType.ClassicIcon;
+            if (radioBtnReforged.Checked) FilterSettings.war3IconType = War3IconType.ReforgedIcon;
 
             FilterSettings.isButtonIcon = checkBoxButton.Checked;
             FilterSettings.isButtonIconRef = checkBoxButton.Checked;

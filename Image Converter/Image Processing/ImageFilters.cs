@@ -12,21 +12,12 @@ namespace Image_Converter.Image_Processing
 
         public SixLabors.ImageSharp.Image<Rgba32> AddIconBorder(SixLabors.ImageSharp.Image<Rgba32> source, IconSettings iconSetting)
         {
-            int war3IconType = 0;
-            if (iconSetting == IconSettings.ATC || iconSetting == IconSettings.BTN || iconSetting == IconSettings.DIS || iconSetting == IconSettings.PAS)
-            {
-                war3IconType = 1;
-            } else if(iconSetting == IconSettings.ATC_REF || iconSetting == IconSettings.BTN_REF || iconSetting == IconSettings.DIS_REF || iconSetting == IconSettings.PAS_REF)
-            {
-                war3IconType = 2;
-            }
-
             SixLabors.ImageSharp.Image<Rgba32> imageToConvert = source.Clone();
             SixLabors.ImageSharp.Image<Rgba32> border = null;
             int width = imageToConvert.Width;
             int height = imageToConvert.Height;
 
-            if (war3IconType == 1 && imageToConvert.Width == 64 && imageToConvert.Height == 64)
+            if (FilterSettings.war3IconType == War3IconType.ClassicIcon && imageToConvert.Width == 64 && imageToConvert.Height == 64)
             {
                 if (iconSetting == IconSettings.BTN)
                     border = SixLabors.ImageSharp.Image<Rgba32>.Load(Properties.Resources.Icon_Border);
@@ -38,7 +29,7 @@ namespace Image_Converter.Image_Processing
                     border = SixLabors.ImageSharp.Image<Rgba32>.Load(Properties.Resources.Icon_Border_Disabled);
 
             }
-            else if (imageToConvert.Width == 256 && imageToConvert.Height == 256)
+            else if (FilterSettings.war3IconType == War3IconType.ReforgedIcon && imageToConvert.Width == 256 && imageToConvert.Height == 256)
             {
                 if (iconSetting == IconSettings.BTN_REF)
                     border = SixLabors.ImageSharp.Image<Rgba32>.Load(Properties.Resources.Reforged_Icon_Border_Button);

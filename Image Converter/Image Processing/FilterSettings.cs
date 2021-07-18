@@ -8,6 +8,7 @@ namespace Image_Converter.Image_Processing
 {
     public static partial class FilterSettings
     {
+        public static War3IconType war3IconType;
         public static bool isButtonIcon;
         public static bool isButtonIconRef;
         public static bool isPassiveIcon;
@@ -18,7 +19,7 @@ namespace Image_Converter.Image_Processing
         public static bool isDisabledIconRef;
         public static bool isBLP2;
         public static bool isResized;
-        public static int resizeX;
-        public static int resizeY;
+        public static int resizeX = 4;
+        public static int resizeY = 4;
     }
 }

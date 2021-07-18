@@ -57,10 +57,10 @@ namespace Image_Converter.Forms
             // 
             this.radBtnHighest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.radBtnHighest.AutoSize = true;
-            this.radBtnHighest.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.radBtnHighest.Location = new System.Drawing.Point(304, 184);
+            this.radBtnHighest.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.radBtnHighest.Location = new System.Drawing.Point(304, 183);
             this.radBtnHighest.Name = "radBtnHighest";
-            this.radBtnHighest.Size = new System.Drawing.Size(67, 19);
+            this.radBtnHighest.Size = new System.Drawing.Size(69, 20);
             this.radBtnHighest.TabIndex = 56;
             this.radBtnHighest.Text = "Highest";
             this.radBtnHighest.UseVisualStyleBackColor = true;
@@ -70,12 +70,12 @@ namespace Image_Converter.Forms
             // 
             this.lblDDSQuality.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblDDSQuality.AutoSize = true;
-            this.lblDDSQuality.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblDDSQuality.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.lblDDSQuality.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblDDSQuality.ForeColor = System.Drawing.SystemColors.Control;
             this.lblDDSQuality.Location = new System.Drawing.Point(147, 166);
             this.lblDDSQuality.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblDDSQuality.Name = "lblDDSQuality";
-            this.lblDDSQuality.Size = new System.Drawing.Size(123, 15);
+            this.lblDDSQuality.Size = new System.Drawing.Size(129, 16);
             this.lblDDSQuality.TabIndex = 55;
             this.lblDDSQuality.Text = "Compression Quality:";
             this.lblDDSQuality.Visible = false;
@@ -84,10 +84,10 @@ namespace Image_Converter.Forms
             // 
             this.radBtnBalanced.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.radBtnBalanced.AutoSize = true;
-            this.radBtnBalanced.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.radBtnBalanced.Location = new System.Drawing.Point(221, 184);
+            this.radBtnBalanced.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.radBtnBalanced.Location = new System.Drawing.Point(221, 183);
             this.radBtnBalanced.Name = "radBtnBalanced";
-            this.radBtnBalanced.Size = new System.Drawing.Size(77, 19);
+            this.radBtnBalanced.Size = new System.Drawing.Size(78, 20);
             this.radBtnBalanced.TabIndex = 54;
             this.radBtnBalanced.Text = "Balanced";
             this.radBtnBalanced.UseVisualStyleBackColor = true;
@@ -98,10 +98,10 @@ namespace Image_Converter.Forms
             this.radBtnFastest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.radBtnFastest.AutoSize = true;
             this.radBtnFastest.Checked = true;
-            this.radBtnFastest.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.radBtnFastest.Location = new System.Drawing.Point(151, 184);
+            this.radBtnFastest.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.radBtnFastest.Location = new System.Drawing.Point(151, 183);
             this.radBtnFastest.Name = "radBtnFastest";
-            this.radBtnFastest.Size = new System.Drawing.Size(64, 19);
+            this.radBtnFastest.Size = new System.Drawing.Size(68, 20);
             this.radBtnFastest.TabIndex = 53;
             this.radBtnFastest.TabStop = true;
             this.radBtnFastest.Text = "Fastest";
@@ -114,10 +114,10 @@ namespace Image_Converter.Forms
             this.chkBoxMipmaps.AutoSize = true;
             this.chkBoxMipmaps.Checked = true;
             this.chkBoxMipmaps.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkBoxMipmaps.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.chkBoxMipmaps.Location = new System.Drawing.Point(150, 130);
+            this.chkBoxMipmaps.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.chkBoxMipmaps.Location = new System.Drawing.Point(150, 129);
             this.chkBoxMipmaps.Name = "chkBoxMipmaps";
-            this.chkBoxMipmaps.Size = new System.Drawing.Size(132, 19);
+            this.chkBoxMipmaps.Size = new System.Drawing.Size(134, 20);
             this.chkBoxMipmaps.TabIndex = 52;
             this.chkBoxMipmaps.Text = "Generate Mipmaps";
             this.chkBoxMipmaps.UseVisualStyleBackColor = true;
@@ -127,11 +127,11 @@ namespace Image_Converter.Forms
             // 
             this.chkBoxKeepFilenames.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkBoxKeepFilenames.AutoSize = true;
-            this.chkBoxKeepFilenames.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.chkBoxKeepFilenames.Location = new System.Drawing.Point(7, 194);
+            this.chkBoxKeepFilenames.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.chkBoxKeepFilenames.Location = new System.Drawing.Point(7, 193);
             this.chkBoxKeepFilenames.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.chkBoxKeepFilenames.Name = "chkBoxKeepFilenames";
-            this.chkBoxKeepFilenames.Size = new System.Drawing.Size(124, 19);
+            this.chkBoxKeepFilenames.Size = new System.Drawing.Size(126, 20);
             this.chkBoxKeepFilenames.TabIndex = 51;
             this.chkBoxKeepFilenames.Text = "Keep Filename(s)";
             this.chkBoxKeepFilenames.UseVisualStyleBackColor = true;
@@ -154,20 +154,20 @@ namespace Image_Converter.Forms
             // 
             this.lblFileFormat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblFileFormat.AutoSize = true;
-            this.lblFileFormat.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblFileFormat.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.lblFileFormat.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblFileFormat.ForeColor = System.Drawing.SystemColors.Control;
             this.lblFileFormat.Location = new System.Drawing.Point(263, 241);
             this.lblFileFormat.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblFileFormat.Name = "lblFileFormat";
-            this.lblFileFormat.Size = new System.Drawing.Size(27, 15);
+            this.lblFileFormat.Size = new System.Drawing.Size(27, 16);
             this.lblFileFormat.TabIndex = 49;
             this.lblFileFormat.Text = ".jpg";
             // 
             // label5
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label5.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.label5.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label5.ForeColor = System.Drawing.SystemColors.Control;
             this.label5.Location = new System.Drawing.Point(7, 216);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
@@ -203,12 +203,12 @@ namespace Image_Converter.Forms
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label4.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.label4.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label4.ForeColor = System.Drawing.SystemColors.Control;
             this.label4.Location = new System.Drawing.Point(147, 83);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(85, 15);
+            this.label4.Size = new System.Drawing.Size(88, 16);
             this.label4.TabIndex = 47;
             this.label4.Text = "Image Quality:";
             // 
@@ -228,12 +228,12 @@ namespace Image_Converter.Forms
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label3.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.label3.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label3.ForeColor = System.Drawing.SystemColors.Control;
             this.label3.Location = new System.Drawing.Point(7, 25);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(134, 15);
+            this.label3.Size = new System.Drawing.Size(142, 16);
             this.label3.TabIndex = 46;
             this.label3.Text = "Select Output Directory:";
             // 
@@ -284,12 +284,12 @@ namespace Image_Converter.Forms
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label2.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.label2.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label2.ForeColor = System.Drawing.SystemColors.Control;
             this.label2.Location = new System.Drawing.Point(6, 83);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(88, 15);
+            this.label2.Size = new System.Drawing.Size(92, 16);
             this.label2.TabIndex = 41;
             this.label2.Text = "Output Format:";
             // 
@@ -300,7 +300,7 @@ namespace Image_Converter.Forms
             this.btnConvert.Enabled = false;
             this.btnConvert.FlatAppearance.BorderSize = 0;
             this.btnConvert.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnConvert.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btnConvert.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnConvert.ForeColor = System.Drawing.SystemColors.Window;
             this.btnConvert.Location = new System.Drawing.Point(319, 233);
             this.btnConvert.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -332,6 +332,8 @@ namespace Image_Converter.Forms
             this.groupBoxExportSettings.Controls.Add(this.lblFileFormat);
             this.groupBoxExportSettings.Controls.Add(this.txtFileName);
             this.groupBoxExportSettings.Controls.Add(this.label5);
+            this.groupBoxExportSettings.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.groupBoxExportSettings.ForeColor = System.Drawing.SystemColors.ControlLight;
             this.groupBoxExportSettings.Location = new System.Drawing.Point(3, 230);
             this.groupBoxExportSettings.Name = "groupBoxExportSettings";
             this.groupBoxExportSettings.Size = new System.Drawing.Size(445, 268);
@@ -339,13 +341,13 @@ namespace Image_Converter.Forms
             this.groupBoxExportSettings.TabStop = false;
             this.groupBoxExportSettings.Text = "Export Settings";
             // 
-            // ImageSettingsControl
+            // ExportControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Gray;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(75)))), ((int)(((byte)(75)))));
             this.Controls.Add(this.groupBoxExportSettings);
-            this.Name = "ImageSettingsControl";
+            this.Name = "ExportControl";
             this.Size = new System.Drawing.Size(786, 501);
             ((System.ComponentModel.ISupportInitialize)(this.trckbarImageQuality)).EndInit();
             this.groupBoxExportSettings.ResumeLayout(false);

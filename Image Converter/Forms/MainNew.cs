@@ -1,11 +1,14 @@
 ﻿using Image_Converter.Forms;
 using Image_Converter.IO;
 using MetroSet_UI.Forms;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -16,40 +19,52 @@ namespace Image_Converter
 {
     public partial class MainNew : Form
     {
-        Color colorActiveButton = Color.FromArgb(255, 124, 10);
-        UserControl currentChildControl;
+        System.Drawing.Color colorActiveButton = System.Drawing.Color.FromArgb(255, 124, 10);
         Button currentMenuButton;
-        UserControl importControl;
-        UserControl fileListControl;
-        UserControl filterControl;
-        UserControl exportControl;
+        ImportControl importControl;
+        FileListControl fileListControl;
+        FilterControl filterControl;
+        ExportControl exportControl;
+
+        private Converter converter;
+        private System.Drawing.Image currentPreviewReferenceImage;
+        private System.Drawing.Image previewBackgroundImage;
 
         public MainNew()
         {
             InitializeComponent();
 
-            this.DoubleBuffered = true;
+            converter = new Converter();
+
+            imagePreview.SizeMode = PictureBoxSizeMode.AutoSize; // fixes scaling
+            // Save background image and hide it on init.
+            previewBackgroundImage = imagePreview.BackgroundImage;
+            imagePreview.BackgroundImage = null;
+            CenterAndScalePreviewImage();
+
+            //this.DoubleBuffered = true;
             this.Text = string.Empty;
             this.ControlBox = false;
 
             // Default Control
             importControl = new ImportControl();
-            currentChildControl = importControl;
             importControl.Anchor = ((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Top));
             importControl.AutoSize = false;
-            importControl.Size = new Size(panelImport.Width, panelImport.Height);
+            importControl.Size = new System.Drawing.Size(panelImport.Width, panelImport.Height);
             panelImport.Controls.Add(importControl);
             importControl.Show();
 
             fileListControl = new FileListControl();
-            currentChildControl = fileListControl;
             fileListControl.Anchor = ((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom));
             fileListControl.AutoSize = false;
-            fileListControl.Size = new Size(panelFileList.Width, panelFileList.Height);
+            fileListControl.Size = new System.Drawing.Size(panelFileList.Width, panelFileList.Height);
             panelFileList.Controls.Add(fileListControl);
             importControl.Show();
 
             filterControl = new FilterControl();
+            filterControl.Anchor = ((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom));
+            filterControl.AutoSize = false;
+            filterControl.Size = new System.Drawing.Size(splitContainer.Panel1.Width, splitContainer.Panel1.Height);
             splitContainer.Panel1.Controls.Add(filterControl);
             filterControl.Hide();
 
@@ -60,6 +75,14 @@ namespace Image_Converter
             currentMenuButton = btnImport;
             currentMenuButton.BackColor = colorActiveButton;
             currentMenuButton.FlatAppearance.MouseOverBackColor = colorActiveButton;
+
+            // Control events
+            importControl.OnButtonClickSingle += new EventHandler(UserControl_ImportSingleFile);
+            importControl.OnButtonClickMulti += new EventHandler(UserControl_ImportMultipleFiles);
+            fileListControl.OnSelectionChanged += new EventHandler(UserControl_SelectItemInList);
+            fileListControl.OnClearList += new EventHandler(UserControl_ClearFileList);
+
+            filterControl.OnFilterChanged += new EventHandler(UserControl_FilterChanged);
         }
 
         // ------- CUSTOM RESIZE ------- //
@@ -75,8 +98,8 @@ namespace Image_Converter
 
                     if ((int)m.Result == 0x01/*HTCLIENT*/)
                     {
-                        Point screenPoint = new Point(m.LParam.ToInt32());
-                        Point clientPoint = this.PointToClient(screenPoint);
+                        System.Drawing.Point screenPoint = new System.Drawing.Point(m.LParam.ToInt32());
+                        System.Drawing.Point clientPoint = this.PointToClient(screenPoint);
                         if (clientPoint.Y <= RESIZE_HANDLE_SIZE)
                         {
                             if (clientPoint.X <= RESIZE_HANDLE_SIZE)
@@ -115,7 +138,8 @@ namespace Image_Converter
             get
             {
                 CreateParams cp = base.CreateParams;
-                cp.Style |= 0x20000; // <--- use 0x20000
+                //cp.Style |= 0x20000; // <--- use 0x20000
+                //cp.ExStyle |= 0x02000000; // Turn on WS_EX_COMPOSITED
                 return cp;
             }
         }
@@ -133,7 +157,7 @@ namespace Image_Converter
             ReleaseCapture();
             SendMessage(this.Handle, 0x112, 0xf012, 0);
         }
-        
+
         private void iconMain_MouseDown(object sender, MouseEventArgs e)
         {
             ReleaseCapture();
@@ -182,8 +206,8 @@ namespace Image_Converter
         {
             if (currentMenuButton != null)
             {
-                currentMenuButton.BackColor = Color.Transparent;
-                currentMenuButton.FlatAppearance.MouseOverBackColor = Color.Gray;
+                currentMenuButton.BackColor = System.Drawing.Color.Transparent;
+                currentMenuButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
             }
             currentMenuButton = button;
             button.BackColor = colorActiveButton;
@@ -220,11 +244,278 @@ namespace Image_Converter
             UpdateMenuButtonColor((Button)sender);
         }
 
-        ImportControl.OnButtonClickSingle += new EventHandler(UserControl_ButtonClick);
-
-        protected void UserControl_ButtonClick(object sender, EventArgs e)
+        private void splitContainer_Panel1_DragOver(object sender, DragEventArgs e)
         {
-            //handle the event 
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                e.Effect = DragDropEffects.Link;
+            }
+            else
+            {
+                DragDropEffects effects = DragDropEffects.None;
+                if (e.Data.GetDataPresent(DataFormats.FileDrop))
+                {
+                    var path = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
+                    if (Directory.Exists(path))
+                        effects = DragDropEffects.Copy;
+                }
+                e.Effect = effects;
+            }
         }
+
+        private void splitContainer_Panel1_DragDrop(object sender, DragEventArgs e)
+        {
+            foreach (var item in (string[])e.Data.GetData(DataFormats.FileDrop, false)) // loops through all selected items (files and directories)
+            {
+                if (Directory.Exists(item)) // checks if selected item is a directory
+                {
+                    fileListControl.AddFilesInDirectory(item, importControl.isSubfoldersChecked());
+                }
+                else
+                {
+                    using (Stream stream = new FileStream(item.ToString(), FileMode.Open))
+                    {
+                        fileListControl.AddFileToListSingle(item, stream); // adds selected item to fileEntries (this is a single file)
+                    }
+                }
+            }
+
+            //verifyListAndOutputDirectory();
+        }
+
+        protected void UserControl_ImportSingleFile(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+
+            //openFileDialog1.InitialDirectory = "c:\\";
+            //openFileDialog1.Filter = "Image Files (*.jpg, *.png. *.tiff, *.gif, *.bmp, *.tga)|*.jpg;*.png;*.tiff;*.gif;*.bmp;.tga;*";
+            openFileDialog1.FilterIndex = 0;
+            openFileDialog1.RestoreDirectory = true;
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                string selectedFileName = openFileDialog1.FileName;
+                using (Stream stream = new FileStream(selectedFileName, FileMode.Open))
+                {
+                    fileListControl.AddFileToListSingle(selectedFileName, stream);
+                }
+                DisplayPreviewImage(selectedFileName);
+                //btnConvert.Enabled = true;
+            }
+
+            //verifyListAndOutputDirectory();
+        }
+
+        protected void UserControl_ImportMultipleFiles(object sender, EventArgs e)
+        {
+            using (var fbd = new FolderBrowserDialog())
+            {
+                DialogResult result = fbd.ShowDialog();
+
+                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                {
+                    fileListControl.AddFilesInDirectory(fbd.SelectedPath, importControl.isSubfoldersChecked());
+                }
+            }
+
+            //verifyListAndOutputDirectory();
+        }
+
+        protected void UserControl_ClearFileList(object sender, EventArgs e)
+        {
+            imagePreview.Image = null;
+            currentPreviewReferenceImage = null;
+            lblFileSize.Text = "0 KB";
+            lblResolution.Text = "Resolution: N/A";
+
+            //verifyListAndOutputDirectory();
+        }
+
+        protected void UserControl_FilterChanged(object sender, EventArgs e)
+        {
+            DisplayPreviewImage(fileListControl.GetCurrentSelectedFile());
+        }
+
+        protected void UserControl_SelectItemInList(object sender, EventArgs e)
+        {
+            DisplayPreviewImage(fileListControl.GetCurrentSelectedFile());
+        }
+
+        private void groupBoxPreview_Resize(object sender, EventArgs e)
+        {
+            CenterAndScalePreviewImage();
+        }
+
+        private String GetInputFileNameAndExtension(String filePath)
+        {
+            String fileName = "";
+
+            char cCurrent;
+            int sub = 0;
+            bool start = true;
+            bool end = false;
+            while (!end)
+            {
+                cCurrent = filePath[filePath.Length - 1 - sub];
+                if (start)
+                {
+                    if (cCurrent == '/' || cCurrent == '\\')
+                    {
+                        end = true;
+                    }
+                    if (!end)
+                    {
+                        fileName += cCurrent; // appends file name to the string (opposite order, but we flip it later)
+                    }
+                }
+
+                sub++;
+            }
+
+            char[] charArray = fileName.ToCharArray();
+            Array.Reverse(charArray); // flips string
+
+            return new string(charArray);
+        }
+
+        private String GetFileSizeString(Stream stream)
+        {
+            long sizeBytes = stream.Length;
+            String text = sizeBytes.ToString();
+            int textLength = text.Length;
+            String howBigBytes = "bytes";
+
+            if (sizeBytes > 1000)
+            {
+                howBigBytes = "KB";
+                sizeBytes = sizeBytes / 1000;
+                text = sizeBytes.ToString();
+                textLength = text.Length;
+            }
+
+            String finalText = "";
+            int dotPlacementHelper = 0;
+            for (int i = textLength; i > 0; i--)
+            {
+                if (dotPlacementHelper % 3 == 0 && dotPlacementHelper != 0)
+                {
+                    finalText += "." + text.Substring(i - 1, 1);
+                }
+                else
+                {
+                    finalText += text.Substring(i - 1, 1);
+                }
+                dotPlacementHelper++;
+            }
+
+            char[] charArray = finalText.ToCharArray();
+            Array.Reverse(charArray); // flips string
+
+            return new string(charArray) + " " + howBigBytes;
+        }
+
+        private void DisplayPreviewImage(String filePath)
+        {
+            try
+            {
+                SixLabors.ImageSharp.Image<Rgba32> image = converter.Preview(filePath);
+                if (image != null)
+                {
+                    Bitmap actualPreview = new Bitmap(image.Width, image.Height);
+
+                    Stream stream = new System.IO.MemoryStream();
+                    SixLabors.ImageSharp.Formats.Bmp.BmpEncoder bmpEncoder = new SixLabors.ImageSharp.Formats.Bmp.BmpEncoder(); // we need an encoder to preserve transparency.
+                    bmpEncoder.BitsPerPixel = SixLabors.ImageSharp.Formats.Bmp.BmpBitsPerPixel.Pixel32; // bitmap transparency needs 32 bits per pixel before we set transparency support.
+                    bmpEncoder.SupportTransparency = true;
+                    image.SaveAsBmp(stream, bmpEncoder);
+                    System.Drawing.Image img = System.Drawing.Image.FromStream(stream);
+                    if (imagePreview.Image != null)
+                    {
+                        imagePreview.Image.Dispose();
+                    }
+                    imagePreview.Image = img;
+                    currentPreviewReferenceImage = img;
+                    lblResolution.Text = "Resolution: " + image.Width + "x" + image.Height;
+
+                    image.Dispose();
+                    if (converter.errorMsg != "")
+                        lblPreviewError.Text = converter.errorMsg;
+                    else
+                        lblPreviewError.Text = "";
+                }
+                else
+                {
+                    imagePreview.Image = null;
+                    currentPreviewReferenceImage = null;
+                    lblResolution.Text = "Resolution: N/A";
+                    lblPreviewError.Text = "Preview unavailable";
+                }
+                using (Stream fs = new FileStream(filePath, FileMode.Open))
+                {
+                    lblFileSize.Text = GetFileSizeString(fs);
+                }
+
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Unsupported format.");
+            }
+
+            CenterAndScalePreviewImage();
+        }
+
+        private void CenterAndScalePreviewImage()
+        {
+            if (currentPreviewReferenceImage != null)
+            {
+                float sourceImgRatio = (float)currentPreviewReferenceImage.Width / (float)currentPreviewReferenceImage.Height;
+                float previewWindowRatio = (float)groupBoxPreview.Width / (float)groupBoxPreview.Height;
+                int paddingY = 40;
+                float paddingX = paddingY * sourceImgRatio;
+                System.Drawing.Size correctedSize;
+                if (previewWindowRatio > sourceImgRatio)
+                {
+                    correctedSize = new System.Drawing.Size((int)(groupBoxPreview.Height * sourceImgRatio - paddingX), (int)(groupBoxPreview.Height - paddingY));
+                }
+                else
+                {
+                    correctedSize = new System.Drawing.Size((int)(groupBoxPreview.Width - paddingX), (int)(groupBoxPreview.Width / sourceImgRatio - paddingY));
+                }
+
+                // Preview window size exceeds image size
+                if (correctedSize.Width > currentPreviewReferenceImage.Width)
+                {
+                    correctedSize.Width = currentPreviewReferenceImage.Width;
+                }
+                if (correctedSize.Height > currentPreviewReferenceImage.Height)
+                {
+                    correctedSize.Height = currentPreviewReferenceImage.Height;
+                }
+                Bitmap bmp = new Bitmap(currentPreviewReferenceImage, correctedSize);
+                imagePreview.Image = bmp;
+            }
+            else
+            {
+                imagePreview.Width = 64;
+                imagePreview.Height = 64;
+            }
+
+            System.Drawing.Point previewCenter = new System.Drawing.Point((groupBoxPreview.Width / 2) - (imagePreview.Width / 2), (groupBoxPreview.Height / 2) - (imagePreview.Height / 2));
+            imagePreview.Location = previewCenter;
+        }
+
+        private void checkBoxTransparencyGrid_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxTransparencyGrid.Checked == true)
+            {
+                imagePreview.BackgroundImage = previewBackgroundImage;
+            }
+            else
+            {
+                imagePreview.BackgroundImage = null;
+            }
+        }
+
+
     }
 }

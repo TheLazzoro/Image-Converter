@@ -31,7 +31,6 @@ namespace Image_Converter.IO
         public int selectedDDSCompressionQuality;
         public bool generateMipMaps;
         public IconSettings currentIconSetting;
-        public int war3IconType;
         private Reader reader;
         private string filePrefix = "";
         private BcEncoder bcEncoder;
@@ -40,7 +39,7 @@ namespace Image_Converter.IO
 
         public Converter()
         {
-            reader = new Reader(FilterSettings.isBLP2);
+            reader = new Reader();
         }
 
         public void Init(int selectedFileExtension)
@@ -134,7 +133,7 @@ namespace Image_Converter.IO
 
             SixLabors.ImageSharp.Image<Rgba32> imageToConvert = reader.ReadFile(fileEntries[currentEntry]);
 
-            if (war3IconType == 0)
+            if (FilterSettings.war3IconType == War3IconType.None)
             {
                 filePrefix = "";
                 Convert(imageToConvert);
@@ -142,7 +141,7 @@ namespace Image_Converter.IO
             else
             {
                 ImageFilters filters = new ImageFilters();
-                if (war3IconType == 1)
+                if (FilterSettings.war3IconType == War3IconType.ClassicIcon)
                 {
                     if (FilterSettings.isButtonIcon)
                     {
@@ -165,7 +164,7 @@ namespace Image_Converter.IO
                         imageToConvert = filters.AddIconBorder(imageToConvert, IconSettings.DIS);
                     }
                 }
-                else if (war3IconType == 2)
+                else if (FilterSettings.war3IconType == War3IconType.ReforgedIcon)
                 {
                     if (FilterSettings.isButtonIconRef)
                     {
@@ -237,7 +236,7 @@ namespace Image_Converter.IO
                 if (FilterSettings.isAutocastIcon) iconsChecked++;
                 if (FilterSettings.isDisabledIcon) iconsChecked++;
 
-                if (war3IconType == 1 && iconsChecked <= 1) // Classic icons
+                if (FilterSettings.war3IconType == War3IconType.ClassicIcon && iconsChecked <= 1) // Classic icons
                 {
                     if (FilterSettings.isButtonIcon) image = filters.AddIconBorder(image, IconSettings.BTN);
                     if (FilterSettings.isPassiveIcon) image = filters.AddIconBorder(image, IconSettings.PAS);
@@ -245,7 +244,7 @@ namespace Image_Converter.IO
                     if (FilterSettings.isDisabledIcon) image = filters.AddIconBorder(image, IconSettings.DIS);
                     errorMsg = "";
                 }
-                else if (war3IconType == 2 && iconsChecked <= 1) // Reforged icons
+                else if (FilterSettings.war3IconType == War3IconType.ReforgedIcon && iconsChecked <= 1) // Reforged icons
                 {
                     if (FilterSettings.isButtonIconRef) image = filters.AddIconBorder(image, IconSettings.BTN_REF);
                     if (FilterSettings.isPassiveIconRef) image = filters.AddIconBorder(image, IconSettings.PAS_REF);
@@ -255,7 +254,9 @@ namespace Image_Converter.IO
                 }
                 else
                 {
-                    if (war3IconType != 0 && image.Width == 64 && image.Height == 64)
+                    if (FilterSettings.war3IconType == War3IconType.ClassicIcon && image.Width == 64 && image.Height == 64)
+                        errorMsg = "Cannot display multiple icon filters";
+                    else if (FilterSettings.war3IconType == War3IconType.ReforgedIcon && image.Width == 256 && image.Height == 256)
                         errorMsg = "Cannot display multiple icon filters";
                     else
                         errorMsg = "";

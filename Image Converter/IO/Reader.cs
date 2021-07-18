@@ -1,4 +1,5 @@
 ﻿using BCnEncoder.Decoder;
+using Image_Converter.Image_Processing;
 using SixLabors.ImageSharp.PixelFormats;
 using System;
 using System.Collections.Generic;
@@ -14,11 +15,9 @@ namespace Image_Converter.IO
     {
         public string errorMsg = "";
         private BcDecoder bcDecoder;
-        private bool isBLP2;
 
-        public Reader(bool isBLP2) {
+        public Reader() {
             this.bcDecoder = new BcDecoder();
-            this.isBLP2 = isBLP2;
         }
 
         public SixLabors.ImageSharp.Image<Rgba32> ReadFile(String filePath)
@@ -121,7 +120,7 @@ namespace Image_Converter.IO
                 int height;
                 blpFile.GetPixels(0, out width, out height);
                 // The library does not determine what's BLP1 and BLP2 properly, so we manually set bool bgra in GetPixels depending on the checkbox.
-                byte[] bytes = blpFile.GetPixels(0, out width, out height, isBLP2); // 0 indicates first mipmap layer. width and height are assigned width and height in GetPixels().
+                byte[] bytes = blpFile.GetPixels(0, out width, out height, FilterSettings.isBLP2); // 0 indicates first mipmap layer. width and height are assigned width and height in GetPixels().
                 var actualImage = blpFile.GetBitmapSource(0);
                 int bytesPerPixel = (actualImage.Format.BitsPerPixel + 7) / 8;
                 int stride = bytesPerPixel * actualImage.PixelWidth;

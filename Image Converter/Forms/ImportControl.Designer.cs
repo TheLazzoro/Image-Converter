@@ -114,6 +114,7 @@
             this.btnInputFolder.TabIndex = 2;
             this.btnInputFolder.Text = "Choose Folder";
             this.btnInputFolder.UseVisualStyleBackColor = false;
+            this.btnInputFolder.Click += new System.EventHandler(this.btnInputFolder_Click);
             // 
             // pictureBox1
             // 

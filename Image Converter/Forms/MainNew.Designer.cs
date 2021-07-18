@@ -41,11 +41,12 @@ namespace Image_Converter
             this.btnMaximize = new FontAwesome.Sharp.IconButton();
             this.btnMinimize = new FontAwesome.Sharp.IconButton();
             this.btnExit = new FontAwesome.Sharp.IconButton();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.imagePreview = new System.Windows.Forms.PictureBox();
             this.panelChildForm = new System.Windows.Forms.Panel();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.panelImport = new System.Windows.Forms.Panel();
             this.panelFileList = new System.Windows.Forms.Panel();
+            this.lblPreviewError = new System.Windows.Forms.Label();
             this.lblFileSize = new System.Windows.Forms.Label();
             this.lblResolution = new System.Windows.Forms.Label();
             this.groupBoxPreview = new System.Windows.Forms.GroupBox();
@@ -53,7 +54,7 @@ namespace Image_Converter
             this.panelMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.iconMain)).BeginInit();
             this.panelTop.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imagePreview)).BeginInit();
             this.panelChildForm.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
@@ -210,11 +211,11 @@ namespace Image_Converter
             // lblTitle
             // 
             this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblTitle.Font = new System.Drawing.Font("Bahnschrift", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblTitle.ForeColor = System.Drawing.Color.White;
             this.lblTitle.Location = new System.Drawing.Point(8, 20);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(137, 16);
+            this.lblTitle.Size = new System.Drawing.Size(172, 19);
             this.lblTitle.TabIndex = 13;
             this.lblTitle.Text = "WARCRAFT IMAGE LAB";
             this.lblTitle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lblTitle_MouseDown);
@@ -286,17 +287,17 @@ namespace Image_Converter
             this.btnExit.UseVisualStyleBackColor = false;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
-            // pictureBox1
+            // imagePreview
             // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.BackgroundImage")));
-            this.pictureBox1.Location = new System.Drawing.Point(6, 22);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(284, 266);
-            this.pictureBox1.TabIndex = 2;
-            this.pictureBox1.TabStop = false;
+            this.imagePreview.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.imagePreview.BackColor = System.Drawing.Color.Black;
+            this.imagePreview.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("imagePreview.BackgroundImage")));
+            this.imagePreview.Location = new System.Drawing.Point(6, 22);
+            this.imagePreview.Name = "imagePreview";
+            this.imagePreview.Size = new System.Drawing.Size(284, 266);
+            this.imagePreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.imagePreview.TabIndex = 2;
+            this.imagePreview.TabStop = false;
             // 
             // panelChildForm
             // 
@@ -314,7 +315,7 @@ namespace Image_Converter
             this.splitContainer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer.Cursor = System.Windows.Forms.Cursors.VSplit;
+            this.splitContainer.Cursor = System.Windows.Forms.Cursors.Default;
             this.splitContainer.ForeColor = System.Drawing.Color.White;
             this.splitContainer.Location = new System.Drawing.Point(3, 3);
             this.splitContainer.Name = "splitContainer";
@@ -326,10 +327,13 @@ namespace Image_Converter
             this.splitContainer.Panel1.Controls.Add(this.panelImport);
             this.splitContainer.Panel1.Controls.Add(this.panelFileList);
             this.splitContainer.Panel1.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.splitContainer.Panel1.DragDrop += new System.Windows.Forms.DragEventHandler(this.splitContainer_Panel1_DragDrop);
+            this.splitContainer.Panel1.DragOver += new System.Windows.Forms.DragEventHandler(this.splitContainer_Panel1_DragOver);
             // 
             // splitContainer.Panel2
             // 
             this.splitContainer.Panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(75)))), ((int)(((byte)(75)))));
+            this.splitContainer.Panel2.Controls.Add(this.lblPreviewError);
             this.splitContainer.Panel2.Controls.Add(this.lblFileSize);
             this.splitContainer.Panel2.Controls.Add(this.lblResolution);
             this.splitContainer.Panel2.Controls.Add(this.groupBoxPreview);
@@ -358,18 +362,30 @@ namespace Image_Converter
             this.panelFileList.Size = new System.Drawing.Size(366, 291);
             this.panelFileList.TabIndex = 0;
             // 
+            // lblPreviewError
+            // 
+            this.lblPreviewError.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblPreviewError.AutoSize = true;
+            this.lblPreviewError.BackColor = System.Drawing.Color.Transparent;
+            this.lblPreviewError.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblPreviewError.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))));
+            this.lblPreviewError.Location = new System.Drawing.Point(3, 381);
+            this.lblPreviewError.Name = "lblPreviewError";
+            this.lblPreviewError.Size = new System.Drawing.Size(0, 16);
+            this.lblPreviewError.TabIndex = 33;
+            this.lblPreviewError.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // lblFileSize
             // 
             this.lblFileSize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblFileSize.AutoSize = true;
             this.lblFileSize.BackColor = System.Drawing.Color.Transparent;
             this.lblFileSize.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblFileSize.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.lblFileSize.Location = new System.Drawing.Point(267, 344);
+            this.lblFileSize.Location = new System.Drawing.Point(204, 344);
             this.lblFileSize.Name = "lblFileSize";
-            this.lblFileSize.Size = new System.Drawing.Size(32, 16);
+            this.lblFileSize.Size = new System.Drawing.Size(95, 16);
             this.lblFileSize.TabIndex = 14;
-            this.lblFileSize.Text = "0 Kb";
+            this.lblFileSize.Text = "0 KB";
             this.lblFileSize.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblResolution
@@ -391,7 +407,7 @@ namespace Image_Converter
             this.groupBoxPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBoxPreview.Controls.Add(this.pictureBox1);
+            this.groupBoxPreview.Controls.Add(this.imagePreview);
             this.groupBoxPreview.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.groupBoxPreview.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.groupBoxPreview.ForeColor = System.Drawing.SystemColors.ControlLight;
@@ -401,6 +417,7 @@ namespace Image_Converter
             this.groupBoxPreview.TabIndex = 15;
             this.groupBoxPreview.TabStop = false;
             this.groupBoxPreview.Text = "Preview";
+            this.groupBoxPreview.Resize += new System.EventHandler(this.groupBoxPreview_Resize);
             // 
             // checkBoxTransparencyGrid
             // 
@@ -409,12 +426,13 @@ namespace Image_Converter
             this.checkBoxTransparencyGrid.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.checkBoxTransparencyGrid.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.checkBoxTransparencyGrid.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.checkBoxTransparencyGrid.Location = new System.Drawing.Point(164, 21);
+            this.checkBoxTransparencyGrid.Location = new System.Drawing.Point(164, 31);
             this.checkBoxTransparencyGrid.Name = "checkBoxTransparencyGrid";
             this.checkBoxTransparencyGrid.Size = new System.Drawing.Size(135, 20);
             this.checkBoxTransparencyGrid.TabIndex = 31;
             this.checkBoxTransparencyGrid.Text = "View Transparency";
             this.checkBoxTransparencyGrid.UseVisualStyleBackColor = true;
+            this.checkBoxTransparencyGrid.CheckedChanged += new System.EventHandler(this.checkBoxTransparencyGrid_CheckedChanged);
             // 
             // MainNew
             // 
@@ -435,7 +453,7 @@ namespace Image_Converter
             ((System.ComponentModel.ISupportInitialize)(this.iconMain)).EndInit();
             this.panelTop.ResumeLayout(false);
             this.panelTop.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imagePreview)).EndInit();
             this.panelChildForm.ResumeLayout(false);
             this.splitContainer.Panel1.ResumeLayout(false);
             this.splitContainer.Panel2.ResumeLayout(false);
@@ -460,7 +478,7 @@ namespace Image_Converter
         private FontAwesome.Sharp.IconButton btnMaximize;
         private System.Windows.Forms.Label lblTitle;
         private FontAwesome.Sharp.IconButton btnAbout;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox imagePreview;
         private System.Windows.Forms.Panel panelChildForm;
         private System.Windows.Forms.Label lblFileSize;
         private System.Windows.Forms.GroupBox groupBoxPreview;
@@ -469,5 +487,6 @@ namespace Image_Converter
         private System.Windows.Forms.Label lblResolution;
         private System.Windows.Forms.Panel panelFileList;
         private System.Windows.Forms.Panel panelImport;
+        private System.Windows.Forms.Label lblPreviewError;
     }
 }

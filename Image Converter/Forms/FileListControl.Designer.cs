@@ -67,6 +67,8 @@ namespace Image_Converter.Forms
             this.listFileEntries.TabIndex = 32;
             this.listFileEntries.UseCompatibleStateImageBehavior = false;
             this.listFileEntries.View = System.Windows.Forms.View.Details;
+            this.listFileEntries.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.listFileEntries_ItemSelectionChanged);
+            this.listFileEntries.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listFileEntries_KeyDown);
             // 
             // columnHeader1
             // 
@@ -95,6 +97,7 @@ namespace Image_Converter.Forms
             this.btnClear.TabIndex = 34;
             this.btnClear.Text = "Clear List";
             this.btnClear.UseVisualStyleBackColor = false;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // FileListControl
             // 

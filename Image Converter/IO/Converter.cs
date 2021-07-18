@@ -19,20 +19,8 @@ namespace Image_Converter.IO
         public string debugString = "";
         public String[] fileEntries;
         int currentEntry = 0;
-        public bool isMultipleFiles;
         public String errorMsg;
-        public String outputDir;
-        public String fileName;
-        public int selectedFileExtension;
-        public bool keepFileNames;
-        public String outputFiletype = ".jpg"; // defaults to jpg if anything goes wrong.
-        public int imageQualityJpeg;
-        public int selectedDDSCompression;
-        public int selectedDDSCompressionQuality;
-        public bool generateMipMaps;
-        public IconSettings currentIconSetting;
         private Reader reader;
-        private string filePrefix = "";
         private BcEncoder bcEncoder;
         private JpegEncoder jpegEncoder;
         private Warcraft.BLP.TextureCompressionType blpEncoder;
@@ -40,53 +28,48 @@ namespace Image_Converter.IO
         public Converter()
         {
             reader = new Reader();
-        }
 
-        public void Init(int selectedFileExtension)
-        {
-            this.currentEntry = 0; // in case a user wants to convert more times.
-            this.selectedFileExtension = selectedFileExtension;
-            switch (selectedFileExtension)
+            switch (ExportSettings.selectedFileExtension)
             {
-                case (int)ImageFormats.JPG:
+                case ImageFormats.JPG:
                     //this.imageCodecInfo = GetEncoder(ImageFormat.Jpeg);
-                    outputFiletype = ".jpg";
+                    ExportSettings.outputFileType = ".jpg";
                     break;
-                case (int)ImageFormats.PNG:
+                case ImageFormats.PNG:
                     //this.imageCodecInfo = GetEncoder(ImageFormat.Png);
-                    outputFiletype = ".png";
+                    ExportSettings.outputFileType = ".png";
                     break;
-                case (int)ImageFormats.BMP:
+                case ImageFormats.BMP:
                     //this.imageCodecInfo = GetEncoder(ImageFormat.Bmp);
-                    outputFiletype = ".bmp";
+                    ExportSettings.outputFileType = ".bmp";
                     break;
-                case (int)ImageFormats.TGA:
-                    outputFiletype = ".tga";
+                case ImageFormats.TGA:
+                    ExportSettings.outputFileType = ".tga";
                     break;
-                case (int)ImageFormats.DDS:
-                    outputFiletype = ".dds";
+                case ImageFormats.DDS:
+                    ExportSettings.outputFileType = ".dds";
                     break;
-                case (int)ImageFormats.BLP:
-                    outputFiletype = ".blp";
+                case ImageFormats.BLP:
+                    ExportSettings.outputFileType = ".blp";
                     break;
             }
 
             // ----
             // Setup Encoders
             // ----
-            if (selectedFileExtension == (int)ImageFormats.JPG)
+            if (ExportSettings.selectedFileExtension == ImageFormats.JPG)
             {
                 jpegEncoder = new JpegEncoder();
-                jpegEncoder.Quality = imageQualityJpeg;
+                jpegEncoder.Quality = ExportSettings.imageQualityJpeg;
             }
-            if (selectedFileExtension == (int)ImageFormats.DDS)
+            if (ExportSettings.selectedFileExtension == ImageFormats.DDS)
             {
                 bcEncoder = new BcEncoder();
                 bcEncoder.Options.multiThreaded = true;
-                bcEncoder.OutputOptions.generateMipMaps = generateMipMaps;
+                bcEncoder.OutputOptions.generateMipMaps = ExportSettings.generateMipMaps;
                 bcEncoder.OutputOptions.fileFormat = OutputFileFormat.Dds;
 
-                switch (selectedDDSCompression)
+                switch (ExportSettings.selectedDDSCompression)
                 {
                     case 0:
                         bcEncoder.OutputOptions.format = CompressionFormat.BC1;
@@ -105,7 +88,7 @@ namespace Image_Converter.IO
                         break;
                 }
 
-                switch (selectedDDSCompressionQuality)
+                switch (ExportSettings.selectedDDSCompressionQuality)
                 {
                     case 0:
                         bcEncoder.OutputOptions.quality = CompressionQuality.Fast;
@@ -121,7 +104,7 @@ namespace Image_Converter.IO
                         break;
                 }
             }
-            if (selectedFileExtension == (int)ImageFormats.BLP)
+            if (ExportSettings.selectedFileExtension == ImageFormats.BLP)
             {
                 blpEncoder = new Warcraft.BLP.TextureCompressionType();
             }
@@ -135,7 +118,7 @@ namespace Image_Converter.IO
 
             if (FilterSettings.war3IconType == War3IconType.None)
             {
-                filePrefix = "";
+                ExportSettings.prefix = "";
                 Convert(imageToConvert);
             }
             else
@@ -145,46 +128,46 @@ namespace Image_Converter.IO
                 {
                     if (FilterSettings.isButtonIcon)
                     {
-                        filePrefix = "BTN";
-                        imageToConvert = filters.AddIconBorder(imageToConvert, IconSettings.BTN);
+                        ExportSettings.prefix = "BTN";
+                        imageToConvert = filters.AddIconBorder(imageToConvert, IconTypes.BTN);
                     }
                     if (FilterSettings.isPassiveIcon)
                     {
-                        filePrefix = "PAS";
-                        imageToConvert = filters.AddIconBorder(imageToConvert, IconSettings.PAS);
+                        ExportSettings.prefix = "PAS";
+                        imageToConvert = filters.AddIconBorder(imageToConvert, IconTypes.PAS);
                     }
                     if (FilterSettings.isAutocastIcon)
                     {
-                        filePrefix = "ATC";
-                        imageToConvert = filters.AddIconBorder(imageToConvert, IconSettings.ATC);
+                        ExportSettings.prefix = "ATC";
+                        imageToConvert = filters.AddIconBorder(imageToConvert, IconTypes.ATC);
                     }
                     if (FilterSettings.isDisabledIcon)
                     {
-                        filePrefix = "DISBTN";
-                        imageToConvert = filters.AddIconBorder(imageToConvert, IconSettings.DIS);
+                        ExportSettings.prefix = "DISBTN";
+                        imageToConvert = filters.AddIconBorder(imageToConvert, IconTypes.DIS);
                     }
                 }
                 else if (FilterSettings.war3IconType == War3IconType.ReforgedIcon)
                 {
                     if (FilterSettings.isButtonIconRef)
                     {
-                        filePrefix = "BTN";
-                        imageToConvert = filters.AddIconBorder(imageToConvert, IconSettings.BTN_REF);
+                        ExportSettings.prefix = "BTN";
+                        imageToConvert = filters.AddIconBorder(imageToConvert, IconTypes.BTN_REF);
                     }
                     if (FilterSettings.isPassiveIconRef)
                     {
-                        filePrefix = "PAS";
-                        imageToConvert = filters.AddIconBorder(imageToConvert, IconSettings.PAS_REF);
+                        ExportSettings.prefix = "PAS";
+                        imageToConvert = filters.AddIconBorder(imageToConvert, IconTypes.PAS_REF);
                     }
                     if (FilterSettings.isAutocastIconRef)
                     {
-                        filePrefix = "ATC";
-                        imageToConvert = filters.AddIconBorder(imageToConvert, IconSettings.ATC_REF);
+                        ExportSettings.prefix = "ATC";
+                        imageToConvert = filters.AddIconBorder(imageToConvert, IconTypes.ATC_REF);
                     }
                     if (FilterSettings.isDisabledIconRef)
                     {
-                        filePrefix = "DISBTN";
-                        imageToConvert = filters.AddIconBorder(imageToConvert, IconSettings.DIS_REF);
+                        ExportSettings.prefix = "DISBTN";
+                        imageToConvert = filters.AddIconBorder(imageToConvert, IconTypes.DIS_REF);
                     }
                 }
             }
@@ -207,17 +190,17 @@ namespace Image_Converter.IO
 
             if (imageToConvert != null)
             {
-                if (selectedFileExtension == (int)ImageFormats.JPG)
+                if (ExportSettings.selectedFileExtension == ImageFormats.JPG)
                     success = ConvertToJpg(imageToConvert);
-                else if (selectedFileExtension == (int)ImageFormats.PNG)
+                else if (ExportSettings.selectedFileExtension == ImageFormats.PNG)
                     success = ConvertToPng(imageToConvert);
-                else if (selectedFileExtension == (int)ImageFormats.BMP)
+                else if (ExportSettings.selectedFileExtension == ImageFormats.BMP)
                     success = ConvertToBmp(imageToConvert);
-                else if (selectedFileExtension == (int)ImageFormats.TGA)
+                else if (ExportSettings.selectedFileExtension == ImageFormats.TGA)
                     success = ConvertToTga(imageToConvert);
-                else if (selectedFileExtension == (int)ImageFormats.DDS)
+                else if (ExportSettings.selectedFileExtension == ImageFormats.DDS)
                     success = ConvertToDds(imageToConvert);
-                else if (selectedFileExtension == (int)ImageFormats.BLP)
+                else if (ExportSettings.selectedFileExtension == ImageFormats.BLP)
                     success = ConvertToBlp(imageToConvert);
             }
 
@@ -238,18 +221,18 @@ namespace Image_Converter.IO
 
                 if (FilterSettings.war3IconType == War3IconType.ClassicIcon && iconsChecked <= 1) // Classic icons
                 {
-                    if (FilterSettings.isButtonIcon) image = filters.AddIconBorder(image, IconSettings.BTN);
-                    if (FilterSettings.isPassiveIcon) image = filters.AddIconBorder(image, IconSettings.PAS);
-                    if (FilterSettings.isAutocastIcon) image = filters.AddIconBorder(image, IconSettings.ATC);
-                    if (FilterSettings.isDisabledIcon) image = filters.AddIconBorder(image, IconSettings.DIS);
+                    if (FilterSettings.isButtonIcon) image = filters.AddIconBorder(image, IconTypes.BTN);
+                    if (FilterSettings.isPassiveIcon) image = filters.AddIconBorder(image, IconTypes.PAS);
+                    if (FilterSettings.isAutocastIcon) image = filters.AddIconBorder(image, IconTypes.ATC);
+                    if (FilterSettings.isDisabledIcon) image = filters.AddIconBorder(image, IconTypes.DIS);
                     errorMsg = "";
                 }
                 else if (FilterSettings.war3IconType == War3IconType.ReforgedIcon && iconsChecked <= 1) // Reforged icons
                 {
-                    if (FilterSettings.isButtonIconRef) image = filters.AddIconBorder(image, IconSettings.BTN_REF);
-                    if (FilterSettings.isPassiveIconRef) image = filters.AddIconBorder(image, IconSettings.PAS_REF);
-                    if (FilterSettings.isAutocastIconRef) image = filters.AddIconBorder(image, IconSettings.ATC_REF);
-                    if (FilterSettings.isDisabledIconRef) image = filters.AddIconBorder(image, IconSettings.DIS_REF);
+                    if (FilterSettings.isButtonIconRef) image = filters.AddIconBorder(image, IconTypes.BTN_REF);
+                    if (FilterSettings.isPassiveIconRef) image = filters.AddIconBorder(image, IconTypes.PAS_REF);
+                    if (FilterSettings.isAutocastIconRef) image = filters.AddIconBorder(image, IconTypes.ATC_REF);
+                    if (FilterSettings.isDisabledIconRef) image = filters.AddIconBorder(image, IconTypes.DIS_REF);
                     errorMsg = "";
                 }
                 else
@@ -313,12 +296,12 @@ namespace Image_Converter.IO
         private string getFullOutputFilePath()
         {
             string path = "";
-            if (keepFileNames)
-                path = outputDir + filePrefix + GetInputFileName(fileEntries[currentEntry]) + outputFiletype;
-            else if (isMultipleFiles)
-                path = outputDir + filePrefix + fileName + "_" + currentEntry + outputFiletype;
+            if (ExportSettings.keepFileNames)
+                path = ExportSettings.outputDir + ExportSettings.prefix + GetInputFileName(fileEntries[currentEntry]) + ExportSettings.outputFileType;
+            else if (ExportSettings.isMultipleFiles)
+                path = ExportSettings.outputDir + ExportSettings.prefix + ExportSettings.fileName + "_" + currentEntry + ExportSettings.outputFileType;
             else
-                path = outputDir + filePrefix + fileName + outputFiletype;
+                path = ExportSettings.outputDir + ExportSettings.prefix + ExportSettings.fileName + ExportSettings.outputFileType;
 
             return path;
         }

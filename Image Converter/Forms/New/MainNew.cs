@@ -1,8 +1,10 @@
 ﻿using Image_Converter.Forms;
+using Image_Converter.Image_Processing;
 using Image_Converter.IO;
 using MetroSet_UI.Forms;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -414,11 +416,60 @@ namespace Image_Converter
             return new string(charArray) + " " + howBigBytes;
         }
 
+        public SixLabors.ImageSharp.Image<Rgba32> RenderPreview(String filePath)
+        {
+            Reader reader = new Reader();
+            SixLabors.ImageSharp.Image<Rgba32> image = reader.ReadFile(filePath);
+            if (image != null)
+            {
+                ImageFilters filters = new ImageFilters();
+                int iconsChecked = 0;
+                if (FilterSettings.isButtonIcon) iconsChecked++;
+                if (FilterSettings.isPassiveIcon) iconsChecked++;
+                if (FilterSettings.isAutocastIcon) iconsChecked++;
+                if (FilterSettings.isDisabledIcon) iconsChecked++;
+
+                if (FilterSettings.war3IconType == War3IconType.ClassicIcon && iconsChecked <= 1) // Classic icons
+                {
+                    if (FilterSettings.isButtonIcon) image = filters.AddIconBorder(image, IconTypes.BTN);
+                    if (FilterSettings.isPassiveIcon) image = filters.AddIconBorder(image, IconTypes.PAS);
+                    if (FilterSettings.isAutocastIcon) image = filters.AddIconBorder(image, IconTypes.ATC);
+                    if (FilterSettings.isDisabledIcon) image = filters.AddIconBorder(image, IconTypes.DIS);
+                    lblPreviewError.Text = "";
+                }
+                else if (FilterSettings.war3IconType == War3IconType.ReforgedIcon && iconsChecked <= 1) // Reforged icons
+                {
+                    if (FilterSettings.isButtonIconRef) image = filters.AddIconBorder(image, IconTypes.BTN_REF);
+                    if (FilterSettings.isPassiveIconRef) image = filters.AddIconBorder(image, IconTypes.PAS_REF);
+                    if (FilterSettings.isAutocastIconRef) image = filters.AddIconBorder(image, IconTypes.ATC_REF);
+                    if (FilterSettings.isDisabledIconRef) image = filters.AddIconBorder(image, IconTypes.DIS_REF);
+                    lblPreviewError.Text = "";
+                }
+                else
+                {
+                    if (FilterSettings.war3IconType == War3IconType.ClassicIcon && image.Width == 64 && image.Height == 64)
+                        lblPreviewError.Text = "Cannot display multiple icon filters";
+                    else if (FilterSettings.war3IconType == War3IconType.ReforgedIcon && image.Width == 256 && image.Height == 256)
+                        lblPreviewError.Text = "Cannot display multiple icon filters";
+                    else
+                        lblPreviewError.Text = "";
+                }
+
+                if (FilterSettings.isResized)
+                {
+                    image.Mutate(x => x.Resize(FilterSettings.resizeX, FilterSettings.resizeY));
+                }
+
+            }
+
+            return image;
+        }
+
         private void DisplayPreviewImage(String filePath)
         {
             try
             {
-                SixLabors.ImageSharp.Image<Rgba32> image = converter.Preview(filePath);
+                SixLabors.ImageSharp.Image<Rgba32> image = RenderPreview(filePath);
                 if (image != null)
                 {
                     Bitmap actualPreview = new Bitmap(image.Width, image.Height);

@@ -15,31 +15,31 @@
     <_LastSelectedProfileId>E:\Repositories\Applications\Image-Converter\Image Converter\Properties\PublishProfiles\FolderProfile.pubxml</_LastSelectedProfileId>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Update="Forms\About.cs">
+    <Compile Update="Forms\New\About.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Forms\FileListControl.cs">
+    <Compile Update="Forms\New\FileListControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Forms\FilterControl.cs">
+    <Compile Update="Forms\New\FilterControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Forms\Filters.cs">
+    <Compile Update="Forms\New\Filters.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Forms\ExportControl.cs">
+    <Compile Update="Forms\New\ExportControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Forms\ImportControl.cs">
+    <Compile Update="Forms\New\ImportControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Forms\Main.cs">
+    <Compile Update="Forms\Old\Main.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Forms\MultiConvertProgress.cs">
+    <Compile Update="Forms\Old\MultiConvertProgress.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Forms\MainNew.cs">
+    <Compile Update="Forms\New\MainNew.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>

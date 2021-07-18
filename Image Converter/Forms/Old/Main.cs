@@ -14,20 +14,19 @@ using System.Diagnostics;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp;
 using Image_Converter.IO;
+using Image_Converter.Image_Processing;
+using SixLabors.ImageSharp.Processing;
 
 namespace Image_Converter
 {
     public partial class Main : Form
     {
-        private Converter converter;
         private System.Drawing.Image currentPreviewReferenceImage;
         private System.Drawing.Image previewBackgroundImage;
 
         public Main()
         {
             InitializeComponent();
-
-            converter = new Converter();
 
             // Must be added in this order to match ImageFormat enum
             cmboxOutputFormat.Items.Add("JPG");
@@ -243,24 +242,27 @@ namespace Image_Converter
 
         private void convertToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            ExportSettings.fileName = txtFileName.Text;
+            ExportSettings.selectedFileExtension = (ImageFormats)cmboxOutputFormat.SelectedIndex;
+            ExportSettings.outputDir = lblOutputDirectory.Text + @"\";
+            ExportSettings.keepFileNames = chkBoxKeepFilenames.Checked;
+            ExportSettings.imageQualityJpeg = trckbarImageQuality.Value * 10; //calculates image quality for jpg
+            ExportSettings.selectedDDSCompression = cmboxDDSList.SelectedIndex; // dds compression
+            ExportSettings.generateMipMaps = chkBoxMipmaps.Checked; // dds mipmaps
+            ExportSettings.isMultipleFiles = false;
+            if(radBtnFastest.Checked) { // compression quality
+                ExportSettings.selectedDDSCompressionQuality = 0;
+            } else if(radBtnBalanced.Checked) {
+                ExportSettings.selectedDDSCompressionQuality = 1;
+            } else {
+                ExportSettings.selectedDDSCompressionQuality = 2;
+            }
+            
+            Converter converter = new Converter();
+
             string[] fileEntry = new string[1];
             fileEntry[0] = listFileEntries.SelectedItems[0].Tag.ToString();
             converter.fileEntries = fileEntry;
-            converter.outputDir = lblOutputDirectory.Text + @"\";
-            converter.fileName = txtFileName.Text;
-            converter.keepFileNames = chkBoxKeepFilenames.Checked;
-            converter.imageQualityJpeg = trckbarImageQuality.Value * 10; //calculates image quality for jpg
-            converter.selectedDDSCompression = cmboxDDSList.SelectedIndex; // dds compression
-            converter.generateMipMaps = chkBoxMipmaps.Checked; // dds mipmaps
-            if(radBtnFastest.Checked) { // compression quality
-                converter.selectedDDSCompressionQuality = 0;
-            } else if(radBtnBalanced.Checked) {
-                converter.selectedDDSCompressionQuality = 1;
-            } else {
-                converter.selectedDDSCompressionQuality = 2;
-            }
-            converter.Init(cmboxOutputFormat.SelectedIndex);
-            converter.isMultipleFiles = false;
 
             DialogResult dialogResult = MessageBox.Show("This action converts '" + listFileEntries.SelectedItems[0].Text + "' with specified settings to the output directory.", "Convert Single File", MessageBoxButtons.OKCancel);
             if (dialogResult == DialogResult.OK)
@@ -280,34 +282,37 @@ namespace Image_Converter
 
         private void btnConvert_Click(object sender, EventArgs e)
         {
+            ExportSettings.selectedFileExtension = (ImageFormats)cmboxOutputFormat.SelectedIndex;
+            ExportSettings.outputDir = lblOutputDirectory.Text + @"\";
+            ExportSettings.fileName = txtFileName.Text;
+            ExportSettings.keepFileNames = chkBoxKeepFilenames.Checked;
+            ExportSettings.imageQualityJpeg = trckbarImageQuality.Value * 10; //calculates image quality for jpg
+            ExportSettings.selectedDDSCompression = cmboxDDSList.SelectedIndex; // dds compression
+            ExportSettings.generateMipMaps = chkBoxMipmaps.Checked; // dds mipmaps
+            ExportSettings.isMultipleFiles = true;
+            if(radBtnFastest.Checked) { // compression quality
+                ExportSettings.selectedDDSCompressionQuality = 0;
+            } else if(radBtnBalanced.Checked) {
+                ExportSettings.selectedDDSCompressionQuality = 1;
+            } else {
+                ExportSettings.selectedDDSCompressionQuality = 2;
+            }
+
+            Converter converter = new Converter();
+
             List<string> fileEntries = new List<string>();
             for (int i = 0; i < listFileEntries.Items.Count; i++)
             {
                 fileEntries.Add(listFileEntries.Items[i].Tag.ToString());
             }
             converter.fileEntries = fileEntries.ToArray();
-            converter.outputDir = lblOutputDirectory.Text + @"\";
-            converter.fileName = txtFileName.Text;
-            converter.keepFileNames = chkBoxKeepFilenames.Checked;
-            converter.imageQualityJpeg = trckbarImageQuality.Value * 10; //calculates image quality for jpg
-            converter.selectedDDSCompression = cmboxDDSList.SelectedIndex; // dds compression
-            converter.generateMipMaps = chkBoxMipmaps.Checked; // dds mipmaps
-            if(radBtnFastest.Checked) { // compression quality
-                converter.selectedDDSCompressionQuality = 0;
-            } else if(radBtnBalanced.Checked) {
-                converter.selectedDDSCompressionQuality = 1;
-            } else {
-                converter.selectedDDSCompressionQuality = 2;
-            }
-            converter.Init(cmboxOutputFormat.SelectedIndex);
-            converter.isMultipleFiles = true;
 
             DialogResult dialogResult = MessageBox.Show("This action will overwrite any existing files with the same name in the output directory." +
                 "\n\nDo you want to continue?", "Confirmation", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
                 MultiConvertProgress dialog = new MultiConvertProgress(converter);
-                dialog.outputDir = converter.outputDir;
+                dialog.outputDir = ExportSettings.outputDir;
                 dialog.ShowDialog();
             }
         }
@@ -468,11 +473,60 @@ namespace Image_Converter
             }
         }
 
+        public SixLabors.ImageSharp.Image<Rgba32> RenderPreview(String filePath)
+        {
+            Reader reader = new Reader();
+            SixLabors.ImageSharp.Image<Rgba32> image = reader.ReadFile(filePath);
+            if (image != null)
+            {
+                ImageFilters filters = new ImageFilters();
+                int iconsChecked = 0;
+                if (FilterSettings.isButtonIcon) iconsChecked++;
+                if (FilterSettings.isPassiveIcon) iconsChecked++;
+                if (FilterSettings.isAutocastIcon) iconsChecked++;
+                if (FilterSettings.isDisabledIcon) iconsChecked++;
+
+                if (FilterSettings.war3IconType == War3IconType.ClassicIcon && iconsChecked <= 1) // Classic icons
+                {
+                    if (FilterSettings.isButtonIcon) image = filters.AddIconBorder(image, IconTypes.BTN);
+                    if (FilterSettings.isPassiveIcon) image = filters.AddIconBorder(image, IconTypes.PAS);
+                    if (FilterSettings.isAutocastIcon) image = filters.AddIconBorder(image, IconTypes.ATC);
+                    if (FilterSettings.isDisabledIcon) image = filters.AddIconBorder(image, IconTypes.DIS);
+                    lblPreviewError.Text = "";
+                }
+                else if (FilterSettings.war3IconType == War3IconType.ReforgedIcon && iconsChecked <= 1) // Reforged icons
+                {
+                    if (FilterSettings.isButtonIconRef) image = filters.AddIconBorder(image, IconTypes.BTN_REF);
+                    if (FilterSettings.isPassiveIconRef) image = filters.AddIconBorder(image, IconTypes.PAS_REF);
+                    if (FilterSettings.isAutocastIconRef) image = filters.AddIconBorder(image, IconTypes.ATC_REF);
+                    if (FilterSettings.isDisabledIconRef) image = filters.AddIconBorder(image, IconTypes.DIS_REF);
+                    lblPreviewError.Text = "";
+                }
+                else
+                {
+                    if (FilterSettings.war3IconType == War3IconType.ClassicIcon && image.Width == 64 && image.Height == 64)
+                        lblPreviewError.Text = "Cannot display multiple icon filters";
+                    else if (FilterSettings.war3IconType == War3IconType.ReforgedIcon && image.Width == 256 && image.Height == 256)
+                        lblPreviewError.Text = "Cannot display multiple icon filters";
+                    else
+                        lblPreviewError.Text = "";
+                }
+
+                if (FilterSettings.isResized)
+                {
+                    image.Mutate(x => x.Resize(FilterSettings.resizeX, FilterSettings.resizeY));
+                }
+
+            }
+
+            return image;
+        }
+
         private void DisplayPreviewImage(String filePath)
         {
             try
             {
-                SixLabors.ImageSharp.Image<Rgba32> image = converter.Preview(filePath);
+                SixLabors.ImageSharp.Image<Rgba32> image = RenderPreview(filePath);
                 if (image != null)
                 {
                     Bitmap actualPreview = new Bitmap(image.Width, image.Height);
@@ -492,10 +546,7 @@ namespace Image_Converter
                     lblResolution.Text = "Resolution: " + image.Width + "x" + image.Height;
 
                     image.Dispose();
-                    if(converter.errorMsg != "")
-                        lblPreviewError.Text = converter.errorMsg;
-                    else
-                        lblPreviewError.Text = "";
+                    
                 }
                 else
                 {
@@ -678,6 +729,7 @@ namespace Image_Converter
 
         private void btnFilters_Click(object sender, EventArgs e)
         {
+            Converter converter = new Converter(); // filtering will not work because of the new systems
             Filters dialog = new Filters(converter);
             dialog.StartPosition = FormStartPosition.Manual;
             dialog.Location = this.Location;

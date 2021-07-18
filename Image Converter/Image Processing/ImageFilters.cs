@@ -10,7 +10,7 @@ namespace Image_Converter.Image_Processing
     public partial class ImageFilters
     {
 
-        public SixLabors.ImageSharp.Image<Rgba32> AddIconBorder(SixLabors.ImageSharp.Image<Rgba32> source, IconSettings iconSetting)
+        public SixLabors.ImageSharp.Image<Rgba32> AddIconBorder(SixLabors.ImageSharp.Image<Rgba32> source, IconTypes iconSetting)
         {
             SixLabors.ImageSharp.Image<Rgba32> imageToConvert = source.Clone();
             SixLabors.ImageSharp.Image<Rgba32> border = null;
@@ -19,25 +19,25 @@ namespace Image_Converter.Image_Processing
 
             if (FilterSettings.war3IconType == War3IconType.ClassicIcon && imageToConvert.Width == 64 && imageToConvert.Height == 64)
             {
-                if (iconSetting == IconSettings.BTN)
+                if (iconSetting == IconTypes.BTN)
                     border = SixLabors.ImageSharp.Image<Rgba32>.Load(Properties.Resources.Icon_Border);
-                else if (iconSetting == IconSettings.PAS)
+                else if (iconSetting == IconTypes.PAS)
                     border = SixLabors.ImageSharp.Image<Rgba32>.Load(Properties.Resources.Icon_Border_Passive);
-                else if (iconSetting == IconSettings.ATC)
+                else if (iconSetting == IconTypes.ATC)
                     border = SixLabors.ImageSharp.Image<Rgba32>.Load(Properties.Resources.Icon_Border_Autocast);
-                else if (iconSetting == IconSettings.DIS)
+                else if (iconSetting == IconTypes.DIS)
                     border = SixLabors.ImageSharp.Image<Rgba32>.Load(Properties.Resources.Icon_Border_Disabled);
 
             }
             else if (FilterSettings.war3IconType == War3IconType.ReforgedIcon && imageToConvert.Width == 256 && imageToConvert.Height == 256)
             {
-                if (iconSetting == IconSettings.BTN_REF)
+                if (iconSetting == IconTypes.BTN_REF)
                     border = SixLabors.ImageSharp.Image<Rgba32>.Load(Properties.Resources.Reforged_Icon_Border_Button);
-                if (iconSetting == IconSettings.PAS_REF)
+                if (iconSetting == IconTypes.PAS_REF)
                     border = SixLabors.ImageSharp.Image<Rgba32>.Load(Properties.Resources.Reforged_Icon_Border_Passive);
-                if (iconSetting == IconSettings.ATC_REF)
+                if (iconSetting == IconTypes.ATC_REF)
                     border = SixLabors.ImageSharp.Image<Rgba32>.Load(Properties.Resources.Reforged_Icon_Border_Autocast);
-                if (iconSetting == IconSettings.DIS_REF)
+                if (iconSetting == IconTypes.DIS_REF)
                     border = SixLabors.ImageSharp.Image<Rgba32>.Load(Properties.Resources.Reforged_Icon_Border_Disabled);
             }
 
@@ -53,7 +53,7 @@ namespace Image_Converter.Image_Processing
                         byte blueSource = imageToConvert[x, y].B;
                         byte alphaSource = imageToConvert[x, y].A;
 
-                        if (iconSetting == IconSettings.DIS_REF) // Disabled icon color saturation reduction
+                        if (iconSetting == IconTypes.DIS_REF) // Disabled icon color saturation reduction
                         {
                             int greyscale = (int)(redSource * 0.3 + greenSource * 0.59 + blueSource * 0.11);
 

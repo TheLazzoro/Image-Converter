@@ -1,4 +1,4 @@
-﻿enum ImageFormats
+﻿public enum ImageFormats
 {
     JPG = 0,
     PNG = 1,

@@ -1,4 +1,4 @@
-public enum IconSettings {
+public enum IconTypes {
     BTN = 0,
     PAS = 1,
     DIS = 2,

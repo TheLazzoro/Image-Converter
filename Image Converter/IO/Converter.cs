@@ -24,6 +24,7 @@ namespace Image_Converter.IO
         private BcEncoder bcEncoder;
         private JpegEncoder jpegEncoder;
         private Warcraft.BLP.TextureCompressionType blpEncoder;
+        public int totalErrors = 0;
 
         public Converter()
         {

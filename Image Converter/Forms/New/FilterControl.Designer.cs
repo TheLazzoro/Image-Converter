@@ -60,7 +60,7 @@ namespace Image_Converter.Forms
             this.upDownSizeY.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.upDownSizeY.Enabled = false;
             this.upDownSizeY.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.upDownSizeY.Location = new System.Drawing.Point(204, 296);
+            this.upDownSizeY.Location = new System.Drawing.Point(208, 279);
             this.upDownSizeY.Maximum = new decimal(new int[] {
             16384,
             0,
@@ -87,7 +87,7 @@ namespace Image_Converter.Forms
             this.upDownSizeX.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.upDownSizeX.Enabled = false;
             this.upDownSizeX.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.upDownSizeX.Location = new System.Drawing.Point(110, 297);
+            this.upDownSizeX.Location = new System.Drawing.Point(114, 280);
             this.upDownSizeX.Maximum = new decimal(new int[] {
             16384,
             0,
@@ -113,7 +113,7 @@ namespace Image_Converter.Forms
             this.lblSizeY.AutoSize = true;
             this.lblSizeY.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblSizeY.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.lblSizeY.Location = new System.Drawing.Point(181, 298);
+            this.lblSizeY.Location = new System.Drawing.Point(185, 281);
             this.lblSizeY.Name = "lblSizeY";
             this.lblSizeY.Size = new System.Drawing.Size(16, 16);
             this.lblSizeY.TabIndex = 46;
@@ -124,7 +124,7 @@ namespace Image_Converter.Forms
             this.lblSizeX.AutoSize = true;
             this.lblSizeX.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblSizeX.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.lblSizeX.Location = new System.Drawing.Point(86, 298);
+            this.lblSizeX.Location = new System.Drawing.Point(90, 281);
             this.lblSizeX.Name = "lblSizeX";
             this.lblSizeX.Size = new System.Drawing.Size(17, 16);
             this.lblSizeX.TabIndex = 45;
@@ -135,7 +135,7 @@ namespace Image_Converter.Forms
             this.checkBoxResize.AutoSize = true;
             this.checkBoxResize.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.checkBoxResize.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.checkBoxResize.Location = new System.Drawing.Point(3, 297);
+            this.checkBoxResize.Location = new System.Drawing.Point(7, 280);
             this.checkBoxResize.Name = "checkBoxResize";
             this.checkBoxResize.Size = new System.Drawing.Size(67, 20);
             this.checkBoxResize.TabIndex = 44;
@@ -162,9 +162,9 @@ namespace Image_Converter.Forms
             this.groupBox.Controls.Add(this.radioBtnNone);
             this.groupBox.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.groupBox.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.groupBox.Location = new System.Drawing.Point(3, 3);
+            this.groupBox.Location = new System.Drawing.Point(7, 3);
             this.groupBox.Name = "groupBox";
-            this.groupBox.Size = new System.Drawing.Size(390, 246);
+            this.groupBox.Size = new System.Drawing.Size(382, 246);
             this.groupBox.TabIndex = 43;
             this.groupBox.TabStop = false;
             this.groupBox.Text = "Warcraft III Icon Borders";
@@ -175,7 +175,7 @@ namespace Image_Converter.Forms
             this.checkBoxAutocastDisabled.AutoSize = true;
             this.checkBoxAutocastDisabled.Enabled = false;
             this.checkBoxAutocastDisabled.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.checkBoxAutocastDisabled.Location = new System.Drawing.Point(162, 107);
+            this.checkBoxAutocastDisabled.Location = new System.Drawing.Point(158, 107);
             this.checkBoxAutocastDisabled.Name = "checkBoxAutocastDisabled";
             this.checkBoxAutocastDisabled.Size = new System.Drawing.Size(69, 20);
             this.checkBoxAutocastDisabled.TabIndex = 43;
@@ -188,7 +188,7 @@ namespace Image_Converter.Forms
             this.checkBoxPassiveDisabled.AutoSize = true;
             this.checkBoxPassiveDisabled.Enabled = false;
             this.checkBoxPassiveDisabled.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.checkBoxPassiveDisabled.Location = new System.Drawing.Point(162, 83);
+            this.checkBoxPassiveDisabled.Location = new System.Drawing.Point(158, 83);
             this.checkBoxPassiveDisabled.Name = "checkBoxPassiveDisabled";
             this.checkBoxPassiveDisabled.Size = new System.Drawing.Size(69, 20);
             this.checkBoxPassiveDisabled.TabIndex = 42;
@@ -224,7 +224,7 @@ namespace Image_Converter.Forms
             this.radioBtnClassic.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.radioBtnClassic.AutoSize = true;
             this.radioBtnClassic.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.radioBtnClassic.Location = new System.Drawing.Point(162, 20);
+            this.radioBtnClassic.Location = new System.Drawing.Point(158, 20);
             this.radioBtnClassic.Name = "radioBtnClassic";
             this.radioBtnClassic.Size = new System.Drawing.Size(67, 20);
             this.radioBtnClassic.TabIndex = 41;
@@ -262,7 +262,7 @@ namespace Image_Converter.Forms
             this.checkBoxButtonDisabled.AutoSize = true;
             this.checkBoxButtonDisabled.Enabled = false;
             this.checkBoxButtonDisabled.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.checkBoxButtonDisabled.Location = new System.Drawing.Point(162, 57);
+            this.checkBoxButtonDisabled.Location = new System.Drawing.Point(158, 57);
             this.checkBoxButtonDisabled.Name = "checkBoxButtonDisabled";
             this.checkBoxButtonDisabled.Size = new System.Drawing.Size(70, 20);
             this.checkBoxButtonDisabled.TabIndex = 38;
@@ -315,7 +315,7 @@ namespace Image_Converter.Forms
             this.radioBtnReforged.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.radioBtnReforged.AutoSize = true;
             this.radioBtnReforged.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.radioBtnReforged.Location = new System.Drawing.Point(306, 21);
+            this.radioBtnReforged.Location = new System.Drawing.Point(298, 21);
             this.radioBtnReforged.Name = "radioBtnReforged";
             this.radioBtnReforged.Size = new System.Drawing.Size(78, 20);
             this.radioBtnReforged.TabIndex = 5;
@@ -342,7 +342,7 @@ namespace Image_Converter.Forms
             this.checkBoxIsBLP2.AutoSize = true;
             this.checkBoxIsBLP2.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.checkBoxIsBLP2.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.checkBoxIsBLP2.Location = new System.Drawing.Point(3, 272);
+            this.checkBoxIsBLP2.Location = new System.Drawing.Point(7, 255);
             this.checkBoxIsBLP2.Name = "checkBoxIsBLP2";
             this.checkBoxIsBLP2.Size = new System.Drawing.Size(136, 20);
             this.checkBoxIsBLP2.TabIndex = 42;
@@ -364,7 +364,7 @@ namespace Image_Converter.Forms
             this.Controls.Add(this.groupBox);
             this.Controls.Add(this.checkBoxIsBLP2);
             this.Name = "FilterControl";
-            this.Size = new System.Drawing.Size(396, 367);
+            this.Size = new System.Drawing.Size(396, 327);
             ((System.ComponentModel.ISupportInitialize)(this.upDownSizeY)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.upDownSizeX)).EndInit();
             this.groupBox.ResumeLayout(false);

@@ -106,6 +106,11 @@ namespace Image_Converter.Forms
             return listFileEntries.SelectedItems[0].Tag.ToString();
         }
 
+        public ListView.ListViewItemCollection GetAllFileEntries()
+        {
+            return listFileEntries.Items;
+        }
+
         private void listFileEntries_KeyDown(object sender, KeyEventArgs e)
         {
             if (listFileEntries.Items.Count == 0)

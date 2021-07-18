@@ -52,25 +52,30 @@ namespace Image_Converter
             importControl = new ImportControl();
             importControl.Anchor = ((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Top));
             importControl.AutoSize = false;
-            importControl.Size = new System.Drawing.Size(panelImport.Width, panelImport.Height);
-            panelImport.Controls.Add(importControl);
+            importControl.Size = new System.Drawing.Size(splitContainer.Panel1.Width - 4, importControl.Height);
+            importControl.Location = new System.Drawing.Point(4, 0);
+            splitContainer.Panel1.Controls.Add(importControl);
             importControl.Show();
 
             fileListControl = new FileListControl();
             fileListControl.Anchor = ((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom));
             fileListControl.AutoSize = false;
-            fileListControl.Size = new System.Drawing.Size(panelFileList.Width, panelFileList.Height);
-            panelFileList.Controls.Add(fileListControl);
+            fileListControl.Size = new System.Drawing.Size(splitContainer.Panel1.Width, splitContainer.Panel1.Height - importControl.Height);
+            fileListControl.Location = new System.Drawing.Point(0, importControl.Height);
+            splitContainer.Panel1.Controls.Add(fileListControl);
             importControl.Show();
 
             filterControl = new FilterControl();
-            filterControl.Anchor = ((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom));
+            filterControl.Anchor = ((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Top));
             filterControl.AutoSize = false;
-            filterControl.Size = new System.Drawing.Size(splitContainer.Panel1.Width, splitContainer.Panel1.Height);
+            filterControl.Size = new System.Drawing.Size(splitContainer.Panel1.Width, filterControl.Height);
             splitContainer.Panel1.Controls.Add(filterControl);
             filterControl.Hide();
 
             exportControl = new ExportControl();
+            exportControl.Anchor = ((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom));
+            exportControl.AutoSize = false;
+            exportControl.Size = new System.Drawing.Size(panelChildForm.Width, panelChildForm.Height);
             panelChildForm.Controls.Add(exportControl);
             exportControl.Hide();
 
@@ -85,6 +90,8 @@ namespace Image_Converter
             fileListControl.OnClearList += new EventHandler(UserControl_ClearFileList);
 
             filterControl.OnFilterChanged += new EventHandler(UserControl_FilterChanged);
+
+            exportControl.OnExportAll += new EventHandler(UserControl_ExportAll);
         }
 
         // ------- CUSTOM RESIZE ------- //
@@ -218,31 +225,38 @@ namespace Image_Converter
 
         private void btnImport_Click(object sender, EventArgs e)
         {
-            panelFileList.Controls.Add(fileListControl); // move file list from export view to import view
+            splitContainer.Panel1.Controls.Add(fileListControl); // move file list to import view
             splitContainer.Show();
-            panelImport.Show();
-            panelFileList.Show();
+            importControl.Show();
             exportControl.Hide();
             filterControl.Hide();
+            splitContainer.Panel1.Show();
+            fileListControl.Location = new System.Drawing.Point(splitContainer.Panel1.Location.X, importControl.Height + 8);
+            fileListControl.Size = new System.Drawing.Size(splitContainer.Panel1.Width, panelChildForm.Height - importControl.Height - 8);
             UpdateMenuButtonColor((Button)sender);
         }
 
         private void btnFilters_Click(object sender, EventArgs e)
         {
+            splitContainer.Panel1.Controls.Add(fileListControl); // move file list to filter view
             splitContainer.Show();
             filterControl.Show();
             exportControl.Hide();
-            panelImport.Hide();
-            panelFileList.Hide();
+            importControl.Hide();
+            splitContainer.Panel1.Show();
+            fileListControl.Location = new System.Drawing.Point(splitContainer.Panel1.Location.X, filterControl.Height);
+            fileListControl.Size = new System.Drawing.Size(splitContainer.Panel1.Width, panelChildForm.Height - filterControl.Height);
             UpdateMenuButtonColor((Button)sender);
         }
 
         private void btnExport_Click(object sender, EventArgs e)
         {
-            exportControl.Controls.Add(fileListControl); // move file list from import view to export view
+            exportControl.Controls.Add(fileListControl); // move file list to export view
             importControl.Show();
             splitContainer.Hide();
             exportControl.Show();
+            fileListControl.Location = new System.Drawing.Point(4, 4);
+            fileListControl.Size = new System.Drawing.Size(panelChildForm.Width - exportControl.GetExportBoxSizeX() - 20, panelChildForm.Height - 4);
             UpdateMenuButtonColor((Button)sender);
         }
 
@@ -341,6 +355,44 @@ namespace Image_Converter
         protected void UserControl_SelectItemInList(object sender, EventArgs e)
         {
             DisplayPreviewImage(fileListControl.GetCurrentSelectedFile());
+        }
+
+        protected void UserControl_ExportAll(object sender, EventArgs e)
+        {
+            ExportSettings.fileName = exportControl.GetFileName();
+            ExportSettings.outputDir = exportControl.GetExportDirectory();
+            ExportSettings.selectedFileExtension = exportControl.GetSelectedFileFormat();
+            ExportSettings.keepFileNames = exportControl.isKeepFileNames();
+            ExportSettings.imageQualityJpeg = exportControl.GetJPEGImageQuality();
+            ExportSettings.selectedDDSCompression = exportControl.GetSelectedDDSCompression();
+            ExportSettings.generateMipMaps = exportControl.isGenerateMipmaps();
+            ExportSettings.isMultipleFiles = true;
+            if (exportControl.isDDSFastest())
+            { // compression quality
+                ExportSettings.selectedDDSCompressionQuality = 0;
+            }
+            else if (exportControl.isDDSBalanced())
+            {
+                ExportSettings.selectedDDSCompressionQuality = 1;
+            }
+            else
+            {
+                ExportSettings.selectedDDSCompressionQuality = 2;
+            }
+
+            ListView.ListViewItemCollection fileList = fileListControl.GetAllFileEntries();
+            List<string> fileEntries = new List<string>();
+            for (int i = 0; i < fileList.Count; i++)
+            {
+                fileEntries.Add(fileList[i].Tag.ToString());
+            }
+
+            DialogResult dialogResult = MessageBox.Show("This action will overwrite any existing files with the same name in the output directory." +
+                "\n\nDo you want to continue?", "Confirmation", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                exportControl.ExportAll(fileEntries);
+            }
         }
 
         private void groupBoxPreview_Resize(object sender, EventArgs e)
@@ -524,6 +576,11 @@ namespace Image_Converter
                 int paddingY = 40;
                 float paddingX = paddingY * sourceImgRatio;
                 System.Drawing.Size correctedSize;
+                if(currentPreviewReferenceImage.Width <= paddingX && currentPreviewReferenceImage.Height <= paddingY) // prevent negative pixel width/height
+                {
+                    paddingX = 0;
+                    paddingY = 0;
+                }
                 if (previewWindowRatio > sourceImgRatio)
                 {
                     correctedSize = new System.Drawing.Size((int)(groupBoxPreview.Height * sourceImgRatio - paddingX), (int)(groupBoxPreview.Height - paddingY));

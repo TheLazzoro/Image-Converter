@@ -345,7 +345,7 @@ namespace Image_Converter
             this.lblPreviewError.BackColor = System.Drawing.Color.Transparent;
             this.lblPreviewError.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblPreviewError.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))));
-            this.lblPreviewError.Location = new System.Drawing.Point(3, 515);
+            this.lblPreviewError.Location = new System.Drawing.Point(8, 515);
             this.lblPreviewError.Name = "lblPreviewError";
             this.lblPreviewError.Size = new System.Drawing.Size(0, 16);
             this.lblPreviewError.TabIndex = 33;

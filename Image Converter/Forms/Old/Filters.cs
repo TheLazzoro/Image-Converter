@@ -24,10 +24,10 @@ namespace Image_Converter
             if (FilterSettings.war3IconType == War3IconType.None) radioBtnNone.Checked = true;
             if (FilterSettings.war3IconType == War3IconType.ClassicIcon) radioBtnClassic.Checked = true;
             if (FilterSettings.war3IconType == War3IconType.ReforgedIcon) radioBtnReforged.Checked = true;
-            checkBoxButton.Checked = FilterSettings.isButtonIcon;
-            checkBoxPassive.Checked = FilterSettings.isPassiveIcon;
-            checkBoxAutocast.Checked = FilterSettings.isAutocastIcon;
-            checkBoxDisabled.Checked = FilterSettings.isDisabledIcon;
+            checkBoxButton.Checked = FilterSettings.isIconBTN;
+            checkBoxPassive.Checked = FilterSettings.isIconPAS;
+            checkBoxAutocast.Checked = FilterSettings.isIconATC;
+            checkBoxDisabled.Checked = FilterSettings.isIconDISBTN;
             checkBoxIsBLP2.Checked = FilterSettings.isBLP2;
             checkBoxResize.Checked = FilterSettings.isResized;
             upDownSizeX.Text = FilterSettings.resizeX.ToString();
@@ -40,14 +40,14 @@ namespace Image_Converter
             if (radioBtnClassic.Checked) FilterSettings.war3IconType = War3IconType.ClassicIcon;
             if (radioBtnReforged.Checked) FilterSettings.war3IconType = War3IconType.ReforgedIcon;
 
-            FilterSettings.isButtonIcon = checkBoxButton.Checked;
-            FilterSettings.isButtonIconRef = checkBoxButton.Checked;
-            FilterSettings.isPassiveIcon = checkBoxPassive.Checked;
-            FilterSettings.isPassiveIconRef = checkBoxPassive.Checked;
-            FilterSettings.isAutocastIcon = checkBoxAutocast.Checked;
-            FilterSettings.isAutocastIconRef = checkBoxAutocast.Checked;
-            FilterSettings.isDisabledIcon = checkBoxDisabled.Checked;
-            FilterSettings.isDisabledIconRef = checkBoxDisabled.Checked;
+            FilterSettings.isIconBTN = checkBoxButton.Checked;
+            FilterSettings.isIconBTN_REF = checkBoxButton.Checked;
+            FilterSettings.isIconPAS = checkBoxPassive.Checked;
+            FilterSettings.isIconPAS_REF = checkBoxPassive.Checked;
+            FilterSettings.isIconATC = checkBoxAutocast.Checked;
+            FilterSettings.isIconATC_REF = checkBoxAutocast.Checked;
+            FilterSettings.isIconDISBTN = checkBoxDisabled.Checked;
+            FilterSettings.isIconDISBTN_REF = checkBoxDisabled.Checked;
             FilterSettings.isResized = checkBoxResize.Checked;
             FilterSettings.resizeX = int.Parse(upDownSizeX.Text);
             FilterSettings.resizeY = int.Parse(upDownSizeY.Text);

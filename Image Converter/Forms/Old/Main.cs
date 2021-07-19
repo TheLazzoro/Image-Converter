@@ -244,7 +244,7 @@ namespace Image_Converter
         {
             ExportSettings.fileName = txtFileName.Text;
             ExportSettings.selectedFileExtension = (ImageFormats)cmboxOutputFormat.SelectedIndex;
-            ExportSettings.outputDir = lblOutputDirectory.Text + @"\";
+            ExportSettings.outputDir = lblOutputDirectory.Text;
             ExportSettings.keepFileNames = chkBoxKeepFilenames.Checked;
             ExportSettings.imageQualityJpeg = trckbarImageQuality.Value * 10; //calculates image quality for jpg
             ExportSettings.selectedDDSCompression = cmboxDDSList.SelectedIndex; // dds compression
@@ -283,7 +283,7 @@ namespace Image_Converter
         private void btnConvert_Click(object sender, EventArgs e)
         {
             ExportSettings.selectedFileExtension = (ImageFormats)cmboxOutputFormat.SelectedIndex;
-            ExportSettings.outputDir = lblOutputDirectory.Text + @"\";
+            ExportSettings.outputDir = lblOutputDirectory.Text;
             ExportSettings.fileName = txtFileName.Text;
             ExportSettings.keepFileNames = chkBoxKeepFilenames.Checked;
             ExportSettings.imageQualityJpeg = trckbarImageQuality.Value * 10; //calculates image quality for jpg
@@ -481,25 +481,25 @@ namespace Image_Converter
             {
                 ImageFilters filters = new ImageFilters();
                 int iconsChecked = 0;
-                if (FilterSettings.isButtonIcon) iconsChecked++;
-                if (FilterSettings.isPassiveIcon) iconsChecked++;
-                if (FilterSettings.isAutocastIcon) iconsChecked++;
-                if (FilterSettings.isDisabledIcon) iconsChecked++;
+                if (FilterSettings.isIconBTN) iconsChecked++;
+                if (FilterSettings.isIconPAS) iconsChecked++;
+                if (FilterSettings.isIconATC) iconsChecked++;
+                if (FilterSettings.isIconDISBTN) iconsChecked++;
 
                 if (FilterSettings.war3IconType == War3IconType.ClassicIcon && iconsChecked <= 1) // Classic icons
                 {
-                    if (FilterSettings.isButtonIcon) image = filters.AddIconBorder(image, IconTypes.BTN);
-                    if (FilterSettings.isPassiveIcon) image = filters.AddIconBorder(image, IconTypes.PAS);
-                    if (FilterSettings.isAutocastIcon) image = filters.AddIconBorder(image, IconTypes.ATC);
-                    if (FilterSettings.isDisabledIcon) image = filters.AddIconBorder(image, IconTypes.DIS);
+                    if (FilterSettings.isIconBTN) image = filters.AddIconBorder(image, IconTypes.BTN);
+                    if (FilterSettings.isIconPAS) image = filters.AddIconBorder(image, IconTypes.PAS);
+                    if (FilterSettings.isIconATC) image = filters.AddIconBorder(image, IconTypes.ATC);
+                    if (FilterSettings.isIconDISBTN) image = filters.AddIconBorder(image, IconTypes.DISBTN);
                     lblPreviewError.Text = "";
                 }
                 else if (FilterSettings.war3IconType == War3IconType.ReforgedIcon && iconsChecked <= 1) // Reforged icons
                 {
-                    if (FilterSettings.isButtonIconRef) image = filters.AddIconBorder(image, IconTypes.BTN_REF);
-                    if (FilterSettings.isPassiveIconRef) image = filters.AddIconBorder(image, IconTypes.PAS_REF);
-                    if (FilterSettings.isAutocastIconRef) image = filters.AddIconBorder(image, IconTypes.ATC_REF);
-                    if (FilterSettings.isDisabledIconRef) image = filters.AddIconBorder(image, IconTypes.DIS_REF);
+                    if (FilterSettings.isIconBTN_REF) image = filters.AddIconBorder(image, IconTypes.BTN_REF);
+                    if (FilterSettings.isIconPAS_REF) image = filters.AddIconBorder(image, IconTypes.PAS_REF);
+                    if (FilterSettings.isIconATC_REF) image = filters.AddIconBorder(image, IconTypes.ATC_REF);
+                    if (FilterSettings.isIconDISBTN) image = filters.AddIconBorder(image, IconTypes.DISBTN_REF);
                     lblPreviewError.Text = "";
                 }
                 else

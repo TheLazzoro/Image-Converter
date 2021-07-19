@@ -60,7 +60,7 @@ namespace Image_Converter.Forms
             this.upDownSizeY.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.upDownSizeY.Enabled = false;
             this.upDownSizeY.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.upDownSizeY.Location = new System.Drawing.Point(208, 279);
+            this.upDownSizeY.Location = new System.Drawing.Point(208, 290);
             this.upDownSizeY.Maximum = new decimal(new int[] {
             16384,
             0,
@@ -87,7 +87,7 @@ namespace Image_Converter.Forms
             this.upDownSizeX.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.upDownSizeX.Enabled = false;
             this.upDownSizeX.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.upDownSizeX.Location = new System.Drawing.Point(114, 280);
+            this.upDownSizeX.Location = new System.Drawing.Point(114, 291);
             this.upDownSizeX.Maximum = new decimal(new int[] {
             16384,
             0,
@@ -113,7 +113,7 @@ namespace Image_Converter.Forms
             this.lblSizeY.AutoSize = true;
             this.lblSizeY.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblSizeY.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.lblSizeY.Location = new System.Drawing.Point(185, 281);
+            this.lblSizeY.Location = new System.Drawing.Point(185, 292);
             this.lblSizeY.Name = "lblSizeY";
             this.lblSizeY.Size = new System.Drawing.Size(16, 16);
             this.lblSizeY.TabIndex = 46;
@@ -124,7 +124,7 @@ namespace Image_Converter.Forms
             this.lblSizeX.AutoSize = true;
             this.lblSizeX.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblSizeX.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.lblSizeX.Location = new System.Drawing.Point(90, 281);
+            this.lblSizeX.Location = new System.Drawing.Point(90, 292);
             this.lblSizeX.Name = "lblSizeX";
             this.lblSizeX.Size = new System.Drawing.Size(17, 16);
             this.lblSizeX.TabIndex = 45;
@@ -135,7 +135,7 @@ namespace Image_Converter.Forms
             this.checkBoxResize.AutoSize = true;
             this.checkBoxResize.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.checkBoxResize.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.checkBoxResize.Location = new System.Drawing.Point(7, 280);
+            this.checkBoxResize.Location = new System.Drawing.Point(7, 291);
             this.checkBoxResize.Name = "checkBoxResize";
             this.checkBoxResize.Size = new System.Drawing.Size(67, 20);
             this.checkBoxResize.TabIndex = 44;
@@ -164,7 +164,7 @@ namespace Image_Converter.Forms
             this.groupBox.ForeColor = System.Drawing.SystemColors.ControlLight;
             this.groupBox.Location = new System.Drawing.Point(7, 3);
             this.groupBox.Name = "groupBox";
-            this.groupBox.Size = new System.Drawing.Size(382, 246);
+            this.groupBox.Size = new System.Drawing.Size(382, 257);
             this.groupBox.TabIndex = 43;
             this.groupBox.TabStop = false;
             this.groupBox.Text = "Warcraft III Icon Borders";
@@ -181,6 +181,8 @@ namespace Image_Converter.Forms
             this.checkBoxAutocastDisabled.TabIndex = 43;
             this.checkBoxAutocastDisabled.Text = "DISATC";
             this.checkBoxAutocastDisabled.UseVisualStyleBackColor = true;
+            this.checkBoxAutocastDisabled.CheckedChanged += new System.EventHandler(this.checkBoxAutocastDisabled_CheckedChanged);
+            this.checkBoxAutocastDisabled.MouseHover += new System.EventHandler(this.checkBoxAutocastDisabled_MouseHover);
             // 
             // checkBoxPassiveDisabled
             // 
@@ -194,6 +196,8 @@ namespace Image_Converter.Forms
             this.checkBoxPassiveDisabled.TabIndex = 42;
             this.checkBoxPassiveDisabled.Text = "DISPAS";
             this.checkBoxPassiveDisabled.UseVisualStyleBackColor = true;
+            this.checkBoxPassiveDisabled.CheckedChanged += new System.EventHandler(this.checkBoxPassiveDisabled_CheckedChanged);
+            this.checkBoxPassiveDisabled.MouseHover += new System.EventHandler(this.checkBoxPassiveDisabled_MouseHover);
             // 
             // lblInfo
             // 
@@ -209,12 +213,11 @@ namespace Image_Converter.Forms
             // 
             // lblInfo2
             // 
-            this.lblInfo2.AutoSize = true;
             this.lblInfo2.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblInfo2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(124)))), ((int)(((byte)(10)))));
             this.lblInfo2.Location = new System.Drawing.Point(7, 218);
             this.lblInfo2.Name = "lblInfo2";
-            this.lblInfo2.Size = new System.Drawing.Size(256, 16);
+            this.lblInfo2.Size = new System.Drawing.Size(369, 36);
             this.lblInfo2.TabIndex = 36;
             this.lblInfo2.Text = "Only applies on 256x256 or 128x128 images.";
             this.lblInfo2.Visible = false;
@@ -269,6 +272,7 @@ namespace Image_Converter.Forms
             this.checkBoxButtonDisabled.Text = "DISBTN";
             this.checkBoxButtonDisabled.UseVisualStyleBackColor = true;
             this.checkBoxButtonDisabled.CheckedChanged += new System.EventHandler(this.checkBoxButtonDisabled_CheckedChanged);
+            this.checkBoxButtonDisabled.MouseHover += new System.EventHandler(this.checkBoxButtonDisabled_MouseHover);
             // 
             // checkBoxAutocast
             // 
@@ -282,6 +286,7 @@ namespace Image_Converter.Forms
             this.checkBoxAutocast.Text = "ATC";
             this.checkBoxAutocast.UseVisualStyleBackColor = true;
             this.checkBoxAutocast.CheckedChanged += new System.EventHandler(this.checkBoxAutocast_CheckedChanged);
+            this.checkBoxAutocast.MouseHover += new System.EventHandler(this.checkBoxAutocast_MouseHover);
             // 
             // checkBoxPassive
             // 
@@ -295,6 +300,7 @@ namespace Image_Converter.Forms
             this.checkBoxPassive.Text = "PAS";
             this.checkBoxPassive.UseVisualStyleBackColor = true;
             this.checkBoxPassive.CheckedChanged += new System.EventHandler(this.checkBoxPassive_CheckedChanged);
+            this.checkBoxPassive.MouseHover += new System.EventHandler(this.checkBoxPassive_MouseHover);
             // 
             // checkBoxButton
             // 
@@ -309,6 +315,7 @@ namespace Image_Converter.Forms
             this.checkBoxButton.Text = "BTN";
             this.checkBoxButton.UseVisualStyleBackColor = true;
             this.checkBoxButton.CheckedChanged += new System.EventHandler(this.checkBoxButton_CheckedChanged);
+            this.checkBoxButton.MouseHover += new System.EventHandler(this.checkBoxButton_MouseHover);
             // 
             // radioBtnReforged
             // 
@@ -342,7 +349,7 @@ namespace Image_Converter.Forms
             this.checkBoxIsBLP2.AutoSize = true;
             this.checkBoxIsBLP2.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.checkBoxIsBLP2.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.checkBoxIsBLP2.Location = new System.Drawing.Point(7, 255);
+            this.checkBoxIsBLP2.Location = new System.Drawing.Point(7, 266);
             this.checkBoxIsBLP2.Name = "checkBoxIsBLP2";
             this.checkBoxIsBLP2.Size = new System.Drawing.Size(136, 20);
             this.checkBoxIsBLP2.TabIndex = 42;
@@ -364,7 +371,7 @@ namespace Image_Converter.Forms
             this.Controls.Add(this.groupBox);
             this.Controls.Add(this.checkBoxIsBLP2);
             this.Name = "FilterControl";
-            this.Size = new System.Drawing.Size(396, 327);
+            this.Size = new System.Drawing.Size(396, 342);
             ((System.ComponentModel.ISupportInitialize)(this.upDownSizeY)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.upDownSizeX)).EndInit();
             this.groupBox.ResumeLayout(false);

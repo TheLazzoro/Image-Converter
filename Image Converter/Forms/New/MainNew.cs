@@ -28,15 +28,12 @@ namespace Image_Converter
         FilterControl filterControl;
         ExportControl exportControl;
 
-        private Converter converter;
         private System.Drawing.Image currentPreviewReferenceImage;
         private System.Drawing.Image previewBackgroundImage;
 
         public MainNew()
         {
             InitializeComponent();
-
-            converter = new Converter();
 
             imagePreview.SizeMode = PictureBoxSizeMode.AutoSize; // fixes scaling
             // Save background image and hide it on init.
@@ -88,6 +85,7 @@ namespace Image_Converter
             importControl.OnButtonClickMulti += new EventHandler(UserControl_ImportMultipleFiles);
             fileListControl.OnSelectionChanged += new EventHandler(UserControl_SelectItemInList);
             fileListControl.OnClearList += new EventHandler(UserControl_ClearFileList);
+            fileListControl.OnExportSingle += new EventHandler(UserControl_ExportSingle);
 
             filterControl.OnFilterChanged += new EventHandler(UserControl_FilterChanged);
 
@@ -357,28 +355,20 @@ namespace Image_Converter
             DisplayPreviewImage(fileListControl.GetCurrentSelectedFile());
         }
 
+        protected void UserControl_ExportSingle(object sender, EventArgs e)
+        {
+            ExportSettings.isMultipleFiles = false;
+            UpdateExportSettings();
+
+            string fileEntry = fileListControl.GetCurrentSelectedFile();
+            exportControl.ExportSingle(fileEntry);
+        }
+
         protected void UserControl_ExportAll(object sender, EventArgs e)
         {
-            ExportSettings.fileName = exportControl.GetFileName();
-            ExportSettings.outputDir = exportControl.GetExportDirectory();
-            ExportSettings.selectedFileExtension = exportControl.GetSelectedFileFormat();
-            ExportSettings.keepFileNames = exportControl.isKeepFileNames();
-            ExportSettings.imageQualityJpeg = exportControl.GetJPEGImageQuality();
-            ExportSettings.selectedDDSCompression = exportControl.GetSelectedDDSCompression();
-            ExportSettings.generateMipMaps = exportControl.isGenerateMipmaps();
+            
             ExportSettings.isMultipleFiles = true;
-            if (exportControl.isDDSFastest())
-            { // compression quality
-                ExportSettings.selectedDDSCompressionQuality = 0;
-            }
-            else if (exportControl.isDDSBalanced())
-            {
-                ExportSettings.selectedDDSCompressionQuality = 1;
-            }
-            else
-            {
-                ExportSettings.selectedDDSCompressionQuality = 2;
-            }
+            UpdateExportSettings();
 
             ListView.ListViewItemCollection fileList = fileListControl.GetAllFileEntries();
             List<string> fileEntries = new List<string>();
@@ -393,6 +383,24 @@ namespace Image_Converter
             {
                 exportControl.ExportAll(fileEntries);
             }
+        }
+
+        private void UpdateExportSettings()
+        {
+            ExportSettings.fileName = exportControl.GetFileName();
+            ExportSettings.outputDir = exportControl.GetExportDirectory();
+            ExportSettings.selectedFileExtension = exportControl.GetSelectedFileFormat();
+            ExportSettings.keepFileNames = exportControl.isKeepFileNames();
+            ExportSettings.imageQualityJpeg = exportControl.GetJPEGImageQuality();
+            ExportSettings.selectedDDSCompression = exportControl.GetSelectedDDSCompression();
+            ExportSettings.generateMipMaps = exportControl.isGenerateMipmaps();
+            ExportSettings.isMultipleFiles = true;
+            if (exportControl.isDDSFastest())
+                ExportSettings.selectedDDSCompressionQuality = 0;
+            else if (exportControl.isDDSBalanced())
+                ExportSettings.selectedDDSCompressionQuality = 1;
+            else
+                ExportSettings.selectedDDSCompressionQuality = 2;
         }
 
         private void groupBoxPreview_Resize(object sender, EventArgs e)
@@ -476,42 +484,48 @@ namespace Image_Converter
             {
                 ImageFilters filters = new ImageFilters();
                 int iconsChecked = 0;
-                if (FilterSettings.isButtonIcon) iconsChecked++;
-                if (FilterSettings.isPassiveIcon) iconsChecked++;
-                if (FilterSettings.isAutocastIcon) iconsChecked++;
-                if (FilterSettings.isDisabledIcon) iconsChecked++;
+                if (FilterSettings.isIconBTN) iconsChecked++;
+                if (FilterSettings.isIconPAS) iconsChecked++;
+                if (FilterSettings.isIconATC) iconsChecked++;
+                if (FilterSettings.isIconDISBTN) iconsChecked++;
+                if (FilterSettings.isIconDISPAS) iconsChecked++;
+                if (FilterSettings.isIconDISATC) iconsChecked++;
 
                 if (FilterSettings.war3IconType == War3IconType.ClassicIcon && iconsChecked <= 1) // Classic icons
                 {
-                    if (FilterSettings.isButtonIcon) image = filters.AddIconBorder(image, IconTypes.BTN);
-                    if (FilterSettings.isPassiveIcon) image = filters.AddIconBorder(image, IconTypes.PAS);
-                    if (FilterSettings.isAutocastIcon) image = filters.AddIconBorder(image, IconTypes.ATC);
-                    if (FilterSettings.isDisabledIcon) image = filters.AddIconBorder(image, IconTypes.DIS);
+                    if (FilterSettings.isIconBTN) image = filters.AddIconBorder(image, IconTypes.BTN);
+                    if (FilterSettings.isIconPAS) image = filters.AddIconBorder(image, IconTypes.PAS);
+                    if (FilterSettings.isIconATC) image = filters.AddIconBorder(image, IconTypes.ATC);
+                    if (FilterSettings.isIconDISBTN) image = filters.AddIconBorder(image, IconTypes.DISBTN);
+                    if (FilterSettings.isIconDISPAS) image = filters.AddIconBorder(image, IconTypes.DISPAS);
+                    if (FilterSettings.isIconDISATC) image = filters.AddIconBorder(image, IconTypes.DISATC);
                     lblPreviewError.Text = "";
                 }
                 else if (FilterSettings.war3IconType == War3IconType.ReforgedIcon && iconsChecked <= 1) // Reforged icons
                 {
-                    if (FilterSettings.isButtonIconRef) image = filters.AddIconBorder(image, IconTypes.BTN_REF);
-                    if (FilterSettings.isPassiveIconRef) image = filters.AddIconBorder(image, IconTypes.PAS_REF);
-                    if (FilterSettings.isAutocastIconRef) image = filters.AddIconBorder(image, IconTypes.ATC_REF);
-                    if (FilterSettings.isDisabledIconRef) image = filters.AddIconBorder(image, IconTypes.DIS_REF);
+                    if (FilterSettings.isIconBTN_REF) image = filters.AddIconBorder(image, IconTypes.BTN_REF);
+                    if (FilterSettings.isIconPAS_REF) image = filters.AddIconBorder(image, IconTypes.PAS_REF);
+                    if (FilterSettings.isIconATC_REF) image = filters.AddIconBorder(image, IconTypes.ATC_REF);
+                    if (FilterSettings.isIconDISBTN_REF) image = filters.AddIconBorder(image, IconTypes.DISBTN_REF);
+                    if (FilterSettings.isIconDISPAS_REF) image = filters.AddIconBorder(image, IconTypes.DISPAS_REF);
+                    if (FilterSettings.isIconDISATC_REF) image = filters.AddIconBorder(image, IconTypes.DISATC_REF);
                     lblPreviewError.Text = "";
                 }
                 else
                 {
-                    if (FilterSettings.war3IconType == War3IconType.ClassicIcon && image.Width == 64 && image.Height == 64)
+                    if (FilterSettings.war3IconType == War3IconType.ClassicIcon && iconsChecked > 1 && image.Width == 64 && image.Height == 64)
                         lblPreviewError.Text = "Cannot display multiple icon filters";
-                    else if (FilterSettings.war3IconType == War3IconType.ReforgedIcon && image.Width == 256 && image.Height == 256)
+                    else if (FilterSettings.war3IconType == War3IconType.ReforgedIcon && iconsChecked > 1 && image.Width == 256 && image.Height == 256)
                         lblPreviewError.Text = "Cannot display multiple icon filters";
                     else
                         lblPreviewError.Text = "";
+                        
                 }
 
                 if (FilterSettings.isResized)
                 {
                     image.Mutate(x => x.Resize(FilterSettings.resizeX, FilterSettings.resizeY));
                 }
-
             }
 
             return image;
@@ -519,52 +533,51 @@ namespace Image_Converter
 
         private void DisplayPreviewImage(String filePath)
         {
-            try
+            if (filePath != null)
             {
-                SixLabors.ImageSharp.Image<Rgba32> image = RenderPreview(filePath);
-                if (image != null)
+                try
                 {
-                    Bitmap actualPreview = new Bitmap(image.Width, image.Height);
-
-                    Stream stream = new System.IO.MemoryStream();
-                    SixLabors.ImageSharp.Formats.Bmp.BmpEncoder bmpEncoder = new SixLabors.ImageSharp.Formats.Bmp.BmpEncoder(); // we need an encoder to preserve transparency.
-                    bmpEncoder.BitsPerPixel = SixLabors.ImageSharp.Formats.Bmp.BmpBitsPerPixel.Pixel32; // bitmap transparency needs 32 bits per pixel before we set transparency support.
-                    bmpEncoder.SupportTransparency = true;
-                    image.SaveAsBmp(stream, bmpEncoder);
-                    System.Drawing.Image img = System.Drawing.Image.FromStream(stream);
-                    if (imagePreview.Image != null)
+                    SixLabors.ImageSharp.Image<Rgba32> image = RenderPreview(filePath);
+                    if (image != null)
                     {
-                        imagePreview.Image.Dispose();
+                        Bitmap actualPreview = new Bitmap(image.Width, image.Height);
+
+                        Stream stream = new System.IO.MemoryStream();
+                        SixLabors.ImageSharp.Formats.Bmp.BmpEncoder bmpEncoder = new SixLabors.ImageSharp.Formats.Bmp.BmpEncoder(); // we need an encoder to preserve transparency.
+                        bmpEncoder.BitsPerPixel = SixLabors.ImageSharp.Formats.Bmp.BmpBitsPerPixel.Pixel32; // bitmap transparency needs 32 bits per pixel before we set transparency support.
+                        bmpEncoder.SupportTransparency = true;
+                        image.SaveAsBmp(stream, bmpEncoder);
+                        System.Drawing.Image img = System.Drawing.Image.FromStream(stream);
+                        if (imagePreview.Image != null)
+                        {
+                            imagePreview.Image.Dispose();
+                        }
+                        imagePreview.Image = img;
+                        currentPreviewReferenceImage = img;
+                        lblResolution.Text = "Resolution: " + image.Width + "x" + image.Height;
+
+                        image.Dispose();
                     }
-                    imagePreview.Image = img;
-                    currentPreviewReferenceImage = img;
-                    lblResolution.Text = "Resolution: " + image.Width + "x" + image.Height;
-
-                    image.Dispose();
-                    if (converter.errorMsg != "")
-                        lblPreviewError.Text = converter.errorMsg;
                     else
-                        lblPreviewError.Text = "";
+                    {
+                        imagePreview.Image = null;
+                        currentPreviewReferenceImage = null;
+                        lblResolution.Text = "Resolution: N/A";
+                        lblPreviewError.Text = "Preview unavailable";
+                    }
+                    using (Stream fs = new FileStream(filePath, FileMode.Open))
+                    {
+                        lblFileSize.Text = GetFileSizeString(fs);
+                    }
+
                 }
-                else
+                catch (Exception)
                 {
-                    imagePreview.Image = null;
-                    currentPreviewReferenceImage = null;
-                    lblResolution.Text = "Resolution: N/A";
-                    lblPreviewError.Text = "Preview unavailable";
-                }
-                using (Stream fs = new FileStream(filePath, FileMode.Open))
-                {
-                    lblFileSize.Text = GetFileSizeString(fs);
+                    MessageBox.Show("Unsupported format.");
                 }
 
+                CenterAndScalePreviewImage();
             }
-            catch (Exception)
-            {
-                MessageBox.Show("Unsupported format.");
-            }
-
-            CenterAndScalePreviewImage();
         }
 
         private void CenterAndScalePreviewImage()
@@ -576,7 +589,7 @@ namespace Image_Converter
                 int paddingY = 40;
                 float paddingX = paddingY * sourceImgRatio;
                 System.Drawing.Size correctedSize;
-                if(currentPreviewReferenceImage.Width <= paddingX && currentPreviewReferenceImage.Height <= paddingY) // prevent negative pixel width/height
+                if (currentPreviewReferenceImage.Width <= paddingX && currentPreviewReferenceImage.Height <= paddingY) // prevent negative pixel width/height
                 {
                     paddingX = 0;
                     paddingY = 0;

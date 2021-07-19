@@ -25,7 +25,11 @@ namespace Image_Converter.Image_Processing
                     border = SixLabors.ImageSharp.Image<Rgba32>.Load(Properties.Resources.Icon_Border_Passive);
                 else if (iconSetting == IconTypes.ATC)
                     border = SixLabors.ImageSharp.Image<Rgba32>.Load(Properties.Resources.Icon_Border_Autocast);
-                else if (iconSetting == IconTypes.DIS)
+                else if (iconSetting == IconTypes.DISBTN)
+                    border = SixLabors.ImageSharp.Image<Rgba32>.Load(Properties.Resources.Icon_Border_Disabled);
+                else if (iconSetting == IconTypes.DISPAS)
+                    border = SixLabors.ImageSharp.Image<Rgba32>.Load(Properties.Resources.Icon_Border_Disabled);
+                else if (iconSetting == IconTypes.DISATC)
                     border = SixLabors.ImageSharp.Image<Rgba32>.Load(Properties.Resources.Icon_Border_Disabled);
 
             }
@@ -37,23 +41,27 @@ namespace Image_Converter.Image_Processing
                     border = SixLabors.ImageSharp.Image<Rgba32>.Load(Properties.Resources.Reforged_Icon_Border_Passive);
                 if (iconSetting == IconTypes.ATC_REF)
                     border = SixLabors.ImageSharp.Image<Rgba32>.Load(Properties.Resources.Reforged_Icon_Border_Autocast);
-                if (iconSetting == IconTypes.DIS_REF)
+                if (iconSetting == IconTypes.DISBTN_REF)
+                    border = SixLabors.ImageSharp.Image<Rgba32>.Load(Properties.Resources.Reforged_Icon_Border_Disabled);
+                if (iconSetting == IconTypes.DISPAS_REF)
+                    border = SixLabors.ImageSharp.Image<Rgba32>.Load(Properties.Resources.Reforged_Icon_Border_Passive_Disabled);
+                if (iconSetting == IconTypes.DISATC_REF)
                     border = SixLabors.ImageSharp.Image<Rgba32>.Load(Properties.Resources.Reforged_Icon_Border_Disabled);
             }
 
 
             if (border != null)
             {
-                for (int y = 0; y < width; y++)
+                for (int x = 0; x < width; x++)
                 {
-                    for (int x = 0; x < height; x++)
+                    for (int y = 0; y < height; y++)
                     {
                         byte redSource = imageToConvert[x, y].R;
                         byte greenSource = imageToConvert[x, y].G;
                         byte blueSource = imageToConvert[x, y].B;
                         byte alphaSource = imageToConvert[x, y].A;
 
-                        if (iconSetting == IconTypes.DIS_REF) // Disabled icon color saturation reduction
+                        if (iconSetting == IconTypes.DISBTN_REF || iconSetting == IconTypes.DISPAS_REF || iconSetting == IconTypes.DISATC_REF) // Disabled icon color saturation reduction
                         {
                             int greyscale = (int)(redSource * 0.3 + greenSource * 0.59 + blueSource * 0.11);
 

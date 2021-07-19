@@ -24,7 +24,7 @@
     <Compile Update="Forms\New\FilterControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Forms\New\Filters.cs">
+    <Compile Update="Forms\Old\Filters.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\New\ExportControl.cs">

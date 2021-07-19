@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
@@ -33,6 +34,27 @@ namespace Image_Converter.Forms
             cmboxDDSList.SelectedIndex = 0;
         }
 
+        public void ExportSingle(string fileEntry)
+        {
+            converter = new Converter();
+            converter.fileEntries = new string[] {fileEntry};
+
+            DialogResult dialogResult = MessageBox.Show("This action converts '" + fileEntry + "' with specified settings to the output directory.", "Convert Single File", MessageBoxButtons.OKCancel);
+            if (dialogResult == DialogResult.OK)
+            {
+                bool success = converter.ConvertWithFilters();
+
+                if (success)
+                {
+                    MessageBox.Show("Conversion successful!");
+                }
+                else
+                {
+                    MessageBox.Show("Error: " + converter.errorMsg);
+                }
+            }
+        }
+        
         public void ExportAll(List<string> fileEntries)
         {
             if (workerThread.IsBusy != true)
@@ -98,7 +120,7 @@ namespace Image_Converter.Forms
                 ListViewItem listItem = new ListViewItem(item2);
                 listErrors.Items.Add(listItem);
                 lblErrors.Text = "Errors: " + converter.totalErrors;
-                lblErrors.ForeColor = Color.Red;
+                lblErrors.ForeColor = Color.FromArgb(255, 100, 100);
             }
         }
 
@@ -203,7 +225,8 @@ namespace Image_Converter.Forms
 
                 if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
                 {
-                    lblOutputDirectory.Text = fbd.SelectedPath;
+                    ExportSettings.outputDir = fbd.SelectedPath + @"\";
+                    lblOutputDirectory.Text = fbd.SelectedPath + @"\";
                     btnExportAll.Enabled = true;
                     btnExportAll.BackColor = Color.FromArgb(255, 124, 10);
                     btnExportAll.FlatAppearance.MouseOverBackColor = Color.LimeGreen;
@@ -225,6 +248,11 @@ namespace Image_Converter.Forms
             }
         }
 
+        private void btnShowFolder_Click(object sender, EventArgs e)
+        {
+            Process.Start("explorer.exe", ExportSettings.outputDir);
+        }
+
         [Browsable(true)]
         [Category("Action")]
         [Description("Invoked when user clicks 'Export All'")]
@@ -237,7 +265,6 @@ namespace Image_Converter.Forms
                 this.OnExportAll(this, e);
         }
 
-        
         
         public string GetExportDirectory()
         {
@@ -289,6 +316,5 @@ namespace Image_Converter.Forms
             return radBtnFastest.Checked;
         }
 
-        
     }
 }

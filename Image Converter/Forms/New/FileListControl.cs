@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Image_Converter.IO;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Text;
@@ -61,6 +63,47 @@ namespace Image_Converter.Forms
             }
         }
 
+        [Browsable(true)]
+        [Category("Action")]
+        [Description("Invoked when user clicks 'Export'")]
+        public event EventHandler OnExportSingle;
+
+        private void exportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //bubble the event up to the parent
+            if (this.OnExportSingle != null)
+                this.OnExportSingle(this, e);
+        }
+
+        private void openFileLocationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (File.Exists(listFileEntries.SelectedItems[0].Tag.ToString()))
+            {
+                Process.Start("explorer.exe", "/select," + listFileEntries.SelectedItems[0].Tag.ToString());
+            }
+        }
+
+        private void removeFromListToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DeleteRowsInList();
+        }
+
+        private void listFileEntries_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right && listFileEntries.FocusedItem.Bounds.Contains(e.Location))
+            {
+                contextMenuStripFiles.Show(Cursor.Position);
+                if (listFileEntries.Items.Count > 0 && ExportSettings.outputDir != "")
+                {
+                    contextMenuStripFiles.Items[0].Enabled = true;
+                }
+                else
+                {
+                    contextMenuStripFiles.Items[0].Enabled = false;
+                }
+            }
+        }
+
         public void AddFileToListSingle(string fileEntry, Stream stream)
         {
             string filename = shared.GetInputFileNameAndExtension(fileEntry);
@@ -103,7 +146,12 @@ namespace Image_Converter.Forms
 
         public string GetCurrentSelectedFile()
         {
-            return listFileEntries.SelectedItems[0].Tag.ToString();
+            if (listFileEntries.SelectedItems.Count > 0)
+            {
+                return listFileEntries.SelectedItems[0].Tag.ToString();
+            }
+
+            return null;
         }
 
         public ListView.ListViewItemCollection GetAllFileEntries()
@@ -123,6 +171,8 @@ namespace Image_Converter.Forms
                 DeleteRowsInList();
             }
         }
+
+
 
         private void DeleteRowsInList()
         {
@@ -153,5 +203,7 @@ namespace Image_Converter.Forms
 
             lblItems.Text = "Items: " + listFileEntries.Items.Count;
         }
+
+
     }
 }

@@ -581,26 +581,26 @@
             this.removeFromListToolStripMenuItem,
             this.convertToolStripMenuItem});
             this.contextMenuStripFiles.Name = "contextMenuStripFiles";
-            this.contextMenuStripFiles.Size = new System.Drawing.Size(174, 70);
+            this.contextMenuStripFiles.Size = new System.Drawing.Size(181, 92);
             // 
             // openFileLocationToolStripMenuItem
             // 
             this.openFileLocationToolStripMenuItem.Name = "openFileLocationToolStripMenuItem";
-            this.openFileLocationToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.openFileLocationToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openFileLocationToolStripMenuItem.Text = "Convert";
             this.openFileLocationToolStripMenuItem.Click += new System.EventHandler(this.convertToolStripMenuItem_Click);
             // 
             // removeFromListToolStripMenuItem
             // 
             this.removeFromListToolStripMenuItem.Name = "removeFromListToolStripMenuItem";
-            this.removeFromListToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.removeFromListToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.removeFromListToolStripMenuItem.Text = "Open File Location";
             this.removeFromListToolStripMenuItem.Click += new System.EventHandler(this.openFileLocationToolStripMenuItem_Click);
             // 
             // convertToolStripMenuItem
             // 
             this.convertToolStripMenuItem.Name = "convertToolStripMenuItem";
-            this.convertToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.convertToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.convertToolStripMenuItem.Text = "Remove From List";
             this.convertToolStripMenuItem.Click += new System.EventHandler(this.removeFromListToolStripMenuItem_Click);
             // 

@@ -161,6 +161,16 @@ namespace Image_Converter.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] Reforged_Icon_Border_Passive_Disabled {
+            get {
+                object obj = ResourceManager.GetObject("Reforged_Icon_Border_Passive_Disabled", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap Warcraft_W {

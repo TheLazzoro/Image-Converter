@@ -333,7 +333,7 @@ namespace Image_Converter.Forms
             this.cmboxDDSList.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(136)))), ((int)(((byte)(136)))), ((int)(((byte)(136)))));
             this.cmboxDDSList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.cmboxDDSList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmboxDDSList.Font = new System.Drawing.Font("Bahnschrift", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.cmboxDDSList.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.cmboxDDSList.FormattingEnabled = true;
             this.cmboxDDSList.IsDerivedStyle = true;
             this.cmboxDDSList.ItemHeight = 20;
@@ -361,7 +361,7 @@ namespace Image_Converter.Forms
             this.cmboxOutputFormat.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(136)))), ((int)(((byte)(136)))), ((int)(((byte)(136)))));
             this.cmboxOutputFormat.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.cmboxOutputFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmboxOutputFormat.Font = new System.Drawing.Font("Bahnschrift", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.cmboxOutputFormat.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.cmboxOutputFormat.FormattingEnabled = true;
             this.cmboxOutputFormat.IsDerivedStyle = true;
             this.cmboxOutputFormat.ItemHeight = 20;
@@ -437,6 +437,7 @@ namespace Image_Converter.Forms
             this.btnShowFolder.TabIndex = 18;
             this.btnShowFolder.Text = "Show Folder";
             this.btnShowFolder.UseVisualStyleBackColor = false;
+            this.btnShowFolder.Click += new System.EventHandler(this.btnShowFolder_Click);
             // 
             // listErrors
             // 
@@ -473,6 +474,7 @@ namespace Image_Converter.Forms
             // 
             this.lblErrors.AutoSize = true;
             this.lblErrors.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblErrors.ForeColor = System.Drawing.SystemColors.Control;
             this.lblErrors.Location = new System.Drawing.Point(7, 76);
             this.lblErrors.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblErrors.Name = "lblErrors";

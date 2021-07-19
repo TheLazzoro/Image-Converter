@@ -50,42 +50,56 @@ namespace Image_Converter.Forms
         private void radioBtnClassic_CheckedChanged(object sender, EventArgs e)
         {
             FilterSettings.war3IconType = War3IconType.ClassicIcon;
-            lblInfo2.Text = "Only applies on 64x64 images.";
+            lblInfo2.Text = "Only applies on 64x64 images. All other image dimensions are skipped when exporting.";
             InvokeFilterChange(e);
         }
 
         private void radioBtnReforged_CheckedChanged(object sender, EventArgs e)
         {
             FilterSettings.war3IconType = War3IconType.ReforgedIcon;
-            lblInfo2.Text = "Only applies on 256x256 images.";
+            lblInfo2.Text = "Only applies on 256x256 images. All other image dimensions are skipped when exporting.";
             InvokeFilterChange(e);
         }
 
         private void checkBoxButton_CheckedChanged(object sender, EventArgs e)
         {
-            FilterSettings.isButtonIcon = checkBoxButton.Checked;
-            FilterSettings.isButtonIconRef = checkBoxButton.Checked;
+            FilterSettings.isIconBTN = checkBoxButton.Checked;
+            FilterSettings.isIconBTN_REF = checkBoxButton.Checked;
             InvokeFilterChange(e);
         }
 
         private void checkBoxPassive_CheckedChanged(object sender, EventArgs e)
         {
-            FilterSettings.isPassiveIcon = checkBoxPassive.Checked;
-            FilterSettings.isPassiveIconRef = checkBoxPassive.Checked;
+            FilterSettings.isIconPAS = checkBoxPassive.Checked;
+            FilterSettings.isIconPAS_REF = checkBoxPassive.Checked;
             InvokeFilterChange(e);
         }
 
         private void checkBoxAutocast_CheckedChanged(object sender, EventArgs e)
         {
-            FilterSettings.isAutocastIcon = checkBoxAutocast.Checked;
-            FilterSettings.isAutocastIconRef = checkBoxAutocast.Checked;
+            FilterSettings.isIconATC = checkBoxAutocast.Checked;
+            FilterSettings.isIconATC_REF = checkBoxAutocast.Checked;
             InvokeFilterChange(e);
         }
 
         private void checkBoxButtonDisabled_CheckedChanged(object sender, EventArgs e)
         {
-            FilterSettings.isDisabledIcon = checkBoxButtonDisabled.Checked;
-            FilterSettings.isDisabledIconRef = checkBoxButtonDisabled.Checked;
+            FilterSettings.isIconDISBTN = checkBoxButtonDisabled.Checked;
+            FilterSettings.isIconDISBTN_REF = checkBoxButtonDisabled.Checked;
+            InvokeFilterChange(e);
+        }
+
+        private void checkBoxPassiveDisabled_CheckedChanged(object sender, EventArgs e)
+        {
+            FilterSettings.isIconDISPAS = checkBoxPassiveDisabled.Checked;
+            FilterSettings.isIconDISPAS_REF = checkBoxPassiveDisabled.Checked;
+            InvokeFilterChange(e);
+        }
+
+        private void checkBoxAutocastDisabled_CheckedChanged(object sender, EventArgs e)
+        {
+            FilterSettings.isIconDISATC = checkBoxAutocastDisabled.Checked;
+            FilterSettings.isIconDISATC_REF = checkBoxAutocastDisabled.Checked;
             InvokeFilterChange(e);
         }
 
@@ -113,6 +127,36 @@ namespace Image_Converter.Forms
         {
             FilterSettings.resizeY = (int)upDownSizeY.Value;
             InvokeFilterChange(e);
+        }
+
+        private void checkBoxButton_MouseHover(object sender, EventArgs e)
+        {
+            CustomTooltip.DisplayTooltip("Button", checkBoxButton, 600);
+        }
+
+        private void checkBoxPassive_MouseHover(object sender, EventArgs e)
+        {
+            CustomTooltip.DisplayTooltip("Passive", checkBoxPassive, 600);
+        }
+
+        private void checkBoxAutocast_MouseHover(object sender, EventArgs e)
+        {
+            CustomTooltip.DisplayTooltip("Autocast", checkBoxAutocast, 600);
+        }
+
+        private void checkBoxButtonDisabled_MouseHover(object sender, EventArgs e)
+        {
+            CustomTooltip.DisplayTooltip("Disabled Button", checkBoxButtonDisabled, 600);
+        }
+
+        private void checkBoxPassiveDisabled_MouseHover(object sender, EventArgs e)
+        {
+            CustomTooltip.DisplayTooltip("Disabled Passive", checkBoxPassiveDisabled, 600);
+        }
+
+        private void checkBoxAutocastDisabled_MouseHover(object sender, EventArgs e)
+        {
+            CustomTooltip.DisplayTooltip("Disabled Autocast", checkBoxAutocastDisabled, 600);
         }
     }
 }

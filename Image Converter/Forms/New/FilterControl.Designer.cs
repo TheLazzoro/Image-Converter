@@ -213,6 +213,8 @@ namespace Image_Converter.Forms
             // 
             // lblInfo2
             // 
+            this.lblInfo2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lblInfo2.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblInfo2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(124)))), ((int)(((byte)(10)))));
             this.lblInfo2.Location = new System.Drawing.Point(7, 218);
@@ -242,10 +244,11 @@ namespace Image_Converter.Forms
             this.checkBoxInfoUpgrade.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.checkBoxInfoUpgrade.Location = new System.Drawing.Point(6, 157);
             this.checkBoxInfoUpgrade.Name = "checkBoxInfoUpgrade";
-            this.checkBoxInfoUpgrade.Size = new System.Drawing.Size(104, 20);
+            this.checkBoxInfoUpgrade.Size = new System.Drawing.Size(130, 20);
             this.checkBoxInfoUpgrade.TabIndex = 40;
-            this.checkBoxInfoUpgrade.Text = "Info-Upgrade";
+            this.checkBoxInfoUpgrade.Text = "Infocard-Upgrade";
             this.checkBoxInfoUpgrade.UseVisualStyleBackColor = true;
+            this.checkBoxInfoUpgrade.CheckedChanged += new System.EventHandler(this.checkBoxInfoUpgrade_CheckedChanged);
             // 
             // checkBoxInfoBasic
             // 
@@ -254,10 +257,11 @@ namespace Image_Converter.Forms
             this.checkBoxInfoBasic.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.checkBoxInfoBasic.Location = new System.Drawing.Point(6, 132);
             this.checkBoxInfoBasic.Name = "checkBoxInfoBasic";
-            this.checkBoxInfoBasic.Size = new System.Drawing.Size(85, 20);
+            this.checkBoxInfoBasic.Size = new System.Drawing.Size(74, 20);
             this.checkBoxInfoBasic.TabIndex = 39;
-            this.checkBoxInfoBasic.Text = "Info-Basic";
+            this.checkBoxInfoBasic.Text = "Infocard";
             this.checkBoxInfoBasic.UseVisualStyleBackColor = true;
+            this.checkBoxInfoBasic.CheckedChanged += new System.EventHandler(this.checkBoxInfoBasic_CheckedChanged);
             // 
             // checkBoxButtonDisabled
             // 

@@ -49,6 +49,8 @@ namespace Image_Converter
             this.lblResolution = new System.Windows.Forms.Label();
             this.groupBoxPreview = new System.Windows.Forms.GroupBox();
             this.checkBoxTransparencyGrid = new System.Windows.Forms.CheckBox();
+            this.lblRGBA = new System.Windows.Forms.Label();
+            this.colorBox = new System.Windows.Forms.PictureBox();
             this.panelMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.iconMain)).BeginInit();
             this.panelTop.SuspendLayout();
@@ -58,6 +60,7 @@ namespace Image_Converter
             this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
             this.groupBoxPreview.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.colorBox)).BeginInit();
             this.SuspendLayout();
             // 
             // panelMenu
@@ -295,6 +298,7 @@ namespace Image_Converter
             this.imagePreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.imagePreview.TabIndex = 2;
             this.imagePreview.TabStop = false;
+            this.imagePreview.MouseMove += new System.Windows.Forms.MouseEventHandler(this.imagePreview_MouseMove);
             // 
             // panelChildForm
             // 
@@ -329,6 +333,8 @@ namespace Image_Converter
             // splitContainer.Panel2
             // 
             this.splitContainer.Panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(75)))), ((int)(((byte)(75)))));
+            this.splitContainer.Panel2.Controls.Add(this.colorBox);
+            this.splitContainer.Panel2.Controls.Add(this.lblRGBA);
             this.splitContainer.Panel2.Controls.Add(this.lblPreviewError);
             this.splitContainer.Panel2.Controls.Add(this.lblFileSize);
             this.splitContainer.Panel2.Controls.Add(this.lblResolution);
@@ -410,6 +416,29 @@ namespace Image_Converter
             this.checkBoxTransparencyGrid.UseVisualStyleBackColor = true;
             this.checkBoxTransparencyGrid.CheckedChanged += new System.EventHandler(this.checkBoxTransparencyGrid_CheckedChanged);
             // 
+            // lblRGBA
+            // 
+            this.lblRGBA.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblRGBA.BackColor = System.Drawing.Color.Transparent;
+            this.lblRGBA.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblRGBA.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.lblRGBA.Location = new System.Drawing.Point(26, 11);
+            this.lblRGBA.Name = "lblRGBA";
+            this.lblRGBA.Size = new System.Drawing.Size(188, 16);
+            this.lblRGBA.TabIndex = 34;
+            this.lblRGBA.Text = "R:0 G:0 B:0 A:0";
+            this.lblRGBA.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // colorBox
+            // 
+            this.colorBox.BackColor = System.Drawing.Color.Black;
+            this.colorBox.Location = new System.Drawing.Point(8, 11);
+            this.colorBox.Name = "colorBox";
+            this.colorBox.Size = new System.Drawing.Size(16, 16);
+            this.colorBox.TabIndex = 35;
+            this.colorBox.TabStop = false;
+            // 
             // MainNew
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -436,6 +465,7 @@ namespace Image_Converter
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
             this.splitContainer.ResumeLayout(false);
             this.groupBoxPreview.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.colorBox)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -461,5 +491,7 @@ namespace Image_Converter
         private System.Windows.Forms.SplitContainer splitContainer;
         private System.Windows.Forms.Label lblResolution;
         private System.Windows.Forms.Label lblPreviewError;
+        private System.Windows.Forms.Label lblRGBA;
+        private System.Windows.Forms.PictureBox colorBox;
     }
 }

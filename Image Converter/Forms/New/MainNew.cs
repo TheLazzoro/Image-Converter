@@ -490,8 +490,10 @@ namespace Image_Converter
                 if (FilterSettings.isIconDISBTN) iconsChecked++;
                 if (FilterSettings.isIconDISPAS) iconsChecked++;
                 if (FilterSettings.isIconDISATC) iconsChecked++;
+                if (FilterSettings.isIconATT) iconsChecked++;
+                if (FilterSettings.isIconUPG) iconsChecked++;
 
-                if (FilterSettings.war3IconType == War3IconType.ClassicIcon && iconsChecked <= 1) // Classic icons
+                if (iconsChecked <= 1) // Classic icons
                 {
                     if (FilterSettings.isIconBTN) image = filters.AddIconBorder(image, IconTypes.BTN);
                     if (FilterSettings.isIconPAS) image = filters.AddIconBorder(image, IconTypes.PAS);
@@ -499,16 +501,8 @@ namespace Image_Converter
                     if (FilterSettings.isIconDISBTN) image = filters.AddIconBorder(image, IconTypes.DISBTN);
                     if (FilterSettings.isIconDISPAS) image = filters.AddIconBorder(image, IconTypes.DISPAS);
                     if (FilterSettings.isIconDISATC) image = filters.AddIconBorder(image, IconTypes.DISATC);
-                    lblPreviewError.Text = "";
-                }
-                else if (FilterSettings.war3IconType == War3IconType.ReforgedIcon && iconsChecked <= 1) // Reforged icons
-                {
-                    if (FilterSettings.isIconBTN_REF) image = filters.AddIconBorder(image, IconTypes.BTN_REF);
-                    if (FilterSettings.isIconPAS_REF) image = filters.AddIconBorder(image, IconTypes.PAS_REF);
-                    if (FilterSettings.isIconATC_REF) image = filters.AddIconBorder(image, IconTypes.ATC_REF);
-                    if (FilterSettings.isIconDISBTN_REF) image = filters.AddIconBorder(image, IconTypes.DISBTN_REF);
-                    if (FilterSettings.isIconDISPAS_REF) image = filters.AddIconBorder(image, IconTypes.DISPAS_REF);
-                    if (FilterSettings.isIconDISATC_REF) image = filters.AddIconBorder(image, IconTypes.DISATC_REF);
+                    if (FilterSettings.isIconATT) image = filters.AddIconBorder(image, IconTypes.ATT);
+                    if (FilterSettings.isIconUPG) image = filters.AddIconBorder(image, IconTypes.UPG);
                     lblPreviewError.Text = "";
                 }
                 else
@@ -573,7 +567,8 @@ namespace Image_Converter
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("Unsupported format.");
+                    //MessageBox.Show("Unsupported format.");
+                    throw;
                 }
 
                 CenterAndScalePreviewImage();
@@ -637,6 +632,15 @@ namespace Image_Converter
             }
         }
 
-
+        private void imagePreview_MouseMove(object sender, MouseEventArgs e)
+        {
+            if(imagePreview.Image != null) { 
+                Bitmap b = new Bitmap(imagePreview.Image);
+                System.Drawing.Color color = b.GetPixel(e.X, e.Y);
+                colorBox.BackColor = color;
+                lblRGBA.Text = "R:" + color.R + " G:" + color.G + " B:" + color.B + " A:" + color.A;
+                b.Dispose();
+            }
+        }
     }
 }

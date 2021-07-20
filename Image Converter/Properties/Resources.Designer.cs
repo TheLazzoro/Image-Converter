@@ -73,6 +73,26 @@ namespace Image_Converter.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        public static byte[] Icon_Border_Attack {
+            get {
+                object obj = ResourceManager.GetObject("Icon_Border_Attack", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] Icon_Border_Attack_Upgrade {
+            get {
+                object obj = ResourceManager.GetObject("Icon_Border_Attack_Upgrade", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         public static byte[] Icon_Border_Autocast {
             get {
                 object obj = ResourceManager.GetObject("Icon_Border_Autocast", resourceCulture);
@@ -103,9 +123,9 @@ namespace Image_Converter.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        public static byte[] Reforged_Icon_Border_AttackSpell {
+        public static byte[] Reforged_Icon_Border_Attack {
             get {
-                object obj = ResourceManager.GetObject("Reforged_Icon_Border_AttackSpell", resourceCulture);
+                object obj = ResourceManager.GetObject("Reforged_Icon_Border_Attack", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -113,9 +133,9 @@ namespace Image_Converter.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        public static byte[] Reforged_Icon_Border_AttackSpell_Upgrade {
+        public static byte[] Reforged_Icon_Border_Attack_Upgrade {
             get {
-                object obj = ResourceManager.GetObject("Reforged_Icon_Border_AttackSpell_Upgrade", resourceCulture);
+                object obj = ResourceManager.GetObject("Reforged_Icon_Border_Attack_Upgrade", resourceCulture);
                 return ((byte[])(obj));
             }
         }

@@ -41,13 +41,9 @@ namespace Image_Converter
             if (radioBtnReforged.Checked) FilterSettings.war3IconType = War3IconType.ReforgedIcon;
 
             FilterSettings.isIconBTN = checkBoxButton.Checked;
-            FilterSettings.isIconBTN_REF = checkBoxButton.Checked;
             FilterSettings.isIconPAS = checkBoxPassive.Checked;
-            FilterSettings.isIconPAS_REF = checkBoxPassive.Checked;
             FilterSettings.isIconATC = checkBoxAutocast.Checked;
-            FilterSettings.isIconATC_REF = checkBoxAutocast.Checked;
             FilterSettings.isIconDISBTN = checkBoxDisabled.Checked;
-            FilterSettings.isIconDISBTN_REF = checkBoxDisabled.Checked;
             FilterSettings.isResized = checkBoxResize.Checked;
             FilterSettings.resizeX = int.Parse(upDownSizeX.Text);
             FilterSettings.resizeY = int.Parse(upDownSizeY.Text);

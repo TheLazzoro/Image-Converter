@@ -135,71 +135,45 @@ namespace Image_Converter.IO
                 errorMsg = "Image dimensions did not match selected icon dimensions.";
                 ImageFilters filters = new ImageFilters();
 
-                if (FilterSettings.war3IconType == War3IconType.ClassicIcon && imageToConvert.Width == 64 && imageToConvert.Height == 64)
+                if (FilterSettings.isIconBTN)
                 {
-                    if (FilterSettings.isIconBTN)
-                    {
-                        prefix.Add("BTN");
-                        filteredImages.Add(filters.AddIconBorder(imageToConvert, IconTypes.BTN));
-                    }
-                    if (FilterSettings.isIconPAS)
-                    {
-                        prefix.Add("PAS");
-                        filteredImages.Add(filters.AddIconBorder(imageToConvert, IconTypes.PAS));
-                    }
-                    if (FilterSettings.isIconATC)
-                    {
-                        prefix.Add("ATC");
-                        filteredImages.Add(filters.AddIconBorder(imageToConvert, IconTypes.ATC));
-                    }
-                    if (FilterSettings.isIconDISBTN)
-                    {
-                        prefix.Add("DISBTN");
-                        filteredImages.Add(filters.AddIconBorder(imageToConvert, IconTypes.DISBTN));
-                    }
-                    if (FilterSettings.isIconDISPAS)
-                    {
-                        prefix.Add("DISPAS");
-                        filteredImages.Add(filters.AddIconBorder(imageToConvert, IconTypes.DISPAS));
-                    }
-                    if (FilterSettings.isIconDISATC)
-                    {
-                        prefix.Add("DISATC");
-                        filteredImages.Add(filters.AddIconBorder(imageToConvert, IconTypes.DISATC));
-                    }
+                    prefix.Add("BTN");
+                    filteredImages.Add(filters.AddIconBorder(imageToConvert, IconTypes.BTN));
                 }
-                else if (FilterSettings.war3IconType == War3IconType.ReforgedIcon && imageToConvert.Width == 256 && imageToConvert.Height == 256)
+                if (FilterSettings.isIconPAS)
                 {
-                    if (FilterSettings.isIconBTN_REF)
-                    {
-                        prefix.Add("BTN");
-                        filteredImages.Add(filters.AddIconBorder(imageToConvert, IconTypes.BTN_REF));
-                    }
-                    if (FilterSettings.isIconPAS_REF)
-                    {
-                        prefix.Add("PAS");
-                        filteredImages.Add(filters.AddIconBorder(imageToConvert, IconTypes.PAS_REF));
-                    }
-                    if (FilterSettings.isIconATC_REF)
-                    {
-                        prefix.Add("ATC");
-                        filteredImages.Add(filters.AddIconBorder(imageToConvert, IconTypes.ATC_REF));
-                    }
-                    if (FilterSettings.isIconDISBTN_REF)
-                    {
-                        prefix.Add("DISBTN");
-                        filteredImages.Add(filters.AddIconBorder(imageToConvert, IconTypes.DISBTN_REF));
-                    }
-                    if (FilterSettings.isIconDISPAS_REF)
-                    {
-                        prefix.Add("DISPAS");
-                        filteredImages.Add(filters.AddIconBorder(imageToConvert, IconTypes.DISPAS_REF));
-                    }
-                    if (FilterSettings.isIconDISATC_REF)
-                    {
-                        prefix.Add("DISATC");
-                        filteredImages.Add(filters.AddIconBorder(imageToConvert, IconTypes.DISATC_REF));
-                    }
+                    prefix.Add("PAS");
+                    filteredImages.Add(filters.AddIconBorder(imageToConvert, IconTypes.PAS));
+                }
+                if (FilterSettings.isIconATC)
+                {
+                    prefix.Add("ATC");
+                    filteredImages.Add(filters.AddIconBorder(imageToConvert, IconTypes.ATC));
+                }
+                if (FilterSettings.isIconDISBTN)
+                {
+                    prefix.Add("DISBTN");
+                    filteredImages.Add(filters.AddIconBorder(imageToConvert, IconTypes.DISBTN));
+                }
+                if (FilterSettings.isIconDISPAS)
+                {
+                    prefix.Add("DISPAS");
+                    filteredImages.Add(filters.AddIconBorder(imageToConvert, IconTypes.DISPAS));
+                }
+                if (FilterSettings.isIconDISATC)
+                {
+                    prefix.Add("DISATC");
+                    filteredImages.Add(filters.AddIconBorder(imageToConvert, IconTypes.DISATC));
+                }
+                if (FilterSettings.isIconATT)
+                {
+                    prefix.Add("ATT");
+                    filteredImages.Add(filters.AddIconBorder(imageToConvert, IconTypes.ATT));
+                }
+                if (FilterSettings.isIconUPG)
+                {
+                    prefix.Add("UPG");
+                    filteredImages.Add(filters.AddIconBorder(imageToConvert, IconTypes.UPG));
                 }
 
                 for (int i = 0; i < filteredImages.Count; i++)
@@ -254,7 +228,7 @@ namespace Image_Converter.IO
                 if (FilterSettings.isIconATC) iconsChecked++;
                 if (FilterSettings.isIconDISBTN) iconsChecked++;
 
-                if (FilterSettings.war3IconType == War3IconType.ClassicIcon && iconsChecked <= 1) // Classic icons
+                if (iconsChecked <= 1)
                 {
                     if (FilterSettings.isIconBTN) image = filters.AddIconBorder(image, IconTypes.BTN);
                     if (FilterSettings.isIconPAS) image = filters.AddIconBorder(image, IconTypes.PAS);
@@ -262,18 +236,11 @@ namespace Image_Converter.IO
                     if (FilterSettings.isIconDISBTN) image = filters.AddIconBorder(image, IconTypes.DISBTN);
                     if (FilterSettings.isIconDISBTN) image = filters.AddIconBorder(image, IconTypes.DISPAS);
                     if (FilterSettings.isIconDISBTN) image = filters.AddIconBorder(image, IconTypes.DISATC);
+                    if (FilterSettings.isIconATT) image = filters.AddIconBorder(image, IconTypes.ATT);
+                    if (FilterSettings.isIconUPG) image = filters.AddIconBorder(image, IconTypes.UPG);
                     errorMsg = "";
                 }
-                else if (FilterSettings.war3IconType == War3IconType.ReforgedIcon && iconsChecked <= 1) // Reforged icons
-                {
-                    if (FilterSettings.isIconBTN_REF) image = filters.AddIconBorder(image, IconTypes.BTN_REF);
-                    if (FilterSettings.isIconPAS_REF) image = filters.AddIconBorder(image, IconTypes.PAS_REF);
-                    if (FilterSettings.isIconATC_REF) image = filters.AddIconBorder(image, IconTypes.ATC_REF);
-                    if (FilterSettings.isIconDISBTN_REF) image = filters.AddIconBorder(image, IconTypes.DISBTN_REF);
-                    if (FilterSettings.isIconDISBTN_REF) image = filters.AddIconBorder(image, IconTypes.DISPAS_REF);
-                    if (FilterSettings.isIconDISBTN_REF) image = filters.AddIconBorder(image, IconTypes.DISATC_REF);
-                    errorMsg = "";
-                }
+
                 else
                 {
                     if (FilterSettings.war3IconType == War3IconType.ClassicIcon && image.Width == 64 && image.Height == 64)

@@ -142,16 +142,22 @@
   <data name="Reforged_Icon_Border_Button" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\reforged_icon_border_button.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="Reforged_Icon_Border_AttackSpell" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\reforged_icon_border_attackspell.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="Reforged_Icon_Border_AttackSpell_Upgrade" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\reforged_icon_border_attackspell_upgrade.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="Icon_Border_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\icon_border_disabled.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Reforged_Icon_Border_Passive_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Reforged_Icon_Border_Passive_Disabled.TGA;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Reforged_Icon_Border_Attack" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Reforged_Icon_Border_Attack.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Reforged_Icon_Border_Attack_Upgrade" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Reforged_Icon_Border_Attack_Upgrade.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Icon_Border_Attack" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icon_Border_Attack.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Icon_Border_Attack_Upgrade" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icon_Border_Attack_Upgrade.tga;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

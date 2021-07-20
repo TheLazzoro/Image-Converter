@@ -44,13 +44,13 @@ namespace Image_Converter
             this.imagePreview = new System.Windows.Forms.PictureBox();
             this.panelChildForm = new System.Windows.Forms.Panel();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
+            this.colorBox = new System.Windows.Forms.PictureBox();
+            this.lblRGBA = new System.Windows.Forms.Label();
             this.lblPreviewError = new System.Windows.Forms.Label();
             this.lblFileSize = new System.Windows.Forms.Label();
             this.lblResolution = new System.Windows.Forms.Label();
             this.groupBoxPreview = new System.Windows.Forms.GroupBox();
             this.checkBoxTransparencyGrid = new System.Windows.Forms.CheckBox();
-            this.lblRGBA = new System.Windows.Forms.Label();
-            this.colorBox = new System.Windows.Forms.PictureBox();
             this.panelMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.iconMain)).BeginInit();
             this.panelTop.SuspendLayout();
@@ -59,8 +59,8 @@ namespace Image_Converter
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
-            this.groupBoxPreview.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.colorBox)).BeginInit();
+            this.groupBoxPreview.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelMenu
@@ -344,6 +344,29 @@ namespace Image_Converter
             this.splitContainer.SplitterDistance = 445;
             this.splitContainer.TabIndex = 16;
             // 
+            // colorBox
+            // 
+            this.colorBox.BackColor = System.Drawing.Color.Black;
+            this.colorBox.Location = new System.Drawing.Point(8, 11);
+            this.colorBox.Name = "colorBox";
+            this.colorBox.Size = new System.Drawing.Size(16, 16);
+            this.colorBox.TabIndex = 35;
+            this.colorBox.TabStop = false;
+            // 
+            // lblRGBA
+            // 
+            this.lblRGBA.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblRGBA.BackColor = System.Drawing.Color.Transparent;
+            this.lblRGBA.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblRGBA.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.lblRGBA.Location = new System.Drawing.Point(26, 11);
+            this.lblRGBA.Name = "lblRGBA";
+            this.lblRGBA.Size = new System.Drawing.Size(188, 16);
+            this.lblRGBA.TabIndex = 34;
+            this.lblRGBA.Text = "R:0 G:0 B:0 A:0";
+            this.lblRGBA.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // lblPreviewError
             // 
             this.lblPreviewError.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -416,29 +439,6 @@ namespace Image_Converter
             this.checkBoxTransparencyGrid.UseVisualStyleBackColor = true;
             this.checkBoxTransparencyGrid.CheckedChanged += new System.EventHandler(this.checkBoxTransparencyGrid_CheckedChanged);
             // 
-            // lblRGBA
-            // 
-            this.lblRGBA.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblRGBA.BackColor = System.Drawing.Color.Transparent;
-            this.lblRGBA.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblRGBA.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.lblRGBA.Location = new System.Drawing.Point(26, 11);
-            this.lblRGBA.Name = "lblRGBA";
-            this.lblRGBA.Size = new System.Drawing.Size(188, 16);
-            this.lblRGBA.TabIndex = 34;
-            this.lblRGBA.Text = "R:0 G:0 B:0 A:0";
-            this.lblRGBA.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // colorBox
-            // 
-            this.colorBox.BackColor = System.Drawing.Color.Black;
-            this.colorBox.Location = new System.Drawing.Point(8, 11);
-            this.colorBox.Name = "colorBox";
-            this.colorBox.Size = new System.Drawing.Size(16, 16);
-            this.colorBox.TabIndex = 35;
-            this.colorBox.TabStop = false;
-            // 
             // MainNew
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -464,8 +464,8 @@ namespace Image_Converter
             this.splitContainer.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
             this.splitContainer.ResumeLayout(false);
-            this.groupBoxPreview.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.colorBox)).EndInit();
+            this.groupBoxPreview.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

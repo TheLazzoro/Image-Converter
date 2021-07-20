@@ -90,7 +90,7 @@ namespace Image_Converter.Image_Processing
                     byte blueSource = imageToConvert[x, y].B;
                     byte alphaSource = imageToConvert[x, y].A;
 
-                    if (FilterSettings.war3IconType == War3IconType.ReforgedIcon && iconSetting == IconTypes.DISBTN || iconSetting == IconTypes.DISPAS || iconSetting == IconTypes.DISATC) // Disabled icon color saturation reduction
+                    if (FilterSettings.war3IconType == War3IconType.ReforgedIcon && (iconSetting == IconTypes.DISBTN || iconSetting == IconTypes.DISPAS || iconSetting == IconTypes.DISATC)) // Disabled icon color saturation reduction
                     {
                         int greyscale = (int)(redSource * 0.3 + greenSource * 0.59 + blueSource * 0.11);
 
@@ -142,7 +142,6 @@ namespace Image_Converter.Image_Processing
 
         private Image<Rgba32> AddATTUPGBorders(Image<Rgba32> imageToConvert, Image<Rgba32> border, IconTypes iconSetting)
         {
-
             int width = imageToConvert.Width;
             int height = imageToConvert.Height;
             Image<Rgba32> canvas = new Image<Rgba32>(width, height);
@@ -156,7 +155,6 @@ namespace Image_Converter.Image_Processing
             {
                 for (int y = 0; y < width; y++)
                 {
-
                     if (x < imageToConvert.Width && y < imageToConvert.Height)
                     {
                         canvas[x, y] = imageToConvert[x, y];
@@ -172,9 +170,12 @@ namespace Image_Converter.Image_Processing
                     byte blueBorder = border[x, y].B;
                     byte alphaBorder = border[x, y].A;
 
-                    if (border[x, y].R > 216 && border[x, y].G == 0 && border[x, y].B == 0) // Detects red on the border (Includes an unknown margin of error. The red color seems to go lower in the corners and sides?)
+                    // The outer transparent part of the actual applied border is red or (255,0,0), so we make that part fully transparent.
+                    // However, there is an unknown error when displaying the final icon. The red color seems to go down to 217 in the corners and sides?
+                    // This is compensated for here.
+                    if (border[x, y].R > 216 && border[x, y].G == 0 && border[x, y].B == 0)
                     {
-                        canvas[x, y] = new Rgba32(0,0,0,0); // the border's red color becomes 100% transparent
+                        canvas[x, y] = new Rgba32(0,0,0,0); // The border's red color becomes 100% transparent.
                     }
                     else if (alphaBorder != 0)
                     {

@@ -1,4 +1,5 @@
 ﻿using Image_Converter.Forms;
+using Image_Converter.Forms.New;
 using Image_Converter.Image_Processing;
 using Image_Converter.IO;
 using MetroSet_UI.Forms;
@@ -28,6 +29,7 @@ namespace Image_Converter
         FilterControl filterControl;
         ExportControl exportControl;
 
+        private Bitmap currentPreviewImageBitmap;
         private System.Drawing.Image currentPreviewReferenceImage;
         private System.Drawing.Image previewBackgroundImage;
 
@@ -366,7 +368,6 @@ namespace Image_Converter
 
         protected void UserControl_ExportAll(object sender, EventArgs e)
         {
-            
             ExportSettings.isMultipleFiles = true;
             UpdateExportSettings();
 
@@ -376,13 +377,8 @@ namespace Image_Converter
             {
                 fileEntries.Add(fileList[i].Tag.ToString());
             }
-
-            DialogResult dialogResult = MessageBox.Show("This action will overwrite any existing files with the same name in the output directory." +
-                "\n\nDo you want to continue?", "Confirmation", MessageBoxButtons.YesNo);
-            if (dialogResult == DialogResult.Yes)
-            {
-                exportControl.ExportAll(fileEntries);
-            }
+            
+            exportControl.ExportAll(fileEntries);
         }
 
         private void UpdateExportSettings()
@@ -394,7 +390,6 @@ namespace Image_Converter
             ExportSettings.imageQualityJpeg = exportControl.GetJPEGImageQuality();
             ExportSettings.selectedDDSCompression = exportControl.GetSelectedDDSCompression();
             ExportSettings.generateMipMaps = exportControl.isGenerateMipmaps();
-            ExportSettings.isMultipleFiles = true;
             if (exportControl.isDDSFastest())
                 ExportSettings.selectedDDSCompressionQuality = 0;
             else if (exportControl.isDDSBalanced())
@@ -513,7 +508,7 @@ namespace Image_Converter
                         lblPreviewError.Text = "Cannot display multiple icon filters";
                     else
                         lblPreviewError.Text = "";
-                        
+
                 }
 
                 if (FilterSettings.isResized)
@@ -607,8 +602,8 @@ namespace Image_Converter
                 {
                     correctedSize.Height = currentPreviewReferenceImage.Height;
                 }
-                Bitmap bmp = new Bitmap(currentPreviewReferenceImage, correctedSize);
-                imagePreview.Image = bmp;
+                currentPreviewImageBitmap = new Bitmap(currentPreviewReferenceImage, correctedSize);
+                imagePreview.Image = currentPreviewImageBitmap;
             }
             else
             {
@@ -634,12 +629,11 @@ namespace Image_Converter
 
         private void imagePreview_MouseMove(object sender, MouseEventArgs e)
         {
-            if(imagePreview.Image != null) { 
-                Bitmap b = new Bitmap(imagePreview.Image);
-                System.Drawing.Color color = b.GetPixel(e.X, e.Y);
+            if (imagePreview.Image != null)
+            {
+                System.Drawing.Color color = currentPreviewImageBitmap.GetPixel(e.X, e.Y);
                 colorBox.BackColor = color;
                 lblRGBA.Text = "R:" + color.R + " G:" + color.G + " B:" + color.B + " A:" + color.A;
-                b.Dispose();
             }
         }
     }

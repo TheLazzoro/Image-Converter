@@ -36,9 +36,11 @@
   <PropertyGroup>
     <SignManifests>false</SignManifests>
     <StartupObject />
-    <AssemblyName>Image Converter</AssemblyName>
+    <AssemblyName>Warcraft Image Lab</AssemblyName>
     <SignAssembly>false</SignAssembly>
-    <Authors />
+    <Authors>Warcraft Image Lab</Authors>
+    <PackageId>Warcraft Image Lab</PackageId>
+    <Win32Resource />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>

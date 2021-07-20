@@ -135,57 +135,64 @@ namespace Image_Converter.IO
                 errorMsg = "Image dimensions did not match selected icon dimensions.";
                 ImageFilters filters = new ImageFilters();
 
-                if (FilterSettings.isIconBTN)
+                if ((FilterSettings.war3IconType == War3IconType.ClassicIcon && imageToConvert.Width == 64 && imageToConvert.Height == 64) || (FilterSettings.war3IconType == War3IconType.ReforgedIcon && imageToConvert.Width == 256 && imageToConvert.Height == 256))
                 {
-                    prefix.Add("BTN");
-                    filteredImages.Add(filters.AddIconBorder(imageToConvert, IconTypes.BTN));
-                }
-                if (FilterSettings.isIconPAS)
-                {
-                    prefix.Add("PAS");
-                    filteredImages.Add(filters.AddIconBorder(imageToConvert, IconTypes.PAS));
-                }
-                if (FilterSettings.isIconATC)
-                {
-                    prefix.Add("ATC");
-                    filteredImages.Add(filters.AddIconBorder(imageToConvert, IconTypes.ATC));
-                }
-                if (FilterSettings.isIconDISBTN)
-                {
-                    prefix.Add("DISBTN");
-                    filteredImages.Add(filters.AddIconBorder(imageToConvert, IconTypes.DISBTN));
-                }
-                if (FilterSettings.isIconDISPAS)
-                {
-                    prefix.Add("DISPAS");
-                    filteredImages.Add(filters.AddIconBorder(imageToConvert, IconTypes.DISPAS));
-                }
-                if (FilterSettings.isIconDISATC)
-                {
-                    prefix.Add("DISATC");
-                    filteredImages.Add(filters.AddIconBorder(imageToConvert, IconTypes.DISATC));
-                }
-                if (FilterSettings.isIconATT)
-                {
-                    prefix.Add("ATT");
-                    filteredImages.Add(filters.AddIconBorder(imageToConvert, IconTypes.ATT));
-                }
-                if (FilterSettings.isIconUPG)
-                {
-                    prefix.Add("UPG");
-                    filteredImages.Add(filters.AddIconBorder(imageToConvert, IconTypes.UPG));
+                    if (FilterSettings.isIconBTN)
+                    {
+                        prefix.Add("BTN");
+                        filteredImages.Add(filters.AddIconBorder(imageToConvert, IconTypes.BTN));
+                    }
+                    if (FilterSettings.isIconPAS)
+                    {
+                        prefix.Add("PAS");
+                        filteredImages.Add(filters.AddIconBorder(imageToConvert, IconTypes.PAS));
+                    }
+                    if (FilterSettings.isIconATC)
+                    {
+                        prefix.Add("ATC");
+                        filteredImages.Add(filters.AddIconBorder(imageToConvert, IconTypes.ATC));
+                    }
+                    if (FilterSettings.isIconDISBTN)
+                    {
+                        prefix.Add("DISBTN");
+                        filteredImages.Add(filters.AddIconBorder(imageToConvert, IconTypes.DISBTN));
+                    }
+                    if (FilterSettings.isIconDISPAS)
+                    {
+                        prefix.Add("DISPAS");
+                        filteredImages.Add(filters.AddIconBorder(imageToConvert, IconTypes.DISPAS));
+                    }
+                    if (FilterSettings.isIconDISATC)
+                    {
+                        prefix.Add("DISATC");
+                        filteredImages.Add(filters.AddIconBorder(imageToConvert, IconTypes.DISATC));
+                    }
+                    if (FilterSettings.isIconATT)
+                    {
+                        prefix.Add("ATT");
+                        filteredImages.Add(filters.AddIconBorder(imageToConvert, IconTypes.ATT));
+                    }
+                    if (FilterSettings.isIconUPG)
+                    {
+                        prefix.Add("UPG");
+                        filteredImages.Add(filters.AddIconBorder(imageToConvert, IconTypes.UPG));
+                    }
+
+                    errorMsg = "No icon selected.";
+
+                    for (int i = 0; i < filteredImages.Count; i++)
+                    {
+                        if (FilterSettings.isResized)
+                        {
+                            filteredImages[i].Mutate(x => x.Resize(FilterSettings.resizeX, FilterSettings.resizeY));
+                        }
+                        ExportSettings.prefix = prefix[i];
+                        success = Convert(filteredImages[i]);
+                        errorMsg = "";
+                    }
+
                 }
 
-                for (int i = 0; i < filteredImages.Count; i++)
-                {
-                    if (FilterSettings.isResized)
-                    {
-                        filteredImages[i].Mutate(x => x.Resize(FilterSettings.resizeX, FilterSettings.resizeY));
-                    }
-                    ExportSettings.prefix = prefix[i];
-                    success = Convert(filteredImages[i]);
-                    errorMsg = "";
-                }
             }
 
             currentEntry++;
@@ -452,9 +459,7 @@ namespace Image_Converter.IO
             }
             catch (Exception ex)
             {
-
                 errorMsg = ex.Message;
-                throw;
             }
 
             return success;

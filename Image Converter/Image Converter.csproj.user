@@ -18,6 +18,12 @@
     <Compile Update="Forms\New\About.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\New\DialogBoxMessage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\New\DialogBoxResult.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\New\FileListControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

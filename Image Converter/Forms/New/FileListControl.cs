@@ -1,4 +1,5 @@
-﻿using Image_Converter.IO;
+﻿using Image_Converter.Forms.New;
+using Image_Converter.IO;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -42,17 +43,12 @@ namespace Image_Converter.Forms
 
         protected void btnClear_Click(object sender, EventArgs e)
         {
-            bool ok = false;
-            DialogResult dialogResult = MessageBox.Show("This action will clear the list. Do you want to continue?", "Confirmation", MessageBoxButtons.YesNo);
-            if (dialogResult == DialogResult.No)
-            {
-                ok = false;
-            }
-            else
-            {
-                ok = true;
-            }
-            if (ok)
+            DialogBoxResult dialog = new DialogBoxResult("Confirmation", "This action will clear the list. Do you want to continue?");
+            dialog.StartPosition = FormStartPosition.CenterParent;
+            dialog.ShowDialog(this);
+
+
+            if (dialog.ok == true)
             {
                 //bubble the event up to the parent
                 if (this.OnClearList != null)

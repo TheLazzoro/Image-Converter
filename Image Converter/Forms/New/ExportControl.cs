@@ -1,4 +1,5 @@
-﻿using Image_Converter.IO;
+﻿using Image_Converter.Forms.New;
+using Image_Converter.IO;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,7 +14,7 @@ namespace Image_Converter.Forms
     public partial class ExportControl : UserControl
     {
         Converter converter;
-        
+
         public ExportControl()
         {
             InitializeComponent();
@@ -36,44 +37,39 @@ namespace Image_Converter.Forms
 
         public void ExportSingle(string fileEntry)
         {
-            converter = new Converter();
-            converter.fileEntries = new string[] {fileEntry};
-
-            DialogResult dialogResult = MessageBox.Show("This action converts '" + fileEntry + "' with specified settings to the output directory.", "Convert Single File", MessageBoxButtons.OKCancel);
-            if (dialogResult == DialogResult.OK)
+            DialogBoxResult dialog = new DialogBoxResult("Convert Single File", "This action converts '" + fileEntry + "' with specified settings to the output directory.");
+            dialog.StartPosition = FormStartPosition.CenterParent;
+            dialog.ShowDialog(this);
+            if (dialog.ok == true)
             {
+                converter = new Converter();
+                converter.fileEntries = new string[] { fileEntry };
+
                 bool success = converter.ConvertWithFilters();
 
                 if (success)
                 {
-                    MessageBox.Show("Conversion successful!");
+                    DialogBoxMessage message = new DialogBoxMessage("Success", "Conversion successful!");
+                    message.StartPosition = FormStartPosition.CenterParent;
+                    message.ShowDialog(this);
                 }
                 else
                 {
-                    MessageBox.Show("Error: " + converter.errorMsg);
+                    DialogBoxMessage message = new DialogBoxMessage("Error", "Error: " + converter.errorMsg);
+                    message.StartPosition = FormStartPosition.CenterParent;
+                    message.ShowDialog(this);
                 }
             }
         }
-        
+
         public void ExportAll(List<string> fileEntries)
         {
             if (workerThread.IsBusy != true)
             {
-                btnExportAll.Text = "Stop";
-                listErrors.Items.Clear();
                 converter = new Converter();
                 converter.fileEntries = fileEntries.ToArray();
                 // Start the asynchronous operation.
                 workerThread.RunWorkerAsync();
-            } else
-            {
-                if (workerThread.WorkerSupportsCancellation == true)
-                {
-                    btnExportAll.Text = "Export All";
-
-                    // Cancel the asynchronous operation.
-                    workerThread.CancelAsync();
-                }
             }
         }
 
@@ -236,11 +232,12 @@ namespace Image_Converter.Forms
 
         private void chkBoxKeepFilenames_CheckedChanged(object sender, EventArgs e)
         {
-            if(chkBoxKeepFilenames.Checked)
+            if (chkBoxKeepFilenames.Checked)
             {
                 txtFileName.Enabled = false;
                 txtFileName.BackColor = Color.Gray;
-            } else
+            }
+            else
             {
                 txtFileName.Enabled = true;
                 txtFileName.BackColor = Color.White;
@@ -250,7 +247,8 @@ namespace Image_Converter.Forms
 
         private void btnShowFolder_Click(object sender, EventArgs e)
         {
-            Process.Start("explorer.exe", ExportSettings.outputDir);
+            string dir = ExportSettings.outputDir.Substring(0, ExportSettings.outputDir.Length - 1);
+            Process.Start("explorer.exe", dir);
         }
 
         [Browsable(true)]
@@ -260,12 +258,40 @@ namespace Image_Converter.Forms
 
         private void btnExportAll_Click(object sender, EventArgs e)
         {
-            //bubble the event up to the parent
-            if (this.OnExportAll != null)
-                this.OnExportAll(this, e);
+            if (workerThread.IsBusy != true)
+            {
+
+                DialogBoxResult dialog = new DialogBoxResult("Confirmation", "This action will overwrite any existing files with the same name in the output directory." +
+                "\n\nDo you want to continue?");
+                dialog.StartPosition = FormStartPosition.CenterParent;
+                dialog.ShowDialog(this);
+                if (dialog.ok == true)
+                {
+                    btnExportAll.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 100, 100);
+                    btnExportAll.Text = "Stop";
+                    listErrors.Items.Clear();
+                    //bubble the event up to the parent
+                    if (this.OnExportAll != null)
+                        this.OnExportAll(this, e);
+                }
+            } else
+            {
+                btnExportAll.FlatAppearance.MouseOverBackColor = Color.LimeGreen;
+                btnExportAll.Text = "Export All";
+
+                // Cancel the asynchronous operation.
+                workerThread.CancelAsync();
+            }
         }
 
-        
+        private void txtFileName_MouseHover(object sender, EventArgs e)
+        {
+            if (chkBoxKeepFilenames.Checked == false)
+            {
+                CustomTooltip.DisplayTooltip("Files get number suffixes when exporting multiple files. Ex: image_1.jpg, image_2.jpg...", txtFileName, 600);
+            }
+        }
+
         public string GetExportDirectory()
         {
             return lblOutputDirectory.Text + @"\";

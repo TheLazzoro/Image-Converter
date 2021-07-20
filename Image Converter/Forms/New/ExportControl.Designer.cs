@@ -85,6 +85,7 @@ namespace Image_Converter.Forms
             this.txtFileName.Name = "txtFileName";
             this.txtFileName.Size = new System.Drawing.Size(248, 22);
             this.txtFileName.TabIndex = 38;
+            this.txtFileName.MouseHover += new System.EventHandler(this.txtFileName_MouseHover);
             // 
             // lblFileFormat
             // 

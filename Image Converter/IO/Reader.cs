@@ -16,7 +16,8 @@ namespace Image_Converter.IO
         public string errorMsg = "";
         private BcDecoder bcDecoder;
 
-        public Reader() {
+        public Reader()
+        {
             this.bcDecoder = new BcDecoder();
         }
 
@@ -25,33 +26,43 @@ namespace Image_Converter.IO
             String fileExtension = GetInputFileFormat(filePath);
             string fileExtensionCorreced = fileExtension.ToLower();
             SixLabors.ImageSharp.Image<Rgba32> imageToConvert = null;
-
-            switch (fileExtensionCorreced)
+            try
             {
-                case ".jpg":
-                    imageToConvert = ReadLegacy(filePath);
-                    break;
-                case ".jpeg":
-                    imageToConvert = ReadLegacy(filePath);
-                    break;
-                case ".png":
-                    imageToConvert = ReadLegacy(filePath);
-                    break;
-                case ".bmp":
-                    imageToConvert = ReadLegacy(filePath);
-                    break;
-                case ".tga":
-                    imageToConvert = ReadLegacy(filePath);
-                    break;
-                case ".dds":
-                    imageToConvert = ReadDDS(filePath);
-                    break;
-                case ".blp":
-                    imageToConvert = ReadBLP(filePath);
-                    break;
-                default:
-                    errorMsg = "Unsupported input format.";
-                    break;
+                switch (fileExtensionCorreced)
+                {
+                    case ".jpg":
+                        imageToConvert = ReadLegacy(filePath);
+                        break;
+                    case ".jpeg":
+                        imageToConvert = ReadLegacy(filePath);
+                        break;
+                    case ".png":
+                        imageToConvert = ReadLegacy(filePath);
+                        break;
+                    case ".bmp":
+                        imageToConvert = ReadLegacy(filePath);
+                        break;
+                    case ".tga":
+                        imageToConvert = ReadLegacy(filePath);
+                        break;
+                    case ".dds":
+                        imageToConvert = ReadDDS(filePath);
+                        break;
+                    case ".blp":
+                        imageToConvert = ReadBLP(filePath);
+                        break;
+                    default:
+                        errorMsg = "Unsupported format.";
+                        break;
+                }
+            }
+            catch (FileNotFoundException)
+            {
+                errorMsg = "File not found.";
+            }
+            catch (Exception ex)
+            {
+                errorMsg = ex.Message;
             }
 
             return imageToConvert;
@@ -85,15 +96,7 @@ namespace Image_Converter.IO
         private SixLabors.ImageSharp.Image<Rgba32> ReadLegacy(String filePath)
         {
             SixLabors.ImageSharp.Image<Rgba32> image = null;
-
-            try
-            {
-                image = SixLabors.ImageSharp.Image.Load<Rgba32>(filePath);
-            }
-            catch (Exception ex)
-            {
-                errorMsg = ex.Message;
-            }
+            image = SixLabors.ImageSharp.Image.Load<Rgba32>(filePath);
 
             return image;
         }
@@ -102,62 +105,53 @@ namespace Image_Converter.IO
         {
             SixLabors.ImageSharp.Image<Rgba32> image = null;
 
-            try
-            {
-                /*
-                    FileStream fileStream = File.OpenRead(filePath);
-                    MemoryStream ms = new MemoryStream();
-                    fileStream.CopyTo(ms);
-                    fileStream.Close();
-                    fileStream.Dispose();
-                    Warcraft.BLP.BLP blpFile = new Warcraft.BLP.BLP(ms.ToArray());
-                    image = blpFile.GetMipMap(0);
-                */
-
+            /*
                 FileStream fileStream = File.OpenRead(filePath);
-                BlpFile blpFile = new BlpFile(fileStream);
-                int width;
-                int height;
-                blpFile.GetPixels(0, out width, out height);
-                // The library does not determine what's BLP1 and BLP2 properly, so we manually set bool bgra in GetPixels depending on the checkbox.
-                byte[] bytes = blpFile.GetPixels(0, out width, out height, FilterSettings.isBLP2); // 0 indicates first mipmap layer. width and height are assigned width and height in GetPixels().
-                var actualImage = blpFile.GetBitmapSource(0);
-                int bytesPerPixel = (actualImage.Format.BitsPerPixel + 7) / 8;
-                int stride = bytesPerPixel * actualImage.PixelWidth;
+                MemoryStream ms = new MemoryStream();
+                fileStream.CopyTo(ms);
+                fileStream.Close();
+                fileStream.Dispose();
+                Warcraft.BLP.BLP blpFile = new Warcraft.BLP.BLP(ms.ToArray());
+                image = blpFile.GetMipMap(0);
+            */
 
-                // blp read and convert
-                image = new SixLabors.ImageSharp.Image<Rgba32>(width, height);
+            FileStream fileStream = File.OpenRead(filePath);
+            BlpFile blpFile = new BlpFile(fileStream);
+            int width;
+            int height;
+            blpFile.GetPixels(0, out width, out height);
+            // The library does not determine what's BLP1 and BLP2 properly, so we manually set bool bgra in GetPixels depending on the checkbox.
+            byte[] bytes = blpFile.GetPixels(0, out width, out height, FilterSettings.isBLP2); // 0 indicates first mipmap layer. width and height are assigned width and height in GetPixels().
+            var actualImage = blpFile.GetBitmapSource(0);
+            int bytesPerPixel = (actualImage.Format.BitsPerPixel + 7) / 8;
+            int stride = bytesPerPixel * actualImage.PixelWidth;
 
-                for (int x = 0; x < width; x++)
-                {
-                    for (int y = 0; y < height; y++)
-                    {
-                        var offset = (y * stride) + (x * bytesPerPixel);
+            // blp read and convert
+            image = new SixLabors.ImageSharp.Image<Rgba32>(width, height);
 
-                        byte red;
-                        byte green;
-                        byte blue;
-                        byte alpha = 0;
-
-                        red = bytes[offset + 0];
-                        green = bytes[offset + 1];
-                        blue = bytes[offset + 2];
-                        alpha = bytes[offset + 3];
-
-                        Rgba32 pixel = new Rgba32(blue, green, red, alpha);
-
-                        image[x, y] = pixel; // assign color to pixel
-                    }
-                }
-
-                blpFile.Dispose();
-
-            }
-            catch (Exception ex)
+            for (int x = 0; x < width; x++)
             {
-                errorMsg = ex.Message;
+                for (int y = 0; y < height; y++)
+                {
+                    var offset = (y * stride) + (x * bytesPerPixel);
+
+                    byte red;
+                    byte green;
+                    byte blue;
+                    byte alpha = 0;
+
+                    red = bytes[offset + 0];
+                    green = bytes[offset + 1];
+                    blue = bytes[offset + 2];
+                    alpha = bytes[offset + 3];
+
+                    Rgba32 pixel = new Rgba32(blue, green, red, alpha);
+
+                    image[x, y] = pixel; // assign color to pixel
+                }
             }
 
+            blpFile.Dispose();
 
             return image;
         }
@@ -165,16 +159,8 @@ namespace Image_Converter.IO
         private SixLabors.ImageSharp.Image<Rgba32> ReadDDS(String filePath)
         {
             SixLabors.ImageSharp.Image<Rgba32> image = null;
-
-            try
-            {
-                using FileStream fs = File.OpenRead(filePath);
-                image = bcDecoder.Decode(fs);
-            }
-            catch (Exception ex)
-            {
-                errorMsg = ex.Message;
-            }
+            using FileStream fs = File.OpenRead(filePath);
+            image = bcDecoder.Decode(fs);
 
             return image;
         }

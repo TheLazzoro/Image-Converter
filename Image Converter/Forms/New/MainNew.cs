@@ -515,6 +515,9 @@ namespace Image_Converter
                 {
                     image.Mutate(x => x.Resize(FilterSettings.resizeX, FilterSettings.resizeY));
                 }
+            } else
+            {
+                lblPreviewError.Text = reader.errorMsg;
             }
 
             return image;
@@ -524,8 +527,6 @@ namespace Image_Converter
         {
             if (filePath != null)
             {
-                try
-                {
                     SixLabors.ImageSharp.Image<Rgba32> image = RenderPreview(filePath);
                     if (image != null)
                     {
@@ -546,25 +547,18 @@ namespace Image_Converter
                         lblResolution.Text = "Resolution: " + image.Width + "x" + image.Height;
 
                         image.Dispose();
+
+                        using (Stream fs = new FileStream(filePath, FileMode.Open))
+                        {
+                            lblFileSize.Text = GetFileSizeString(fs);
+                        }
                     }
                     else
                     {
                         imagePreview.Image = null;
                         currentPreviewReferenceImage = null;
                         lblResolution.Text = "Resolution: N/A";
-                        lblPreviewError.Text = "Preview unavailable";
                     }
-                    using (Stream fs = new FileStream(filePath, FileMode.Open))
-                    {
-                        lblFileSize.Text = GetFileSizeString(fs);
-                    }
-
-                }
-                catch (Exception)
-                {
-                    //MessageBox.Show("Unsupported format.");
-                    throw;
-                }
 
                 CenterAndScalePreviewImage();
             }

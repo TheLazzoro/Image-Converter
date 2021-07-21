@@ -1,3 +1,6 @@
 Image Converter/bin
 Image Converter/obj
 .vs
+Tests/bin
+Tests/obj
+TestResults

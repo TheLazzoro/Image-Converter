@@ -105,21 +105,10 @@ namespace Image_Converter.IO
         {
             SixLabors.ImageSharp.Image<Rgba32> image = null;
 
-            /*
-                FileStream fileStream = File.OpenRead(filePath);
-                MemoryStream ms = new MemoryStream();
-                fileStream.CopyTo(ms);
-                fileStream.Close();
-                fileStream.Dispose();
-                Warcraft.BLP.BLP blpFile = new Warcraft.BLP.BLP(ms.ToArray());
-                image = blpFile.GetMipMap(0);
-            */
-
             FileStream fileStream = File.OpenRead(filePath);
             BlpFile blpFile = new BlpFile(fileStream);
             int width;
             int height;
-            blpFile.GetPixels(0, out width, out height);
             // The library does not determine what's BLP1 and BLP2 properly, so we manually set bool bgra in GetPixels depending on the checkbox.
             byte[] bytes = blpFile.GetPixels(0, out width, out height, FilterSettings.isBLP2); // 0 indicates first mipmap layer. width and height are assigned width and height in GetPixels().
             var actualImage = blpFile.GetBitmapSource(0);

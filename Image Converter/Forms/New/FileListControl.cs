@@ -168,8 +168,6 @@ namespace Image_Converter.Forms
             }
         }
 
-
-
         private void DeleteRowsInList()
         {
             int indexFirstSelected = listFileEntries.SelectedItems[0].Index;
@@ -199,7 +197,5 @@ namespace Image_Converter.Forms
 
             lblItems.Text = "Items: " + listFileEntries.Items.Count;
         }
-
-
     }
 }

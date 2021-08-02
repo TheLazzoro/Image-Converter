@@ -45,15 +45,15 @@ namespace Image_Converter.Image_Processing
             {
                 if (iconSetting == IconTypes.BTN)
                     border = Image<Rgba32>.Load(Properties.Resources.Reforged_Icon_Border_Button);
-                if (iconSetting == IconTypes.PAS)
+                else if (iconSetting == IconTypes.PAS)
                     border = Image<Rgba32>.Load(Properties.Resources.Reforged_Icon_Border_Passive);
-                if (iconSetting == IconTypes.ATC)
+                else if (iconSetting == IconTypes.ATC)
                     border = Image<Rgba32>.Load(Properties.Resources.Reforged_Icon_Border_Autocast);
-                if (iconSetting == IconTypes.DISBTN)
+                else if (iconSetting == IconTypes.DISBTN)
                     border = Image<Rgba32>.Load(Properties.Resources.Reforged_Icon_Border_Disabled);
-                if (iconSetting == IconTypes.DISPAS)
+                else if (iconSetting == IconTypes.DISPAS)
                     border = Image<Rgba32>.Load(Properties.Resources.Reforged_Icon_Border_Passive_Disabled);
-                if (iconSetting == IconTypes.DISATC)
+                else if (iconSetting == IconTypes.DISATC)
                     border = Image<Rgba32>.Load(Properties.Resources.Reforged_Icon_Border_Disabled);
                 else if (iconSetting == IconTypes.ATT)
                     border = Image<Rgba32>.Load(Properties.Resources.Reforged_Icon_Border_Attack);
@@ -90,7 +90,8 @@ namespace Image_Converter.Image_Processing
                     byte blueSource = imageToConvert[x, y].B;
                     byte alphaSource = imageToConvert[x, y].A;
 
-                    if (FilterSettings.war3IconType == War3IconType.ReforgedIcon && (iconSetting == IconTypes.DISBTN || iconSetting == IconTypes.DISPAS || iconSetting == IconTypes.DISATC)) // Disabled icon color saturation reduction
+                    // Disabled icon color saturation reduction
+                    if (FilterSettings.war3IconType == War3IconType.ReforgedIcon && (iconSetting == IconTypes.DISBTN || iconSetting == IconTypes.DISPAS || iconSetting == IconTypes.DISATC))
                     {
                         int greyscale = (int)(redSource * 0.3 + greenSource * 0.59 + blueSource * 0.11);
 

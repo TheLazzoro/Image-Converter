@@ -35,6 +35,23 @@ namespace Image_Converter.Forms
             cmboxDDSList.SelectedIndex = 0;
         }
 
+        public void UpdateExportSettings()
+        {
+            ExportSettings.fileName = txtFileName.Text;
+            ExportSettings.outputDir = lblOutputDirectory.Text + @"\";
+            ExportSettings.selectedFileExtension = (ImageFormats)cmboxOutputFormat.SelectedIndex;
+            ExportSettings.keepFileNames = chkBoxKeepFilenames.Checked;
+            ExportSettings.imageQualityJpeg = trckbarImageQuality.Value * 10;
+            ExportSettings.selectedDDSCompression = cmboxDDSList.SelectedIndex;
+            ExportSettings.generateMipMaps = chkBoxMipmaps.Checked;
+            if (radBtnFastest.Checked)
+                ExportSettings.selectedDDSCompressionQuality = 0;
+            else if (radBtnBalanced.Checked)
+                ExportSettings.selectedDDSCompressionQuality = 1;
+            else
+                ExportSettings.selectedDDSCompressionQuality = 2;
+        }
+
         public void ExportSingle(string fileEntry)
         {
             DialogBoxResult dialog = new DialogBoxResult("Convert Single File", "This action converts '" + fileEntry + "' with specified settings to the output directory.");
@@ -96,7 +113,7 @@ namespace Image_Converter.Forms
                     else
                     {
                         Shared shared = new Shared();
-                        string[] error = { shared.GetInputFileNameAndExtension(converter.fileEntries[i]), converter.errorMsg };
+                        string[] error = { shared.GetFileNameAndExtension(converter.fileEntries[i]), converter.errorMsg };
                         worker.ReportProgress(i * 10000 / endIndex, error);
                         converter.totalErrors++;
                     }
@@ -291,56 +308,5 @@ namespace Image_Converter.Forms
                 CustomTooltip.DisplayTooltip("Files get number suffixes when exporting multiple files. Ex: image_1.jpg, image_2.jpg...", txtFileName, 600);
             }
         }
-
-        public string GetExportDirectory()
-        {
-            return lblOutputDirectory.Text + @"\";
-        }
-
-        public string GetFileName()
-        {
-            return txtFileName.Text;
-        }
-
-        public ImageFormats GetSelectedFileFormat()
-        {
-            return (ImageFormats)cmboxOutputFormat.SelectedIndex;
-        }
-
-        public bool isKeepFileNames()
-        {
-            return chkBoxKeepFilenames.Checked;
-        }
-
-        public int GetJPEGImageQuality()
-        {
-            return trckbarImageQuality.Value * 10;
-        }
-
-        public int GetSelectedDDSCompression()
-        {
-            return cmboxDDSList.SelectedIndex;
-        }
-
-        public bool isGenerateMipmaps()
-        {
-            return chkBoxMipmaps.Checked;
-        }
-
-        public bool isDDSFastest()
-        {
-            return radBtnFastest.Checked;
-        }
-
-        public bool isDDSBalanced()
-        {
-            return radBtnFastest.Checked;
-        }
-
-        public bool isDDSHigh()
-        {
-            return radBtnFastest.Checked;
-        }
-
     }
 }

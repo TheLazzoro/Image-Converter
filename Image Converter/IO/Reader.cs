@@ -14,6 +14,8 @@ namespace Image_Converter.IO
     public partial class Reader
     {
         public string errorMsg = "";
+        public string fileSizeString = "";
+        private Shared shared = new Shared();
         private BcDecoder bcDecoder;
 
         public Reader()
@@ -23,11 +25,13 @@ namespace Image_Converter.IO
 
         public SixLabors.ImageSharp.Image<Rgba32> ReadFile(String filePath)
         {
-            String fileExtension = GetInputFileFormat(filePath);
+            String fileExtension = shared.GetFileExtension(filePath);
             string fileExtensionCorreced = fileExtension.ToLower();
             SixLabors.ImageSharp.Image<Rgba32> imageToConvert = null;
             try
             {
+                fileSizeString = GetFileSizeString(filePath);
+
                 switch (fileExtensionCorreced)
                 {
                     case ".jpg":
@@ -68,29 +72,52 @@ namespace Image_Converter.IO
             return imageToConvert;
         }
 
-        private String GetInputFileFormat(String filePath)
+        public String GetFileSizeString(string filePath)
         {
-            String fileExtension = "";
+            String finalText = "";
+            String howBigBytes = "bytes";
 
-            char cCurrent;
-            int sub = 0;
-            bool end = false;
-            while (!end)
+            try
             {
-                cCurrent = filePath[filePath.Length - 1 - sub];
-                if (cCurrent == '.')
+                using (Stream fs = new FileStream(filePath, FileMode.Open))
                 {
-                    end = true;
-                }
-                fileExtension += cCurrent; // appends file extension to the string (opposite order, but we flip it later)
+                    long sizeBytes = fs.Length;
+                    String text = sizeBytes.ToString();
+                    int textLength = text.Length;
 
-                sub++;
+                    if (sizeBytes > 1000)
+                    {
+                        howBigBytes = "KB";
+                        sizeBytes = sizeBytes / 1000;
+                        text = sizeBytes.ToString();
+                        textLength = text.Length;
+                    }
+
+                    int dotPlacementHelper = 0;
+                    for (int i = textLength; i > 0; i--)
+                    {
+                        if (dotPlacementHelper % 3 == 0 && dotPlacementHelper != 0)
+                        {
+                            finalText += "." + text.Substring(i - 1, 1);
+                        }
+                        else
+                        {
+                            finalText += text.Substring(i - 1, 1);
+                        }
+                        dotPlacementHelper++;
+                    }
+                }
+            }
+            catch (System.Exception ex)
+            {
+                errorMsg = ex.Message;
             }
 
-            char[] charArray = fileExtension.ToCharArray();
+
+            char[] charArray = finalText.ToCharArray();
             Array.Reverse(charArray); // flips string
 
-            return new string(charArray);
+            return new string(charArray) + " " + howBigBytes;
         }
 
         private SixLabors.ImageSharp.Image<Rgba32> ReadLegacy(String filePath)

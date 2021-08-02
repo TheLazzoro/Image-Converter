@@ -100,10 +100,11 @@ namespace Image_Converter.Forms
             }
         }
 
-        public void AddFileToListSingle(string fileEntry, Stream stream)
+        public void AddFileToListSingle(string fileEntry)
         {
-            string filename = shared.GetInputFileNameAndExtension(fileEntry);
-            String[] row = { filename, shared.GetFileSizeString(stream) };
+            Reader reader = new Reader();
+            string filename = shared.GetFileNameAndExtension(fileEntry);
+            String[] row = { filename, reader.GetFileSizeString(fileEntry) };
             ListViewItem item = new ListViewItem(row);
             item.Tag = fileEntry;
             listFileEntries.Items.Add(item);
@@ -131,10 +132,7 @@ namespace Image_Converter.Forms
                 }
                 else
                 {
-                    using (Stream stream = new FileStream(item.ToString(), FileMode.Open))
-                    {
-                        AddFileToListSingle(item, stream); // adds selected item to fileEntries (this is a single file)
-                    }
+                    AddFileToListSingle(item); // adds selected item to fileEntries (this is a single file)
                 }
             }
             lblItems.Text = "Items: " + listFileEntries.Items.Count;

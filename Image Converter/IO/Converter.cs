@@ -127,7 +127,7 @@ namespace Image_Converter.IO
                         imageToConvert.Mutate(x => x.Resize(FilterSettings.resizeX, FilterSettings.resizeY));
                     }
 
-                    success = Convert(imageToConvert);
+                    success = Write(imageToConvert);
                 }
                 else
                 {
@@ -186,7 +186,7 @@ namespace Image_Converter.IO
                                 filteredImages[i].Mutate(x => x.Resize(FilterSettings.resizeX, FilterSettings.resizeY));
                             }
                             ExportSettings.prefix = prefix[i];
-                            success = Convert(filteredImages[i]);
+                            success = Write(filteredImages[i]);
                             errorMsg = "";
                         }
                     }
@@ -202,7 +202,7 @@ namespace Image_Converter.IO
             return success;
         }
 
-        private bool Convert(SixLabors.ImageSharp.Image<Rgba32> imageToConvert)
+        private bool Write(SixLabors.ImageSharp.Image<Rgba32> imageToConvert)
         {
             bool success = false;
 
@@ -210,17 +210,17 @@ namespace Image_Converter.IO
             if (imageToConvert != null)
             {
                 if (ExportSettings.selectedFileExtension == ImageFormats.JPG)
-                    success = ConvertToJpg(imageToConvert);
+                    success = WriteJpg(imageToConvert);
                 else if (ExportSettings.selectedFileExtension == ImageFormats.PNG)
-                    success = ConvertToPng(imageToConvert);
+                    success = WritePng(imageToConvert);
                 else if (ExportSettings.selectedFileExtension == ImageFormats.BMP)
-                    success = ConvertToBmp(imageToConvert);
+                    success = WriteBmp(imageToConvert);
                 else if (ExportSettings.selectedFileExtension == ImageFormats.TGA)
-                    success = ConvertToTga(imageToConvert);
+                    success = WriteTga(imageToConvert);
                 else if (ExportSettings.selectedFileExtension == ImageFormats.DDS)
-                    success = ConvertToDds(imageToConvert);
+                    success = WriteDds(imageToConvert);
                 else if (ExportSettings.selectedFileExtension == ImageFormats.BLP)
-                    success = ConvertToBlp(imageToConvert);
+                    success = WriteBlp(imageToConvert);
             }
 
             return success;
@@ -278,7 +278,7 @@ namespace Image_Converter.IO
             return path;
         }
 
-        private bool ConvertToJpg(SixLabors.ImageSharp.Image<Rgba32> imageToConvert)
+        private bool WriteJpg(SixLabors.ImageSharp.Image<Rgba32> imageToConvert)
         {
             bool success = false;
 
@@ -295,7 +295,7 @@ namespace Image_Converter.IO
             return success;
         }
 
-        private bool ConvertToPng(SixLabors.ImageSharp.Image<Rgba32> imageToConvert)
+        private bool WritePng(SixLabors.ImageSharp.Image<Rgba32> imageToConvert)
         {
             bool success = false;
 
@@ -312,7 +312,7 @@ namespace Image_Converter.IO
             return success;
         }
 
-        private bool ConvertToBmp(SixLabors.ImageSharp.Image<Rgba32> imageToConvert)
+        private bool WriteBmp(SixLabors.ImageSharp.Image<Rgba32> imageToConvert)
         {
             bool success = false;
 
@@ -329,7 +329,7 @@ namespace Image_Converter.IO
             return success;
         }
 
-        private bool ConvertToTga(SixLabors.ImageSharp.Image<Rgba32> imageToConvert)
+        private bool WriteTga(SixLabors.ImageSharp.Image<Rgba32> imageToConvert)
         {
             bool success = false;
 
@@ -346,7 +346,7 @@ namespace Image_Converter.IO
             return success;
         }
 
-        private bool ConvertToDds(SixLabors.ImageSharp.Image<Rgba32> imageToConvert)
+        private bool WriteDds(SixLabors.ImageSharp.Image<Rgba32> imageToConvert)
         {
             bool success = false;
             FileStream fs = null;
@@ -367,8 +367,8 @@ namespace Image_Converter.IO
             return success;
         }
 
-        // NOT YET IMPLEMENTED
-        private bool ConvertToBlp(SixLabors.ImageSharp.Image<Rgba32> imageToConvert)
+        // NOT FUNCTIONAL
+        private bool WriteBlp(SixLabors.ImageSharp.Image<Rgba32> imageToConvert)
         {
             bool success = false;
 

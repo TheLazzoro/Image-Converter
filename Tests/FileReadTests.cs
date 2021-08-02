@@ -78,5 +78,15 @@ namespace Image_Converter.Tests
 
             Assert.IsNull(image, reader.errorMsg);
         }
+
+        [TestMethod]
+        public void FileReadNonExisting()
+        {
+            Reader reader = new Reader();
+            string filePath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "none";
+            Image<Rgba32> image = reader.ReadFile(filePath);
+
+            Assert.IsNull(image, reader.errorMsg);
+        }
     }
 }

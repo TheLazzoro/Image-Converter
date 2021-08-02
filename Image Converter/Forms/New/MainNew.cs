@@ -289,14 +289,9 @@ namespace Image_Converter
                 }
                 else
                 {
-                    using (Stream stream = new FileStream(item.ToString(), FileMode.Open))
-                    {
-                        fileListControl.AddFileToListSingle(item, stream); // adds selected item to fileEntries (this is a single file)
-                    }
+                    fileListControl.AddFileToListSingle(item); // adds selected item to fileEntries (this is a single file)
                 }
             }
-
-            //verifyListAndOutputDirectory();
         }
 
         protected void UserControl_ImportSingleFile(object sender, EventArgs e)
@@ -311,15 +306,10 @@ namespace Image_Converter
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 string selectedFileName = openFileDialog1.FileName;
-                using (Stream stream = new FileStream(selectedFileName, FileMode.Open))
-                {
-                    fileListControl.AddFileToListSingle(selectedFileName, stream);
-                }
-                DisplayPreviewImage(selectedFileName);
-                //btnConvert.Enabled = true;
-            }
+                fileListControl.AddFileToListSingle(selectedFileName);
 
-            //verifyListAndOutputDirectory();
+                DisplayPreviewImage(selectedFileName);
+            }
         }
 
         protected void UserControl_ImportMultipleFiles(object sender, EventArgs e)
@@ -333,8 +323,6 @@ namespace Image_Converter
                     fileListControl.AddFilesInDirectory(fbd.SelectedPath, importControl.isSubfoldersChecked());
                 }
             }
-
-            //verifyListAndOutputDirectory();
         }
 
         protected void UserControl_ClearFileList(object sender, EventArgs e)
@@ -343,8 +331,6 @@ namespace Image_Converter
             currentPreviewReferenceImage = null;
             lblFileSize.Text = "0 KB";
             lblResolution.Text = "Resolution: N/A";
-
-            //verifyListAndOutputDirectory();
         }
 
         protected void UserControl_FilterChanged(object sender, EventArgs e)
@@ -360,7 +346,7 @@ namespace Image_Converter
         protected void UserControl_ExportSingle(object sender, EventArgs e)
         {
             ExportSettings.isMultipleFiles = false;
-            UpdateExportSettings();
+            exportControl.UpdateExportSettings();
 
             string fileEntry = fileListControl.GetCurrentSelectedFile();
             exportControl.ExportSingle(fileEntry);
@@ -369,7 +355,7 @@ namespace Image_Converter
         protected void UserControl_ExportAll(object sender, EventArgs e)
         {
             ExportSettings.isMultipleFiles = true;
-            UpdateExportSettings();
+            exportControl.UpdateExportSettings();
 
             ListView.ListViewItemCollection fileList = fileListControl.GetAllFileEntries();
             List<string> fileEntries = new List<string>();
@@ -377,25 +363,8 @@ namespace Image_Converter
             {
                 fileEntries.Add(fileList[i].Tag.ToString());
             }
-            
-            exportControl.ExportAll(fileEntries);
-        }
 
-        private void UpdateExportSettings()
-        {
-            ExportSettings.fileName = exportControl.GetFileName();
-            ExportSettings.outputDir = exportControl.GetExportDirectory();
-            ExportSettings.selectedFileExtension = exportControl.GetSelectedFileFormat();
-            ExportSettings.keepFileNames = exportControl.isKeepFileNames();
-            ExportSettings.imageQualityJpeg = exportControl.GetJPEGImageQuality();
-            ExportSettings.selectedDDSCompression = exportControl.GetSelectedDDSCompression();
-            ExportSettings.generateMipMaps = exportControl.isGenerateMipmaps();
-            if (exportControl.isDDSFastest())
-                ExportSettings.selectedDDSCompressionQuality = 0;
-            else if (exportControl.isDDSBalanced())
-                ExportSettings.selectedDDSCompressionQuality = 1;
-            else
-                ExportSettings.selectedDDSCompressionQuality = 2;
+            exportControl.ExportAll(fileEntries);
         }
 
         private void groupBoxPreview_Resize(object sender, EventArgs e)
@@ -403,162 +372,42 @@ namespace Image_Converter
             CenterAndScalePreviewImage();
         }
 
-        private String GetInputFileNameAndExtension(String filePath)
-        {
-            String fileName = "";
-
-            char cCurrent;
-            int sub = 0;
-            bool start = true;
-            bool end = false;
-            while (!end)
-            {
-                cCurrent = filePath[filePath.Length - 1 - sub];
-                if (start)
-                {
-                    if (cCurrent == '/' || cCurrent == '\\')
-                    {
-                        end = true;
-                    }
-                    if (!end)
-                    {
-                        fileName += cCurrent; // appends file name to the string (opposite order, but we flip it later)
-                    }
-                }
-
-                sub++;
-            }
-
-            char[] charArray = fileName.ToCharArray();
-            Array.Reverse(charArray); // flips string
-
-            return new string(charArray);
-        }
-
-        private String GetFileSizeString(Stream stream)
-        {
-            long sizeBytes = stream.Length;
-            String text = sizeBytes.ToString();
-            int textLength = text.Length;
-            String howBigBytes = "bytes";
-
-            if (sizeBytes > 1000)
-            {
-                howBigBytes = "KB";
-                sizeBytes = sizeBytes / 1000;
-                text = sizeBytes.ToString();
-                textLength = text.Length;
-            }
-
-            String finalText = "";
-            int dotPlacementHelper = 0;
-            for (int i = textLength; i > 0; i--)
-            {
-                if (dotPlacementHelper % 3 == 0 && dotPlacementHelper != 0)
-                {
-                    finalText += "." + text.Substring(i - 1, 1);
-                }
-                else
-                {
-                    finalText += text.Substring(i - 1, 1);
-                }
-                dotPlacementHelper++;
-            }
-
-            char[] charArray = finalText.ToCharArray();
-            Array.Reverse(charArray); // flips string
-
-            return new string(charArray) + " " + howBigBytes;
-        }
-
-        public SixLabors.ImageSharp.Image<Rgba32> RenderPreview(String filePath)
-        {
-            Reader reader = new Reader();
-            SixLabors.ImageSharp.Image<Rgba32> image = reader.ReadFile(filePath);
-            if (image != null)
-            {
-                ImageFilters filters = new ImageFilters();
-                int iconsChecked = 0;
-                if (FilterSettings.isIconBTN) iconsChecked++;
-                if (FilterSettings.isIconPAS) iconsChecked++;
-                if (FilterSettings.isIconATC) iconsChecked++;
-                if (FilterSettings.isIconDISBTN) iconsChecked++;
-                if (FilterSettings.isIconDISPAS) iconsChecked++;
-                if (FilterSettings.isIconDISATC) iconsChecked++;
-                if (FilterSettings.isIconATT) iconsChecked++;
-                if (FilterSettings.isIconUPG) iconsChecked++;
-
-                if (iconsChecked <= 1) // Classic icons
-                {
-                    if (FilterSettings.isIconBTN) image = filters.AddIconBorder(image, IconTypes.BTN);
-                    if (FilterSettings.isIconPAS) image = filters.AddIconBorder(image, IconTypes.PAS);
-                    if (FilterSettings.isIconATC) image = filters.AddIconBorder(image, IconTypes.ATC);
-                    if (FilterSettings.isIconDISBTN) image = filters.AddIconBorder(image, IconTypes.DISBTN);
-                    if (FilterSettings.isIconDISPAS) image = filters.AddIconBorder(image, IconTypes.DISPAS);
-                    if (FilterSettings.isIconDISATC) image = filters.AddIconBorder(image, IconTypes.DISATC);
-                    if (FilterSettings.isIconATT) image = filters.AddIconBorder(image, IconTypes.ATT);
-                    if (FilterSettings.isIconUPG) image = filters.AddIconBorder(image, IconTypes.UPG);
-                    lblPreviewError.Text = "";
-                }
-                else
-                {
-                    if (FilterSettings.war3IconType == War3IconType.ClassicIcon && iconsChecked > 1 && image.Width == 64 && image.Height == 64)
-                        lblPreviewError.Text = "Cannot display multiple icon filters";
-                    else if (FilterSettings.war3IconType == War3IconType.ReforgedIcon && iconsChecked > 1 && image.Width == 256 && image.Height == 256)
-                        lblPreviewError.Text = "Cannot display multiple icon filters";
-                    else
-                        lblPreviewError.Text = "";
-
-                }
-
-                if (FilterSettings.isResized)
-                {
-                    image.Mutate(x => x.Resize(FilterSettings.resizeX, FilterSettings.resizeY));
-                }
-            } else
-            {
-                lblPreviewError.Text = reader.errorMsg;
-            }
-
-            return image;
-        }
-
         private void DisplayPreviewImage(String filePath)
         {
             if (filePath != null)
             {
-                    SixLabors.ImageSharp.Image<Rgba32> image = RenderPreview(filePath);
-                    if (image != null)
+                Preview preview = new Preview();
+                SixLabors.ImageSharp.Image<Rgba32> image = preview.RenderPreview(filePath);
+                lblPreviewError.Text = preview.errorMsg;
+
+                if (image != null)
+                {
+                    Bitmap actualPreview = new Bitmap(image.Width, image.Height);
+
+                    Stream stream = new System.IO.MemoryStream();
+                    SixLabors.ImageSharp.Formats.Bmp.BmpEncoder bmpEncoder = new SixLabors.ImageSharp.Formats.Bmp.BmpEncoder(); // we need an encoder to preserve transparency.
+                    bmpEncoder.BitsPerPixel = SixLabors.ImageSharp.Formats.Bmp.BmpBitsPerPixel.Pixel32; // bitmap transparency needs 32 bits per pixel before we set transparency support.
+                    bmpEncoder.SupportTransparency = true;
+                    image.SaveAsBmp(stream, bmpEncoder);
+                    System.Drawing.Image img = System.Drawing.Image.FromStream(stream);
+                    if (imagePreview.Image != null)
                     {
-                        Bitmap actualPreview = new Bitmap(image.Width, image.Height);
-
-                        Stream stream = new System.IO.MemoryStream();
-                        SixLabors.ImageSharp.Formats.Bmp.BmpEncoder bmpEncoder = new SixLabors.ImageSharp.Formats.Bmp.BmpEncoder(); // we need an encoder to preserve transparency.
-                        bmpEncoder.BitsPerPixel = SixLabors.ImageSharp.Formats.Bmp.BmpBitsPerPixel.Pixel32; // bitmap transparency needs 32 bits per pixel before we set transparency support.
-                        bmpEncoder.SupportTransparency = true;
-                        image.SaveAsBmp(stream, bmpEncoder);
-                        System.Drawing.Image img = System.Drawing.Image.FromStream(stream);
-                        if (imagePreview.Image != null)
-                        {
-                            imagePreview.Image.Dispose();
-                        }
-                        imagePreview.Image = img;
-                        currentPreviewReferenceImage = img;
-                        lblResolution.Text = "Resolution: " + image.Width + "x" + image.Height;
-
-                        image.Dispose();
-
-                        using (Stream fs = new FileStream(filePath, FileMode.Open))
-                        {
-                            lblFileSize.Text = GetFileSizeString(fs);
-                        }
+                        imagePreview.Image.Dispose();
                     }
-                    else
-                    {
-                        imagePreview.Image = null;
-                        currentPreviewReferenceImage = null;
-                        lblResolution.Text = "Resolution: N/A";
-                    }
+                    imagePreview.Image = img;
+                    currentPreviewReferenceImage = img;
+                    lblResolution.Text = "Resolution: " + image.Width + "x" + image.Height;
+
+                    image.Dispose();
+
+                    lblFileSize.Text = preview.fileSizeString;
+                }
+                else
+                {
+                    imagePreview.Image = null;
+                    currentPreviewReferenceImage = null;
+                    lblResolution.Text = "Resolution: N/A";
+                }
 
                 CenterAndScalePreviewImage();
             }
@@ -568,23 +417,20 @@ namespace Image_Converter
         {
             if (currentPreviewReferenceImage != null)
             {
+                int newWindowX = groupBoxPreview.Width - 24;
+                int newWindowY = groupBoxPreview.Height - 32;
+                
+                float previewWindowRatio = (float)newWindowX / (float)newWindowY;
                 float sourceImgRatio = (float)currentPreviewReferenceImage.Width / (float)currentPreviewReferenceImage.Height;
-                float previewWindowRatio = (float)groupBoxPreview.Width / (float)groupBoxPreview.Height;
-                int paddingY = 40;
-                float paddingX = paddingY * sourceImgRatio;
                 System.Drawing.Size correctedSize;
-                if (currentPreviewReferenceImage.Width <= paddingX && currentPreviewReferenceImage.Height <= paddingY) // prevent negative pixel width/height
-                {
-                    paddingX = 0;
-                    paddingY = 0;
-                }
+                
                 if (previewWindowRatio > sourceImgRatio)
                 {
-                    correctedSize = new System.Drawing.Size((int)(groupBoxPreview.Height * sourceImgRatio - paddingX), (int)(groupBoxPreview.Height - paddingY));
+                    correctedSize = new System.Drawing.Size((int)(newWindowY * sourceImgRatio), (int)(newWindowY));
                 }
                 else
                 {
-                    correctedSize = new System.Drawing.Size((int)(groupBoxPreview.Width - paddingX), (int)(groupBoxPreview.Width / sourceImgRatio - paddingY));
+                    correctedSize = new System.Drawing.Size((int)(newWindowX), (int)(newWindowX / sourceImgRatio));
                 }
 
                 // Preview window size exceeds image size

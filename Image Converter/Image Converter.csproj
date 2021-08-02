@@ -22,6 +22,9 @@
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
   <PropertyGroup>
+  <DebugType>embedded</DebugType>
+</PropertyGroup>
+  <PropertyGroup>
     <ApplicationIcon>App-Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>

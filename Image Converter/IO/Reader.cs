@@ -3,6 +3,8 @@ using Image_Converter.Image_Processing;
 using SixLabors.ImageSharp.PixelFormats;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -11,23 +13,23 @@ using War3Net.Drawing.Blp;
 
 namespace Image_Converter.IO
 {
-    public partial class Reader
+    public static class Reader
     {
-        public string errorMsg = "";
-        public string fileSizeString = "";
-        private Shared shared = new Shared();
-        private BcDecoder bcDecoder;
+        public static Bitmap image = null;
+        public static string errorMsg = "";
+        public static string fileSizeString = "";
+        private static Shared shared = new Shared();
+        private static BcDecoder bcDecoder = new BcDecoder();
 
-        public Reader()
+        public static void ReadFile(string filePath)
         {
-            this.bcDecoder = new BcDecoder();
-        }
+            if(image != null) {
+                image.Dispose();
+            }
+            image = null;
 
-        public SixLabors.ImageSharp.Image<Rgba32> ReadFile(String filePath)
-        {
-            String fileExtension = shared.GetFileExtension(filePath);
+            string fileExtension = shared.GetFileExtension(filePath);
             string fileExtensionCorreced = fileExtension.ToLower();
-            SixLabors.ImageSharp.Image<Rgba32> imageToConvert = null;
             try
             {
                 fileSizeString = GetFileSizeString(filePath);
@@ -35,25 +37,28 @@ namespace Image_Converter.IO
                 switch (fileExtensionCorreced)
                 {
                     case ".jpg":
-                        imageToConvert = ReadLegacy(filePath);
+                        image = ReadLegacy(filePath);
                         break;
                     case ".jpeg":
-                        imageToConvert = ReadLegacy(filePath);
+                        image = ReadLegacy(filePath);
                         break;
                     case ".png":
-                        imageToConvert = ReadLegacy(filePath);
+                        image = ReadLegacy(filePath);
                         break;
                     case ".bmp":
-                        imageToConvert = ReadLegacy(filePath);
+                        image = ReadLegacy(filePath);
                         break;
                     case ".tga":
-                        imageToConvert = ReadLegacy(filePath);
+                        image = ReadTGA(filePath);
                         break;
                     case ".dds":
-                        imageToConvert = ReadDDS(filePath);
+                        image = ReadDDS(filePath);
                         break;
                     case ".blp":
-                        imageToConvert = ReadBLP(filePath);
+                        image = ReadBLP(filePath);
+                        break;
+                    case ".cr2":
+                        image = ReadCR2(filePath);
                         break;
                     default:
                         errorMsg = "Unsupported format.";
@@ -68,11 +73,9 @@ namespace Image_Converter.IO
             {
                 errorMsg = ex.Message;
             }
-
-            return imageToConvert;
         }
 
-        public String GetFileSizeString(string filePath)
+        public static String GetFileSizeString(string filePath)
         {
             String finalText = "";
             String howBigBytes = "bytes";
@@ -120,18 +123,23 @@ namespace Image_Converter.IO
             return new string(charArray) + " " + howBigBytes;
         }
 
-        private SixLabors.ImageSharp.Image<Rgba32> ReadLegacy(String filePath)
+        private static Bitmap ReadLegacy(String filePath)
         {
-            SixLabors.ImageSharp.Image<Rgba32> image = null;
-            image = SixLabors.ImageSharp.Image.Load<Rgba32>(filePath);
-
-            return image;
+            using(FileStream fs = new FileStream(filePath, FileMode.Open)) {
+                Bitmap bitmap = new Bitmap(Image.FromStream(fs));
+                return bitmap;
+            }
         }
 
-        private SixLabors.ImageSharp.Image<Rgba32> ReadBLP(String filePath)
+        private static Bitmap ReadTGA(String filePath)
         {
-            SixLabors.ImageSharp.Image<Rgba32> image = null;
+            SixLabors.ImageSharp.Image<Rgba32> image = SixLabors.ImageSharp.Image.Load<Rgba32>(filePath);
 
+            return Converter.ToBitmap(image);
+        }
+
+        private static Bitmap ReadBLP(String filePath)
+        {
             FileStream fileStream = File.OpenRead(filePath);
             BlpFile blpFile = new BlpFile(fileStream);
             int width;
@@ -143,7 +151,7 @@ namespace Image_Converter.IO
             int stride = bytesPerPixel * actualImage.PixelWidth;
 
             // blp read and convert
-            image = new SixLabors.ImageSharp.Image<Rgba32>(width, height);
+            Bitmap image = new Bitmap(width, height);
 
             for (int x = 0; x < width; x++)
             {
@@ -161,9 +169,7 @@ namespace Image_Converter.IO
                     blue = bytes[offset + 2];
                     alpha = bytes[offset + 3];
 
-                    Rgba32 pixel = new Rgba32(blue, green, red, alpha);
-
-                    image[x, y] = pixel; // assign color to pixel
+                    image.SetPixel(x, y, Color.FromArgb(alpha, red, green, blue)); // assign color to pixel
                 }
             }
 
@@ -172,13 +178,76 @@ namespace Image_Converter.IO
             return image;
         }
 
-        private SixLabors.ImageSharp.Image<Rgba32> ReadDDS(String filePath)
+        private static Bitmap ReadDDS(String filePath)
         {
             SixLabors.ImageSharp.Image<Rgba32> image = null;
             using FileStream fs = File.OpenRead(filePath);
             image = bcDecoder.Decode(fs);
 
-            return image;
+            return Converter.ToBitmap(image);
+        }
+
+        private static Bitmap ReadCR2(String filePath)
+        {
+            int _bufferSize = 512 * 1024;
+            byte[] _buffer = new byte[_bufferSize];
+            ImageCodecInfo _jpgImageCodec = GetJpegCodec();
+
+
+            Bitmap bitmap = null;
+            
+            using (FileStream fi = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read, _bufferSize, FileOptions.None))
+            {
+                // Start address is at offset 0x62, file size at 0x7A, orientation at 0x6E
+                fi.Seek(0x62, SeekOrigin.Begin);
+                BinaryReader br = new BinaryReader(fi);
+                UInt32 jpgStartPosition = br.ReadUInt32();  // 62
+                br.ReadUInt32();  // 66
+                br.ReadUInt32();  // 6A
+                UInt32 orientation = br.ReadUInt32() & 0x000000FF; // 6E
+                br.ReadUInt32();  // 72
+                br.ReadUInt32();  // 76
+                Int32 fileSize = br.ReadInt32();  // 7A
+
+                fi.Seek(jpgStartPosition, SeekOrigin.Begin);
+
+                PartialStream ps = new PartialStream(fi, jpgStartPosition, fileSize);
+
+                bitmap = new Bitmap(ps);
+
+                try
+                {
+                    if (_jpgImageCodec != null && (orientation == 8 || orientation == 6))
+                    {
+                        if (orientation == 8)
+                            bitmap.RotateFlip(RotateFlipType.Rotate270FlipNone);
+                        else
+                            bitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Image Skipped
+                }
+
+                ps.Dispose();
+            }
+
+            return bitmap;
+        }
+
+        private static ImageCodecInfo GetJpegCodec()
+        {
+            foreach (ImageCodecInfo c in ImageCodecInfo.GetImageEncoders())
+            {
+                if (c.CodecName.ToLower().Contains("jpeg")
+                    || c.FilenameExtension.ToLower().Contains("*.jpg")
+                    || c.FormatDescription.ToLower().Contains("jpeg")
+                    || c.MimeType.ToLower().Contains("image/jpeg"))
+                    return c;
+            }
+
+            return null;
         }
     }
 }

@@ -16,18 +16,15 @@ namespace Image_Converter
 {
     public partial class MultiConvertProgress : Form
     {
-        Converter converter;
         public String outputDir;
         private int errors = 0;
 
-        public MultiConvertProgress(Converter converter)
+        public MultiConvertProgress()
         {
             InitializeComponent();
             backgroundWorker1.WorkerReportsProgress = true;
             backgroundWorker1.WorkerSupportsCancellation = true;
 
-            this.converter = converter;
- 
             start();
         }
 
@@ -39,7 +36,7 @@ namespace Image_Converter
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker worker = sender as BackgroundWorker;
-            int endIndex = converter.fileEntries.Length;
+            int endIndex = Converter.fileEntries.Length;
 
             for (int i = 0; i < endIndex; i++)
             {
@@ -50,14 +47,14 @@ namespace Image_Converter
                 }
                 else
                 {
-                    bool isConvertSuccess = converter.ConvertWithFilters(); // convert
+                    bool isConvertSuccess = Converter.ConvertWithFilters(); // convert
 
                     if(isConvertSuccess)
                     {
                         worker.ReportProgress(i * 10000 / endIndex);
                     } else
                     {
-                        worker.ReportProgress(i * 10000 / endIndex, converter.fileEntries[i]);
+                        worker.ReportProgress(i * 10000 / endIndex, Converter.fileEntries[i]);
                         errors++;
                     }
                 }
@@ -77,7 +74,7 @@ namespace Image_Converter
         {
             lblPercent.Text = ((e.ProgressPercentage / 100).ToString() + "%");
             progressBar.Value = e.ProgressPercentage / 100;
-            lblProgress.Text = e.ProgressPercentage * converter.fileEntries.Length / 10000 + "/" + converter.fileEntries.Length;
+            lblProgress.Text = e.ProgressPercentage * Converter.fileEntries.Length / 10000 + "/" + Converter.fileEntries.Length;
             if (e.UserState != null)
             {
                 object item = e.UserState;
@@ -101,7 +98,7 @@ namespace Image_Converter
             {
                 progressBar.Value = 100;
                 lblPercent.Text = "Completed!";
-                lblProgress.Text = converter.fileEntries.Length + "/" + converter.fileEntries.Length;
+                lblProgress.Text = Converter.fileEntries.Length + "/" + Converter.fileEntries.Length;
                 this.Text = "Completed!";
             }
         }

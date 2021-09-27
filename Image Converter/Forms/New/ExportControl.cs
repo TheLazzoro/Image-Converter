@@ -13,8 +13,6 @@ namespace Image_Converter.Forms
 {
     public partial class ExportControl : UserControl
     {
-        Converter converter;
-
         public ExportControl()
         {
             InitializeComponent();
@@ -59,10 +57,10 @@ namespace Image_Converter.Forms
             dialog.ShowDialog(this);
             if (dialog.ok == true)
             {
-                converter = new Converter();
-                converter.fileEntries = new string[] { fileEntry };
+                Converter.InitConverter();
+                Converter.fileEntries = new string[] { fileEntry };
 
-                bool success = converter.ConvertWithFilters();
+                bool success = Converter.ConvertWithFilters();
 
                 if (success)
                 {
@@ -72,7 +70,7 @@ namespace Image_Converter.Forms
                 }
                 else
                 {
-                    DialogBoxMessage message = new DialogBoxMessage("Error", "Error: " + converter.errorMsg);
+                    DialogBoxMessage message = new DialogBoxMessage("Error", "Error: " + Converter.errorMsg);
                     message.StartPosition = FormStartPosition.CenterParent;
                     message.ShowDialog(this);
                 }
@@ -83,8 +81,8 @@ namespace Image_Converter.Forms
         {
             if (workerThread.IsBusy != true)
             {
-                converter = new Converter();
-                converter.fileEntries = fileEntries.ToArray();
+                Converter.InitConverter();
+                Converter.fileEntries = fileEntries.ToArray();
                 // Start the asynchronous operation.
                 workerThread.RunWorkerAsync();
             }
@@ -93,7 +91,7 @@ namespace Image_Converter.Forms
         private void workerThread_DoWork(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker worker = sender as BackgroundWorker;
-            int endIndex = converter.fileEntries.Length;
+            int endIndex = Converter.fileEntries.Length;
 
             for (int i = 0; i < endIndex; i++)
             {
@@ -104,7 +102,7 @@ namespace Image_Converter.Forms
                 }
                 else
                 {
-                    bool isConvertSuccess = converter.ConvertWithFilters(); // convert
+                    bool isConvertSuccess = Converter.ConvertWithFilters(); // convert
 
                     if (isConvertSuccess)
                     {
@@ -113,9 +111,9 @@ namespace Image_Converter.Forms
                     else
                     {
                         Shared shared = new Shared();
-                        string[] error = { shared.GetFileNameAndExtension(converter.fileEntries[i]), converter.errorMsg };
+                        string[] error = { shared.GetFileNameAndExtension(Converter.fileEntries[i]), Converter.errorMsg };
                         worker.ReportProgress(i * 10000 / endIndex, error);
-                        converter.totalErrors++;
+                        Converter.totalErrors++;
                     }
                 }
             }
@@ -125,14 +123,14 @@ namespace Image_Converter.Forms
         {
             lblPercent.Text = ((e.ProgressPercentage / 100).ToString() + "%");
             progressBar.Value = e.ProgressPercentage / 100;
-            lblProgress.Text = e.ProgressPercentage * converter.fileEntries.Length / 10000 + "/" + converter.fileEntries.Length;
+            lblProgress.Text = e.ProgressPercentage * Converter.fileEntries.Length / 10000 + "/" + Converter.fileEntries.Length;
             if (e.UserState != null)
             {
                 object item = e.UserState;
                 string[] item2 = (string[])item;
                 ListViewItem listItem = new ListViewItem(item2);
                 listErrors.Items.Add(listItem);
-                lblErrors.Text = "Errors: " + converter.totalErrors;
+                lblErrors.Text = "Errors: " + Converter.totalErrors;
                 lblErrors.ForeColor = Color.FromArgb(255, 100, 100);
             }
         }
@@ -150,7 +148,7 @@ namespace Image_Converter.Forms
             {
                 progressBar.Value = 100;
                 lblPercent.Text = "Completed!";
-                lblProgress.Text = converter.fileEntries.Length + "/" + converter.fileEntries.Length;
+                lblProgress.Text = Converter.fileEntries.Length + "/" + Converter.fileEntries.Length;
             }
         }
 

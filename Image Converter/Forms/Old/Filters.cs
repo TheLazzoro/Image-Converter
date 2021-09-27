@@ -12,13 +12,11 @@ namespace Image_Converter
 {
     public partial class Filters : Form
     {
-        Converter converter;
         ImageFilters imageFilters;
 
-        public Filters(Converter converter)
+        public Filters()
         {
             InitializeComponent();
-            this.converter = converter;
             this.imageFilters = new ImageFilters();
             
             if (FilterSettings.war3IconType == War3IconType.None) radioBtnNone.Checked = true;

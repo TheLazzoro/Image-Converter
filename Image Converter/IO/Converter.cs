@@ -12,24 +12,28 @@ using BCnEncoder.Decoder;
 using System.Runtime.InteropServices;
 using Image_Converter.Image_Processing;
 using System.Collections.Generic;
+using System.Drawing;
+using SixLabors.ImageSharp.Advanced;
+using System.Drawing.Imaging;
 
 namespace Image_Converter.IO
 {
-    public partial class Converter
+    public static class Converter
     {
-        public string debugString = "";
-        public String[] fileEntries;
-        int currentEntry = 0;
-        public String errorMsg;
-        private Reader reader;
-        private BcEncoder bcEncoder;
-        private JpegEncoder jpegEncoder;
-        private Warcraft.BLP.TextureCompressionType blpEncoder;
-        public int totalErrors = 0;
+        public static string debugString = "";
+        public static string[] fileEntries;
+        static int currentEntry = 0;
+        public static string errorMsg;
+        private static BcEncoder bcEncoder;
+        private static ImageCodecInfo jpgEncoder; // for JPG compression
+        private static EncoderParameter encoderParameter; // for JPG compression
+        private static EncoderParameters encoderParameters; // for JPG compression
+        private static Warcraft.BLP.TextureCompressionType blpEncoder;
+        public static int totalErrors = 0;
 
-        public Converter()
+        public static void InitConverter()
         {
-            reader = new Reader();
+            currentEntry = 0; // Reset for next conversion
 
             switch (ExportSettings.selectedFileExtension)
             {
@@ -58,8 +62,21 @@ namespace Image_Converter.IO
             // ----
             if (ExportSettings.selectedFileExtension == ImageFormats.JPG)
             {
-                jpegEncoder = new JpegEncoder();
-                jpegEncoder.Quality = ExportSettings.imageQualityJpeg;
+                ImageCodecInfo[] codecs = ImageCodecInfo.GetImageEncoders();
+                foreach (ImageCodecInfo codec in codecs)
+                {
+                    if (codec.FormatID == ImageFormat.Jpeg.Guid)
+                    {
+                        jpgEncoder = codec;
+                    }
+                }
+                System.Drawing.Imaging.Encoder myEncoder = System.Drawing.Imaging.Encoder.Quality;
+                encoderParameters = new EncoderParameters(1);
+
+                encoderParameter = new EncoderParameter(myEncoder, ExportSettings.imageQualityJpeg);
+                encoderParameters.Param[0] = encoderParameter;
+
+
             }
             if (ExportSettings.selectedFileExtension == ImageFormats.DDS)
             {
@@ -109,72 +126,98 @@ namespace Image_Converter.IO
             }
         }
 
-        public bool ConvertWithFilters()
+        public static System.Drawing.Bitmap ToBitmap<TPixel>(this Image<TPixel> image) where TPixel : unmanaged, IPixel<TPixel>
+        {
+            using (var memoryStream = new MemoryStream())
+            {
+                var imageEncoder = image.GetConfiguration().ImageFormatsManager.FindEncoder(PngFormat.Instance);
+                image.Save(memoryStream, imageEncoder);
+
+                memoryStream.Seek(0, SeekOrigin.Begin);
+
+                return new System.Drawing.Bitmap(memoryStream);
+            }
+        }
+
+        public static Image<Rgba32> ToImageSharpImage(System.Drawing.Bitmap bitmap)
+        {
+            using (var memoryStream = new MemoryStream())
+            {
+                bitmap.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
+
+                memoryStream.Seek(0, SeekOrigin.Begin);
+
+                return SixLabors.ImageSharp.Image.Load<Rgba32>(memoryStream);
+            }
+        }
+
+        public static bool ConvertWithFilters()
         {
             bool success = false;
 
-            SixLabors.ImageSharp.Image<Rgba32> imageToConvert = reader.ReadFile(fileEntries[currentEntry]);
-            List<SixLabors.ImageSharp.Image<Rgba32>> filteredImages = new List<Image<Rgba32>>();
+            Reader.ReadFile(fileEntries[currentEntry]);
+
+            List<Bitmap> filteredImages = new List<Bitmap>();
             List<string> prefix = new List<string>();
 
-            if (imageToConvert != null)
+            if (Reader.image != null)
             {
                 if (FilterSettings.war3IconType == War3IconType.None)
                 {
                     ExportSettings.prefix = "";
                     if (FilterSettings.isResized)
                     {
-                        imageToConvert.Mutate(x => x.Resize(FilterSettings.resizeX, FilterSettings.resizeY));
+                        //imageToConvert.Mutate(x => x.Resize(FilterSettings.resizeX, FilterSettings.resizeY)); // VERY IMPORTANT TO HAVE, PLZ FIX
                     }
 
-                    success = Write(imageToConvert);
+                    success = Write(Reader.image);
                 }
                 else
                 {
                     errorMsg = "Image dimensions did not match selected icon dimensions.";
                     ImageFilters filters = new ImageFilters();
 
-                    if ((FilterSettings.war3IconType == War3IconType.ClassicIcon && imageToConvert.Width == 64 && imageToConvert.Height == 64) || (FilterSettings.war3IconType == War3IconType.ReforgedIcon && imageToConvert.Width == 256 && imageToConvert.Height == 256))
+                    if ((FilterSettings.war3IconType == War3IconType.ClassicIcon && Reader.image.Width == 64 && Reader.image.Height == 64) || (FilterSettings.war3IconType == War3IconType.ReforgedIcon && Reader.image.Width == 256 && Reader.image.Height == 256))
                     {
                         if (FilterSettings.isIconBTN)
                         {
                             prefix.Add("BTN");
-                            filteredImages.Add(filters.AddIconBorder(imageToConvert, IconTypes.BTN));
+                            filteredImages.Add(filters.AddIconBorder(Reader.image, IconTypes.BTN));
                         }
                         if (FilterSettings.isIconPAS)
                         {
                             prefix.Add("PAS");
-                            filteredImages.Add(filters.AddIconBorder(imageToConvert, IconTypes.PAS));
+                            filteredImages.Add(filters.AddIconBorder(Reader.image, IconTypes.PAS));
                         }
                         if (FilterSettings.isIconATC)
                         {
                             prefix.Add("ATC");
-                            filteredImages.Add(filters.AddIconBorder(imageToConvert, IconTypes.ATC));
+                            filteredImages.Add(filters.AddIconBorder(Reader.image, IconTypes.ATC));
                         }
                         if (FilterSettings.isIconDISBTN)
                         {
                             prefix.Add("DISBTN");
-                            filteredImages.Add(filters.AddIconBorder(imageToConvert, IconTypes.DISBTN));
+                            filteredImages.Add(filters.AddIconBorder(Reader.image, IconTypes.DISBTN));
                         }
                         if (FilterSettings.isIconDISPAS)
                         {
                             prefix.Add("DISPAS");
-                            filteredImages.Add(filters.AddIconBorder(imageToConvert, IconTypes.DISPAS));
+                            filteredImages.Add(filters.AddIconBorder(Reader.image, IconTypes.DISPAS));
                         }
                         if (FilterSettings.isIconDISATC)
                         {
                             prefix.Add("DISATC");
-                            filteredImages.Add(filters.AddIconBorder(imageToConvert, IconTypes.DISATC));
+                            filteredImages.Add(filters.AddIconBorder(Reader.image, IconTypes.DISATC));
                         }
                         if (FilterSettings.isIconATT)
                         {
                             prefix.Add("ATT");
-                            filteredImages.Add(filters.AddIconBorder(imageToConvert, IconTypes.ATT));
+                            filteredImages.Add(filters.AddIconBorder(Reader.image, IconTypes.ATT));
                         }
                         if (FilterSettings.isIconUPG)
                         {
                             prefix.Add("UPG");
-                            filteredImages.Add(filters.AddIconBorder(imageToConvert, IconTypes.UPG));
+                            filteredImages.Add(filters.AddIconBorder(Reader.image, IconTypes.UPG));
                         }
 
                         errorMsg = "No icon selected.";
@@ -183,7 +226,7 @@ namespace Image_Converter.IO
                         {
                             if (FilterSettings.isResized)
                             {
-                                filteredImages[i].Mutate(x => x.Resize(FilterSettings.resizeX, FilterSettings.resizeY));
+                                //filteredImages[i].Mutate(x => x.Resize(FilterSettings.resizeX, FilterSettings.resizeY)); // VERY IMPORTANT TO HAVE, PLZ FIX
                             }
                             ExportSettings.prefix = prefix[i];
                             success = Write(filteredImages[i]);
@@ -194,7 +237,7 @@ namespace Image_Converter.IO
             }
             else
             {
-                errorMsg = reader.errorMsg;
+                errorMsg = Reader.errorMsg;
             }
 
             currentEntry++;
@@ -202,7 +245,7 @@ namespace Image_Converter.IO
             return success;
         }
 
-        private bool Write(SixLabors.ImageSharp.Image<Rgba32> imageToConvert)
+        private static bool Write(Bitmap imageToConvert)
         {
             bool success = false;
 
@@ -227,9 +270,9 @@ namespace Image_Converter.IO
         }
 
 
-        private String GetInputFileName(String filePath)
+        private static string GetInputFileName(String filePath)
         {
-            String fileName = "";
+            string fileName = "";
 
             char cCurrent;
             int sub = 0;
@@ -265,7 +308,7 @@ namespace Image_Converter.IO
 
 
 
-        private string getFullOutputFilePath()
+        private static string getFullOutputFilePath()
         {
             string path = "";
             if (ExportSettings.keepFileNames)
@@ -278,13 +321,16 @@ namespace Image_Converter.IO
             return path;
         }
 
-        private bool WriteJpg(SixLabors.ImageSharp.Image<Rgba32> imageToConvert)
+        private static bool WriteJpg(Bitmap imageToConvert)
         {
             bool success = false;
 
             try
             {
-                imageToConvert.SaveAsJpeg(getFullOutputFilePath(), jpegEncoder);
+                SixLabors.ImageSharp.Image<Rgba32> img = ToImageSharpImage(imageToConvert);
+                img.SaveAsJpeg(getFullOutputFilePath());
+
+                imageToConvert.Save(getFullOutputFilePath(), jpgEncoder, encoderParameters);
                 success = true;
             }
             catch (Exception ex)
@@ -295,13 +341,13 @@ namespace Image_Converter.IO
             return success;
         }
 
-        private bool WritePng(SixLabors.ImageSharp.Image<Rgba32> imageToConvert)
+        private static bool WritePng(Bitmap imageToConvert)
         {
             bool success = false;
 
             try
             {
-                imageToConvert.SaveAsPng(getFullOutputFilePath());
+                imageToConvert.Save(getFullOutputFilePath(), ImageFormat.Png);
                 success = true;
             }
             catch (Exception ex)
@@ -312,13 +358,13 @@ namespace Image_Converter.IO
             return success;
         }
 
-        private bool WriteBmp(SixLabors.ImageSharp.Image<Rgba32> imageToConvert)
+        private static bool WriteBmp(Bitmap imageToConvert)
         {
             bool success = false;
 
             try
             {
-                imageToConvert.SaveAsBmp(getFullOutputFilePath());
+                imageToConvert.Save(getFullOutputFilePath(), ImageFormat.Bmp);
                 success = true;
             }
             catch (Exception ex)
@@ -329,13 +375,14 @@ namespace Image_Converter.IO
             return success;
         }
 
-        private bool WriteTga(SixLabors.ImageSharp.Image<Rgba32> imageToConvert)
+        private static bool WriteTga(Bitmap imageToConvert)
         {
             bool success = false;
 
             try
             {
-                imageToConvert.SaveAsTga(getFullOutputFilePath());
+                SixLabors.ImageSharp.Image<Rgba32> img = ToImageSharpImage(imageToConvert);
+                img.SaveAsTga(getFullOutputFilePath());
                 success = true;
             }
             catch (Exception ex)
@@ -346,15 +393,16 @@ namespace Image_Converter.IO
             return success;
         }
 
-        private bool WriteDds(SixLabors.ImageSharp.Image<Rgba32> imageToConvert)
+        private static bool WriteDds(Bitmap imageToConvert)
         {
             bool success = false;
             FileStream fs = null;
 
             try
             {
+                SixLabors.ImageSharp.Image<Rgba32> img = ToImageSharpImage(imageToConvert);
                 fs = File.OpenWrite(getFullOutputFilePath());
-                bcEncoder.Encode(imageToConvert, fs);
+                bcEncoder.Encode(img, fs);
                 fs.DisposeAsync();
                 success = true;
             }
@@ -368,14 +416,14 @@ namespace Image_Converter.IO
         }
 
         // NOT FUNCTIONAL
-        private bool WriteBlp(SixLabors.ImageSharp.Image<Rgba32> imageToConvert)
+        private static bool WriteBlp(Bitmap imageToConvert)
         {
             bool success = false;
 
             try
             {
-                Warcraft.BLP.BLP blpFile = new Warcraft.BLP.BLP(imageToConvert, Warcraft.BLP.TextureCompressionType.JPEG);
-                File.WriteAllBytes(getFullOutputFilePath(), blpFile.Serialize());
+                //Warcraft.BLP.BLP blpFile = new Warcraft.BLP.BLP(imageToConvert, Warcraft.BLP.TextureCompressionType.JPEG);
+                //File.WriteAllBytes(getFullOutputFilePath(), blpFile.Serialize());
                 success = true;
             }
             catch (Exception ex)

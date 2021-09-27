@@ -15,7 +15,7 @@ namespace Image_Converter
             int sub = 0;
             bool start = true;
             bool end = false;
-            while (!end)
+            while (!end && filePath.Length > sub)
             {
                 cCurrent = filePath[filePath.Length - 1 - sub];
                 if (start)
@@ -46,7 +46,7 @@ namespace Image_Converter
             char cCurrent;
             int sub = 0;
             bool end = false;
-            while (!end)
+            while (!end && filePath.Length > sub)
             {
                 cCurrent = filePath[filePath.Length - 1 - sub];
                 if (cCurrent == '.')

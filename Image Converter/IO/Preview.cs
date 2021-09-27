@@ -5,6 +5,7 @@ using SixLabors.ImageSharp.Processing;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Drawing;
 
 namespace Image_Converter.IO
 {
@@ -13,11 +14,11 @@ namespace Image_Converter.IO
         public string errorMsg = "";
         public string fileSizeString = "";
 
-        public Image<Rgba32> RenderPreview(String filePath)
+        public Bitmap RenderPreview(String filePath)
         {
-            Reader reader = new Reader();
-            fileSizeString = reader.GetFileSizeString(filePath);
-            SixLabors.ImageSharp.Image<Rgba32> image = reader.ReadFile(filePath);
+            Reader.ReadFile(filePath);
+            fileSizeString = Reader.GetFileSizeString(filePath);
+            Bitmap image = Reader.image;
             if (image != null)
             {
                 ImageFilters filters = new ImageFilters();
@@ -56,12 +57,12 @@ namespace Image_Converter.IO
 
                 if (FilterSettings.isResized)
                 {
-                    image.Mutate(x => x.Resize(FilterSettings.resizeX, FilterSettings.resizeY));
+                    //image.Mutate(x => x.Resize(FilterSettings.resizeX, FilterSettings.resizeY)); // IMPORTANT TO FIX LATER
                 }
             }
             else
             {
-                errorMsg = reader.errorMsg;
+                errorMsg = Reader.errorMsg;
             }
 
             return image;

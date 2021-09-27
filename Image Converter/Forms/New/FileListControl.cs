@@ -102,9 +102,8 @@ namespace Image_Converter.Forms
 
         public void AddFileToListSingle(string fileEntry)
         {
-            Reader reader = new Reader();
             string filename = shared.GetFileNameAndExtension(fileEntry);
-            String[] row = { filename, reader.GetFileSizeString(fileEntry) };
+            String[] row = { filename, Reader.GetFileSizeString(fileEntry) };
             ListViewItem item = new ListViewItem(row);
             item.Tag = fileEntry;
             listFileEntries.Items.Add(item);

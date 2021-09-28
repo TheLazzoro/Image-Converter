@@ -543,9 +543,9 @@ namespace Image_Converter
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show("Unsupported format.");
+                MessageBox.Show(ex.Message);
             }
 
             CenterAndScalePreviewImage();

@@ -23,9 +23,7 @@ namespace Image_Converter.IO
 
         public static void ReadFile(string filePath)
         {
-            if(image != null) {
-                image.Dispose();
-            }
+            if (image != null) image.Dispose();
             image = null;
 
             string fileExtension = shared.GetFileExtension(filePath);
@@ -125,7 +123,8 @@ namespace Image_Converter.IO
 
         private static Bitmap ReadLegacy(String filePath)
         {
-            using(FileStream fs = new FileStream(filePath, FileMode.Open)) {
+            using (FileStream fs = new FileStream(filePath, FileMode.Open))
+            {
                 Bitmap bitmap = new Bitmap(Image.FromStream(fs));
                 return bitmap;
             }
@@ -140,8 +139,8 @@ namespace Image_Converter.IO
 
         private static Bitmap ReadBLP(String filePath)
         {
-            FileStream fileStream = File.OpenRead(filePath);
-            BlpFile blpFile = new BlpFile(fileStream);
+            FileStream fs = File.OpenRead(filePath);
+            BlpFile blpFile = new BlpFile(fs);
             int width;
             int height;
             // The library does not determine what's BLP1 and BLP2 properly, so we manually set bool bgra in GetPixels depending on the checkbox.
@@ -169,7 +168,7 @@ namespace Image_Converter.IO
                     blue = bytes[offset + 2];
                     alpha = bytes[offset + 3];
 
-                    image.SetPixel(x, y, Color.FromArgb(alpha, red, green, blue)); // assign color to pixel
+                    image.SetPixel(x, y, Color.FromArgb(alpha, blue, green, red)); // assign color to pixel
                 }
             }
 
@@ -195,45 +194,47 @@ namespace Image_Converter.IO
 
 
             Bitmap bitmap = null;
+
+            FileStream fs = File.OpenRead(filePath);
+            // Start address is at offset 0x62, file size at 0x7A, orientation at 0x6E
+            fs.Seek(0x62, SeekOrigin.Begin);
+            BinaryReader br = new BinaryReader(fs);
+            UInt32 jpgStartPosition = br.ReadUInt32();  // 62
+            br.ReadUInt32();  // 66
+            br.ReadUInt32();  // 6A
+            UInt32 orientation = br.ReadUInt32() & 0x000000FF; // 6E
+            br.ReadUInt32();  // 72
+            br.ReadUInt32();  // 76
+            Int32 fileSize = br.ReadInt32();  // 7A
+
+            fs.Seek(jpgStartPosition, SeekOrigin.Begin);
+
+            var ps = new PartialStream(fs, jpgStartPosition, fileSize);
+            bitmap = new Bitmap(ps);
+
+            br.Close();
+            ps.Close();
+            fs.Close();
             
-            using (FileStream fi = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read, _bufferSize, FileOptions.None))
+            Bitmap bitmapCopy = new Bitmap((Image)bitmap);
+
+
+            try
             {
-                // Start address is at offset 0x62, file size at 0x7A, orientation at 0x6E
-                fi.Seek(0x62, SeekOrigin.Begin);
-                BinaryReader br = new BinaryReader(fi);
-                UInt32 jpgStartPosition = br.ReadUInt32();  // 62
-                br.ReadUInt32();  // 66
-                br.ReadUInt32();  // 6A
-                UInt32 orientation = br.ReadUInt32() & 0x000000FF; // 6E
-                br.ReadUInt32();  // 72
-                br.ReadUInt32();  // 76
-                Int32 fileSize = br.ReadInt32();  // 7A
-
-                fi.Seek(jpgStartPosition, SeekOrigin.Begin);
-
-                PartialStream ps = new PartialStream(fi, jpgStartPosition, fileSize);
-
-                bitmap = new Bitmap(ps);
-
-                try
+                if (_jpgImageCodec != null && (orientation == 8 || orientation == 6))
                 {
-                    if (_jpgImageCodec != null && (orientation == 8 || orientation == 6))
-                    {
-                        if (orientation == 8)
-                            bitmap.RotateFlip(RotateFlipType.Rotate270FlipNone);
-                        else
-                            bitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
-                    }
+                    if (orientation == 8)
+                        bitmap.RotateFlip(RotateFlipType.Rotate270FlipNone);
+                    else
+                        bitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
                 }
-                catch (Exception ex)
-                {
-                    // Image Skipped
-                }
-
-                ps.Dispose();
+            }
+            catch (Exception ex)
+            {
+                // Image Skipped
             }
 
-            return bitmap;
+            return bitmapCopy;
         }
 
         private static ImageCodecInfo GetJpegCodec()

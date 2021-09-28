@@ -327,9 +327,6 @@ namespace Image_Converter.IO
 
             try
             {
-                SixLabors.ImageSharp.Image<Rgba32> img = ToImageSharpImage(imageToConvert);
-                img.SaveAsJpeg(getFullOutputFilePath());
-
                 imageToConvert.Save(getFullOutputFilePath(), jpgEncoder, encoderParameters);
                 success = true;
             }

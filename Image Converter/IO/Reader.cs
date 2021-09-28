@@ -18,7 +18,6 @@ namespace Image_Converter.IO
         public static Bitmap image = null;
         public static string errorMsg = "";
         public static string fileSizeString = "";
-        private static Shared shared = new Shared();
         private static BcDecoder bcDecoder = new BcDecoder();
 
         public static void ReadFile(string filePath)
@@ -26,7 +25,7 @@ namespace Image_Converter.IO
             if (image != null) image.Dispose();
             image = null;
 
-            string fileExtension = shared.GetFileExtension(filePath);
+            string fileExtension = Shared.GetFileExtension(filePath);
             string fileExtensionCorreced = fileExtension.ToLower();
             try
             {

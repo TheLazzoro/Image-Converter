@@ -5,11 +5,11 @@ using System.Text;
 
 namespace Image_Converter
 {
-    public partial class Shared
+    public static class Shared
     {
-        public String GetFileNameAndExtension(String filePath)
+        public static string GetFileNameAndExtension(string filePath)
         {
-            String fileName = "";
+            string fileName = "";
 
             char cCurrent;
             int sub = 0;
@@ -39,9 +39,9 @@ namespace Image_Converter
             return new string(charArray);
         }
 
-        public String GetFileExtension(String filePath)
+        public static string GetFileExtension(String filePath)
         {
-            String fileExtension = "";
+            string fileExtension = "";
 
             char cCurrent;
             int sub = 0;

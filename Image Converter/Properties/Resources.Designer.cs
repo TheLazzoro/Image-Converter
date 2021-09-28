@@ -61,132 +61,132 @@ namespace Image_Converter.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static byte[] Icon_Border {
+        public static System.Drawing.Bitmap Icon_Border {
             get {
                 object obj = ResourceManager.GetObject("Icon_Border", resourceCulture);
-                return ((byte[])(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static byte[] Icon_Border_Attack {
+        public static System.Drawing.Bitmap Icon_Border_Attack {
             get {
                 object obj = ResourceManager.GetObject("Icon_Border_Attack", resourceCulture);
-                return ((byte[])(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static byte[] Icon_Border_Attack_Upgrade {
+        public static System.Drawing.Bitmap Icon_Border_Attack_Upgrade {
             get {
                 object obj = ResourceManager.GetObject("Icon_Border_Attack_Upgrade", resourceCulture);
-                return ((byte[])(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static byte[] Icon_Border_Autocast {
+        public static System.Drawing.Bitmap Icon_Border_Autocast {
             get {
                 object obj = ResourceManager.GetObject("Icon_Border_Autocast", resourceCulture);
-                return ((byte[])(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static byte[] Icon_Border_Disabled {
+        public static System.Drawing.Bitmap Icon_Border_Disabled {
             get {
                 object obj = ResourceManager.GetObject("Icon_Border_Disabled", resourceCulture);
-                return ((byte[])(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static byte[] Icon_Border_Passive {
+        public static System.Drawing.Bitmap Icon_Border_Passive {
             get {
                 object obj = ResourceManager.GetObject("Icon_Border_Passive", resourceCulture);
-                return ((byte[])(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static byte[] Reforged_Icon_Border_Attack {
+        public static System.Drawing.Bitmap Reforged_Icon_Border_Attack {
             get {
                 object obj = ResourceManager.GetObject("Reforged_Icon_Border_Attack", resourceCulture);
-                return ((byte[])(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static byte[] Reforged_Icon_Border_Attack_Upgrade {
+        public static System.Drawing.Bitmap Reforged_Icon_Border_Attack_Upgrade {
             get {
                 object obj = ResourceManager.GetObject("Reforged_Icon_Border_Attack_Upgrade", resourceCulture);
-                return ((byte[])(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static byte[] Reforged_Icon_Border_Autocast {
+        public static System.Drawing.Bitmap Reforged_Icon_Border_Autocast {
             get {
                 object obj = ResourceManager.GetObject("Reforged_Icon_Border_Autocast", resourceCulture);
-                return ((byte[])(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static byte[] Reforged_Icon_Border_Button {
+        public static System.Drawing.Bitmap Reforged_Icon_Border_Button {
             get {
                 object obj = ResourceManager.GetObject("Reforged_Icon_Border_Button", resourceCulture);
-                return ((byte[])(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static byte[] Reforged_Icon_Border_Disabled {
+        public static System.Drawing.Bitmap Reforged_Icon_Border_Disabled {
             get {
                 object obj = ResourceManager.GetObject("Reforged_Icon_Border_Disabled", resourceCulture);
-                return ((byte[])(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static byte[] Reforged_Icon_Border_Passive {
+        public static System.Drawing.Bitmap Reforged_Icon_Border_Passive {
             get {
                 object obj = ResourceManager.GetObject("Reforged_Icon_Border_Passive", resourceCulture);
-                return ((byte[])(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static byte[] Reforged_Icon_Border_Passive_Disabled {
+        public static System.Drawing.Bitmap Reforged_Icon_Border_Passive_Disabled {
             get {
                 object obj = ResourceManager.GetObject("Reforged_Icon_Border_Passive_Disabled", resourceCulture);
-                return ((byte[])(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

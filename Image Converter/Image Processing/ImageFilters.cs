@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -21,41 +22,42 @@ namespace Image_Converter.Image_Processing
             if (FilterSettings.war3IconType == War3IconType.ClassicIcon && imageToConvert.Width == 64 && imageToConvert.Height == 64)
             {
                 if (iconSetting == IconTypes.BTN)
-                    border = (Bitmap) Image.FromStream(new MemoryStream(Properties.Resources.Icon_Border));
+
+                    border = Properties.Resources.Warcraft_W;
                 else if (iconSetting == IconTypes.PAS)
-                    border = (Bitmap) Image.FromStream(new MemoryStream(Properties.Resources.Icon_Border_Passive));
+                    border = Properties.Resources.Icon_Border_Passive;
                 else if (iconSetting == IconTypes.ATC)
-                    border = (Bitmap) Image.FromStream(new MemoryStream(Properties.Resources.Icon_Border_Autocast));
+                    border = Properties.Resources.Icon_Border_Autocast;
                 else if (iconSetting == IconTypes.DISBTN)
-                    border = (Bitmap) Image.FromStream(new MemoryStream(Properties.Resources.Icon_Border_Disabled));
+                    border = Properties.Resources.Icon_Border_Disabled;
                 else if (iconSetting == IconTypes.DISPAS)
-                    border = (Bitmap) Image.FromStream(new MemoryStream(Properties.Resources.Icon_Border_Disabled));
+                    border = Properties.Resources.Icon_Border_Disabled;
                 else if (iconSetting == IconTypes.DISATC)
-                    border = (Bitmap) Image.FromStream(new MemoryStream(Properties.Resources.Icon_Border_Disabled));
-                else if (iconSetting == IconTypes.ATT) 
-                    border = (Bitmap) Image.FromStream(new MemoryStream(Properties.Resources.Icon_Border_Attack));
+                    border = Properties.Resources.Icon_Border_Disabled;
+                else if (iconSetting == IconTypes.ATT)
+                    border = Properties.Resources.Icon_Border_Attack;
                 else if (iconSetting == IconTypes.UPG)
-                    border = (Bitmap) Image.FromStream(new MemoryStream(Properties.Resources.Icon_Border_Attack_Upgrade));
+                    border = Properties.Resources.Icon_Border_Attack_Upgrade;
 
             }
             else if (FilterSettings.war3IconType == War3IconType.ReforgedIcon && imageToConvert.Width == 256 && imageToConvert.Height == 256)
             {
                 if (iconSetting == IconTypes.BTN)
-                    border = (Bitmap) Image.FromStream(new MemoryStream(Properties.Resources.Reforged_Icon_Border_Button));
+                    border = Properties.Resources.Reforged_Icon_Border_Button;
                 else if (iconSetting == IconTypes.PAS)
-                    border = (Bitmap) Image.FromStream(new MemoryStream(Properties.Resources.Reforged_Icon_Border_Passive));
+                    border = Properties.Resources.Reforged_Icon_Border_Passive;
                 else if (iconSetting == IconTypes.ATC)
-                    border = (Bitmap) Image.FromStream(new MemoryStream(Properties.Resources.Reforged_Icon_Border_Autocast));
+                    border = Properties.Resources.Reforged_Icon_Border_Autocast;
                 else if (iconSetting == IconTypes.DISBTN)
-                    border = (Bitmap) Image.FromStream(new MemoryStream(Properties.Resources.Reforged_Icon_Border_Disabled));
+                    border = Properties.Resources.Reforged_Icon_Border_Disabled;
                 else if (iconSetting == IconTypes.DISPAS)
-                    border = (Bitmap) Image.FromStream(new MemoryStream(Properties.Resources.Reforged_Icon_Border_Passive_Disabled));
+                    border = Properties.Resources.Reforged_Icon_Border_Passive_Disabled;
                 else if (iconSetting == IconTypes.DISATC)
-                    border = (Bitmap) Image.FromStream(new MemoryStream(Properties.Resources.Reforged_Icon_Border_Disabled));
+                    border = Properties.Resources.Reforged_Icon_Border_Disabled;
                 else if (iconSetting == IconTypes.ATT)
-                    border = (Bitmap) Image.FromStream(new MemoryStream(Properties.Resources.Reforged_Icon_Border_Attack));
+                    border = Properties.Resources.Reforged_Icon_Border_Attack;
                 else if (iconSetting == IconTypes.UPG)
-                    border = (Bitmap) Image.FromStream(new MemoryStream(Properties.Resources.Reforged_Icon_Border_Attack_Upgrade));
+                    border = Properties.Resources.Reforged_Icon_Border_Attack_Upgrade;
             }
 
             if (border != null)
@@ -135,7 +137,7 @@ namespace Image_Converter.Image_Processing
                         byte greenBlended = (byte)((int)greenSource * (1 - alphaPercent) + (greenBorder * alphaPercent));
                         byte blueBlended = (byte)((int)blueSource * (1 - alphaPercent) + (blueBorder * alphaPercent));
 
-                        imageToConvert.SetPixel(x, y, Color.FromArgb(0, redBlended, greenBlended, blueBlended));
+                        imageToConvert.SetPixel(x, y, Color.FromArgb(255, redBlended, greenBlended, blueBlended));
                     }
                 }
             }

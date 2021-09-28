@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace Image_Converter
 {
-    class CustomTooltip
+    public class CustomTooltip
     {
         private static ToolTip tt;
 

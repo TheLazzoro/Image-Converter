@@ -14,12 +14,12 @@ namespace Image_Converter.Tests
         {
             string filePath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "TestImages\\ImageToConvert.png";
             ExportSettings.selectedFileExtension = ImageFormats.JPG;
-            Converter converter = new Converter();
-            converter.fileEntries = new string[] { filePath };
+            Converter.fileEntries = new string[] { filePath };
+            Converter.InitConverter();
 
-            bool isSuccess = converter.ConvertWithFilters();
+            bool isSuccess = Converter.ConvertWithFilters();
 
-            Assert.IsTrue(isSuccess, converter.errorMsg);
+            Assert.IsTrue(isSuccess, Converter.errorMsg);
         }
 
         [TestMethod]
@@ -27,13 +27,13 @@ namespace Image_Converter.Tests
         {
             string filePath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "TestImages\\ImageToConvert.png";
             ExportSettings.selectedFileExtension = ImageFormats.PNG;
-            Converter converter = new Converter();
+            Converter.InitConverter();
 
-            converter.fileEntries = new string[] { filePath };
+            Converter.fileEntries = new string[] { filePath };
 
-            bool isSuccess = converter.ConvertWithFilters();
+            bool isSuccess = Converter.ConvertWithFilters();
 
-            Assert.IsTrue(isSuccess, converter.errorMsg);
+            Assert.IsTrue(isSuccess, Converter.errorMsg);
         }
 
         [TestMethod]
@@ -41,12 +41,12 @@ namespace Image_Converter.Tests
         {
             string filePath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "TestImages\\ImageToConvert.png";
             ExportSettings.selectedFileExtension = ImageFormats.BMP;
-            Converter converter = new Converter();
-            converter.fileEntries = new string[] { filePath };
+            Converter.fileEntries = new string[] { filePath };
+            Converter.InitConverter();
 
-            bool isSuccess = converter.ConvertWithFilters();
+            bool isSuccess = Converter.ConvertWithFilters();
 
-            Assert.IsTrue(isSuccess, converter.errorMsg);
+            Assert.IsTrue(isSuccess, Converter.errorMsg);
         }
 
         [TestMethod]
@@ -54,12 +54,12 @@ namespace Image_Converter.Tests
         {
             string filePath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "TestImages\\ImageToConvert.png";
             ExportSettings.selectedFileExtension = ImageFormats.TGA;
-            Converter converter = new Converter();
-            converter.fileEntries = new string[] { filePath };
+            Converter.fileEntries = new string[] { filePath };
+            Converter.InitConverter();
 
-            bool isSuccess = converter.ConvertWithFilters();
+            bool isSuccess = Converter.ConvertWithFilters();
 
-            Assert.IsTrue(isSuccess, converter.errorMsg);
+            Assert.IsTrue(isSuccess, Converter.errorMsg);
         }
 
         /*
@@ -72,12 +72,12 @@ namespace Image_Converter.Tests
         {
             string filePath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "TestImages\\ImageToConvert.png";
             ExportSettings.selectedFileExtension = ImageFormats.DDS;
-            Converter converter = new Converter();
-            converter.fileEntries = new string[] { filePath };
+            Converter.fileEntries = new string[] { filePath };
+            Converter.InitConverter();
 
-            bool isSuccess = converter.ConvertWithFilters();
+            bool isSuccess = Converter.ConvertWithFilters();
 
-            Assert.IsTrue(isSuccess, converter.errorMsg);
+            Assert.IsTrue(isSuccess, Converter.errorMsg);
         }
 
         [TestMethod]
@@ -85,12 +85,12 @@ namespace Image_Converter.Tests
         {
             string filePath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "TestImages\\notAnImage.txt";
             ExportSettings.selectedFileExtension = ImageFormats.DDS;
-            Converter converter = new Converter();
-            converter.fileEntries = new string[] { filePath };
+            Converter.fileEntries = new string[] { filePath };
+            Converter.InitConverter();
 
-            bool isSuccess = converter.ConvertWithFilters();
+            bool isSuccess = Converter.ConvertWithFilters();
 
-            Assert.IsFalse(isSuccess, converter.errorMsg);
+            Assert.IsFalse(isSuccess, Converter.errorMsg);
         }
     }
 }

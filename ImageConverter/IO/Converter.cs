@@ -3,18 +3,11 @@ using System;
 using System.IO;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
-using SixLabors.ImageSharp.Processing;
 using BCnEncoder.Shared;
 using War3Net.Drawing.Blp;
-using SixLabors.ImageSharp.Formats.Jpeg;
-using SixLabors.ImageSharp.Formats.Png;
-using SixLabors.ImageSharp.Formats.Bmp;
-using BCnEncoder.Decoder;
-using System.Runtime.InteropServices;
 using ImageConverter.Image_Processing;
 using System.Collections.Generic;
 using System.Drawing;
-using SixLabors.ImageSharp.Advanced;
 using System.Drawing.Imaging;
 using WebPWrapper;
 
@@ -30,7 +23,6 @@ namespace ImageConverter.IO
         private static ImageCodecInfo jpgEncoder; // for JPG compression
         private static EncoderParameter encoderParameter; // for JPG compression
         private static EncoderParameters encoderParameters; // for JPG compression
-        private static Warcraft.BLP.TextureCompressionType blpEncoder;
         public static int totalErrors = 0;
 
         public static void InitConverter()
@@ -53,9 +45,6 @@ namespace ImageConverter.IO
                     break;
                 case ImageFormats.DDS:
                     ExportSettings.outputFileType = ".dds";
-                    break;
-                case ImageFormats.BLP:
-                    ExportSettings.outputFileType = ".blp";
                     break;
                 case ImageFormats.WEBP:
                     ExportSettings.outputFileType = ".webp";
@@ -124,10 +113,6 @@ namespace ImageConverter.IO
                         bcEncoder.OutputOptions.quality = CompressionQuality.Fast;
                         break;
                 }
-            }
-            if (ExportSettings.selectedFileExtension == ImageFormats.BLP)
-            {
-                blpEncoder = new Warcraft.BLP.TextureCompressionType();
             }
         }
 
@@ -266,8 +251,6 @@ namespace ImageConverter.IO
                     success = WriteTga(imageToConvert);
                 else if (ExportSettings.selectedFileExtension == ImageFormats.DDS)
                     success = WriteDds(imageToConvert);
-                else if (ExportSettings.selectedFileExtension == ImageFormats.BLP)
-                    success = WriteBlp(imageToConvert);
                 else if (ExportSettings.selectedFileExtension == ImageFormats.WEBP)
                     success = WriteWebP(imageToConvert);
             }
@@ -412,25 +395,6 @@ namespace ImageConverter.IO
             catch (Exception ex)
             {
                 fs.DisposeAsync();
-                errorMsg = ex.Message;
-            }
-
-            return success;
-        }
-
-        // NOT FUNCTIONAL
-        private static bool WriteBlp(Bitmap imageToConvert)
-        {
-            bool success = false;
-
-            try
-            {
-                //Warcraft.BLP.BLP blpFile = new Warcraft.BLP.BLP(imageToConvert, Warcraft.BLP.TextureCompressionType.JPEG);
-                //File.WriteAllBytes(getFullOutputFilePath(), blpFile.Serialize());
-                success = true;
-            }
-            catch (Exception ex)
-            {
                 errorMsg = ex.Message;
             }
 

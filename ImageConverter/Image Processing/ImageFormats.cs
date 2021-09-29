@@ -6,7 +6,5 @@
     BMP = 2,
     TGA = 3,
     DDS = 4,
-    WEBP = 5,
-    // read-only
-    BLP = 6
+    WEBP = 5
 }

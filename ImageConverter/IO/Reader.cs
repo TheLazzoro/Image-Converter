@@ -1,6 +1,7 @@
 ﻿using BCnEncoder.Decoder;
 using ImageConverter.Image_Processing;
 using SixLabors.ImageSharp.PixelFormats;
+using Svg;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -60,6 +61,9 @@ namespace ImageConverter.IO
                         break;
                     case ".webp":
                         image = ReadWebP(filePath);
+                        break;
+                    case ".svg":
+                        image = ReadSVG(filePath);
                         break;
                     default:
                         errorMsg = "Unsupported format.";
@@ -256,10 +260,19 @@ namespace ImageConverter.IO
 
         private static Bitmap ReadWebP(String filePath)
         {
-            using (WebP webp = new WebP()) { 
+            using (WebP webp = new WebP())
+            {
                 Bitmap bitmap = webp.Load(filePath);
                 return bitmap;
             }
+        }
+
+        private static Bitmap ReadSVG(String filePath)
+        {
+            var svgDocument = SvgDocument.Open(filePath);
+
+            Bitmap bitmap = svgDocument.Draw();
+            return bitmap;
         }
     }
 }

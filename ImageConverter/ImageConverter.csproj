@@ -72,9 +72,9 @@
   <ItemGroup>
     <PackageReference Include="BCnEncoder.Net" Version="1.2.3" />
     <PackageReference Include="FontAwesome.Sharp" Version="5.15.3" />
-    <PackageReference Include="MetroSet_UI" Version="2.0.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="SixLabors.ImageSharp" Version="1.0.3" />
+    <PackageReference Include="Svg" Version="3.3.0" />
     <PackageReference Include="System.Buffers" Version="4.5.1" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
     <PackageReference Include="System.Memory" Version="4.5.4" />

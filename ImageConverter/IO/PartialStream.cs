@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Image_Converter.IO
+namespace ImageConverter.IO
 {
     internal class PartialStream : Stream
     {

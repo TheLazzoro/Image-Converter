@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Image Converter\Image Converter.csproj" />
+    <ProjectReference Include="..\ImageConverter\ImageConverter.csproj" />
   </ItemGroup>
 
   <ItemGroup>

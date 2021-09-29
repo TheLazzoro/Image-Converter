@@ -1,5 +1,5 @@
-﻿using Image_Converter;
-using Image_Converter.IO;
+﻿using ImageConverter;
+using ImageConverter.IO;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,6 +23,7 @@ namespace WarcraftImageLabGUI
             cmboxOutputFormat.Items.Add("BMP");
             cmboxOutputFormat.Items.Add("TGA");
             cmboxOutputFormat.Items.Add("DDS");
+            cmboxOutputFormat.Items.Add("WEBP");
             //cmboxOutputFormat.Items.Add("BLP");
             cmboxOutputFormat.SelectedIndex = 0;
 
@@ -39,7 +40,7 @@ namespace WarcraftImageLabGUI
             ExportSettings.outputDir = lblOutputDirectory.Text + @"\";
             ExportSettings.selectedFileExtension = (ImageFormats)cmboxOutputFormat.SelectedIndex;
             ExportSettings.keepFileNames = chkBoxKeepFilenames.Checked;
-            ExportSettings.imageQualityJpeg = trckbarImageQuality.Value * 10;
+            ExportSettings.imageQuality = trckbarImageQuality.Value * 10;
             ExportSettings.selectedDDSCompression = cmboxDDSList.SelectedIndex;
             ExportSettings.generateMipMaps = chkBoxMipmaps.Checked;
             if (radBtnFastest.Checked)
@@ -163,7 +164,7 @@ namespace WarcraftImageLabGUI
 
         private void cmboxOutputFormat_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cmboxOutputFormat.SelectedIndex == (int)ImageFormats.JPG)
+            if (cmboxOutputFormat.SelectedIndex == (int)ImageFormats.JPG || cmboxOutputFormat.SelectedIndex == (int)ImageFormats.WEBP)
             {
                 label4.Visible = true;
                 label4.Text = "Image Quality:";

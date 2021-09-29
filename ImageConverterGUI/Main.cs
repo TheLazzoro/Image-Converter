@@ -13,10 +13,10 @@ using System.Collections;
 using System.Diagnostics;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp;
-using Image_Converter.IO;
-using Image_Converter.Image_Processing;
+using ImageConverter.IO;
+using ImageConverter.Image_Processing;
 using SixLabors.ImageSharp.Processing;
-using Image_Converter;
+using ImageConverter;
 
 namespace ImageConverterGUI
 {
@@ -35,6 +35,7 @@ namespace ImageConverterGUI
             cmboxOutputFormat.Items.Add("BMP");
             cmboxOutputFormat.Items.Add("TGA");
             cmboxOutputFormat.Items.Add("DDS");
+            cmboxOutputFormat.Items.Add("WEBP");
             //cmboxOutputFormat.Items.Add("BLP");
             cmboxOutputFormat.SelectedIndex = 0;
 
@@ -247,7 +248,7 @@ namespace ImageConverterGUI
             ExportSettings.selectedFileExtension = (ImageFormats)cmboxOutputFormat.SelectedIndex;
             ExportSettings.outputDir = lblOutputDirectory.Text + @"\";
             ExportSettings.keepFileNames = chkBoxKeepFilenames.Checked;
-            ExportSettings.imageQualityJpeg = trckbarImageQuality.Value * 10; //calculates image quality for jpg
+            ExportSettings.imageQuality = trckbarImageQuality.Value * 10; //calculates image quality for jpg
             ExportSettings.selectedDDSCompression = cmboxDDSList.SelectedIndex; // dds compression
             ExportSettings.generateMipMaps = chkBoxMipmaps.Checked; // dds mipmaps
             ExportSettings.isMultipleFiles = false;
@@ -287,7 +288,7 @@ namespace ImageConverterGUI
             ExportSettings.outputDir = lblOutputDirectory.Text + @"\";
             ExportSettings.fileName = txtFileName.Text;
             ExportSettings.keepFileNames = chkBoxKeepFilenames.Checked;
-            ExportSettings.imageQualityJpeg = trckbarImageQuality.Value * 10; //calculates image quality for jpg
+            ExportSettings.imageQuality = trckbarImageQuality.Value * 10; //calculates image quality for jpg
             ExportSettings.selectedDDSCompression = cmboxDDSList.SelectedIndex; // dds compression
             ExportSettings.generateMipMaps = chkBoxMipmaps.Checked; // dds mipmaps
             ExportSettings.isMultipleFiles = true;
@@ -378,7 +379,7 @@ namespace ImageConverterGUI
 
         private void cmboxOutputFormat_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cmboxOutputFormat.SelectedIndex == (int)ImageFormats.JPG)
+            if (cmboxOutputFormat.SelectedIndex == (int)ImageFormats.JPG || cmboxOutputFormat.SelectedIndex == (int)ImageFormats.WEBP)
             {
                 label4.Visible = true;
                 label4.Text = "Image Quality:";

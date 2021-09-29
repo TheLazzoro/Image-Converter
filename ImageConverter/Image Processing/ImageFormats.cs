@@ -1,9 +1,12 @@
 ﻿public enum ImageFormats
 {
+    // read-write
     JPG = 0,
     PNG = 1,
     BMP = 2,
     TGA = 3,
     DDS = 4,
-    BLP = 5
+    WEBP = 5,
+    // read-only
+    BLP = 6
 }

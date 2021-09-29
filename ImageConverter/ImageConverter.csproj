@@ -39,10 +39,10 @@
   <PropertyGroup>
     <SignManifests>false</SignManifests>
     <StartupObject />
-    <AssemblyName>Warcraft Image Lab</AssemblyName>
+    <AssemblyName>ImageConverter</AssemblyName>
     <SignAssembly>false</SignAssembly>
-    <Authors>Warcraft Image Lab</Authors>
-    <PackageId>Warcraft Image Lab</PackageId>
+    <Authors>ImageConverter</Authors>
+    <PackageId>ImageConverter</PackageId>
     <Win32Resource />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -81,6 +81,9 @@
     <PackageReference Include="System.Numerics.Vectors" Version="4.5.0" />
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="5.0.0" />
     <PackageReference Include="War3Net.Drawing.Blp" Version="2.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WebPTest\WebPTest.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">

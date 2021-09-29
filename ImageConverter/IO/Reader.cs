@@ -1,5 +1,5 @@
 ﻿using BCnEncoder.Decoder;
-using Image_Converter.Image_Processing;
+using ImageConverter.Image_Processing;
 using SixLabors.ImageSharp.PixelFormats;
 using System;
 using System.Collections.Generic;
@@ -10,8 +10,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using War3Net.Drawing.Blp;
+using WebPWrapper;
 
-namespace Image_Converter.IO
+namespace ImageConverter.IO
 {
     public static class Reader
     {
@@ -56,6 +57,9 @@ namespace Image_Converter.IO
                         break;
                     case ".cr2":
                         image = ReadCR2(filePath);
+                        break;
+                    case ".webp":
+                        image = ReadWebP(filePath);
                         break;
                     default:
                         errorMsg = "Unsupported format.";
@@ -214,9 +218,6 @@ namespace Image_Converter.IO
             br.Close();
             ps.Close();
             fs.Close();
-            
-            Bitmap bitmapCopy = new Bitmap((Image)bitmap);
-
 
             try
             {
@@ -233,6 +234,9 @@ namespace Image_Converter.IO
                 // Image Skipped
             }
 
+
+            Bitmap bitmapCopy = new Bitmap((Image)bitmap);
+
             return bitmapCopy;
         }
 
@@ -248,6 +252,14 @@ namespace Image_Converter.IO
             }
 
             return null;
+        }
+
+        private static Bitmap ReadWebP(String filePath)
+        {
+            using (WebP webp = new WebP()) { 
+                Bitmap bitmap = webp.Load(filePath);
+                return bitmap;
+            }
         }
     }
 }

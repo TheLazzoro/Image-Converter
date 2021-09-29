@@ -1,5 +1,5 @@
-﻿using Image_Converter;
-using Image_Converter.IO;
+﻿using ImageConverter;
+using ImageConverter.IO;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

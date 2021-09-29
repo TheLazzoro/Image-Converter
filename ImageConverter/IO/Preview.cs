@@ -1,4 +1,4 @@
-﻿using Image_Converter.Image_Processing;
+﻿using ImageConverter.Image_Processing;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
 
-namespace Image_Converter.IO
+namespace ImageConverter.IO
 {
     public class Preview
     {

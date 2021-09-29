@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Image_Converter.Image_Processing
+namespace ImageConverter.Image_Processing
 {
     public static partial class FilterSettings
     {

@@ -1,4 +1,4 @@
-﻿using Image_Converter.IO;
+﻿using ImageConverter.IO;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

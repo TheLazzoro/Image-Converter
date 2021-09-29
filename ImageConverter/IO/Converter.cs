@@ -10,13 +10,14 @@ using SixLabors.ImageSharp.Formats.Jpeg;
 using SixLabors.ImageSharp.Formats.Png;
 using BCnEncoder.Decoder;
 using System.Runtime.InteropServices;
-using Image_Converter.Image_Processing;
+using ImageConverter.Image_Processing;
 using System.Collections.Generic;
 using System.Drawing;
 using SixLabors.ImageSharp.Advanced;
 using System.Drawing.Imaging;
+using WebPWrapper;
 
-namespace Image_Converter.IO
+namespace ImageConverter.IO
 {
     public static class Converter
     {
@@ -55,6 +56,9 @@ namespace Image_Converter.IO
                 case ImageFormats.BLP:
                     ExportSettings.outputFileType = ".blp";
                     break;
+                case ImageFormats.WEBP:
+                    ExportSettings.outputFileType = ".webp";
+                    break;
             }
 
             // ----
@@ -73,7 +77,7 @@ namespace Image_Converter.IO
                 System.Drawing.Imaging.Encoder myEncoder = System.Drawing.Imaging.Encoder.Quality;
                 encoderParameters = new EncoderParameters(1);
 
-                encoderParameter = new EncoderParameter(myEncoder, ExportSettings.imageQualityJpeg);
+                encoderParameter = new EncoderParameter(myEncoder, ExportSettings.imageQuality);
                 encoderParameters.Param[0] = encoderParameter;
 
 
@@ -264,6 +268,8 @@ namespace Image_Converter.IO
                     success = WriteDds(imageToConvert);
                 else if (ExportSettings.selectedFileExtension == ImageFormats.BLP)
                     success = WriteBlp(imageToConvert);
+                else if (ExportSettings.selectedFileExtension == ImageFormats.WEBP)
+                    success = WriteWebP(imageToConvert);
             }
 
             return success;
@@ -421,6 +427,24 @@ namespace Image_Converter.IO
             {
                 //Warcraft.BLP.BLP blpFile = new Warcraft.BLP.BLP(imageToConvert, Warcraft.BLP.TextureCompressionType.JPEG);
                 //File.WriteAllBytes(getFullOutputFilePath(), blpFile.Serialize());
+                success = true;
+            }
+            catch (Exception ex)
+            {
+                errorMsg = ex.Message;
+            }
+
+            return success;
+        }
+
+        private static bool WriteWebP(Bitmap imageToConvert)
+        {
+            bool success = false;
+
+            try
+            {
+                using (WebP webp = new WebP())
+                    webp.Save(imageToConvert, getFullOutputFilePath(), ExportSettings.imageQuality);
                 success = true;
             }
             catch (Exception ex)

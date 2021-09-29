@@ -1,6 +1,6 @@
-﻿using Image_Converter;
-using Image_Converter.Image_Processing;
-using Image_Converter.IO;
+﻿using ImageConverter;
+using ImageConverter.Image_Processing;
+using ImageConverter.IO;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

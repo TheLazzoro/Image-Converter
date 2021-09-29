@@ -1,4 +1,4 @@
-﻿using Image_Converter.IO;
+﻿using ImageConverter.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;

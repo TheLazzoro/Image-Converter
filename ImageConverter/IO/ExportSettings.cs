@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Image_Converter.IO
+namespace ImageConverter.IO
 {
     public static partial class ExportSettings
     {
@@ -13,7 +13,7 @@ namespace Image_Converter.IO
         public static bool isMultipleFiles;
         public static bool keepFileNames;
         public static ImageFormats selectedFileExtension;
-        public static int imageQualityJpeg;
+        public static int imageQuality;
         public static int selectedDDSCompression;
         public static int selectedDDSCompressionQuality;
         public static bool generateMipMaps;

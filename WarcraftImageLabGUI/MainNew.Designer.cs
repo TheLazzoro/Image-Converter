@@ -181,7 +181,7 @@ namespace WarcraftImageLabGUI
             // iconMain
             // 
             this.iconMain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.iconMain.Image = global::Image_Converter.Properties.Resources.Warcraft_W;
+            this.iconMain.Image = global::ImageConverter.Properties.Resources.Warcraft_W;
             this.iconMain.Location = new System.Drawing.Point(0, 0);
             this.iconMain.Margin = new System.Windows.Forms.Padding(2);
             this.iconMain.Name = "iconMain";

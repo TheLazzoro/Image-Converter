@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace Image_Converter
+namespace ImageConverter
 {
     public static class Shared
     {

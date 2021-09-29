@@ -75,6 +75,7 @@
             this.radBtnBalanced = new System.Windows.Forms.RadioButton();
             this.lblDDSQuality = new System.Windows.Forms.Label();
             this.radBtnHighest = new System.Windows.Forms.RadioButton();
+            this.btnAbout = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.trckbarImageQuality)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imagePreview)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.previewSplitContainer)).BeginInit();
@@ -113,7 +114,7 @@
             this.btnConvert.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnConvert.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnConvert.ForeColor = System.Drawing.SystemColors.Window;
-            this.btnConvert.Location = new System.Drawing.Point(384, 574);
+            this.btnConvert.Location = new System.Drawing.Point(384, 599);
             this.btnConvert.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnConvert.Name = "btnConvert";
             this.btnConvert.Size = new System.Drawing.Size(119, 27);
@@ -128,7 +129,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label2.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.label2.Location = new System.Drawing.Point(13, 424);
+            this.label2.Location = new System.Drawing.Point(13, 449);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(88, 15);
@@ -143,7 +144,7 @@
             this.cmboxOutputFormat.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.cmboxOutputFormat.ForeColor = System.Drawing.SystemColors.InfoText;
             this.cmboxOutputFormat.FormattingEnabled = true;
-            this.cmboxOutputFormat.Location = new System.Drawing.Point(13, 442);
+            this.cmboxOutputFormat.Location = new System.Drawing.Point(13, 467);
             this.cmboxOutputFormat.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cmboxOutputFormat.Name = "cmboxOutputFormat";
             this.cmboxOutputFormat.Size = new System.Drawing.Size(101, 23);
@@ -158,7 +159,7 @@
             this.btnOutputFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOutputFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnOutputFile.ForeColor = System.Drawing.SystemColors.Window;
-            this.btnOutputFile.Location = new System.Drawing.Point(14, 384);
+            this.btnOutputFile.Location = new System.Drawing.Point(14, 409);
             this.btnOutputFile.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnOutputFile.Name = "btnOutputFile";
             this.btnOutputFile.Size = new System.Drawing.Size(88, 27);
@@ -174,7 +175,7 @@
             this.lblOutputDirectory.AutoEllipsis = true;
             this.lblOutputDirectory.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblOutputDirectory.ForeColor = System.Drawing.Color.Black;
-            this.lblOutputDirectory.Location = new System.Drawing.Point(110, 390);
+            this.lblOutputDirectory.Location = new System.Drawing.Point(110, 415);
             this.lblOutputDirectory.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblOutputDirectory.Name = "lblOutputDirectory";
             this.lblOutputDirectory.Size = new System.Drawing.Size(392, 21);
@@ -186,7 +187,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label3.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.label3.Location = new System.Drawing.Point(14, 366);
+            this.label3.Location = new System.Drawing.Point(14, 391);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(134, 15);
@@ -196,7 +197,7 @@
             // trckbarImageQuality
             // 
             this.trckbarImageQuality.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.trckbarImageQuality.Location = new System.Drawing.Point(211, 442);
+            this.trckbarImageQuality.Location = new System.Drawing.Point(211, 467);
             this.trckbarImageQuality.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.trckbarImageQuality.Minimum = 1;
             this.trckbarImageQuality.Name = "trckbarImageQuality";
@@ -212,7 +213,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label4.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.label4.Location = new System.Drawing.Point(211, 424);
+            this.label4.Location = new System.Drawing.Point(211, 449);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(85, 15);
@@ -225,7 +226,7 @@
             this.lblImageQuality.AutoSize = true;
             this.lblImageQuality.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblImageQuality.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.lblImageQuality.Location = new System.Drawing.Point(440, 442);
+            this.lblImageQuality.Location = new System.Drawing.Point(440, 467);
             this.lblImageQuality.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblImageQuality.Name = "lblImageQuality";
             this.lblImageQuality.Size = new System.Drawing.Size(14, 16);
@@ -237,7 +238,7 @@
             this.txtFileName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.txtFileName.BackColor = System.Drawing.Color.GhostWhite;
             this.txtFileName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtFileName.Location = new System.Drawing.Point(14, 579);
+            this.txtFileName.Location = new System.Drawing.Point(14, 604);
             this.txtFileName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtFileName.Name = "txtFileName";
             this.txtFileName.Size = new System.Drawing.Size(248, 22);
@@ -251,7 +252,7 @@
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label5.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.label5.Location = new System.Drawing.Point(14, 557);
+            this.label5.Location = new System.Drawing.Point(14, 582);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(80, 15);
@@ -264,7 +265,7 @@
             this.lblFileFormat.AutoSize = true;
             this.lblFileFormat.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblFileFormat.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.lblFileFormat.Location = new System.Drawing.Point(270, 582);
+            this.lblFileFormat.Location = new System.Drawing.Point(270, 607);
             this.lblFileFormat.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblFileFormat.Name = "lblFileFormat";
             this.lblFileFormat.Size = new System.Drawing.Size(27, 15);
@@ -278,7 +279,7 @@
             this.cmboxDDSList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.cmboxDDSList.FormattingEnabled = true;
             this.cmboxDDSList.ItemHeight = 15;
-            this.cmboxDDSList.Location = new System.Drawing.Point(214, 442);
+            this.cmboxDDSList.Location = new System.Drawing.Point(214, 467);
             this.cmboxDDSList.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cmboxDDSList.Name = "cmboxDDSList";
             this.cmboxDDSList.Size = new System.Drawing.Size(288, 23);
@@ -290,7 +291,7 @@
             this.chkBoxKeepFilenames.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkBoxKeepFilenames.AutoSize = true;
             this.chkBoxKeepFilenames.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.chkBoxKeepFilenames.Location = new System.Drawing.Point(14, 535);
+            this.chkBoxKeepFilenames.Location = new System.Drawing.Point(14, 560);
             this.chkBoxKeepFilenames.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.chkBoxKeepFilenames.Name = "chkBoxKeepFilenames";
             this.chkBoxKeepFilenames.Size = new System.Drawing.Size(124, 19);
@@ -306,7 +307,7 @@
             this.chkBoxMipmaps.Checked = true;
             this.chkBoxMipmaps.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkBoxMipmaps.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.chkBoxMipmaps.Location = new System.Drawing.Point(214, 471);
+            this.chkBoxMipmaps.Location = new System.Drawing.Point(214, 496);
             this.chkBoxMipmaps.Name = "chkBoxMipmaps";
             this.chkBoxMipmaps.Size = new System.Drawing.Size(132, 19);
             this.chkBoxMipmaps.TabIndex = 18;
@@ -323,7 +324,7 @@
             this.imagePreview.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("imagePreview.BackgroundImage")));
             this.imagePreview.Location = new System.Drawing.Point(3, 3);
             this.imagePreview.Name = "imagePreview";
-            this.imagePreview.Size = new System.Drawing.Size(315, 176);
+            this.imagePreview.Size = new System.Drawing.Size(315, 182);
             this.imagePreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.imagePreview.TabIndex = 19;
             this.imagePreview.TabStop = false;
@@ -340,7 +341,7 @@
             this.listFileEntries.HideSelection = false;
             this.listFileEntries.Location = new System.Drawing.Point(3, 3);
             this.listFileEntries.Name = "listFileEntries";
-            this.listFileEntries.Size = new System.Drawing.Size(154, 176);
+            this.listFileEntries.Size = new System.Drawing.Size(154, 182);
             this.listFileEntries.TabIndex = 21;
             this.listFileEntries.UseCompatibleStateImageBehavior = false;
             this.listFileEntries.View = System.Windows.Forms.View.Details;
@@ -367,8 +368,8 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.previewSplitContainer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.previewSplitContainer.Cursor = System.Windows.Forms.Cursors.Default;
-            this.previewSplitContainer.Location = new System.Drawing.Point(14, 156);
+            this.previewSplitContainer.Cursor = System.Windows.Forms.Cursors.VSplit;
+            this.previewSplitContainer.Location = new System.Drawing.Point(13, 175);
             this.previewSplitContainer.Name = "previewSplitContainer";
             // 
             // previewSplitContainer.Panel1
@@ -381,7 +382,7 @@
             this.previewSplitContainer.Panel2.Controls.Add(this.lblPreviewError);
             this.previewSplitContainer.Panel2.Controls.Add(this.imagePreview);
             this.previewSplitContainer.Panel2.Resize += new System.EventHandler(this.previewSplitContainer_Panel2_Resize);
-            this.previewSplitContainer.Size = new System.Drawing.Size(489, 184);
+            this.previewSplitContainer.Size = new System.Drawing.Size(489, 190);
             this.previewSplitContainer.SplitterDistance = 162;
             this.previewSplitContainer.TabIndex = 23;
             this.previewSplitContainer.DragDrop += new System.Windows.Forms.DragEventHandler(this.groupBoxImport_DragDrop);
@@ -405,7 +406,7 @@
             this.lblResolution.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblResolution.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblResolution.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.lblResolution.Location = new System.Drawing.Point(180, 343);
+            this.lblResolution.Location = new System.Drawing.Point(180, 368);
             this.lblResolution.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblResolution.Name = "lblResolution";
             this.lblResolution.Size = new System.Drawing.Size(168, 15);
@@ -417,7 +418,7 @@
             this.lblFileSize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lblFileSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblFileSize.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.lblFileSize.Location = new System.Drawing.Point(383, 343);
+            this.lblFileSize.Location = new System.Drawing.Point(383, 368);
             this.lblFileSize.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblFileSize.Name = "lblFileSize";
             this.lblFileSize.Size = new System.Drawing.Size(118, 15);
@@ -432,7 +433,7 @@
             this.btnClearList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClearList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnClearList.ForeColor = System.Drawing.SystemColors.Window;
-            this.btnClearList.Location = new System.Drawing.Point(14, 128);
+            this.btnClearList.Location = new System.Drawing.Point(13, 147);
             this.btnClearList.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnClearList.Name = "btnClearList";
             this.btnClearList.Size = new System.Drawing.Size(47, 26);
@@ -449,7 +450,7 @@
             this.groupBoxImport.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.groupBoxImport.Location = new System.Drawing.Point(3, 3);
             this.groupBoxImport.Name = "groupBoxImport";
-            this.groupBoxImport.Size = new System.Drawing.Size(455, 80);
+            this.groupBoxImport.Size = new System.Drawing.Size(479, 80);
             this.groupBoxImport.TabIndex = 27;
             this.groupBoxImport.TabStop = false;
             this.groupBoxImport.Text = "Import";
@@ -464,7 +465,7 @@
             this.panelImportContent.Controls.Add(this.pictureBox1);
             this.panelImportContent.Controls.Add(this.lblImportOr);
             this.panelImportContent.Controls.Add(this.lblImportOr2);
-            this.panelImportContent.Location = new System.Drawing.Point(47, 15);
+            this.panelImportContent.Location = new System.Drawing.Point(59, 15);
             this.panelImportContent.Name = "panelImportContent";
             this.panelImportContent.Size = new System.Drawing.Size(326, 59);
             this.panelImportContent.TabIndex = 31;
@@ -540,7 +541,7 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.groupBoxImport);
-            this.panel1.Location = new System.Drawing.Point(14, 12);
+            this.panel1.Location = new System.Drawing.Point(13, 31);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(485, 83);
             this.panel1.TabIndex = 28;
@@ -552,7 +553,7 @@
             this.lblItems.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblItems.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblItems.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.lblItems.Location = new System.Drawing.Point(13, 343);
+            this.lblItems.Location = new System.Drawing.Point(13, 368);
             this.lblItems.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblItems.Name = "lblItems";
             this.lblItems.Size = new System.Drawing.Size(104, 15);
@@ -566,7 +567,7 @@
             this.checkBoxTransparencyGrid.AutoSize = true;
             this.checkBoxTransparencyGrid.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.checkBoxTransparencyGrid.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.checkBoxTransparencyGrid.Location = new System.Drawing.Point(373, 135);
+            this.checkBoxTransparencyGrid.Location = new System.Drawing.Point(372, 154);
             this.checkBoxTransparencyGrid.Name = "checkBoxTransparencyGrid";
             this.checkBoxTransparencyGrid.Size = new System.Drawing.Size(129, 19);
             this.checkBoxTransparencyGrid.TabIndex = 30;
@@ -608,7 +609,7 @@
             // 
             this.checkBoxSubFolders.AutoSize = true;
             this.checkBoxSubFolders.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.checkBoxSubFolders.Location = new System.Drawing.Point(17, 95);
+            this.checkBoxSubFolders.Location = new System.Drawing.Point(16, 114);
             this.checkBoxSubFolders.Name = "checkBoxSubFolders";
             this.checkBoxSubFolders.Size = new System.Drawing.Size(128, 19);
             this.checkBoxSubFolders.TabIndex = 32;
@@ -623,7 +624,7 @@
             this.btnFilters.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnFilters.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnFilters.ForeColor = System.Drawing.SystemColors.Window;
-            this.btnFilters.Location = new System.Drawing.Point(181, 127);
+            this.btnFilters.Location = new System.Drawing.Point(180, 146);
             this.btnFilters.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnFilters.Name = "btnFilters";
             this.btnFilters.Size = new System.Drawing.Size(59, 27);
@@ -639,7 +640,7 @@
             this.radBtnFastest.AutoSize = true;
             this.radBtnFastest.Checked = true;
             this.radBtnFastest.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.radBtnFastest.Location = new System.Drawing.Point(215, 525);
+            this.radBtnFastest.Location = new System.Drawing.Point(215, 550);
             this.radBtnFastest.Name = "radBtnFastest";
             this.radBtnFastest.Size = new System.Drawing.Size(64, 19);
             this.radBtnFastest.TabIndex = 34;
@@ -653,7 +654,7 @@
             this.radBtnBalanced.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.radBtnBalanced.AutoSize = true;
             this.radBtnBalanced.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.radBtnBalanced.Location = new System.Drawing.Point(285, 525);
+            this.radBtnBalanced.Location = new System.Drawing.Point(285, 550);
             this.radBtnBalanced.Name = "radBtnBalanced";
             this.radBtnBalanced.Size = new System.Drawing.Size(77, 19);
             this.radBtnBalanced.TabIndex = 35;
@@ -667,7 +668,7 @@
             this.lblDDSQuality.AutoSize = true;
             this.lblDDSQuality.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblDDSQuality.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.lblDDSQuality.Location = new System.Drawing.Point(211, 507);
+            this.lblDDSQuality.Location = new System.Drawing.Point(211, 532);
             this.lblDDSQuality.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblDDSQuality.Name = "lblDDSQuality";
             this.lblDDSQuality.Size = new System.Drawing.Size(123, 15);
@@ -680,7 +681,7 @@
             this.radBtnHighest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.radBtnHighest.AutoSize = true;
             this.radBtnHighest.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.radBtnHighest.Location = new System.Drawing.Point(368, 525);
+            this.radBtnHighest.Location = new System.Drawing.Point(368, 550);
             this.radBtnHighest.Name = "radBtnHighest";
             this.radBtnHighest.Size = new System.Drawing.Size(67, 19);
             this.radBtnHighest.TabIndex = 37;
@@ -688,13 +689,31 @@
             this.radBtnHighest.UseVisualStyleBackColor = true;
             this.radBtnHighest.Visible = false;
             // 
+            // btnAbout
+            // 
+            this.btnAbout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAbout.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(175)))), ((int)(((byte)(175)))));
+            this.btnAbout.FlatAppearance.BorderSize = 0;
+            this.btnAbout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAbout.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btnAbout.ForeColor = System.Drawing.SystemColors.Window;
+            this.btnAbout.Location = new System.Drawing.Point(458, 1);
+            this.btnAbout.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.btnAbout.Name = "btnAbout";
+            this.btnAbout.Size = new System.Drawing.Size(55, 27);
+            this.btnAbout.TabIndex = 32;
+            this.btnAbout.Text = "About";
+            this.btnAbout.UseVisualStyleBackColor = false;
+            this.btnAbout.Click += new System.EventHandler(this.btnAbout_Click);
+            // 
             // Main
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(515, 611);
+            this.ClientSize = new System.Drawing.Size(515, 636);
+            this.Controls.Add(this.btnAbout);
             this.Controls.Add(this.radBtnHighest);
             this.Controls.Add(this.lblDDSQuality);
             this.Controls.Add(this.radBtnBalanced);
@@ -794,6 +813,7 @@
         private System.Windows.Forms.RadioButton radBtnBalanced;
         private System.Windows.Forms.Label lblDDSQuality;
         private System.Windows.Forms.RadioButton radBtnHighest;
+        private System.Windows.Forms.Button btnAbout;
     }
 }
 

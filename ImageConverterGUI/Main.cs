@@ -528,7 +528,7 @@ namespace ImageConverterGUI
                     {
                         imagePreview.Image.Dispose();
                     }
-                    imagePreview.Image = image;
+                    imagePreview.Image = (Bitmap) image.Clone();
                     currentPreviewReferenceImage = image;
                     lblResolution.Text = "Resolution: " + image.Width + "x" + image.Height;
                 }
@@ -724,6 +724,12 @@ namespace ImageConverterGUI
                 
                 DisplayPreviewImage(listFileEntries.SelectedItems[0].Tag.ToString());
             }
+        }
+
+        private void btnAbout_Click(object sender, EventArgs e)
+        {
+            About about = new About();
+            about.ShowDialog();
         }
     }
 }

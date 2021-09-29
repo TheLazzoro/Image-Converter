@@ -80,17 +80,17 @@ namespace ImageConverter.IO
             }
         }
 
-        public static String GetFileSizeString(string filePath)
+        public static string GetFileSizeString(string filePath)
         {
-            String finalText = "";
-            String howBigBytes = "bytes";
+            string finalText = "";
+            string howBigBytes = "bytes";
 
             try
             {
                 using (Stream fs = new FileStream(filePath, FileMode.Open))
                 {
                     long sizeBytes = fs.Length;
-                    String text = sizeBytes.ToString();
+                    string text = sizeBytes.ToString();
                     int textLength = text.Length;
 
                     if (sizeBytes > 1000)
@@ -184,7 +184,7 @@ namespace ImageConverter.IO
             return image;
         }
 
-        private static Bitmap ReadDDS(String filePath)
+        private static Bitmap ReadDDS(string filePath)
         {
             SixLabors.ImageSharp.Image<Rgba32> image = null;
             using FileStream fs = File.OpenRead(filePath);

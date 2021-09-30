@@ -9,12 +9,12 @@ using System.Drawing;
 
 namespace ImageConverter.IO
 {
-    public class Preview
+    public static class Preview
     {
-        public string errorMsg = "";
-        public string fileSizeString = "";
+        public static string errorMsg = "";
+        public static string fileSizeString = "";
 
-        public Bitmap RenderPreview(String filePath)
+        public static Bitmap RenderPreview(String filePath)
         {
             Reader.ReadFile(filePath);
             fileSizeString = Reader.GetFileSizeString(filePath);

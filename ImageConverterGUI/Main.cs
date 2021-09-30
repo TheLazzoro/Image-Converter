@@ -477,52 +477,11 @@ namespace ImageConverterGUI
             }
         }
 
-        public Bitmap RenderPreview(String filePath)
-        {
-            Reader.ReadFile(filePath);
-            Bitmap image = Reader.image;
-            if (image != null)
-            {
-                ImageFilters filters = new ImageFilters();
-                int iconsChecked = 0;
-                if (FilterSettings.isIconBTN) iconsChecked++;
-                if (FilterSettings.isIconPAS) iconsChecked++;
-                if (FilterSettings.isIconATC) iconsChecked++;
-                if (FilterSettings.isIconDISBTN) iconsChecked++;
-
-                if (iconsChecked <= 1) // Classic icons
-                {
-                    if (FilterSettings.isIconBTN) image = filters.AddIconBorder(image, IconTypes.BTN);
-                    if (FilterSettings.isIconPAS) image = filters.AddIconBorder(image, IconTypes.PAS);
-                    if (FilterSettings.isIconATC) image = filters.AddIconBorder(image, IconTypes.ATC);
-                    if (FilterSettings.isIconDISBTN) image = filters.AddIconBorder(image, IconTypes.DISBTN);
-                    lblPreviewError.Text = "";
-                }
-                else
-                {
-                    if (FilterSettings.war3IconType == War3IconType.ClassicIcon && image.Width == 64 && image.Height == 64)
-                        lblPreviewError.Text = "Cannot display multiple icon filters";
-                    else if (FilterSettings.war3IconType == War3IconType.ReforgedIcon && image.Width == 256 && image.Height == 256)
-                        lblPreviewError.Text = "Cannot display multiple icon filters";
-                    else
-                        lblPreviewError.Text = "";
-                }
-
-                if (FilterSettings.isResized)
-                {
-                    //image.Mutate(x => x.Resize(FilterSettings.resizeX, FilterSettings.resizeY)); // IMPORTANT TO CHANGE LATER
-                }
-
-            }
-
-            return image;
-        }
-
         private void DisplayPreviewImage(String filePath)
         {
             try
             {
-                Bitmap image = RenderPreview(filePath);
+                Bitmap image = Preview.RenderPreview(filePath);
                 if (image != null)
                 {
                     if (imagePreview.Image != null)
@@ -722,7 +681,6 @@ namespace ImageConverterGUI
             // Reload preview image when dialog window closes.
             if (listFileEntries.SelectedItems.Count > 0)
             {
-                
                 DisplayPreviewImage(listFileEntries.SelectedItems[0].Tag.ToString());
             }
         }
@@ -731,6 +689,32 @@ namespace ImageConverterGUI
         {
             About about = new About();
             about.ShowDialog();
+        }
+
+        private void ResizePreview()
+        {
+            FilterSettings.isResized = checkBoxResize.Checked;
+            FilterSettings.resizeX = (int)upDownSizeX.Value;
+            FilterSettings.resizeY = (int)upDownSizeY.Value;
+            upDownSizeX.Enabled = checkBoxResize.Checked;
+            upDownSizeY.Enabled = checkBoxResize.Checked;
+            if (listFileEntries.SelectedItems.Count > 0)
+                DisplayPreviewImage(listFileEntries.SelectedItems[0].Tag.ToString());
+        }
+
+        private void checkBoxResize_CheckedChanged(object sender, EventArgs e)
+        {
+            ResizePreview();
+        }
+
+        private void upDownSizeX_ValueChanged(object sender, EventArgs e)
+        {
+            ResizePreview();
+        }
+
+        private void upDownSizeY_ValueChanged(object sender, EventArgs e)
+        {
+            ResizePreview();
         }
     }
 }

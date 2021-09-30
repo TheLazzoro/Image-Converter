@@ -370,9 +370,8 @@ namespace WarcraftImageLabGUI
         {
             if (filePath != null)
             {
-                Preview preview = new Preview();
-                Bitmap image = preview.RenderPreview(filePath);
-                lblPreviewError.Text = preview.errorMsg;
+                Bitmap image = Preview.RenderPreview(filePath);
+                lblPreviewError.Text = Preview.errorMsg;
 
                 if (imagePreview.Image != null)
                 {
@@ -385,7 +384,7 @@ namespace WarcraftImageLabGUI
                 imagePreview.Image = image;
                 currentPreviewReferenceImage = image;
 
-                lblFileSize.Text = preview.fileSizeString;
+                lblFileSize.Text = Preview.fileSizeString;
 
                 CenterAndScalePreviewImage();
             }

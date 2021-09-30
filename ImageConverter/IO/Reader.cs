@@ -27,7 +27,7 @@ namespace ImageConverter.IO
             if (image != null) image.Dispose();
             image = null;
 
-            string fileExtension = Shared.GetFileExtension(filePath);
+            string fileExtension = Utility.GetFileExtension(filePath);
             string fileExtensionCorreced = fileExtension.ToLower();
             try
             {

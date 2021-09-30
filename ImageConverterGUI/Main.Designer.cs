@@ -368,7 +368,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.previewSplitContainer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.previewSplitContainer.Cursor = System.Windows.Forms.Cursors.VSplit;
+            this.previewSplitContainer.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.previewSplitContainer.Location = new System.Drawing.Point(13, 175);
             this.previewSplitContainer.Name = "previewSplitContainer";
             // 

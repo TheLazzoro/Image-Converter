@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ImageConverter
 {
-    public static class Shared
+    public static class Utility
     {
         public static string GetFileNameAndExtension(string filePath)
         {

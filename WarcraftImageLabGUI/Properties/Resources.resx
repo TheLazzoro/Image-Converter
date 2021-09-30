@@ -118,43 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Icon_Border" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\icon_border.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Icon_Border_Attack" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\icon_border_attack.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Icon_Border_Attack_Upgrade" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\icon_border_attack_upgrade.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Icon_Border_Autocast" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\icon_border_autocast.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Icon_Border_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\icon_border_disabled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Icon_Border_Passive" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\icon_border_passive.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Reforged_Icon_Border_Attack" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\reforged_icon_border_attack.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Reforged_Icon_Border_Attack_Upgrade" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\reforged_icon_border_attack_upgrade.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Reforged_Icon_Border_Autocast" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\reforged_icon_border_autocast.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Reforged_Icon_Border_Button" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\reforged_icon_border_button.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Reforged_Icon_Border_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\reforged_icon_border_disabled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Reforged_Icon_Border_Passive" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\reforged_icon_border_passive.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Reforged_Icon_Border_Passive_Disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\reforged_icon_border_passive_disabled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Warcraft_W" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\warcraft w.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

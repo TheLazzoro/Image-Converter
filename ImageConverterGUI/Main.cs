@@ -17,6 +17,7 @@ using ImageConverter.IO;
 using ImageConverter.Image_Processing;
 using SixLabors.ImageSharp.Processing;
 using ImageConverter;
+using Shared;
 
 namespace ImageConverterGUI
 {

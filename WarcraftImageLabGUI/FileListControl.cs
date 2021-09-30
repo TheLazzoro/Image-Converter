@@ -100,7 +100,7 @@ namespace WarcraftImageLabGUI
 
         public void AddFileToListSingle(string fileEntry)
         {
-            string filename = Shared.GetFileNameAndExtension(fileEntry);
+            string filename = Utility.GetFileNameAndExtension(fileEntry);
             String[] row = { filename, Reader.GetFileSizeString(fileEntry) };
             ListViewItem item = new ListViewItem(row);
             item.Tag = fileEntry;

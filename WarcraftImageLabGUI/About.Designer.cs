@@ -66,7 +66,7 @@ namespace WarcraftImageLabGUI
             // logoPictureBox
             // 
             this.logoPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.logoPictureBox.Image = global::ImageConverter.Properties.Resources.Warcraft_W;
+            this.logoPictureBox.Image = global::WarcraftImageLabGUI.Properties.Resources.Warcraft_W;
             this.logoPictureBox.Location = new System.Drawing.Point(4, 3);
             this.logoPictureBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.logoPictureBox.Name = "logoPictureBox";

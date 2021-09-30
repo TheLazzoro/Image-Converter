@@ -22,7 +22,7 @@ namespace ImageConverter.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Resources {
+    internal class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace ImageConverter.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
+        internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ImageConverter.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace ImageConverter.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
+        internal static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace ImageConverter.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap Icon_Border {
+        internal static System.Drawing.Bitmap Icon_Border {
             get {
                 object obj = ResourceManager.GetObject("Icon_Border", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -73,7 +73,7 @@ namespace ImageConverter.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap Icon_Border_Attack {
+        internal static System.Drawing.Bitmap Icon_Border_Attack {
             get {
                 object obj = ResourceManager.GetObject("Icon_Border_Attack", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -83,7 +83,7 @@ namespace ImageConverter.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap Icon_Border_Attack_Upgrade {
+        internal static System.Drawing.Bitmap Icon_Border_Attack_Upgrade {
             get {
                 object obj = ResourceManager.GetObject("Icon_Border_Attack_Upgrade", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -93,7 +93,7 @@ namespace ImageConverter.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap Icon_Border_Autocast {
+        internal static System.Drawing.Bitmap Icon_Border_Autocast {
             get {
                 object obj = ResourceManager.GetObject("Icon_Border_Autocast", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -103,7 +103,7 @@ namespace ImageConverter.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap Icon_Border_Disabled {
+        internal static System.Drawing.Bitmap Icon_Border_Disabled {
             get {
                 object obj = ResourceManager.GetObject("Icon_Border_Disabled", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -113,7 +113,7 @@ namespace ImageConverter.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap Icon_Border_Passive {
+        internal static System.Drawing.Bitmap Icon_Border_Passive {
             get {
                 object obj = ResourceManager.GetObject("Icon_Border_Passive", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -123,7 +123,7 @@ namespace ImageConverter.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap Reforged_Icon_Border_Attack {
+        internal static System.Drawing.Bitmap Reforged_Icon_Border_Attack {
             get {
                 object obj = ResourceManager.GetObject("Reforged_Icon_Border_Attack", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -133,7 +133,7 @@ namespace ImageConverter.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap Reforged_Icon_Border_Attack_Upgrade {
+        internal static System.Drawing.Bitmap Reforged_Icon_Border_Attack_Upgrade {
             get {
                 object obj = ResourceManager.GetObject("Reforged_Icon_Border_Attack_Upgrade", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -143,7 +143,7 @@ namespace ImageConverter.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap Reforged_Icon_Border_Autocast {
+        internal static System.Drawing.Bitmap Reforged_Icon_Border_Autocast {
             get {
                 object obj = ResourceManager.GetObject("Reforged_Icon_Border_Autocast", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -153,7 +153,7 @@ namespace ImageConverter.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap Reforged_Icon_Border_Button {
+        internal static System.Drawing.Bitmap Reforged_Icon_Border_Button {
             get {
                 object obj = ResourceManager.GetObject("Reforged_Icon_Border_Button", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -163,7 +163,7 @@ namespace ImageConverter.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap Reforged_Icon_Border_Disabled {
+        internal static System.Drawing.Bitmap Reforged_Icon_Border_Disabled {
             get {
                 object obj = ResourceManager.GetObject("Reforged_Icon_Border_Disabled", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -173,7 +173,7 @@ namespace ImageConverter.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap Reforged_Icon_Border_Passive {
+        internal static System.Drawing.Bitmap Reforged_Icon_Border_Passive {
             get {
                 object obj = ResourceManager.GetObject("Reforged_Icon_Border_Passive", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -183,19 +183,9 @@ namespace ImageConverter.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap Reforged_Icon_Border_Passive_Disabled {
+        internal static System.Drawing.Bitmap Reforged_Icon_Border_Passive_Disabled {
             get {
                 object obj = ResourceManager.GetObject("Reforged_Icon_Border_Passive_Disabled", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Warcraft_W {
-            get {
-                object obj = ResourceManager.GetObject("Warcraft W", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

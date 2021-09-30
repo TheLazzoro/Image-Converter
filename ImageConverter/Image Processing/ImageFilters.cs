@@ -23,7 +23,7 @@ namespace ImageConverter.Image_Processing
             {
                 if (iconSetting == IconTypes.BTN)
 
-                    border = Properties.Resources.Warcraft_W;
+                    border = Properties.Resources.Icon_Border;
                 else if (iconSetting == IconTypes.PAS)
                     border = Properties.Resources.Icon_Border_Passive;
                 else if (iconSetting == IconTypes.ATC)

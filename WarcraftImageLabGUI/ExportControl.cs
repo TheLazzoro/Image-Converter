@@ -1,5 +1,6 @@
 ﻿using ImageConverter;
 using ImageConverter.IO;
+using Shared;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -111,7 +112,7 @@ namespace WarcraftImageLabGUI
                     }
                     else
                     {
-                        string[] error = { Shared.GetFileNameAndExtension(Converter.fileEntries[i]), Converter.errorMsg };
+                        string[] error = { Utility.GetFileNameAndExtension(Converter.fileEntries[i]), Converter.errorMsg };
                         worker.ReportProgress(i * 10000 / endIndex, error);
                         Converter.totalErrors++;
                     }

@@ -58,6 +58,7 @@ namespace ImageConverter.IO
                 if (FilterSettings.isResized)
                 {
                     //image.Mutate(x => x.Resize(FilterSettings.resizeX, FilterSettings.resizeY)); // IMPORTANT TO FIX LATER
+                    image = ImageFilters.ResizeBitmap(image, FilterSettings.resizeX, FilterSettings.resizeY);
                 }
             }
             else

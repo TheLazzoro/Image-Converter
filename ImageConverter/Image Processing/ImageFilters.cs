@@ -11,6 +11,14 @@ namespace ImageConverter.Image_Processing
 {
     public partial class ImageFilters
     {
+        public static Bitmap ResizeBitmap(Bitmap source, int width, int height)
+        {
+            Bitmap resized = new Bitmap(source, new Size(width, height));
+
+            return resized;
+        }
+
+
         public Bitmap AddIconBorder(Bitmap source, IconTypes iconSetting)
         {
             Bitmap imageToConvert = (Bitmap)source.Clone();
@@ -151,9 +159,11 @@ namespace ImageConverter.Image_Processing
 
             if(width == 256 && height == 256) {
                 //imageToConvert.Mutate(i => i.Resize(222, 222)); // VERY IMPORTANT TO FIX LATER
+                imageToConvert = ImageFilters.ResizeBitmap(imageToConvert, FilterSettings.resizeX, FilterSettings.resizeY);
             }
             else if(width == 64 && height == 64){
                 //imageToConvert.Mutate(i => i.Resize(56, 56)); // VERY IMPORTANT TO FIX LATER
+                imageToConvert = ImageFilters.ResizeBitmap(imageToConvert, FilterSettings.resizeX, FilterSettings.resizeY);
             }
 
             for (int x = 0; x < width; x++)

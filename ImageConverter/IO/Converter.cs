@@ -157,6 +157,7 @@ namespace ImageConverter.IO
                     if (FilterSettings.isResized)
                     {
                         //imageToConvert.Mutate(x => x.Resize(FilterSettings.resizeX, FilterSettings.resizeY)); // VERY IMPORTANT TO HAVE, PLZ FIX
+                        Reader.image = ImageFilters.ResizeBitmap(Reader.image, FilterSettings.resizeX, FilterSettings.resizeY);
                     }
 
                     success = Write(Reader.image);
@@ -216,6 +217,7 @@ namespace ImageConverter.IO
                             if (FilterSettings.isResized)
                             {
                                 //filteredImages[i].Mutate(x => x.Resize(FilterSettings.resizeX, FilterSettings.resizeY)); // VERY IMPORTANT TO HAVE, PLZ FIX
+                                filteredImages[i] = ImageFilters.ResizeBitmap(filteredImages[i], FilterSettings.resizeX, FilterSettings.resizeY);
                             }
                             ExportSettings.prefix = prefix[i];
                             success = Write(filteredImages[i]);

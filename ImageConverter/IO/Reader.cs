@@ -1,15 +1,10 @@
 ﻿using BCnEncoder.Decoder;
-using ImageConverter.Image_Processing;
 using SixLabors.ImageSharp.PixelFormats;
 using Svg;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using War3Net.Drawing.Blp;
 using WebPWrapper;
 
@@ -151,7 +146,7 @@ namespace ImageConverter.IO
             int width;
             int height;
             // The library does not determine what's BLP1 and BLP2 properly, so we manually set bool bgra in GetPixels depending on the checkbox.
-            byte[] bytes = blpFile.GetPixels(0, out width, out height, FilterSettings.isBLP2); // 0 indicates first mipmap layer. width and height are assigned width and height in GetPixels().
+            byte[] bytes = blpFile.GetPixels(0, out width, out height, blpFile._isBLP2); // 0 indicates first mipmap layer. width and height are assigned width and height in GetPixels().
             var actualImage = blpFile.GetBitmapSource(0);
             int bytesPerPixel = (actualImage.Format.BitsPerPixel + 7) / 8;
             int stride = bytesPerPixel * actualImage.PixelWidth;

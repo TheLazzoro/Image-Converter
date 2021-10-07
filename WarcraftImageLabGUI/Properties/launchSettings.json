@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "WarcraftImageLabGUI": {
+      "commandName": "Project",
+      "nativeDebugging": false
+    }
+  }
+}

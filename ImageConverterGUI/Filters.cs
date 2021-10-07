@@ -28,7 +28,6 @@ namespace ImageConverterGUI
             checkBoxPassive.Checked = FilterSettings.isIconPAS;
             checkBoxAutocast.Checked = FilterSettings.isIconATC;
             checkBoxDisabled.Checked = FilterSettings.isIconDISBTN;
-            checkBoxIsBLP2.Checked = FilterSettings.isBLP2;
             checkBoxResize.Checked = FilterSettings.isResized;
             upDownSizeX.Text = FilterSettings.resizeX.ToString();
             upDownSizeY.Text = FilterSettings.resizeY.ToString();
@@ -49,16 +48,6 @@ namespace ImageConverterGUI
             FilterSettings.resizeY = int.Parse(upDownSizeY.Text);
 
             Dispose();
-        }
-
-        private void checkBoxIsBLP2_CheckedChanged(object sender, EventArgs e)
-        {
-            FilterSettings.isBLP2 = checkBoxIsBLP2.Checked;
-        }
-
-        private void checkBoxIsBLP2_MouseHover(object sender, EventArgs e)
-        {
-            CustomTooltip.DisplayTooltip("Toggles color format for BLP images (BLP2 = World of Warcraft)", checkBoxIsBLP2, 600);
         }
 
         private void radioBtnNone_CheckedChanged(object sender, EventArgs e)

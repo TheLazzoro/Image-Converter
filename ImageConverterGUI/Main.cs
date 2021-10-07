@@ -37,7 +37,6 @@ namespace ImageConverterGUI
             cmboxOutputFormat.Items.Add("TGA");
             cmboxOutputFormat.Items.Add("DDS");
             cmboxOutputFormat.Items.Add("WEBP");
-            //cmboxOutputFormat.Items.Add("BLP");
             cmboxOutputFormat.SelectedIndex = 0;
 
             cmboxDDSList.Items.Add("BC1 (DXT1), RGB | no alpha");
@@ -435,6 +434,9 @@ namespace ImageConverterGUI
                     break;
                 case (int)ImageFormats.DDS:
                     lblFileFormat.Text = ".dds";
+                    break;
+                case (int)ImageFormats.WEBP:
+                    lblFileFormat.Text = ".webp";
                     break;
             }
         }

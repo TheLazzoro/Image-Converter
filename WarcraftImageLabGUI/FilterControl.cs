@@ -30,11 +30,6 @@ namespace WarcraftImageLabGUI
                 this.OnFilterChanged(this, e);
         }
 
-        private void checkBoxIsBLP2_MouseHover(object sender, EventArgs e)
-        {
-            CustomTooltip.DisplayTooltip("Toggles color format for BLP images (BLP2 = World of Warcraft)", checkBoxIsBLP2, 600);
-        }
-
         private void radioBtnNone_CheckedChanged(object sender, EventArgs e)
         {
             FilterSettings.war3IconType = War3IconType.None;
@@ -110,12 +105,6 @@ namespace WarcraftImageLabGUI
         private void checkBoxInfoUpgrade_CheckedChanged(object sender, EventArgs e)
         {
             FilterSettings.isIconUPG = checkBoxInfoUpgrade.Checked;
-            InvokeFilterChange(e);
-        }
-
-        private void checkBoxIsBLP2_CheckedChanged(object sender, EventArgs e)
-        {
-            FilterSettings.isBLP2 = checkBoxIsBLP2.Checked;
             InvokeFilterChange(e);
         }
 

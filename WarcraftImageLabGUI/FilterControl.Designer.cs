@@ -48,7 +48,6 @@ namespace WarcraftImageLabGUI
             this.checkBoxButton = new System.Windows.Forms.CheckBox();
             this.radioBtnReforged = new System.Windows.Forms.RadioButton();
             this.radioBtnNone = new System.Windows.Forms.RadioButton();
-            this.checkBoxIsBLP2 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.upDownSizeY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.upDownSizeX)).BeginInit();
             this.groupBox.SuspendLayout();
@@ -348,20 +347,6 @@ namespace WarcraftImageLabGUI
             this.radioBtnNone.UseVisualStyleBackColor = true;
             this.radioBtnNone.CheckedChanged += new System.EventHandler(this.radioBtnNone_CheckedChanged);
             // 
-            // checkBoxIsBLP2
-            // 
-            this.checkBoxIsBLP2.AutoSize = true;
-            this.checkBoxIsBLP2.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.checkBoxIsBLP2.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.checkBoxIsBLP2.Location = new System.Drawing.Point(7, 266);
-            this.checkBoxIsBLP2.Name = "checkBoxIsBLP2";
-            this.checkBoxIsBLP2.Size = new System.Drawing.Size(136, 20);
-            this.checkBoxIsBLP2.TabIndex = 42;
-            this.checkBoxIsBLP2.Text = "BLP2 Color Format";
-            this.checkBoxIsBLP2.UseVisualStyleBackColor = true;
-            this.checkBoxIsBLP2.CheckedChanged += new System.EventHandler(this.checkBoxIsBLP2_CheckedChanged);
-            this.checkBoxIsBLP2.MouseHover += new System.EventHandler(this.checkBoxIsBLP2_MouseHover);
-            // 
             // FilterControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -373,7 +358,6 @@ namespace WarcraftImageLabGUI
             this.Controls.Add(this.lblSizeX);
             this.Controls.Add(this.checkBoxResize);
             this.Controls.Add(this.groupBox);
-            this.Controls.Add(this.checkBoxIsBLP2);
             this.Name = "FilterControl";
             this.Size = new System.Drawing.Size(396, 342);
             ((System.ComponentModel.ISupportInitialize)(this.upDownSizeY)).EndInit();
@@ -404,7 +388,6 @@ namespace WarcraftImageLabGUI
         private System.Windows.Forms.CheckBox checkBoxButton;
         private System.Windows.Forms.RadioButton radioBtnReforged;
         private System.Windows.Forms.RadioButton radioBtnNone;
-        private System.Windows.Forms.CheckBox checkBoxIsBLP2;
         private System.Windows.Forms.CheckBox checkBoxPassiveDisabled;
         private System.Windows.Forms.CheckBox checkBoxButtonDisabled;
         private System.Windows.Forms.CheckBox checkBoxAutocastDisabled;

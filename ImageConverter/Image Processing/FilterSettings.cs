@@ -17,7 +17,6 @@ namespace ImageConverter.Image_Processing
         public static bool isIconDISATC;
         public static bool isIconATT;
         public static bool isIconUPG;
-        public static bool isBLP2;
         public static bool isResized;
         public static int resizeX = 4;
         public static int resizeY = 4;

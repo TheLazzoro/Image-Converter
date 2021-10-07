@@ -419,7 +419,14 @@ namespace WarcraftImageLabGUI
                 {
                     correctedSize.Height = currentPreviewReferenceImage.Height;
                 }
-                currentPreviewImageBitmap = new Bitmap(currentPreviewReferenceImage, correctedSize);
+
+                try
+                {
+                    currentPreviewImageBitmap = new Bitmap(currentPreviewReferenceImage, correctedSize);
+                } catch (AccessViolationException ex)
+                {
+                    throw ex;
+                }
                 imagePreview.Image = currentPreviewImageBitmap;
             }
             else

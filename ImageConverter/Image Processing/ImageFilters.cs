@@ -158,19 +158,22 @@ namespace ImageConverter.Image_Processing
             Bitmap canvas = new Bitmap(width, height);
 
             if(width == 256 && height == 256) {
-                //imageToConvert.Mutate(i => i.Resize(222, 222)); // VERY IMPORTANT TO FIX LATER
-                imageToConvert = ImageFilters.ResizeBitmap(imageToConvert, FilterSettings.resizeX, FilterSettings.resizeY);
+                imageToConvert = ImageFilters.ResizeBitmap(imageToConvert, 222, 222);
             }
             else if(width == 64 && height == 64){
-                //imageToConvert.Mutate(i => i.Resize(56, 56)); // VERY IMPORTANT TO FIX LATER
-                imageToConvert = ImageFilters.ResizeBitmap(imageToConvert, FilterSettings.resizeX, FilterSettings.resizeY);
+                imageToConvert = ImageFilters.ResizeBitmap(imageToConvert, 56, 56);
             }
+
+            int widthResized = imageToConvert.Width;
+            int heightResized = imageToConvert.Height;
 
             for (int x = 0; x < width; x++)
             {
-                for (int y = 0; y < width; y++)
+                for (int y = 0; y < height; y++)
                 {
-                    Color color = imageToConvert.GetPixel(x, y);
+                    Color color = Color.FromArgb(255,0,0,0);
+                    if(x < widthResized && y < heightResized)
+                        color = imageToConvert.GetPixel(x, y);
 
                     if (x < imageToConvert.Width && y < imageToConvert.Height)
                     {
@@ -195,7 +198,6 @@ namespace ImageConverter.Image_Processing
                     if (colorBorder.R > 216 && colorBorder.G == 0 && colorBorder.B == 0)
                     {
                         canvas.SetPixel(x, y, Color.FromArgb(0,0,0,0)); // The border's red color becomes 100% transparent.
-                        //canvas[x, y] = new Rgba32(0,0,0,0); // The border's red color becomes 100% transparent.
                     }
                     else if (alphaBorder != 0)
                     {
@@ -205,7 +207,6 @@ namespace ImageConverter.Image_Processing
                         byte greenBlended = (byte)((int)greenSource * (1 - alphaPercent) + (greenBorder * alphaPercent));
                         byte blueBlended = (byte)((int)blueSource * (1 - alphaPercent) + (blueBorder * alphaPercent));
 
-                        //canvas[x, y] = new Rgba32(redBlended, greenBlended, blueBlended);
                         canvas.SetPixel(x, y, Color.FromArgb(255, redBlended, greenBlended, blueBlended));
                     }
                 }

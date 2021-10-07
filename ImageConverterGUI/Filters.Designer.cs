@@ -30,7 +30,6 @@ namespace ImageConverterGUI
         private void InitializeComponent()
         {
             this.btnClose = new System.Windows.Forms.Button();
-            this.checkBoxIsBLP2 = new System.Windows.Forms.CheckBox();
             this.groupBox = new System.Windows.Forms.GroupBox();
             this.lblInfo = new System.Windows.Forms.Label();
             this.lblInfo2 = new System.Windows.Forms.Label();
@@ -70,19 +69,6 @@ namespace ImageConverterGUI
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = false;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
-            // 
-            // checkBoxIsBLP2
-            // 
-            this.checkBoxIsBLP2.AutoSize = true;
-            this.checkBoxIsBLP2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.checkBoxIsBLP2.Location = new System.Drawing.Point(12, 200);
-            this.checkBoxIsBLP2.Name = "checkBoxIsBLP2";
-            this.checkBoxIsBLP2.Size = new System.Drawing.Size(130, 19);
-            this.checkBoxIsBLP2.TabIndex = 32;
-            this.checkBoxIsBLP2.Text = "BLP2 Color Format";
-            this.checkBoxIsBLP2.UseVisualStyleBackColor = true;
-            this.checkBoxIsBLP2.CheckedChanged += new System.EventHandler(this.checkBoxIsBLP2_CheckedChanged);
-            this.checkBoxIsBLP2.MouseHover += new System.EventHandler(this.checkBoxIsBLP2_MouseHover);
             // 
             // groupBox
             // 
@@ -329,7 +315,6 @@ namespace ImageConverterGUI
             this.Controls.Add(this.lblSizeX);
             this.Controls.Add(this.checkBoxResize);
             this.Controls.Add(this.groupBox);
-            this.Controls.Add(this.checkBoxIsBLP2);
             this.Controls.Add(this.btnClose);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MinimumSize = new System.Drawing.Size(268, 310);
@@ -348,7 +333,6 @@ namespace ImageConverterGUI
         #endregion
 
         private System.Windows.Forms.Button btnClose;
-        private System.Windows.Forms.CheckBox checkBoxIsBLP2;
         private System.Windows.Forms.GroupBox groupBox;
         private System.Windows.Forms.RadioButton radioBtnNone;
         private System.Windows.Forms.RadioButton radioBtnReforged;

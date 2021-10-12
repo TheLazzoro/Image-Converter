@@ -166,7 +166,7 @@ namespace WarcraftImageLabGUI
             this.groupBox.Size = new System.Drawing.Size(382, 257);
             this.groupBox.TabIndex = 43;
             this.groupBox.TabStop = false;
-            this.groupBox.Text = "Warcraft III Icon Borders";
+            this.groupBox.Text = "Warcraft III Icons";
             // 
             // checkBoxAutocastDisabled
             // 
@@ -206,9 +206,9 @@ namespace WarcraftImageLabGUI
             this.lblInfo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(124)))), ((int)(((byte)(10)))));
             this.lblInfo.Location = new System.Drawing.Point(7, 194);
             this.lblInfo.Name = "lblInfo";
-            this.lblInfo.Size = new System.Drawing.Size(252, 16);
+            this.lblInfo.Size = new System.Drawing.Size(259, 16);
             this.lblInfo.TabIndex = 35;
-            this.lblInfo.Text = "Converts image with each selected border.";
+            this.lblInfo.Text = "Exports image with each selected icon filter.";
             // 
             // lblInfo2
             // 

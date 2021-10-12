@@ -11,11 +11,15 @@ namespace ImageConverter.IO
 {
     public static class Preview
     {
+        public static Bitmap imagePreview = null;
         public static string errorMsg = "";
         public static string fileSizeString = "";
-
-        public static Bitmap RenderPreview(String filePath)
+        public static void RenderPreview(String filePath)
         {
+            if(imagePreview != null)
+                imagePreview.Dispose();
+                imagePreview = null;
+
             Reader.ReadFile(filePath);
             fileSizeString = Reader.GetFileSizeString(filePath);
             Bitmap image = Reader.image;
@@ -57,7 +61,6 @@ namespace ImageConverter.IO
 
                 if (FilterSettings.isResized)
                 {
-                    //image.Mutate(x => x.Resize(FilterSettings.resizeX, FilterSettings.resizeY)); // IMPORTANT TO FIX LATER
                     image = ImageFilters.ResizeBitmap(image, FilterSettings.resizeX, FilterSettings.resizeY);
                 }
             }
@@ -66,7 +69,7 @@ namespace ImageConverter.IO
                 errorMsg = Reader.errorMsg;
             }
 
-            return image;
+            imagePreview = image;
         }
     }
 }

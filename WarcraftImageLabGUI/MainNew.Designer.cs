@@ -44,6 +44,8 @@ namespace WarcraftImageLabGUI
             this.imagePreview = new System.Windows.Forms.PictureBox();
             this.panelChildForm = new System.Windows.Forms.Panel();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
+            this.lblColorHexadecimal = new System.Windows.Forms.Label();
+            this.lblCoordinates = new System.Windows.Forms.Label();
             this.colorBox = new System.Windows.Forms.PictureBox();
             this.lblRGBA = new System.Windows.Forms.Label();
             this.lblPreviewError = new System.Windows.Forms.Label();
@@ -292,7 +294,7 @@ namespace WarcraftImageLabGUI
             this.imagePreview.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.imagePreview.BackColor = System.Drawing.Color.Black;
             this.imagePreview.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("imagePreview.BackgroundImage")));
-            this.imagePreview.Location = new System.Drawing.Point(31, 97);
+            this.imagePreview.Location = new System.Drawing.Point(31, 88);
             this.imagePreview.Name = "imagePreview";
             this.imagePreview.Size = new System.Drawing.Size(284, 266);
             this.imagePreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -333,6 +335,8 @@ namespace WarcraftImageLabGUI
             // splitContainer.Panel2
             // 
             this.splitContainer.Panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(75)))), ((int)(((byte)(75)))));
+            this.splitContainer.Panel2.Controls.Add(this.lblColorHexadecimal);
+            this.splitContainer.Panel2.Controls.Add(this.lblCoordinates);
             this.splitContainer.Panel2.Controls.Add(this.colorBox);
             this.splitContainer.Panel2.Controls.Add(this.lblRGBA);
             this.splitContainer.Panel2.Controls.Add(this.lblPreviewError);
@@ -343,6 +347,34 @@ namespace WarcraftImageLabGUI
             this.splitContainer.Size = new System.Drawing.Size(811, 545);
             this.splitContainer.SplitterDistance = 445;
             this.splitContainer.TabIndex = 16;
+            // 
+            // lblColorHexadecimal
+            // 
+            this.lblColorHexadecimal.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblColorHexadecimal.BackColor = System.Drawing.Color.Transparent;
+            this.lblColorHexadecimal.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblColorHexadecimal.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.lblColorHexadecimal.Location = new System.Drawing.Point(220, 11);
+            this.lblColorHexadecimal.Name = "lblColorHexadecimal";
+            this.lblColorHexadecimal.Size = new System.Drawing.Size(135, 16);
+            this.lblColorHexadecimal.TabIndex = 37;
+            this.lblColorHexadecimal.Text = "#000000";
+            this.lblColorHexadecimal.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lblCoordinates
+            // 
+            this.lblCoordinates.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblCoordinates.BackColor = System.Drawing.Color.Transparent;
+            this.lblCoordinates.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblCoordinates.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.lblCoordinates.Location = new System.Drawing.Point(8, 30);
+            this.lblCoordinates.Name = "lblCoordinates";
+            this.lblCoordinates.Size = new System.Drawing.Size(188, 16);
+            this.lblCoordinates.TabIndex = 36;
+            this.lblCoordinates.Text = "X: 0 Y: 0";
+            this.lblCoordinates.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // colorBox
             // 
@@ -416,9 +448,9 @@ namespace WarcraftImageLabGUI
             this.groupBoxPreview.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.groupBoxPreview.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.groupBoxPreview.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.groupBoxPreview.Location = new System.Drawing.Point(8, 30);
+            this.groupBoxPreview.Location = new System.Drawing.Point(8, 49);
             this.groupBoxPreview.Name = "groupBoxPreview";
-            this.groupBoxPreview.Size = new System.Drawing.Size(347, 445);
+            this.groupBoxPreview.Size = new System.Drawing.Size(347, 426);
             this.groupBoxPreview.TabIndex = 15;
             this.groupBoxPreview.TabStop = false;
             this.groupBoxPreview.Text = "Preview";
@@ -431,7 +463,7 @@ namespace WarcraftImageLabGUI
             this.checkBoxTransparencyGrid.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.checkBoxTransparencyGrid.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.checkBoxTransparencyGrid.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.checkBoxTransparencyGrid.Location = new System.Drawing.Point(220, 13);
+            this.checkBoxTransparencyGrid.Location = new System.Drawing.Point(220, 30);
             this.checkBoxTransparencyGrid.Name = "checkBoxTransparencyGrid";
             this.checkBoxTransparencyGrid.Size = new System.Drawing.Size(135, 20);
             this.checkBoxTransparencyGrid.TabIndex = 31;
@@ -493,5 +525,7 @@ namespace WarcraftImageLabGUI
         private System.Windows.Forms.Label lblPreviewError;
         private System.Windows.Forms.Label lblRGBA;
         private System.Windows.Forms.PictureBox colorBox;
+        private System.Windows.Forms.Label lblCoordinates;
+        private System.Windows.Forms.Label lblColorHexadecimal;
     }
 }

@@ -23,8 +23,6 @@ namespace WarcraftImageLabGUI
         FilterControl filterControl;
         ExportControl exportControl;
 
-        private Bitmap currentPreviewImageBitmap;
-        private System.Drawing.Image currentPreviewReferenceImage;
         private System.Drawing.Image previewBackgroundImage;
 
         public MainNew()
@@ -322,7 +320,6 @@ namespace WarcraftImageLabGUI
         protected void UserControl_ClearFileList(object sender, EventArgs e)
         {
             imagePreview.Image = null;
-            currentPreviewReferenceImage = null;
             lblFileSize.Text = "0 KB";
             lblResolution.Text = "Resolution: N/A";
         }
@@ -368,37 +365,38 @@ namespace WarcraftImageLabGUI
 
         private void DisplayPreviewImage(String filePath)
         {
-            if (filePath != null)
+            Preview.RenderPreview(filePath);
+            lblFileSize.Text = Preview.fileSizeString;
+
+            if (Preview.imagePreview != null)
             {
-                Bitmap image = Preview.RenderPreview(filePath);
                 lblPreviewError.Text = Preview.errorMsg;
 
                 if (imagePreview.Image != null)
                 {
                     imagePreview.Image.Dispose();
                 }
-                if(image != null)
-                {
-                    lblResolution.Text = "Resolution: " + image.Width + "x" + image.Height;
-                }
-                imagePreview.Image = image;
-                currentPreviewReferenceImage = image;
 
-                lblFileSize.Text = Preview.fileSizeString;
+                lblResolution.Text = "Resolution: " + Preview.imagePreview.Width + "x" + Preview.imagePreview.Height;
 
                 CenterAndScalePreviewImage();
+            }
+            else {
+                imagePreview.Image = null;
+                lblResolution.Text = "Resolution: N/A";
+                lblPreviewError.Text = "Preview unavailable";
             }
         }
 
         private void CenterAndScalePreviewImage()
         {
-            if (currentPreviewReferenceImage != null)
+            if (Preview.imagePreview != null)
             {
                 int newWindowX = groupBoxPreview.Width - 24;
                 int newWindowY = groupBoxPreview.Height - 32;
 
                 float previewWindowRatio = (float)newWindowX / (float)newWindowY;
-                float sourceImgRatio = (float)currentPreviewReferenceImage.Width / (float)currentPreviewReferenceImage.Height;
+                float sourceImgRatio = (float)Preview.imagePreview.Width / (float)Preview.imagePreview.Height;
                 System.Drawing.Size correctedSize;
 
                 if (previewWindowRatio > sourceImgRatio)
@@ -411,23 +409,17 @@ namespace WarcraftImageLabGUI
                 }
 
                 // Preview window size exceeds image size
-                if (correctedSize.Width > currentPreviewReferenceImage.Width)
+                if (correctedSize.Width > Preview.imagePreview.Width)
                 {
-                    correctedSize.Width = currentPreviewReferenceImage.Width;
+                    correctedSize.Width = Preview.imagePreview.Width;
                 }
-                if (correctedSize.Height > currentPreviewReferenceImage.Height)
+                if (correctedSize.Height > Preview.imagePreview.Height)
                 {
-                    correctedSize.Height = currentPreviewReferenceImage.Height;
+                    correctedSize.Height = Preview.imagePreview.Height;
                 }
 
-                try
-                {
-                    currentPreviewImageBitmap = new Bitmap(currentPreviewReferenceImage, correctedSize);
-                } catch (AccessViolationException ex)
-                {
-                    throw ex;
-                }
-                imagePreview.Image = currentPreviewImageBitmap;
+                Bitmap bmp = new Bitmap(Preview.imagePreview, correctedSize);
+                imagePreview.Image = bmp;
             }
             else
             {
@@ -453,11 +445,17 @@ namespace WarcraftImageLabGUI
 
         private void imagePreview_MouseMove(object sender, MouseEventArgs e)
         {
-            if (imagePreview.Image != null)
+            if (imagePreview.Image != null && Preview.imagePreview != null)
             {
-                System.Drawing.Color color = currentPreviewImageBitmap.GetPixel(e.X, e.Y);
+                float ratio = (float)Preview.imagePreview.Width / (float)imagePreview.Image.Width;
+                int x = (int)(e.X * ratio);
+                int y = (int)(e.Y * ratio);
+
+                System.Drawing.Color color = Preview.imagePreview.GetPixel(x, y);
                 colorBox.BackColor = color;
                 lblRGBA.Text = "R:" + color.R + " G:" + color.G + " B:" + color.B + " A:" + color.A;
+                lblColorHexadecimal.Text = ColorTranslator.ToHtml(color);
+                lblCoordinates.Text = "X: " + x + " Y: " + y;
             }
         }
     }

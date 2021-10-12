@@ -23,7 +23,6 @@ namespace ImageConverterGUI
 {
     public partial class Main : Form
     {
-        private System.Drawing.Image currentPreviewReferenceImage;
         private System.Drawing.Image previewBackgroundImage;
 
         public Main()
@@ -54,7 +53,7 @@ namespace ImageConverterGUI
             imagePreview.BackgroundImage = null;
         }
 
-        
+
 
         private void btnChooseFile_Click(object sender, EventArgs e)
         {
@@ -252,14 +251,19 @@ namespace ImageConverterGUI
             ExportSettings.selectedDDSCompression = cmboxDDSList.SelectedIndex; // dds compression
             ExportSettings.generateMipMaps = chkBoxMipmaps.Checked; // dds mipmaps
             ExportSettings.isMultipleFiles = false;
-            if(radBtnFastest.Checked) { // compression quality
+            if (radBtnFastest.Checked)
+            { // compression quality
                 ExportSettings.selectedDDSCompressionQuality = 0;
-            } else if(radBtnBalanced.Checked) {
+            }
+            else if (radBtnBalanced.Checked)
+            {
                 ExportSettings.selectedDDSCompressionQuality = 1;
-            } else {
+            }
+            else
+            {
                 ExportSettings.selectedDDSCompressionQuality = 2;
             }
-            
+
             string[] fileEntry = new string[1];
             fileEntry[0] = listFileEntries.SelectedItems[0].Tag.ToString();
             Converter.fileEntries = fileEntry;
@@ -292,11 +296,16 @@ namespace ImageConverterGUI
             ExportSettings.selectedDDSCompression = cmboxDDSList.SelectedIndex; // dds compression
             ExportSettings.generateMipMaps = chkBoxMipmaps.Checked; // dds mipmaps
             ExportSettings.isMultipleFiles = true;
-            if(radBtnFastest.Checked) { // compression quality
+            if (radBtnFastest.Checked)
+            { // compression quality
                 ExportSettings.selectedDDSCompressionQuality = 0;
-            } else if(radBtnBalanced.Checked) {
+            }
+            else if (radBtnBalanced.Checked)
+            {
                 ExportSettings.selectedDDSCompressionQuality = 1;
-            } else {
+            }
+            else
+            {
                 ExportSettings.selectedDDSCompressionQuality = 2;
             }
 
@@ -481,38 +490,26 @@ namespace ImageConverterGUI
 
         private void DisplayPreviewImage(String filePath)
         {
-            try
-            {
-                Bitmap image = Preview.RenderPreview(filePath);
-                if (image != null)
-                {
-                    if (imagePreview.Image != null)
-                    {
-                        imagePreview.Image.Dispose();
-                    }
-                    imagePreview.Image = (Bitmap) image.Clone();
-                    currentPreviewReferenceImage = image;
-                    lblResolution.Text = "Resolution: " + image.Width + "x" + image.Height;
-                }
-                else
-                {
-                    imagePreview.Image = null;
-                    currentPreviewReferenceImage = null;
-                    lblResolution.Text = "Resolution: N/A";
-                    lblPreviewError.Text = "Preview unavailable";
-                }
-                using (Stream fs = new FileStream(filePath, FileMode.Open))
-                {
-                    lblFileSize.Text = GetFileSizeString(fs);
-                }
+            Preview.RenderPreview(filePath);
 
-            }
-            catch (Exception ex)
+            if (Preview.imagePreview != null)
             {
-                MessageBox.Show(ex.Message);
+                if (imagePreview.Image != null)
+                {
+                    imagePreview.Image.Dispose();
+                }
+                //imagePreview.Image = (Bitmap)Preview.imagePreview.Clone();
+                lblResolution.Text = "Resolution: " + Preview.imagePreview.Width + "x" + Preview.imagePreview.Height;
+                lblFileSize.Text = Preview.fileSizeString;
+                CenterAndScalePreviewImage();
+            }
+            else
+            {
+                imagePreview.Image = null;
+                lblResolution.Text = "Resolution: N/A";
+                lblPreviewError.Text = "Preview unavailable";
             }
 
-            CenterAndScalePreviewImage();
         }
 
         private String GetFileSizeString(Stream stream)
@@ -579,7 +576,6 @@ namespace ImageConverterGUI
             else
             {
                 imagePreview.Image = null;
-                currentPreviewReferenceImage = null;
                 lblFileSize.Text = "";
                 lblResolution.Text = "";
             }
@@ -604,7 +600,6 @@ namespace ImageConverterGUI
                 listFileEntries.Items.Clear();
                 verifyListAndOutputDirectory();
                 imagePreview.Image = null;
-                currentPreviewReferenceImage = null;
                 lblFileSize.Text = "";
                 lblResolution.Text = "";
             }
@@ -625,9 +620,9 @@ namespace ImageConverterGUI
 
         private void CenterAndScalePreviewImage()
         {
-            if (currentPreviewReferenceImage != null)
+            if (Preview.imagePreview != null)
             {
-                float sourceImgRatio = (float)currentPreviewReferenceImage.Width / (float)currentPreviewReferenceImage.Height;
+                float sourceImgRatio = (float)Preview.imagePreview.Width / (float)Preview.imagePreview.Height;
                 float previewWindowRatio = (float)previewSplitContainer.Panel2.Width / (float)previewSplitContainer.Panel2.Height;
                 System.Drawing.Size correctedSize;
                 if (previewWindowRatio > sourceImgRatio)
@@ -640,15 +635,15 @@ namespace ImageConverterGUI
                 }
 
                 // Preview size exceeds image size
-                if (correctedSize.Width > currentPreviewReferenceImage.Width)
+                if (correctedSize.Width > Preview.imagePreview.Width)
                 {
-                    correctedSize.Width = currentPreviewReferenceImage.Width;
+                    correctedSize.Width = Preview.imagePreview.Width;
                 }
-                if (correctedSize.Height > currentPreviewReferenceImage.Height)
+                if (correctedSize.Height > Preview.imagePreview.Height)
                 {
-                    correctedSize.Height = currentPreviewReferenceImage.Height;
+                    correctedSize.Height = Preview.imagePreview.Height;
                 }
-                Bitmap bmp = new Bitmap(currentPreviewReferenceImage, correctedSize);
+                Bitmap bmp = new Bitmap(Preview.imagePreview, correctedSize);
                 imagePreview.Image = bmp;
             }
 

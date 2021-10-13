@@ -18,9 +18,14 @@ Read/write:
 * WEBP (Web Picture)
 
 Read only:
-* BLP (BLizzard Picture)
+* BLP (Blizzard Picture)
 * SVG (Scalable Vector Graphics)
 * CR2 (Canon Raw Version 2)
+
+# Warcraft Image Lab GUI
+As a fun little experiment support was added for reading the BLP image format used by Blizzard Entertainment for games like Warcraft III and World of Warcraft.
+
+This resulted in a separate GUI and expanded functionality to apply Warcraft III icon filters on imported images.
 
 # Required to run:
 * Windows 10

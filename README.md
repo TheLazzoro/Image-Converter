@@ -6,7 +6,7 @@ The software makes use of the following libraries:
 * [BCnEncoder](https://github.com/Nominom/BCnEncoder.NET)
 * [WebP-wrapper](https://github.com/JosePineiro/WebP-wrapper)
 * [SVG](https://github.com/svg-net/SVG)
-* [CR2ToJPG] (https://github.com/wmwood/CR2ToJPG)
+* [CR2ToJPG](https://github.com/wmwood/CR2ToJPG)
 * [War3Net.Drawing.Blp](https://github.com/Drake53/War3Net/tree/master/src/War3Net.Drawing.Blp)
 
 # Supported Formats

@@ -49,7 +49,7 @@ namespace ImageConverterGUI
                 }
                 else
                 {
-                    bool isConvertSuccess = Converter.Convert(fileEntries[i]); // convert
+                    bool isConvertSuccess = Converter.Convert(fileEntries[i], i); // convert
 
                     if(isConvertSuccess)
                     {

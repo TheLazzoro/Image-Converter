@@ -69,6 +69,26 @@ namespace Image_Converter.Tests
         }
 
         [TestMethod]
+        public void FileReadSVG()
+        {
+            string filePath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "TestImages\\paladin-04e740dbc5882a8d358d086a88c960d18ac79c2a0583ad5843c1735e10eff231.svg";
+            Reader.ReadFile(filePath);
+            Bitmap image = Reader.image;
+
+            Assert.IsNotNull(image, Reader.errorMsg);
+        }
+
+        [TestMethod]
+        public void FileReadCR2()
+        {
+            string filePath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "TestImages\\RAW_CANON_1DM2.CR2";
+            Reader.ReadFile(filePath);
+            Bitmap image = Reader.image;
+
+            Assert.IsNotNull(image, Reader.errorMsg);
+        }
+
+        [TestMethod]
         public void FileReadTXT()
         {
             string filePath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "TestImages\\notAnImage.txt";

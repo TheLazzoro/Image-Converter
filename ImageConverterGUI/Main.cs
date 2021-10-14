@@ -266,14 +266,13 @@ namespace ImageConverterGUI
 
             string[] fileEntry = new string[1];
             fileEntry[0] = listFileEntries.SelectedItems[0].Tag.ToString();
-            Converter.fileEntries = fileEntry;
 
             Converter.InitConverter();
 
             DialogResult dialogResult = MessageBox.Show("This action converts '" + listFileEntries.SelectedItems[0].Text + "' with specified settings to the output directory.", "Convert Single File", MessageBoxButtons.OKCancel);
             if (dialogResult == DialogResult.OK)
             {
-                bool success = Converter.ConvertWithFilters();
+                bool success = Converter.Convert(fileEntry[0]);
 
                 if (success)
                 {
@@ -311,19 +310,17 @@ namespace ImageConverterGUI
 
             Converter.InitConverter();
 
-
-            List<string> fileEntries = new List<string>();
+            string[] fileEntries = new string[listFileEntries.Items.Count];
             for (int i = 0; i < listFileEntries.Items.Count; i++)
             {
-                fileEntries.Add(listFileEntries.Items[i].Tag.ToString());
+                fileEntries[i] = listFileEntries.Items[i].Tag.ToString();
             }
-            Converter.fileEntries = fileEntries.ToArray();
 
             DialogResult dialogResult = MessageBox.Show("This action will overwrite any existing files with the same name in the output directory." +
                 "\n\nDo you want to continue?", "Confirmation", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
-                MultiConvertProgress dialog = new MultiConvertProgress();
+                MultiConvertProgress dialog = new MultiConvertProgress(fileEntries);
                 dialog.outputDir = ExportSettings.outputDir;
                 dialog.ShowDialog();
             }

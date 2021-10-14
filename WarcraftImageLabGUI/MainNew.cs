@@ -349,10 +349,10 @@ namespace WarcraftImageLabGUI
             exportControl.UpdateExportSettings();
 
             ListView.ListViewItemCollection fileList = fileListControl.GetAllFileEntries();
-            List<string> fileEntries = new List<string>();
+            string[] fileEntries = new string[ fileListControl.GetAllFileEntries().Count ];
             for (int i = 0; i < fileList.Count; i++)
             {
-                fileEntries.Add(fileList[i].Tag.ToString());
+                fileEntries[i] = fileList[i].Tag.ToString();
             }
 
             exportControl.ExportAll(fileEntries);

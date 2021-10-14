@@ -14,10 +14,9 @@ namespace Image_Converter.Tests
         {
             string filePath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "TestImages\\ImageToConvert.png";
             ExportSettings.selectedFileExtension = ImageFormats.JPG;
-            Converter.fileEntries = new string[] { filePath };
             Converter.InitConverter();
 
-            bool isSuccess = Converter.ConvertWithFilters();
+            bool isSuccess = Converter.Convert(filePath);
 
             Assert.IsTrue(isSuccess, Converter.errorMsg);
         }
@@ -29,9 +28,7 @@ namespace Image_Converter.Tests
             ExportSettings.selectedFileExtension = ImageFormats.PNG;
             Converter.InitConverter();
 
-            Converter.fileEntries = new string[] { filePath };
-
-            bool isSuccess = Converter.ConvertWithFilters();
+            bool isSuccess = Converter.Convert(filePath);
 
             Assert.IsTrue(isSuccess, Converter.errorMsg);
         }
@@ -41,10 +38,9 @@ namespace Image_Converter.Tests
         {
             string filePath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "TestImages\\ImageToConvert.png";
             ExportSettings.selectedFileExtension = ImageFormats.BMP;
-            Converter.fileEntries = new string[] { filePath };
             Converter.InitConverter();
 
-            bool isSuccess = Converter.ConvertWithFilters();
+            bool isSuccess = Converter.Convert(filePath);
 
             Assert.IsTrue(isSuccess, Converter.errorMsg);
         }
@@ -54,10 +50,9 @@ namespace Image_Converter.Tests
         {
             string filePath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "TestImages\\ImageToConvert.png";
             ExportSettings.selectedFileExtension = ImageFormats.TGA;
-            Converter.fileEntries = new string[] { filePath };
             Converter.InitConverter();
 
-            bool isSuccess = Converter.ConvertWithFilters();
+            bool isSuccess = Converter.Convert(filePath);
 
             Assert.IsTrue(isSuccess, Converter.errorMsg);
         }
@@ -72,10 +67,21 @@ namespace Image_Converter.Tests
         {
             string filePath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "TestImages\\ImageToConvert.png";
             ExportSettings.selectedFileExtension = ImageFormats.DDS;
-            Converter.fileEntries = new string[] { filePath };
             Converter.InitConverter();
 
-            bool isSuccess = Converter.ConvertWithFilters();
+            bool isSuccess = Converter.Convert(filePath);
+
+            Assert.IsTrue(isSuccess, Converter.errorMsg);
+        }
+
+        [TestMethod]
+        public void FileWriteWEBP()
+        {
+            string filePath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "TestImages\\ImageToConvert.png";
+            ExportSettings.selectedFileExtension = ImageFormats.WEBP;
+            Converter.InitConverter();
+
+            bool isSuccess = Converter.Convert(filePath);
 
             Assert.IsTrue(isSuccess, Converter.errorMsg);
         }
@@ -85,10 +91,9 @@ namespace Image_Converter.Tests
         {
             string filePath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "TestImages\\notAnImage.txt";
             ExportSettings.selectedFileExtension = ImageFormats.DDS;
-            Converter.fileEntries = new string[] { filePath };
             Converter.InitConverter();
 
-            bool isSuccess = Converter.ConvertWithFilters();
+            bool isSuccess = Converter.Convert(filePath);
 
             Assert.IsFalse(isSuccess, Converter.errorMsg);
         }

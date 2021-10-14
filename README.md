@@ -26,7 +26,7 @@ Read only:
 # Warcraft Image Lab GUI
 As a fun little experiment support was added for reading the BLP image format used by Blizzard Entertainment for games like Warcraft III and World of Warcraft.
 
-This resulted in a separate GUI and expanded functionality to apply Warcraft III icon filters on imported images.
+This resulted in a separate GUI and expanded functionality to apply Warcraft III icon filters on imported images. This new expanded functionality is not exposed in the original GUI, but it is still able to display BLP images.
 
 # Required to run:
 * Windows 10

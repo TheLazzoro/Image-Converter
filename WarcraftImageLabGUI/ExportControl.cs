@@ -14,6 +14,8 @@ namespace WarcraftImageLabGUI
 {
     public partial class ExportControl : UserControl
     {
+        string[] fileEntries;
+        
         public ExportControl()
         {
             InitializeComponent();
@@ -60,9 +62,8 @@ namespace WarcraftImageLabGUI
             if (dialog.ok == true)
             {
                 Converter.InitConverter();
-                Converter.fileEntries = new string[] { fileEntry };
 
-                bool success = Converter.ConvertWithFilters();
+                bool success = Converter.Convert(fileEntry);
 
                 if (success)
                 {
@@ -79,12 +80,12 @@ namespace WarcraftImageLabGUI
             }
         }
 
-        public void ExportAll(List<string> fileEntries)
+        public void ExportAll(string[] fileEntries)
         {
             if (workerThread.IsBusy != true)
             {
                 Converter.InitConverter();
-                Converter.fileEntries = fileEntries.ToArray();
+                this.fileEntries = fileEntries;
                 // Start the asynchronous operation.
                 workerThread.RunWorkerAsync();
             }
@@ -93,7 +94,7 @@ namespace WarcraftImageLabGUI
         private void workerThread_DoWork(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker worker = sender as BackgroundWorker;
-            int endIndex = Converter.fileEntries.Length;
+            int endIndex = fileEntries.Length;
 
             for (int i = 0; i < endIndex; i++)
             {
@@ -104,7 +105,7 @@ namespace WarcraftImageLabGUI
                 }
                 else
                 {
-                    bool isConvertSuccess = Converter.ConvertWithFilters(); // convert
+                    bool isConvertSuccess = Converter.Convert(fileEntries[i]); // convert
 
                     if (isConvertSuccess)
                     {
@@ -112,7 +113,7 @@ namespace WarcraftImageLabGUI
                     }
                     else
                     {
-                        string[] error = { Utility.GetFileNameAndExtension(Converter.fileEntries[i]), Converter.errorMsg };
+                        string[] error = { Utility.GetFileNameAndExtension(fileEntries[i]), Converter.errorMsg };
                         worker.ReportProgress(i * 10000 / endIndex, error);
                         Converter.totalErrors++;
                     }
@@ -124,7 +125,7 @@ namespace WarcraftImageLabGUI
         {
             lblPercent.Text = ((e.ProgressPercentage / 100).ToString() + "%");
             progressBar.Value = e.ProgressPercentage / 100;
-            lblProgress.Text = e.ProgressPercentage * Converter.fileEntries.Length / 10000 + "/" + Converter.fileEntries.Length;
+            lblProgress.Text = e.ProgressPercentage * fileEntries.Length / 10000 + "/" + fileEntries.Length;
             if (e.UserState != null)
             {
                 object item = e.UserState;
@@ -149,7 +150,7 @@ namespace WarcraftImageLabGUI
             {
                 progressBar.Value = 100;
                 lblPercent.Text = "Completed!";
-                lblProgress.Text = Converter.fileEntries.Length + "/" + Converter.fileEntries.Length;
+                lblProgress.Text = fileEntries.Length + "/" + fileEntries.Length;
             }
         }
 

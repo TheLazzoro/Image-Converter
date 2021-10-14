@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ImageConverter\ImageConverter.csproj" />
     <ProjectReference Include="..\SharedGUI\SharedGUI.csproj" />
+    <ProjectReference Include="..\Tests\Tests.csproj" />
   </ItemGroup>
 
   <ItemGroup>

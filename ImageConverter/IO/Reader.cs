@@ -136,7 +136,7 @@ namespace ImageConverter.IO
         {
             SixLabors.ImageSharp.Image<Rgba32> image = SixLabors.ImageSharp.Image.Load<Rgba32>(filePath);
 
-            return Converter.ToBitmap(image);
+            return Utility.ToBitmap(image);
         }
 
         private static Bitmap ReadBLP(String filePath)
@@ -185,7 +185,7 @@ namespace ImageConverter.IO
             using FileStream fs = File.OpenRead(filePath);
             image = bcDecoder.Decode(fs);
 
-            return Converter.ToBitmap(image);
+            return Utility.ToBitmap(image);
         }
 
         private static Bitmap ReadCR2(String filePath)

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Windows.Forms;
 
 namespace WebPTest
 {
@@ -11,9 +10,7 @@ namespace WebPTest
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new WebPExample());
+
         }
     }
 }

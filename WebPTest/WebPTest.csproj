@@ -78,22 +78,12 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="WebPWrapper.cs" />
-    <Compile Include="WebPExample.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="WebPExample.Designer.cs">
-      <DependentUpon>WebPExample.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="WebPExample.resx">
-      <DependentUpon>WebPExample.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -119,7 +109,7 @@
     <Content Include="libwebp_x64.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-	<Content Include="libwebp_x86.dll">
+    <Content Include="libwebp_x86.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="WildCherry.png">

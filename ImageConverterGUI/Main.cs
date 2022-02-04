@@ -498,6 +498,7 @@ namespace ImageConverterGUI
                 //imagePreview.Image = (Bitmap)Preview.imagePreview.Clone();
                 lblResolution.Text = "Resolution: " + Preview.imagePreview.Width + "x" + Preview.imagePreview.Height;
                 lblFileSize.Text = Preview.fileSizeString;
+                lblPreviewError.Text = string.Empty;
                 CenterAndScalePreviewImage();
             }
             else
